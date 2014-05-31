@@ -19,10 +19,10 @@
 ・はてなグループ http://g.hatena.ne.jp/  
 
 ## How to Install
-1.必要なライブラリをインストール(要composer)
+1.必要なライブラリをインストール
 ```
-composer update 
-composer install
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
 ```
 
 ## 起動
