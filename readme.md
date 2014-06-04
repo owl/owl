@@ -19,11 +19,24 @@
 ・はてなグループ http://g.hatena.ne.jp/  
 
 ## How to Install
-1.必要なライブラリをインストール
+1.必要なライブラリをインストール  
 ```
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+curl -sS https://getcomposer.org/installer | php  
+php composer.phar install  
 ```
+
+2.データベース設定(個人のローカルのmysqlで)  
+application/config/database.php
+
+3.Sentry初期設定  
+```
+php artisan migrate --package=cartalyst/sentry  
+php artisan config:publish cartalyst/sentry  
+```
+
+4.基本グループと初期ユーザーを作成  
+http://localhost:3000/setup/index にアクセスし、リンク押下  
+
 
 ## 起動
 ```
