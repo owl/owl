@@ -10,9 +10,14 @@
 <body>
 <div class="container">
 {{Form::open(array('url'=>'login/index','class'=>'form-signin'))}}
- <h2 class="form-signin-heading">会員専用サイト</h2>
+ <h2 class="form-signin-heading">Athena v1.0</h2>
 {{Form::text('email','',array('class'=>'form-control','placeholder'=>'E-mailアドレス'))}}
 {{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}
+@if($errors->has('warning'))
+<div class="alert alert-danger">
+{{$errors->first('warning')}}
+</div>
+@endif
 {{Form::checkbox('remember',1,true)}}　ログイン状態を保持する
 {{Form::submit('ログイン',array('class'=>'btn btn-lg btn-primary btn-block'))}}
 {{Form::close()}}
