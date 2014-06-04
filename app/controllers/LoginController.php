@@ -1,9 +1,14 @@
 <?php
 class LoginController extends BaseController {
-    protected static $loginAttribute = 'email';
+
+    public function __construct(){
+    }
 
     // ログインフォームの表示
     public function getIndex(){
+        if (Sentry::check()) {
+            return Redirect::to('/');
+        }
         return View::make('login/index');
     }
 

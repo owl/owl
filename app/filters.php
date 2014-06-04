@@ -33,6 +33,12 @@ App::after(function($request, $response)
 |
 */
 
+// Sentryフィルター
+Route::filter('sentry', function()
+{
+	if ( ! Sentry::check()) return Redirect::to('login');
+});
+
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::guest('login');
