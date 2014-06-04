@@ -27,7 +27,7 @@ class LoginController extends BaseController {
                 ->withInput();
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
             return Redirect::back()
-                ->withErrors(array('warning' => '該当者がいません。'))
+                ->withErrors(array('warning' => 'Email又はパスワードが正しくありません'))
                 ->withInput();
         }
     }
