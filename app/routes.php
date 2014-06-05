@@ -23,3 +23,4 @@ Route::get('sentry/user',function()
 
 Route::controller('setup', 'SetupController');
 Route::controller('login', 'LoginController');
+Route::controller('signup', 'SignupController');
