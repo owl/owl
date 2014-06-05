@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 {{Form::open(array('url'=>'login/index','class'=>'form-signin'))}}
- <h2 class="form-signin-heading">Athena v1.0</h2>
+ <h2 class="form-signin-heading">Athena v0.1</h2>
 {{Form::text('email','',array('class'=>'form-control','placeholder'=>'E-mailアドレス'))}}
 {{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}
 @if($errors->has('warning'))
