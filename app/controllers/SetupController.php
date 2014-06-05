@@ -52,8 +52,8 @@ class SetupController extends BaseController {
         try {
             // ユーザーの作成
             $user = Sentry::getUserProvider()->create(array(
-                'email' => 'winroad@gmail.com',
-                'password' => 'winroad',
+                'email' => 'fortkle@gmail.com',
+                'password' => 'pass',
                 'activated' => 1,
             ));
             //グループIDを使用してグループを検索
