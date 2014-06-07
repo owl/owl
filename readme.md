@@ -34,14 +34,14 @@ php artisan migrate --package=cartalyst/sentry
 php artisan config:publish cartalyst/sentry  
 ```
 
-4.基本グループと初期ユーザーを作成  
-http://localhost:3000/setup/index にアクセスし、リンク押下  
-
-
-## 起動
+4.起動
 ```
 cd athena
 php artisan serve --host 0.0.0.0 --port 3000
 ```
+http://localhost:3000 にアクセスし、ログイン画面が表示される事を確認。  
 
-http://localhost:3000 にアクセスし、「You have arrived.」が表示される事を確認。
+
+5.基本グループと初期ユーザーを作成
+http://localhost:3000/setup/index にアクセスし、リンク押下  
+
