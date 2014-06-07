@@ -3,8 +3,9 @@
 class IndexController extends BaseController {
 
 	public function index()
-	{
-        return View::make('index/index');
+    {
+        $user = Sentry::getUser();
+        return View::make('index/index', compact('user'));
 	}
 
 }
