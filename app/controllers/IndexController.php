@@ -4,7 +4,7 @@ class IndexController extends BaseController {
 
 	public function index()
 	{
-		return var_dump("トップページです。");
+        return View::make('index/index');
 	}
 
 }

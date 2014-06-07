@@ -12,12 +12,7 @@
  */
 Route::get('/', array('before' => 'sentry', 'uses' => 'IndexController@index'));
 
-Route::get('sentry/user',function()
-{
-    $user=Sentry::getUserProvider()->findAll();
-    return var_dump($user);
-});
-
 Route::controller('setup', 'SetupController');
 Route::controller('login', 'LoginController');
+Route::controller('logout', 'LogoutController');
 Route::controller('signup', 'SignupController');
