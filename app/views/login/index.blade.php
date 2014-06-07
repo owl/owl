@@ -21,7 +21,7 @@
 {{Form::checkbox('remember',1,true)}}　ログイン状態を保持する
 {{Form::submit('ログイン',array('class'=>'btn btn-lg btn-primary btn-block'))}}
 {{Form::close()}}
-<p class="form-nav"><a href="signup">登録はこちら</a></p>
+<p class="form-nav"><a href="/signup">登録はこちら</a></p>
 </div> <!-- /container -->
 </body>
 </html>

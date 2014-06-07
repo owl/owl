@@ -20,6 +20,7 @@
 @endif
 {{Form::submit('登録',array('class'=>'btn btn-lg btn-primary btn-block'))}}
 {{Form::close()}}
+<p class="form-nav"><a href="/login">ログインはこちら</a></p>
 </div> <!-- /container -->
 </body>
 </html>
