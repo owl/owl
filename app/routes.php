@@ -11,6 +11,7 @@
 |
  */
 Route::get('/', array('before' => 'sentry', 'uses' => 'IndexController@index'));
+Route::get('/items/{id}', 'IndexController@show');
 
 Route::controller('setup', 'SetupController');
 Route::controller('login', 'LoginController');
