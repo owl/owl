@@ -28,10 +28,14 @@ php composer.phar install
 2.データベース設定(個人のローカルのmysqlで)  
 application/config/database.php
 
-3.Sentry初期設定  
+3.初期設定  
 ```
+// Sentry
 php artisan migrate --package=cartalyst/sentry  
 php artisan config:publish cartalyst/sentry  
+// マイグレーション
+php artisan migrate
+php artisan db:seed
 ```
 
 4.起動
