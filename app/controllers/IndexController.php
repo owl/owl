@@ -4,14 +4,8 @@ class IndexController extends BaseController {
 
 	public function index() {
         $user = Sentry::getUser();
-        $items = Item::all();
+        $items = Item::orderBy('id', 'desc')->get();
         return View::make('index.index', compact('user','items'));
 	}
-
-    public function show($id) {
-        $user = Sentry::getUser();
-        $item = Item::findOrFail($id);
-        return View::make('items.show', compact('user','item'));
-    }
 
 }

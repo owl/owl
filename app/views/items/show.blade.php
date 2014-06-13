@@ -19,13 +19,14 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">Athena</a>
+    <a class="navbar-brand" href="/">Athena</a>
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <form class="navbar-form navbar-left">
       <input type="text" class="form-control col-lg-8" placeholder="Search">
     </form>
     <ul class="nav navbar-nav navbar-right">
+      <li><a href="/items/create">投稿する</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{$user->email}} <b class="caret"></b></a>
         <ul class="dropdown-menu">

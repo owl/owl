@@ -13,6 +13,16 @@ class SignUpController extends BaseController {
     }
 
     public function postIndex(){
+        $valid_rule = array(
+            'email' => 'required|email|unique:users',
+            'password' => 'required:min:4'
+        );
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
         try {
             // ユーザーの作成
             $user = Sentry::getUserProvider()->create(array(

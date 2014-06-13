@@ -11,8 +11,13 @@
 |
  */
 Route::get('/', array('before' => 'sentry', 'uses' => 'IndexController@index'));
-Route::get('/items/{id}', 'IndexController@show');
 
+Route::get('/items/show/{item_id}', 'ItemController@show');
+Route::get('/items/create', 'ItemController@create');
+
+
+
+Route::controller('items', 'ItemController');
 Route::controller('setup', 'SetupController');
 Route::controller('login', 'LoginController');
 Route::controller('logout', 'LogoutController');

@@ -2,11 +2,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Login</title>
+<title>Item create</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {{HTML::script('http://code.jquery.com/jquery.js')}}
 {{HTML::script('tbs/js/bootstrap.min.js')}}
 {{HTML::style('tbs/css/bootstrap.min.css')}}
+{{HTML::style('css/style.css')}}
 </head>
 <body>
 
@@ -45,50 +46,18 @@
     <div class="col-sm-8 blog-main">
 
       <div class="blog-post">
-        <h2 class="blog-post-title">Itemsテーブルにあるもの</h2>
-        @foreach ($items as $item)
-            <a href="{{ action('ItemController@show', $item->id) }}">{{{ $item->title }}}</a> {{ $item->created_at }}<br />
-        @endforeach
 
-      </div><!-- /.blog-post -->
-
-      <ul class="pager">
-        <li><a href="#">Previous</a></li>
-        <li><a href="#">Next</a></li>
-      </ul>
+        {{Form::open(array('url'=>'items','class'=>'form-items'))}}
+         <h2 class="form-item-heading">新規投稿</h2>
+        {{Form::text('title','',array('class'=>'form-control','placeholder'=>'タイトル'))}}
+        {{Form::textarea('body','',array('class'=>'form-control','placeholder'=>'本文'))}}
+        {{Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2')}} 
+        {{Form::submit('投稿',array('class'=>'btn btn-lg btn-primary btn-block'))}}
+        {{Form::close()}}
 
     </div><!-- /.blog-main -->
 
     <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-      <div class="sidebar-module sidebar-module-inset">
-        <h4>About</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-      </div>
-      <div class="sidebar-module">
-        <h4>Archives</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">January 2014</a></li>
-          <li><a href="#">December 2013</a></li>
-          <li><a href="#">November 2013</a></li>
-          <li><a href="#">October 2013</a></li>
-          <li><a href="#">September 2013</a></li>
-          <li><a href="#">August 2013</a></li>
-          <li><a href="#">July 2013</a></li>
-          <li><a href="#">June 2013</a></li>
-          <li><a href="#">May 2013</a></li>
-          <li><a href="#">April 2013</a></li>
-          <li><a href="#">March 2013</a></li>
-          <li><a href="#">February 2013</a></li>
-        </ol>
-      </div>
-      <div class="sidebar-module">
-        <h4>Elsewhere</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ol>
-      </div>
     </div><!-- /.blog-sidebar -->
 
   </div><!-- /.row -->
@@ -96,6 +65,7 @@
 </div><!-- /.container -->
 
 <div class="blog-footer">
+  <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
   <p>
     <a href="#">Back to top</a>
   </p>
