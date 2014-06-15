@@ -1,13 +1,8 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Item show</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-{{HTML::script('http://code.jquery.com/jquery.js')}}
-{{HTML::script('tbs/js/bootstrap.min.js')}}
-{{HTML::style('tbs/css/bootstrap.min.css')}}
-</head>
+@extends('layouts.master')
+@section('addCss')
+@stop
+@include('layouts.header')
+@section('content')
 <body>
 
 <!-- Fixed navbar -->
@@ -60,13 +55,7 @@
   </div><!-- /.row -->
 
 </div><!-- /.container -->
-
-<div class="blog-footer">
-  <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-  <p>
-    <a href="#">Back to top</a>
-  </p>
-</div>
-
-</body>
-</html>
+@stop
+@section('addJs')
+@stop
+@include('layouts.footer')
