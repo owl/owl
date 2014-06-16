@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('addCss')
+{{HTML::style('css/style.css')}}
 @stop
 @include('layouts.header')
 @section('content')
