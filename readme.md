@@ -11,7 +11,7 @@
 ・かんたんに調べられるか  
 
 ## リリース予定日
-2014/6/30
+2014/7/31
 
 ## 参考サイト・サービス
 ・Qiita:Team https://teams.qiita.com/  
@@ -49,3 +49,27 @@ http://localhost:3000 にアクセスし、ログイン画面が表示される�
 5.基本グループと初期ユーザーを作成
 http://localhost:3000/setup/index にアクセスし、リンク押下  
 
+
+## テスト
+テストには、Rspec + Capybara + PhantomJS（Poltergeist）を使っています。
+PhantomJSは公式サイトからバイナリを落としてきてパスを通して下さい。
+※参考
+PhantomJSのインストール
+https://github.com/teampoltergeist/poltergeist
+
+1.gemのインストール
+```
+$ bundle install --path vendor/bundle
+```
+
+2.設定ファイルの修正
+```
+$ vim spec/spec_helper.rb
+```
+hostを変更して下さい。
+
+3.テストを実行
+appやspecなどがあるルートディレクトリに移動。
+```
+$ bundle exec rspec spec
+```

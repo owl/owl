@@ -8,3 +8,5 @@ composer.lock
 .DS_Store
 Thumbs.db
 *.swp
+.bundle
+Gemfile.lock
