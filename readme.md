@@ -1,4 +1,6 @@
 # Athena Project
+[![Build Status](https://travis-ci.org/athena-pjt/athena.svg?branch=master)](https://travis-ci.org/athena-pjt/athena)
+
 ## コンセプト
 「簡単に書けて、見れて、調べることができる情報共有コラボレーションツール」
 
