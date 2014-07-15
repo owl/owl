@@ -9,7 +9,7 @@ before_install:
   - tar -xf phantomjs-1.7.0-linux-i686.tar.bz2
   - sudo rm -rf /usr/local/phantomjs
   - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
-  - apt-get install libxslt-dev libxml2-dev
+  - sudo apt-get install libxslt-dev libxml2-dev
 
 before_script:
   - composer install
