@@ -3,3 +3,22 @@ language: php
 php:
   - 5.4
   - 5.5
+
+before_install:
+  - sudo apt-get install libxslt-dev libxml2-dev
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - php -S 0.0.0.0:3000 -t public/ > /tmp/server.log 2>&1 &
+
+before_script:
+  - composer install
+  - bundle config build.nokogiri --use-system-libraries
+  - bundle install --path vendor/bundle
+  - mysql - 'create database athena;'
+  - php artisan migrate --package=cartalyst/sentry  
+  - php artisan config:publish cartalyst/sentry  
+  - php artisan migrate
+  - php artisan db:seed
+
+script:
+  - bundle exec rspec spec
