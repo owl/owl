@@ -1,5 +1,5 @@
 # Athena Project
-[![Build Status](https://travis-ci.org/athena-pjt/athena.svg?branch=master)](https://travis-ci.org/athena-pjt/athena)
+[![Build Status](https://travis-ci.org/fortkle/athena.svg?branch=master)](https://travis-ci.org/fortkle/athena)
 
 ## コンセプト
 「簡単に書けて、見れて、調べることができる情報共有コラボレーションツール」
@@ -13,7 +13,7 @@
 ・かんたんに調べられるか  
 
 ## リリース予定日
-2014/7/31
+2014/8/15
 
 ## 参考サイト・サービス
 ・Qiita:Team https://teams.qiita.com/  
