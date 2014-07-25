@@ -1,6 +1,5 @@
 test:
     adapter: mysql2
     database: athena
-    username: athena
-    password: athena
+    username: root
     encoding: utf8
