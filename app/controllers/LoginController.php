@@ -15,12 +15,12 @@ class LoginController extends BaseController {
     public function postIndex(){
         try {
             // フォームからemailとpaswordの連想配列を取得
-            $login = Input::only('email','password');
+            $login = Input::only('username','password');
             $user = Sentry::authenticate($login, Input::get('remember'));
             return Redirect::to('/'); 
         }catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
             return Redirect::back()
-                ->withErrors(array('warning' => 'Emailとパスワードを入力してください。'))
+                ->withErrors(array('warning' => 'ユーザ名とパスワードを入力してください。'))
                 ->withInput();
         } catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
             return Redirect::back()
@@ -32,7 +32,7 @@ class LoginController extends BaseController {
                 ->withInput();
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
             return Redirect::back()
-                ->withErrors(array('warning' => 'Email又はパスワードが正しくありません'))
+                ->withErrors(array('warning' => 'ユーザ名又はパスワードが正しくありません'))
                 ->withInput();
         }
     }

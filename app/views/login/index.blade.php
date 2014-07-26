@@ -8,7 +8,7 @@
 <div class="container">
 {{Form::open(array('url'=>'login/index','class'=>'form-signin'))}}
  <h2>Athena v0.1</h2>
-{{Form::text('email','',array('class'=>'form-control','placeholder'=>'E-mailアドレス'))}}<br />
+{{Form::text('username','',array('class'=>'form-control','placeholder'=>'ユーザ名'))}}<br />
 {{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}<br />
 @if($errors->has('warning'))
 <div class="alert alert-danger">
