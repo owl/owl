@@ -13,7 +13,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install  
 ```
 
-2.database settings
+2.database settings  
 application/config/database.php  
 
 3.initialization  
@@ -21,6 +21,7 @@ application/config/database.php
 // Sentry
 php artisan migrate --package=cartalyst/sentry  
 php artisan config:publish cartalyst/sentry  
+
 // change default settings
 // app/config/packages/cartalyst/sentry/config.php LINE:136
 'login_attribute' => 'username',  
@@ -39,7 +40,7 @@ access http://localhost:3000
 ## Test
 Rspec + Capybara + PhantomJS（Poltergeist）
 
-※ PhantomJS required
+※ PhantomJS required  
 https://github.com/teampoltergeist/poltergeist
 
 1.gem install
@@ -53,7 +54,7 @@ $ vim spec/spec_helper.rb
 ```
 please change host.
 
-3.run test
+3.run test  
 move root directory.
 ```
 $ bundle exec rspec spec
