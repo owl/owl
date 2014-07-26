@@ -3,8 +3,8 @@
 
 require File.dirname(__FILE__)+'/spec_helper'
 
-describe 'テスト', :js => true do
-    it 'トップページ' do
+describe 'ログインページ', :js => true do
+    it 'ログインページにアクセスする' do
         visit "/"
         page.should have_content("Athena")
     end
