@@ -18,7 +18,6 @@ Route::get('/items/create', 'ItemController@create');
 
 
 Route::controller('items', 'ItemController');
-Route::controller('setup', 'SetupController');
 Route::controller('login', 'LoginController');
 Route::controller('logout', 'LogoutController');
 Route::controller('signup', 'SignupController');
