@@ -8,7 +8,8 @@
 <div class="container">
 {{Form::open(array('url'=>'signup/index','class'=>'form-signin'))}}
  <h2>Signup</h2>
-{{Form::text('email','',array('class'=>'form-control','placeholder'=>'E-mailアドレス'))}}<br />
+{{Form::text('username','',array('class'=>'form-control','placeholder'=>'ユーザ名'))}}<br />
+{{Form::text('email','',array('class'=>'form-control','placeholder'=>'Email'))}}<br />
 {{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}<br />
 @if($errors->has('warning'))
 <div class="alert alert-danger">
