@@ -14,26 +14,26 @@ class ItemController extends BaseController{
             'body'=>Input::get('body'),
             'user_id'=>$user->id,
             'published'=>Input::get('published'),
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'created_at' => date('y-m-d h:i:s'),
+            'updated_at' => date('y-m-d h:i:s')
         ]);
-        return Redirect::to('/');
+        return Redirect::to('/'); 
     }
 
     public function index(){
-        $items = DB::table('items')->get();
-        return View::make('items.index', compact('items'));
+        $posts = DB::table('posts')->get();
+        return View::make('posts.index')->with('posts', $posts);
     }
 
     public function show($itemid){
         $user = Sentry::getUser();
-        $item = DB::table('items')->where('id',$itemid)->first();
+        $item = DB::table('items')->where('id', $itemid)->first();
         return View::make('items.show', compact('user','item'));
     }
 
     public function edit($itemid){
         $user = Sentry::getUser();
-        $item = DB::table('items')->where('id',$itemid)->first();
+        $item = DB::table('items')->where('id', $itemid)->first();
         return View::make('items.edit', compact('user','item'));
     }
 
@@ -44,7 +44,7 @@ class ItemController extends BaseController{
             'body'=>Input::get('body'),
             'user_id'=>$user->id,
             'published'=>Input::get('published'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('y-m-d h:i:s')
         ]);
         return Redirect::route('items.show',[$itemid]);
     }
