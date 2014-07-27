@@ -17,17 +17,22 @@ class SignUpController extends BaseController {
      * 新規会員登録：登録処理
      */
     public function postIndex(){
+        // バリデーションルールの作成
         $valid_rule = array(
             'username' => 'required|alpha_num|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4'
         );
+
+        // バリデーション実行
         $validator = Validator::make(Input::all(), $valid_rule);
 
+        // 失敗の場合
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
+        // 成功の場合
         try {
             // ユーザーの作成
             $user = Sentry::createUser(array(
@@ -39,12 +44,10 @@ class SignUpController extends BaseController {
                     'user' => 1,
                 ),
             ));
-            // グループIDを使用してグループを検索
             $userGroup = Sentry::findGroupById(2);
-            // ユーザーにuserグループを割り当てる
             $user->addGroup($userGroup);
-            // リダイレクト
-            return Redirect::to('login'); 
+            return Redirect::to('login')->with('status', '登録が完了しました。');
+
         }catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
             return Redirect::back()
                 ->withErrors(array('warning' => 'ユーザ名とパスワードを入力してください。'))

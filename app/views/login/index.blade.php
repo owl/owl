@@ -8,6 +8,9 @@
 <div>
 {{Form::open(array('url'=>'login/index'))}}
  <h2>Athena v0.1</h2>
+@if(Session::has('status'))
+{{Session::get('status')}}<br />
+@endif
 {{Form::text('username','',array('placeholder'=>'ユーザ名'))}}<br />
 {{Form::password('password',array('placeholder'=>'パスワード'))}}<br />
 @if($errors->has('warning'))
