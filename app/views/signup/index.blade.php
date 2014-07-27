@@ -5,20 +5,22 @@
 <title>Signup</title>
 </head>
 <body>
-<div class="container">
-{{Form::open(array('url'=>'signup/index','class'=>'form-signin'))}}
- <h2>Signup</h2>
-{{Form::text('username','',array('class'=>'form-control','placeholder'=>'ユーザ名'))}}<br />
-{{Form::text('email','',array('class'=>'form-control','placeholder'=>'Email'))}}<br />
-{{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}<br />
-@if($errors->has('warning'))
-<div class="alert alert-danger">
-{{$errors->first('warning')}}
-</div>
-@endif
-{{Form::submit('登録',array('class'=>'btn btn-lg btn-primary btn-block'))}}
+<div>
+<h2>Signup</h2>
+{{Form::open(array('url'=>'signup/index'))}}
+    {{Form::text('username','',array('placeholder'=>'ユーザ名'))}}
+    @if($errors->has('username'))
+        {{$errors->first('username')}}
+    @endif
+    <br />
+    {{Form::text('email','',array('placeholder'=>'Email'))}}<br />
+    {{Form::password('password',array('placeholder'=>'パスワード'))}}<br />
+    @if($errors->has('warning'))
+        {{$errors->first('warning')}}<br />
+    @endif
+    {{Form::submit('登録')}}
 {{Form::close()}}
-<p class="form-nav"><a href="/login">ログインはこちら</a></p>
-</div> <!-- /container -->
+<p><a href="/login">ログインはこちら</a></p>
+</div>
 </body>
 </html>

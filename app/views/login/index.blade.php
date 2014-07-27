@@ -5,20 +5,18 @@
 <title>Login</title>
 </head>
 <body>
-<div class="container">
-{{Form::open(array('url'=>'login/index','class'=>'form-signin'))}}
+<div>
+{{Form::open(array('url'=>'login/index'))}}
  <h2>Athena v0.1</h2>
-{{Form::text('username','',array('class'=>'form-control','placeholder'=>'ユーザ名'))}}<br />
-{{Form::password('password',array('class'=>'form-control','placeholder'=>'パスワード'))}}<br />
+{{Form::text('username','',array('placeholder'=>'ユーザ名'))}}<br />
+{{Form::password('password',array('placeholder'=>'パスワード'))}}<br />
 @if($errors->has('warning'))
-<div class="alert alert-danger">
-{{$errors->first('warning')}}
-</div>
+{{$errors->first('warning')}}<br />
 @endif
 {{Form::checkbox('remember',1,true)}}ログイン状態を保持する<br />
-{{Form::submit('ログイン',array('class'=>'btn btn-lg btn-primary btn-block'))}}
+{{Form::submit('ログイン')}}
 {{Form::close()}}
-<p class="form-nav"><a href="/signup">登録はこちら</a></p>
-</div> <!-- /container -->
+<p><a href="/signup">登録はこちら</a></p>
+</div>
 </body>
 </html>
