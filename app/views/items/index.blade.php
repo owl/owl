@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('addCss')
+{{HTML::style('css/style.css')}}
 @stop
 @include('layouts.header')
 @section('content')
@@ -13,12 +14,11 @@
     <li><a href="/logout">ログアウト</a></li>
 </ul>
 
-<h2>Item detail</h2>
-<h3>title: {{{ $item->title }}}</h3>
-<p>user_id: {{{ $item->user_id }}}</p>
-<p>body: {{{ $item->body }}}</p>
-<p>published: {{{ $item->published }}}</p>
-{{link_to_route('items.edit','編集する',$item->id)}}
+<h2>Item Lists</h2>
+@foreach ($items as $item)
+    <a href="{{ action('ItemController@show', $item->id) }}">{{{ $item->title }}}</a> {{ $item->created_at }}<br />
+@endforeach
+
 
 @stop
 @section('addJs')
