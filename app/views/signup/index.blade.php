@@ -13,8 +13,16 @@
         {{$errors->first('username')}}
     @endif
     <br />
-    {{Form::text('email','',array('placeholder'=>'Email'))}}<br />
-    {{Form::password('password',array('placeholder'=>'パスワード'))}}<br />
+    {{Form::text('email','',array('placeholder'=>'Email'))}}
+    @if($errors->has('email'))
+        {{$errors->first('email')}}
+    @endif
+    <br />
+    {{Form::password('password',array('placeholder'=>'パスワード'))}}
+    @if($errors->has('password'))
+        {{$errors->first('password')}}
+    @endif
+    <br />
     @if($errors->has('warning'))
         {{$errors->first('warning')}}<br />
     @endif

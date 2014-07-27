@@ -1,10 +1,11 @@
 <?php
 class SignUpController extends BaseController {
-
     public function __construct(){
     }
 
-    // 登録フォームの表示
+    /*
+     * 新規会員登録：入力画面
+     */
     public function getIndex(){
         if (Sentry::check()) {
             return Redirect::to('/');
@@ -12,16 +13,19 @@ class SignUpController extends BaseController {
         return View::make('signup/index');
     }
 
+    /*
+     * 新規会員登録：登録処理
+     */
     public function postIndex(){
         $valid_rule = array(
             'username' => 'required|alpha_num|unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required:min:4'
+            'password' => 'required|min:4'
         );
         $validator = Validator::make(Input::all(), $valid_rule);
 
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
 
         try {
@@ -36,7 +40,7 @@ class SignUpController extends BaseController {
                 ),
             ));
             // グループIDを使用してグループを検索
-            $userGroup = Sentry::getGroupProvider()->findById(2);
+            $userGroup = Sentry::findGroupById(2);
             // ユーザーにuserグループを割り当てる
             $user->addGroup($userGroup);
             // リダイレクト
