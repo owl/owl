@@ -19,6 +19,9 @@
 <p>body: {{{ $item->body }}}</p>
 <p>published: {{{ $item->published }}}</p>
 {{link_to_route('items.edit','編集する',$item->id)}}
+{{Form::open(['route'=>['items.destroy', $item->id], 'method'=>'DELETE'])}}
+<a onclick="this.parentNode.submit();return false;" href="void()">削除する</a>
+{{Form::close()}}
 
 @stop
 @section('addJs')

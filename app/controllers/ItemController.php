@@ -21,8 +21,9 @@ class ItemController extends BaseController{
     }
 
     public function index(){
-        $posts = DB::table('posts')->get();
-        return View::make('posts.index')->with('posts', $posts);
+        $user = Sentry::getUser();
+        $items = DB::table('items')->get();
+        return View::make('items.index', compact('user','items'));
     }
 
     public function show($itemid){
@@ -47,5 +48,10 @@ class ItemController extends BaseController{
             'updated_at' => date('y-m-d h:i:s')
         ]);
         return Redirect::route('items.show',[$itemid]);
+    }
+
+    public function destroy($itemid){
+        DB::table('items')->where('id', $itemid)->delete();
+        return Redirect::route('items.index');
     }
 }
