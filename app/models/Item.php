@@ -1,5 +1,7 @@
 <?php
 
-class Item extends Eloquent
-{
+class Item extends Eloquent{
+    protected $table = 'items';
+
+    protected $fillable = ['user_id','title','body','published'];
 }

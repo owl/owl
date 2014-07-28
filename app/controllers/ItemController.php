@@ -9,49 +9,50 @@ class ItemController extends BaseController{
 
     public function store(){
         $user = Sentry::getUser();
-        DB::table('items')->insert([
+        $item = new Item;
+        $item->fill(array(
+            'user_id'=>$user->id,
             'title'=>Input::get('title'),
             'body'=>Input::get('body'),
-            'user_id'=>$user->id,
-            'published'=>Input::get('published'),
-            'created_at' => date('y-m-d h:i:s'),
-            'updated_at' => date('y-m-d h:i:s')
-        ]);
+            'published'=>Input::get('published')
+        ));
+        $item->save();
         return Redirect::to('/'); 
     }
 
     public function index(){
         $user = Sentry::getUser();
-        $items = DB::table('items')->get();
+        $items = Item::all();
         return View::make('items.index', compact('user','items'));
     }
 
     public function show($itemid){
         $user = Sentry::getUser();
-        $item = DB::table('items')->where('id', $itemid)->first();
+        $item = Item::find($itemid);
         return View::make('items.show', compact('user','item'));
     }
 
     public function edit($itemid){
         $user = Sentry::getUser();
-        $item = DB::table('items')->where('id', $itemid)->first();
+        $item = Item::find($itemid);
         return View::make('items.edit', compact('user','item'));
     }
 
     public function update($itemid){
         $user = Sentry::getUser();
-        DB::table('items')->where('id', $itemid)->update([
+        $item = Item::find($itemid);
+        $item->fill(array(
+            'user_id'=>$user->id,
             'title'=>Input::get('title'),
             'body'=>Input::get('body'),
-            'user_id'=>$user->id,
-            'published'=>Input::get('published'),
-            'updated_at' => date('y-m-d h:i:s')
-        ]);
+            'published'=>Input::get('published')
+        ));
+        $item->save();
         return Redirect::route('items.show',[$itemid]);
     }
 
     public function destroy($itemid){
-        DB::table('items')->where('id', $itemid)->delete();
+        Item::find($itemid)->delete();
         return Redirect::route('items.index');
     }
 }
