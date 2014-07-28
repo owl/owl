@@ -13,7 +13,7 @@ class ItemController extends BaseController{
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
-            'body'=>Input::get('body'),
+            'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES),
             'published'=>Input::get('published')
         ));
         $item->save();
@@ -29,6 +29,11 @@ class ItemController extends BaseController{
     public function show($itemid){
         $user = Sentry::getUser();
         $item = Item::find($itemid);
+
+        // Markdown Parse
+        $parser = new \cebe\markdown\GithubMarkdown();
+        $parser->enableNewlines = true;
+        $item->body = $parser->parse($item->body);
         return View::make('items.show', compact('user','item'));
     }
 
@@ -44,7 +49,7 @@ class ItemController extends BaseController{
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
-            'body'=>Input::get('body'),
+            'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES),
             'published'=>Input::get('published')
         ));
         $item->save();

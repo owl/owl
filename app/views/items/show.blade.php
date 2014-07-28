@@ -16,7 +16,7 @@
 <h2>Item detail</h2>
 <h3>title: {{{ $item->title }}}</h3>
 <p>user_id: {{{ $item->user_id }}}</p>
-<p>body: {{{ $item->body }}}</p>
+<p>body: {{ $item->body }}</p>
 <p>published: {{{ $item->published }}}</p>
 {{link_to_route('items.edit','編集する',$item->id)}}
 {{Form::open(['route'=>['items.destroy', $item->id], 'method'=>'DELETE'])}}
