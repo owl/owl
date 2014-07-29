@@ -16,8 +16,8 @@
 
 <h2>user info</h2>
 <ul>
-    <li>user_id: {{$user->id}}</li>
-    <li>email: {{$user->email}}</li>
+    <li>user_id: {{$User->id}}</li>
+    <li>email: {{$User->email}}</li>
 </ul>
 
 <h2>Items</h2>

@@ -3,12 +3,11 @@
 class ItemController extends BaseController{
 
     public function create(){
-        $user = Sentry::getUser();
-        return View::make('items.create', compact('user'));
+        return View::make('items.create');
     }
 
     public function store(){
-        $user = Sentry::getUser();
+        $user = Session::get("user");
         $item = new Item;
         $item->fill(array(
             'user_id'=>$user->id,
@@ -21,36 +20,32 @@ class ItemController extends BaseController{
     }
 
     public function index(){
-        $user = Sentry::getUser();
         $items = Item::all();
-        return View::make('items.index', compact('user','items'));
+        return View::make('items.index', compact('items'));
     }
 
     public function show($itemid){
-        $user = Sentry::getUser();
         $item = Item::find($itemid);
 
         // Markdown Parse
         $parser = new CustomMarkdown;
         $parser->enableNewlines = true;
         $item->body = $parser->parse($item->body);
-        return View::make('items.show', compact('user','item'));
+        return View::make('items.show', compact('item'));
     }
 
     public function edit($itemid){
-        $user = Sentry::getUser();
         $item = Item::find($itemid);
-        return View::make('items.edit', compact('user','item'));
+        return View::make('items.edit', compact('item'));
     }
 
     public function update($itemid){
-        $user = Sentry::getUser();
+        $user = Session::get("user");
         $item = Item::find($itemid);
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
-            'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES, 'UTF-8', false),
-            //'body'=>Input::get('body'),
+            'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES, 'UTF-8'),
             'published'=>Input::get('published')
         ));
         $item->save();
