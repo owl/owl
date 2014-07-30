@@ -10,9 +10,12 @@
 | and give it the Closure to execute when that URI is requested.
 |
  */
-Route::get('/', array('before' => 'sentry', 'uses' => 'IndexController@index'));
+Route::group(array('before' => 'sentry'), function() {
+    Route::get('/', array('uses' => 'IndexController@index'));
 
-Route::resource('items', 'ItemController');
-Route::controller('login', 'LoginController');
-Route::controller('logout', 'LogoutController');
+    Route::resource('items', 'ItemController');
+    Route::controller('logout', 'LogoutController');
+});
+
 Route::controller('signup', 'SignupController');
+Route::controller('login', 'LoginController');
