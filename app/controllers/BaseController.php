@@ -7,12 +7,13 @@ class BaseController extends Controller {
 	 */
     public function __construct()
     {
-        if(!Sentry::check() || !Session::has("user")){
-            Session::forget("user");
+        if (Sentry::check()){
+            $user = Sentry::getUser();
+            View::share("User", $user);
+        } else {
             return Redirect::to('login');
         }
-        $user = Session::get("user");
-        View::share("User", $user);
+
     }
 
 	/**

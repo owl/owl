@@ -6,7 +6,7 @@ class LogoutController extends BaseController {
 
     public function getIndex(){
         if (Sentry::check()) {
-            Session::forget("user");
+            Session::forget("User");
             Sentry::logout();
         }
         return Redirect::to('login');

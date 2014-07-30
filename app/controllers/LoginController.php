@@ -17,7 +17,6 @@ class LoginController extends BaseController {
             // フォームからemailとpaswordの連想配列を取得
             $login = Input::only('username','password');
             $user = Sentry::authenticate($login, Input::get('remember'));
-            Session::put("user", $user);
             return Redirect::to('/'); 
         }catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
             return Redirect::back()
