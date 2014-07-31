@@ -7,7 +7,7 @@
 <body>
 <div>
 <h2>Signup</h2>
-{{Form::open(array('url'=>'signup/index'))}}
+{{Form::open(array('url'=>'signup'))}}
     {{Form::text('username','',array('placeholder'=>'ユーザ名'))}}
     @if($errors->has('username'))
         {{$errors->first('username')}}

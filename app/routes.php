@@ -10,12 +10,29 @@
 | and give it the Closure to execute when that URI is requested.
 |
  */
-Route::group(array('before' => 'sentry'), function() {
-    Route::get('/', array('uses' => 'IndexController@index'));
 
+/*
+ * Dont Need Login.
+ */
+Route::get('login', array('uses' => 'LoginController@login'));
+Route::post('login', array('uses' => 'LoginController@auth'));
+Route::get('signup', array('uses' => 'SignupController@signup'));
+Route::post('signup', array('uses' => 'SignupController@register'));
+
+/*
+ * Need Login.
+ */
+Route::group(array('before' => 'sentry'), function() {
+    // Basic
+    Route::get('/', array('uses' => 'IndexController@index'));
+    Route::get('logout', array('uses' => 'LogoutController@logout'));
+
+    // Users
+    Route::get('user/{username}', array('uses' => 'UserController@show'));
+    Route::get('user/edit', array('uses' => 'UserController@edit'));
+    Route::get('user/stock', array('uses' => 'UserController@stock'));
+
+    // Items
     Route::resource('items', 'ItemController');
-    Route::controller('logout', 'LogoutController');
 });
 
-Route::controller('signup', 'SignupController');
-Route::controller('login', 'LoginController');

@@ -5,14 +5,14 @@ class LoginController extends BaseController {
     }
 
     // ログインフォームの表示
-    public function getIndex(){
+    public function login(){
         if (Sentry::check()) {
             return Redirect::to('/');
         }
         return View::make('login/index');
     }
 
-    public function postIndex(){
+    public function auth(){
         try {
             // フォームからemailとpaswordの連想配列を取得
             $login = Input::only('username','password');

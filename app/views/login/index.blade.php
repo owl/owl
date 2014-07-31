@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-{{Form::open(array('url'=>'login/index'))}}
+{{Form::open(array('url'=>'login'))}}
  <h2>Athena v0.1</h2>
 @if(Session::has('status'))
 {{Session::get('status')}}<br />

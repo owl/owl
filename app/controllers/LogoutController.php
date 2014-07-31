@@ -4,7 +4,7 @@ class LogoutController extends BaseController {
     public function __construct(){
     }
 
-    public function getIndex(){
+    public function logout(){
         if (Sentry::check()) {
             Session::forget("User");
             Sentry::logout();

@@ -6,7 +6,7 @@ class SignUpController extends BaseController {
     /*
      * 新規会員登録：入力画面
      */
-    public function getIndex(){
+    public function signup(){
         if (Sentry::check()) {
             return Redirect::to('/');
         }
@@ -16,7 +16,7 @@ class SignUpController extends BaseController {
     /*
      * 新規会員登録：登録処理
      */
-    public function postIndex(){
+    public function register(){
         // バリデーションルールの作成
         $valid_rule = array(
             'username' => 'required|alpha_num|unique:users',
