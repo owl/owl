@@ -28,9 +28,10 @@ Route::group(array('before' => 'sentry'), function() {
     Route::get('logout', array('uses' => 'LogoutController@logout'));
 
     // Users
-    Route::get('user/{username}', array('uses' => 'UserController@show'));
     Route::get('user/edit', array('uses' => 'UserController@edit'));
+    Route::put('user/edit', array('uses' => 'UserController@update'));
     Route::get('user/stock', array('uses' => 'UserController@stock'));
+    Route::get('user/{username}', array('uses' => 'UserController@show'));
 
     // Items
     Route::resource('items', 'ItemController');

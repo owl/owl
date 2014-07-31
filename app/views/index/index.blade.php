@@ -11,6 +11,7 @@
 <h2>menu</h2>
 <ul>
     <li><a href="/items/create">投稿する</a></li>
+    <li><a href="/user/edit">ユーザ情報変更</a></li>
     <li><a href="/logout">ログアウト</a></li>
 </ul>
 
