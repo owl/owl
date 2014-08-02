@@ -51,6 +51,7 @@ return array(
     ),
     "not_in"           => "選択された:attributeは正しくありません。",
     "numeric"          => ":attributeは数値である必要があります。",
+    "reserved_word"    => "この:attributeを使用することはできません。",
     "regex"            => ":attributeの形式は正しくありません。",
     "required"         => ":attributeは必須です。",
     "required_if"      => ":otherが:valueである場合、:attributeは必須です。",

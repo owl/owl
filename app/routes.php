@@ -27,13 +27,13 @@ Route::group(array('before' => 'sentry'), function() {
     Route::get('/', array('uses' => 'IndexController@index'));
     Route::get('logout', array('uses' => 'LogoutController@logout'));
 
+    // Items
+    Route::resource('items', 'ItemController');
+
     // Users
     Route::get('user/edit', array('uses' => 'UserController@edit'));
     Route::put('user/edit', array('uses' => 'UserController@update'));
     Route::get('user/stock', array('uses' => 'UserController@stock'));
-    Route::get('user/{username}', array('uses' => 'UserController@show'));
-
-    // Items
-    Route::resource('items', 'ItemController');
+    Route::get('/{username}', array('uses' => 'UserController@show'));
 });
 
