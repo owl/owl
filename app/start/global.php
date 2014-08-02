@@ -92,3 +92,13 @@ App::missing(function($exception) {
     return Response::view('errors.missing', array(), 404);
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Register Custom Validator Resolver
+|--------------------------------------------------------------------------
+*/
+
+Validator::resolver(function($translator, $data, $rules, $messages) {
+    return new CustomValidator($translator, $data, $rules, $messages);
+});

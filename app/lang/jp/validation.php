@@ -19,6 +19,7 @@ return array(
     "alpha"            => ":attributeにはアルファベット以外使用できません。",
     "alpha_dash"       => ":attributeにはアルファベット、数字、ハイフン、アンダーバー以外使用できません。",
     "alpha_num"        => ":attributeにはアルファベット、数字以外使用できません。",
+    "alpha_space"      => ":attributeにはアルファベット、空白以外使用できません。",
     "before"           => ":attributeは:dateより前の日付でなければなりません。",
     "between"          => array(
         "numeric" => ":attributeは:min～:maxの範囲である必要があります。",
