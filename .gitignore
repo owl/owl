@@ -9,3 +9,4 @@ Thumbs.db
 *.swp
 .bundle
 Gemfile.lock
+public/images/*
