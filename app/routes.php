@@ -34,5 +34,6 @@ Route::group(array('before' => 'sentry'), function() {
 
     // Items
     Route::resource('items', 'ItemController');
+    Route::post('image/upload', array('uses' => 'ImageController@upload'));
 });
 
