@@ -64,17 +64,21 @@ class CustomValidator extends Illuminate\Validation\Validator {
             'dist','asset','source','static','file','flash','swf','xml',
             'json','sag','cgi','account','user','item','entry','article',
             'page','archive','tag','category','event','contest','word',
+
             'product','project','download','video','blog','diary','site',
             'popular','i','my','me','owner','profile','self','old','first',
+
             'last','start','end','special','design','theme','propose',
             'book','read','organization','community','group','all','status',
             'search','explore','share','feature','upload','rss','atom',
+
             'widget','api','wiki','bookmark','captcha','comment','jump',
             'ranking','setting','config','tool','connect','notify','recent',
             'report','system','sys','message','msg','log','analysis','query',
             'call','calendar','friend','graph','watch','cart','activity',
             'password','auth','session','register','login','logout',
             'signup','signin','signout','forgot','admin','root','secure',
+
             'get','show','create','edit','update','post','destroy','delete',
             'remove','reset','error','new','dashboard','recruit','join',
             'offer','career','corp','school','developer','dev','test','bug',
@@ -88,7 +92,7 @@ class CustomValidator extends Illuminate\Validation\Validator {
 );
 
         foreach($words as $word) {
-            if (stripos($value, $word) !== false) {
+            if ($value ===  $word) {
                 return false;
             }
         }
