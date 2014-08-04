@@ -10,7 +10,7 @@ class ImageController extends BaseController{
 
     private function makeTag($image){
         $host = $_SERVER["HTTP_HOST"];
-        return "![{$image->alt_text}](//{$host}/images/{$image->external_path}{$image->external_name})\n";
+        return "![{$image->alt_text}](//{$host}/images/{$image->external_path}{$image->external_name})";
     }
 
     private function moveImage(){
