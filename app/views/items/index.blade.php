@@ -16,7 +16,7 @@
 
 <h2>Item Lists</h2>
 @foreach ($items as $item)
-    <a href="{{ action('ItemController@show', $item->id) }}">{{{ $item->title }}}</a> {{ $item->created_at }}<br />
+    <a href="{{ action('ItemController@show', $item->open_item_id) }}">{{{ $item->title }}}</a> {{ $item->created_at }}<br />
 @endforeach
 
 

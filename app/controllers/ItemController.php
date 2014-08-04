@@ -11,6 +11,7 @@ class ItemController extends BaseController{
         $item = new Item;
         $item->fill(array(
             'user_id'=>$user->id,
+            'open_item_id' => $this->createOpenItemId(),
             'title'=>Input::get('title'),
             'body'=>Input::get('body'),
             'published'=>Input::get('published')
@@ -19,13 +20,17 @@ class ItemController extends BaseController{
         return Redirect::to('/'); 
     }
 
+    private function createOpenItemId(){
+        return substr(md5(uniqid(rand(),1)),0,20);
+    }
+
     public function index(){
         $items = Item::all();
         return View::make('items.index', compact('items'));
     }
 
-    public function show($itemid){
-        $item = Item::find($itemid);
+    public function show($openItemId){
+        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
 
         // Markdown Parse
         $parser = new CustomMarkdown;
@@ -34,14 +39,14 @@ class ItemController extends BaseController{
         return View::make('items.show', compact('item'));
     }
 
-    public function edit($itemid){
-        $item = Item::find($itemid);
+    public function edit($openItemId){
+        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
         return View::make('items.edit', compact('item'));
     }
 
-    public function update($itemid){
+    public function update($openItemId){
         $user = Sentry::getUser();
-        $item = Item::find($itemid);
+        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
@@ -49,11 +54,11 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
-        return Redirect::route('items.show',[$itemid]);
+        return Redirect::route('items.show',[$openItemId]);
     }
 
-    public function destroy($itemid){
-        Item::find($itemid)->delete();
+    public function destroy($openItemId){
+        Item::where('open_item_id',$openItemId)->delete();
         return Redirect::route('items.index');
     }
 }

@@ -19,8 +19,8 @@
 <p>user_id: {{{ $item->user_id }}}</p>
 <p>body: {{ $item->body }}</p>
 <p>published: {{{ $item->published }}}</p>
-{{link_to_route('items.edit','編集する',$item->id)}}
-{{Form::open(['route'=>['items.destroy', $item->id], 'method'=>'DELETE'])}}
+{{link_to_route('items.edit','編集する',$item->open_item_id)}}
+{{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
 <a onclick="this.parentNode.submit();return false;" href="void()">削除する</a>
 {{Form::close()}}
 

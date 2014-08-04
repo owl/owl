@@ -27,7 +27,7 @@
 
       <div class="blog-post">
 
-        {{Form::open(['route'=>['items.update', $item->id], 'method'=>'PUT'])}}
+        {{Form::open(['route'=>['items.update', $item->open_item_id], 'method'=>'PUT'])}}
          <h2 class="form-item-heading">編集</h2>
         {{Form::text('title',$item->title,array('class'=>'form-control','placeholder'=>'タイトル'))}}<br />
         {{Form::textarea('body',$item->body,array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}<br />
