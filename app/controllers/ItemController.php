@@ -7,7 +7,7 @@ class ItemController extends BaseController{
     }
 
     public function store(){
-        $user = Session::get("user");
+        $user = Sentry::getUser();
         $item = new Item;
         $item->fill(array(
             'user_id'=>$user->id,
@@ -40,7 +40,7 @@ class ItemController extends BaseController{
     }
 
     public function update($itemid){
-        $user = Session::get("user");
+        $user = Sentry::getUser();
         $item = Item::find($itemid);
         $item->fill(array(
             'user_id'=>$user->id,
