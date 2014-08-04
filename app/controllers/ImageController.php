@@ -18,7 +18,7 @@ class ImageController extends BaseController{
         $orgImage = Input::file('image');
         $exImgPath = $this->createExternalImagePath();
         $exImgName = $this->createExternalImageFileName($orgImage->getClientOriginalName());
-        $orgImage->move("public".$ds."images".$ds.$exImgPath, $exImgName);
+        $orgImage->move(public_path().$ds."images".$ds.$exImgPath, $exImgName);
         $image = new Image;
         $image->alt_text = $orgImage->getClientOriginalName();
         $image->external_path = $exImgPath;
