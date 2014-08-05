@@ -59,6 +59,8 @@ $framework = $app['path.base'].
 
 require $framework.'/Illuminate/Foundation/start.php';
 
+//load custom html macro
+require app_path()."/start/custom_macro.php";
 /*
 |--------------------------------------------------------------------------
 | Return The Application

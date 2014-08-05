@@ -35,6 +35,7 @@
 
                 <div id="sidebar" class="col-sm-3">
                     <ul>
+                        <li>{{ HTML::gravator($User->email) }}</li>
                         <li>user_id: {{$User->username}}</li>
                         <li>email: {{$User->email}}</li>
                     </ul>
