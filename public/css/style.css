@@ -1,6 +1,10 @@
 body {
 }
 
+a {
+    color: #4eb691;
+}
+
 .container {
     max-width: 980px;
 }
@@ -42,6 +46,51 @@ body {
 .page-title {
     margin: 0px 0px 0px;
     font-size: 20px;
+}
+
+#contents .items {
+    margin: 10px 0px;
+}
+
+#contents .item {
+    margin: 10px 0px;
+    padding: 5px 0px 15px 0px;
+    border-bottom: 1px dotted #e7e7e7;
+}
+
+#contents .item img {
+    margin-right: 10px;
+    float: left;
+}
+
+#contents .item p {
+    overflow: hidden;
+    color: #666666;
+    margin: 0px;
+    padding: 0px;
+}
+
+#contents .item .username {
+    color: #333333;
+}
+
+.pagination li a,
+.pagination li span {
+    color: #4eb691;
+}
+
+.pagination .active a,
+.pagination .active span,
+.pagination .active a:hover,
+.pagination .active span:hover,
+.pagination .active a:focus,
+.pagination .active span:focus {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+#sidebar .btn {
+    margin: 10px 0px;
 }
 
 
