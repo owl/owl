@@ -11,41 +11,56 @@
 @section('content')
 <body>
 
-<h1>Athena</h1>
 
-<h2>menu</h2>
-<ul>
-    <li><a href="/items/create">投稿する</a></li>
-    <li><a href="/logout">ログアウト</a></li>
-</ul>
 
-<!-- Contents -->
-<div class="container">
+<div id="wrapper">
+    <div id="header">
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand">Athena</a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/items/create">投稿する</a></li>
+                        <li><a href="/user/edit">ユーザ情報変更</a></li>
+                        <li><a href="/logout">ログアウト</a></li>
+                    </ul>
+                </div>
+            </nav>
+    </div>
 
-  <div class="row">
-    <div class="col-sm-8 blog-main">
+    <div id="contents">
+        <div id="pagehead">
+            <div class="container">
+                <p class="page-title">新規投稿</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sm-9">
+                    {{Form::open(array('url'=>'items','class'=>'form-items'))}}
+                    {{Form::text('title','',array('class'=>'form-control','placeholder'=>'タイトル'))}}
+                    {{Form::textarea('body','',array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}
+                    記事の公開設定：{{Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2')}}<br /><br />
+                    {{Form::submit('投稿',array('class'=>'btn btn-lg btn-primary btn-block'))}}
+                    {{Form::close()}}
 
-      <div class="blog-post">
+                    {{Form::open(array('url'=>'image/upload','class'=>'form-items', 'files' => true))}}
+                    {{Form::file('image', array('id' => 'file_id')) }}
+                    {{Form::close()}}
+                </div>
 
-        {{Form::open(array('url'=>'items','class'=>'form-items'))}}
-         <h2 class="form-item-heading">新規投稿</h2>
-        {{Form::text('title','',array('class'=>'form-control','placeholder'=>'タイトル'))}}
-        {{Form::textarea('body','',array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}
-        {{Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2')}} 
-        {{Form::submit('投稿',array('class'=>'btn btn-lg btn-primary btn-block'))}}
-        {{Form::close()}}
+                <div id="sidebar" class="col-sm-3">
+                    <ul>
+                        <li>user_id: {{$User->id}}</li>
+                        <li>email: {{$User->email}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        {{Form::open(array('url'=>'image/upload','class'=>'form-items', 'files' => true))}}
-        {{Form::file('image', array('id' => 'file_id')) }}
-        {{Form::close()}}
-    </div><!-- /.blog-main -->
-
-    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    </div><!-- /.blog-sidebar -->
-
-  </div><!-- /.row -->
-
-</div><!-- /.container -->
+</div>
 @stop
 @section('addJs')
 @stop

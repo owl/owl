@@ -10,3 +10,4 @@ Thumbs.db
 .bundle
 Gemfile.lock
 public/images/*
+public/packages/bootstrap/
