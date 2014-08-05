@@ -40,7 +40,6 @@ class UserController extends BaseController{
             if($user->save()){
                 return Redirect::to('user/edit')->with('status', '編集が完了しました。');
             }else{
-    var_dump("hoge");exit;
                 App::abort(500);
             }
         } catch (Cartalyst\Sentry\Users\UserExistsException $e) {
