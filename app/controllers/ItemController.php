@@ -25,12 +25,15 @@ class ItemController extends BaseController{
     }
 
     public function index(){
-        $items = Item::all();
+        $items = Item::orderBy('id', 'desc')->get();
         return View::make('items.index', compact('items'));
     }
 
     public function show($openItemId){
-        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
+        $item = Item::where('open_item_id',$openItemId)->first();;
+        if ($item == null){
+            App::abort(404);
+        }
 
         // Markdown Parse
         $parser = new CustomMarkdown;
@@ -40,13 +43,19 @@ class ItemController extends BaseController{
     }
 
     public function edit($openItemId){
-        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
+        $item = Item::where('open_item_id',$openItemId)->first();
+        if ($item == null){
+            App::abort(404);
+        }
         return View::make('items.edit', compact('item'));
     }
 
     public function update($openItemId){
         $user = Sentry::getUser();
-        $item = Item::where('open_item_id',$openItemId)->firstOrFail();;
+        $item = Item::where('open_item_id',$openItemId)->first();;
+        if ($item == null){
+            App::abort(404);
+        }
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
