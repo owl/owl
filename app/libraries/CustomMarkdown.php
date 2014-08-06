@@ -51,8 +51,8 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
 					$refMatches[1], // url
                     $text, //title
 					$offset + strlen($refMatches[0]), // offset
-                    $refMatches[3],//height
-                    $refMatches[4]//width
+                    isset($refMatches[3]) ? $refMatches[3] : null,//height
+                    isset($refMatches[4]) ? $refMatches[4] : null //width
 				];
 			} elseif (preg_match('/^[ \n]?\[(.*?)\]/', $markdown, $refMatches)) {
 				// reference style link
