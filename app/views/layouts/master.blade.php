@@ -1,3 +1,72 @@
-@yield('header')
-@yield('content')
-@yield('footer')
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title')</title>
+    {{HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen'))}}
+    {{HTML::style('css/style.css')}}
+    {{HTML::style('http://fonts.googleapis.com/css?family=Allerta')}}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    @yield('addCss')
+</head>
+<body>
+
+<!-- wrapper -->
+<div id="wrapper">
+    <!-- header -->
+    <div id="header">
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        @yield('title_logo', '<a href="/" class="navbar-brand">Athena</a>')
+                    </div>
+                    @yield('navbar-menu')
+                </div>
+            </nav>
+    </div>
+    <!-- /header -->
+
+    <!-- contents -->
+    <div id="contents">
+        <div id="pagehead">
+            <div class="container">
+                @yield('contents-pagehead', '<p class="page-title">情報を共有しよう。</p>')
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sm-9">
+                    @yield('contents-main')
+                </div>
+
+                <div id="sidebar" class="col-sm-3">
+                    @yield('contents-sidebar')
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /contents -->
+
+    <!-- footer -->
+    <div id="footer">
+        <div class="container">
+            <p>Powered by Athena © 2014</p>
+        </div>
+    </div>
+    <!-- /footer -->
+</div>
+<!-- /wrapper -->
+
+{{HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
+{{HTML::script("/packages/bootstrap/js/bootstrap.min.js")}}
+@yield('addJs')
+</body>
+</html>
