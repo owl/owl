@@ -26,7 +26,7 @@
         </tr>
         @foreach ($templates as $template)
         <tr>
-            <td><a href="/template/{{ $template->id }}">{{{ $template->display_title }}}</a></td>
+            <td>{{{ $template->display_title }}}</a></td>
             <td>{{{ $template->title }}}</td>
             <td>
                 {{Form::open(['route'=>['templates.destroy', $template->id], 'method'=>'DELETE'])}}
@@ -40,3 +40,6 @@
 
 @stop
 
+@section('contents-sidebar')
+    @include('layouts.contents-sidebar')
+@stop
