@@ -3,10 +3,13 @@
 <div class="panel panel-default">
     <div class="panel-heading">テンプレートから作成</div>
     <ul class="list-group">
-        <li class="list-group-item">日報</li>
-        <li class="list-group-item">障害対応報告</li>
-        <li class="list-group-item">議事録</li>
-        <li class="list-group-item">手順書</li>
+        @foreach ($templates as $template)
+        <li class="list-group-item">
+            <a href="/items/create?t={{$template->id}}">{{{$template->display_title}}}</a>
+        </li>
+        @endforeach
     </ul>
 </div>
+<p><a href="/templates">テンプレート編集</a></p>
 @stop
+

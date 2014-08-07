@@ -15,7 +15,3 @@
 @section('contents-main')
     <h4>お探しのページは見つかりませんでした</h4>
 @stop
-
-@section('contents-sidebar')
-    @include('layouts.contents-sidebar')
-@stop

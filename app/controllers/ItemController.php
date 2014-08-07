@@ -2,8 +2,14 @@
 
 class ItemController extends BaseController{
 
-    public function create(){
-        return View::make('items.create');
+    public function create($templateId = null){
+        if(!Input::get('t')) {
+            return View::make('items.create', compact('template'));
+        }
+
+        $templateId = Input::get('t');
+        $template = Template::where('id',$templateId)->first();
+        return View::make('items.create', compact('template'));
     }
 
     public function store(){
@@ -39,7 +45,8 @@ class ItemController extends BaseController{
         $parser = new CustomMarkdown;
         $parser->enableNewlines = true;
         $item->body = $parser->parse($item->body);
-        return View::make('items.show', compact('item'));
+        $templates = Template::all();
+        return View::make('items.show', compact('item', 'templates'));
     }
 
     public function edit($openItemId){
@@ -47,7 +54,8 @@ class ItemController extends BaseController{
         if ($item == null){
             App::abort(404);
         }
-        return View::make('items.edit', compact('item'));
+        $templates = Template::all();
+        return View::make('items.edit', compact('item', 'templates'));
     }
 
     public function update($openItemId){

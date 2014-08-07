@@ -7,11 +7,13 @@ class UserController extends BaseController{
         if ($user == null){
             App::abort(404);
         }
-        return View::make('user.show', compact('user'));
+        $templates = Template::all();
+        return View::make('user.show', compact('user', 'templates'));
     }
 
     public function edit(){
-        return View::make('user.edit');
+        $templates = Template::all();
+        return View::make('user.edit', compact('templates'));
     }
 
     public function update(){

@@ -29,6 +29,7 @@ Route::group(array('before' => 'sentry'), function() {
 
     // Items
     Route::resource('items', 'ItemController');
+    Route::resource('templates', 'TemplateController');
 
     // Users
     Route::get('user/edit', array('uses' => 'UserController@edit'));

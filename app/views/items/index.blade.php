@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-編集 | Athena
+すべての投稿 | Athena
 @stop
 
 @section('navbar-menu')
