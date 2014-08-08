@@ -19,9 +19,9 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
 
 			$image = '<img src="' . htmlspecialchars($url, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
 				. ' alt="' . htmlspecialchars($text, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
-				. (empty($title) ? '' : ' title="' . htmlspecialchars($title, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
-                . (empty($height) ? '' : ' height="' . htmlspecialchars($height, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
-                . (empty($width) ? '' : ' width="' . htmlspecialchars($width, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
+				. (empty($title)  ? '' : ' title="'  . htmlspecialchars($title,  ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
+				. (empty($height) ? '' : ' height="' . htmlspecialchars($height, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
+				. (empty($width)  ? '' : ' width="'  . htmlspecialchars($width,  ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"')
 				. ($this->html5 ? '>' : ' />');
 
 			return [$image, $offset + 1];
@@ -35,7 +35,7 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
 			}
 			return [$result, $i];
 		}
-    }
+	}
 
 	private function parseLinkOrImage($markdown)
 	{
@@ -44,15 +44,15 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
 			$offset = strlen($textMatches[0]);
 			$markdown = substr($markdown, $offset);
 
-			if (preg_match('/^\(([^\s]*?)( =([0-9]*)?x([0-9]*)?)?\)/', $markdown, $refMatches)) {
+			if (preg_match('/^\(([^\s]*?)(\s+"(.*?)")?(\s+=([0-9]+)?x([0-9]+)?)?\)/', $markdown, $refMatches)) {
 				// inline link
 				return [
 					$text,
 					$refMatches[1], // url
-                    $text, //title
+					empty($refMatches[3]) ? null: $refMatches[3], // title
 					$offset + strlen($refMatches[0]), // offset
-                    isset($refMatches[3]) ? $refMatches[3] : null,//height
-                    isset($refMatches[4]) ? $refMatches[4] : null //width
+					isset($refMatches[5]) ? $refMatches[5] : null,//height
+					isset($refMatches[6]) ? $refMatches[6] : null //width
 				];
 			} elseif (preg_match('/^[ \n]?\[(.*?)\]/', $markdown, $refMatches)) {
 				// reference style link
