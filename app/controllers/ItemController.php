@@ -31,8 +31,11 @@ class ItemController extends BaseController{
     }
 
     public function index(){
-        $items = Item::orderBy('id', 'desc')->get();
-        return View::make('items.index', compact('items'));
+        $items = Item::with('user')
+                    ->orderBy('id','desc')
+                    ->paginate(10);
+        $templates = Template::all();
+        return View::make('items.index', compact('items', 'templates'));
     }
 
     public function show($openItemId){

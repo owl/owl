@@ -9,10 +9,16 @@
 @stop
 
 @section('contents-main')
-    <h4>すべての投稿</h4>
+<div class="items">
     @foreach ($items as $item)
-        <a href="{{ action('ItemController@show', $item->open_item_id) }}">{{{ $item->title }}}</a> {{ $item->created_at }}<br />
+    <div class="item">
+        {{ HTML::gravator($item->user->email, 40) }}
+        <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
+        <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
+    </div>
     @endforeach
+<?php echo $items->links(); ?>
+</div>
 @stop
 
 @section('contents-sidebar')
