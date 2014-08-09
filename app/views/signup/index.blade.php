@@ -9,26 +9,63 @@
 @stop
 
 @section('contents-main')
-    {{Form::open(array('url'=>'signup'))}}
-        {{Form::text('username','',array('placeholder'=>'ユーザ名'))}}
-        @if($errors->has('username'))
+    {{Form::open(array('url'=>'signup', 'class' => 'form-horizontal'))}}
+    @if($errors->has('warning'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('warning')}}
+    </div>
+    @endif
+    <div class="form-group">
+        {{Form::label('username', 'ユーザ名', array('class' => 'col-sm-2 control-label'))}}
+        <div class="col-sm-4">
+            {{Form::text('username','',array('class' => 'form-control'))}}
+        </div>
+    </div>
+    @if($errors->has('username'))
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="alert alert-warning" role="alert">
             {{$errors->first('username')}}
-        @endif
-        <br />
-        {{Form::text('email','',array('placeholder'=>'Email'))}}
-        @if($errors->has('email'))
+        </div>
+    </div>
+    @endif
+    <div class="form-group">
+        {{Form::label('email', 'Email', array('class' => 'col-sm-2 control-label'))}}
+        <div class="col-sm-4">
+            {{Form::text('email','',array('class' => 'form-control'))}}
+        </div>
+    </div>
+    @if($errors->has('email'))
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="alert alert-warning" role="alert">
             {{$errors->first('email')}}
-        @endif
-        <br />
-        {{Form::password('password',array('placeholder'=>'パスワード'))}}
-        @if($errors->has('password'))
+        </div>
+    </div>
+    @endif
+    <div class="form-group">
+        {{Form::label('password', 'パスワード', array('class' => 'col-sm-2 control-label'))}}
+        <div class="col-sm-4">
+            {{Form::password('password',array('class' => 'form-control'))}}
+        </div>
+    </div>
+    @if($errors->has('password'))
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="alert alert-warning" role="alert">
             {{$errors->first('password')}}
-        @endif
-        <br />
-        @if($errors->has('warning'))
-            {{$errors->first('warning')}}<br />
-        @endif
-        {{Form::submit('登録')}}
+        </div>
+    </div>
+    @endif
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            {{Form::submit('登録', array('class' => 'btn btn-default'))}}
+        </div>
+    </div>
     {{Form::close()}}
-    <p><a href="/login">ログインはこちら</a></p>
+    <div class="form-group">
+        <p><a href="/login">ログインはこちら</a></p>
+    </div>
+
+
+
+
+
 @stop
