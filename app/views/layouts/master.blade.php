@@ -58,7 +58,7 @@
     <!-- footer -->
     <div id="footer">
         <div class="container">
-            <p>Powered by Athena © 2014</p>
+            <p>Powered by Athena</p>
         </div>
     </div>
     <!-- /footer -->
