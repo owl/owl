@@ -94,5 +94,6 @@ return array(
         'username' => 'ユーザ名',
         'email' => 'このEmail',
         'password' => 'パスワード',
+        'new_password' => 'パスワード',
     ),
 );

@@ -19,11 +19,16 @@
         {{Session::get('status')}}
     </div>
     @endif
+
     @if($errors->has('warning'))
     <div class="alert alert-warning" role="alert">
         {{$errors->first('warning')}}
     </div>
     @endif
+
+    <div class="page-header">
+        <h5>アカウント設定</h5>
+    </div>
 
     {{Form::open(array('url'=>'user/edit', 'class' => 'form-horizontal', 'method'=>'PUT'))}}
 
@@ -62,6 +67,51 @@
     </div>
 
     {{Form::close()}}
+
+
+
+    <div class="page-header">
+        <h5>パスワード設定</h5>
+    </div>
+
+    {{Form::open(array('url'=>'user/password', 'class' => 'form-horizontal', 'method'=>'POST'))}}
+
+    <div class="form-group">
+        {{Form::label('password', '現在のパスワード', array('class' => 'col-sm-3 control-label'))}}
+        <div class="col-sm-4">
+            {{Form::password('password',array('class' => 'form-control'))}}
+        </div>
+    </div>
+    @if($errors->has('password'))
+    <div class="col-sm-offset-3 col-sm-09">
+        <div class="alert alert-warning" role="alert">
+            {{$errors->first('password')}}
+        </div>
+    </div>
+    @endif
+
+    <div class="form-group">
+        {{Form::label('new_password', '新しいパスワード', array('class' => 'col-sm-3 control-label'))}}
+        <div class="col-sm-4">
+            {{Form::password('new_password',array('class' => 'form-control'))}}
+        </div>
+    </div>
+    @if($errors->has('new_password'))
+    <div class="col-sm-offset-3 col-sm-09">
+        <div class="alert alert-warning" role="alert">
+            {{$errors->first('new_password')}}
+        </div>
+    </div>
+    @endif
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-10">
+            {{Form::submit('変更', array('class' => 'btn btn-default'))}}
+        </div>
+    </div>
+
+    {{Form::close()}}
+
 @stop
 
 @section('contents-sidebar')

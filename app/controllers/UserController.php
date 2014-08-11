@@ -52,6 +52,53 @@ class UserController extends BaseController{
 
     }
 
+    public function reset(){
+        $LoginUser = Sentry::getUser();
+
+        // バリデーションルールの作成
+        $valid_rule = array(
+            "password" => "required|alpha_num|min:4",
+            "new_password" => "required|alpha_num|min:4",
+        );
+
+        // バリデーション実行
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        // 失敗の場合
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $user = Sentry::findUserById($LoginUser->id);
+
+            if(!$user->checkPassword(Input::get('password'))){
+                return Redirect::back()
+                    ->withErrors(array('warning' => 'パスワードに誤りがあります。'))
+                    ->withInput();
+            }
+
+            $resetCode = $user->getResetPasswordCode();
+            if (!$user->checkResetPasswordCode($resetCode)){
+                return Redirect::back()
+                    ->withErrors(array('warning' => 'パスワードリセットに失敗しました。'))
+                    ->withInput();
+            }
+
+            if ($user->attemptResetPassword($resetCode, Input::get('new_password'))){
+                return Redirect::to('user/edit')->with('status', 'パスワード変更が完了しました。');
+            }else{
+                return Redirect::back()
+                    ->withErrors(array('warning' => 'パスワードリセットに失敗しました。'))
+                    ->withInput();
+            }
+
+        } catch (Cartalyst\Sentry\Users\UserExistsException $e) {
+            echo 'User with this login already exists.';
+        } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+            echo 'User was not found.';
+        }
+    }
 
     public function stock(){
 

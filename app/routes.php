@@ -35,6 +35,7 @@ Route::group(array('before' => 'sentry'), function() {
     Route::get('user/edit', array('uses' => 'UserController@edit'));
     Route::put('user/edit', array('uses' => 'UserController@update'));
     Route::get('user/stock', array('uses' => 'UserController@stock'));
+    Route::post('user/password', array('uses' => 'UserController@reset'));
     Route::get('/{username}', array('uses' => 'UserController@show'));
 
     Route::post('image/upload', array('uses' => 'ImageController@upload'));
