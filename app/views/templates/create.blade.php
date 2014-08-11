@@ -13,11 +13,32 @@
 @stop
 
 @section('contents-main')
+    <br />
     {{Form::open(array('url'=>'templates','class'=>'form-templates'))}}
-    {{Form::text('display_title','',array('class'=>'form-control','placeholder'=>'テンプレート名'))}}<br />
-    {{Form::text('title','',array('class'=>'form-control','placeholder'=>'タイトル'))}}<br />
-    {{Form::textarea('body','',array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}<br /><br />
-    {{Form::submit('テンプレート作成',array('class'=>'btn btn-lg btn-success btn-block'))}}
+
+    <div class="form-group">
+        {{Form::label('display_title', 'テンプレート名')}}
+        {{Form::text('display_title','',array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('title', 'タイトル')}}
+        {{Form::text('title','',array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('body', '本文')}}
+        {{Form::textarea('body','',array('class'=>'form-control','rows'=>'15', 'id' => 'item_text'))}}
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-4">
+            {{Form::submit('テンプレート作成',array('class'=>'btn btn-success btn-block'))}}
+        </div>
+    </div>
+
     {{Form::close()}}
 @stop
 

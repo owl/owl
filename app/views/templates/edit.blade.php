@@ -13,11 +13,31 @@
 @stop
 
 @section('contents-main')
-    {{Form::open(['route'=>['templates.update', $template->id], 'method'=>'PUT'])}}
-    {{Form::text('display_title',$template->display_title,array('class'=>'form-control','placeholder'=>'テンプレート名'))}}<br />
-    {{Form::text('title',$template->title,array('class'=>'form-control','placeholder'=>'タイトル'))}}<br />
-    {{Form::textarea('body',$template->body,array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}<br /><br />
-    {{Form::submit('テンプレート更新',array('class'=>'btn btn-lg btn-success btn-block'))}}
+    <br />
+    {{Form::open(['route'=>['templates.update', $template->id], 'method'=>'PUT'], array('class'=>'form-templates'))}}
+
+    <div class="form-group">
+        {{Form::label('display_title', 'テンプレート名')}}
+        {{Form::text('display_title',$template->display_title,array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('title', 'タイトル')}}
+        {{Form::text('title',$template->title,array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('body', '本文')}}
+        {{Form::textarea('body',$template->body,array('class'=>'form-control','rows'=>'15', 'id' => 'item_text'))}}
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-4">
+            {{Form::submit('テンプレート更新',array('class'=>'btn btn-success btn-block'))}}
+        </div>
+    </div>
     {{Form::close()}}
 @stop
 

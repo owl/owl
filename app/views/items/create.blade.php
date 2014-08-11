@@ -13,15 +13,38 @@
 @stop
 
 @section('contents-main')
+
+    <br />
     {{Form::open(array('url'=>'items','class'=>'form-items'))}}
-    {{Form::text('title', isset($template->title) ? $template->title : '' ,array('class'=>'form-control','placeholder'=>'タイトル'))}}<br />
-    {{Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control','placeholder'=>'本文', 'id' => 'item_text'))}}
-    記事の公開設定：{{Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2')}}<br /><br />
-    {{Form::submit('投稿',array('class'=>'btn btn-lg btn-success btn-block'))}}
+
+    <div class="form-group">
+        {{Form::label('title', 'タイトル')}}
+        {{Form::text('title', isset($template->title) ? $template->title : '' ,array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('body', '本文')}}
+        {{Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text'))}}
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-4">
+            {{Form::label('published', '記事の公開設定：')}}
+            {{Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2')}}
+            {{Form::submit('投稿',array('class'=>'btn btn-success btn-block'))}}
+        </div>
+    </div>
+
     {{Form::close()}}
 
     {{Form::open(array('url'=>'image/upload','class'=>'form-items', 'files' => true))}}
-    {{Form::file('image', array('id' => 'file_id')) }}
+    <br />
+    <div class="form-group">
+        {{Form::label('image', '画像アップロード')}}
+        {{Form::file('image', array('id' => 'file_id')) }}
+    </div>
     {{Form::close()}}
 @stop
 
