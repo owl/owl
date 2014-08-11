@@ -6,7 +6,6 @@ describe 'item page index', :js => true do
     it 'access item page index' do
         login
         visit "/items/"
-        p page.html
         page.should have_content("情報を共有しよう")
     end
 end
@@ -15,7 +14,6 @@ describe 'item create', :js => true do
     it 'access item page index' do
         login
         visit "/items/create"
-        p page.html
         fill_in('title', :with => 'Test Title')
         testBody  = "test body\n";
         testBody += "![test_image_alt1](//test.jpg)\n";
@@ -41,7 +39,6 @@ describe 'item delete', :js => true do
     it 'delete item' do
         login
         visit "/items/"
-        p page.html
         click_link('Test Title')
         click_link('削除')
     end
