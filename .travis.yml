@@ -19,6 +19,7 @@ before_script:
   - php artisan config:publish cartalyst/sentry
   - php artisan migrate
   - php artisan db:seed
+  - mysql -e 'SELECT * FROM users' -u root athena   
 
 script:
   - bundle exec rspec spec
