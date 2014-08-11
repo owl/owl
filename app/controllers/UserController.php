@@ -7,8 +7,12 @@ class UserController extends BaseController{
         if ($user == null){
             App::abort(404);
         }
+        $items = Item::with('user')
+                    ->where('user_id', $user->id)
+                    ->orderBy('id','desc')
+                    ->paginate(3);
         $templates = Template::all();
-        return View::make('user.show', compact('user', 'templates'));
+        return View::make('user.show', compact('user', 'items', 'templates'));
     }
 
     public function edit(){
