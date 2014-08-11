@@ -20,11 +20,6 @@ application/config/database.php
 ```
 // Sentry
 php artisan migrate --package=cartalyst/sentry  
-php artisan config:publish cartalyst/sentry  
-
-// change default settings
-// app/config/packages/cartalyst/sentry/config.php LINE:136
-'login_attribute' => 'username',  
 
 // migration
 php artisan migrate

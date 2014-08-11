@@ -16,7 +16,6 @@ before_script:
   - bundle install --path vendor/bundle
   - mysql -e 'create database athena;'
   - php artisan migrate --package=cartalyst/sentry
-  - php artisan config:publish cartalyst/sentry
   - php artisan migrate
   - php artisan db:seed
 
