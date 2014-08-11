@@ -31,13 +31,12 @@
             <td>
                 {{Form::open(['route'=>['templates.destroy', $template->id], 'method'=>'DELETE'])}}
                 <a href="/templates/{{$template->id}}/edit"><button type="button" class="btn btn-default btn-sm">編集</button></a>
-                <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                <button onClick="return confirm('本当に削除しますか？');" type="submit" class="btn btn-danger btn-sm">削除</button>
                 {{Form::close()}}
             </td>
         </tr>
         @endforeach
     </table>
-
 @stop
 
 @section('contents-sidebar')
