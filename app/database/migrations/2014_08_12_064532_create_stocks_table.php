@@ -30,7 +30,7 @@ class CreateStocksTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dorp('stocks');
+		Schema::drop('stocks');
 	}
 
 }
