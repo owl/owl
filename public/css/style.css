@@ -75,6 +75,32 @@ a {
     color: #333333;
 }
 
+#contents .stocks {
+    margin: 10px 0px;
+}
+
+#contents .stock {
+    margin: 10px 0px;
+    padding: 5px 0px 15px 0px;
+    border-bottom: 1px dotted #e7e7e7;
+}
+
+#contents .stock img {
+    margin-right: 10px;
+    float: left;
+}
+
+#contents .stock p {
+    overflow: hidden;
+    color: #888888;
+    margin: 0px;
+    padding: 0px;
+}
+
+#contents .stock .username {
+    color: #333333;
+}
+
 .pagination li a,
 .pagination li span {
     color: #4eb691;
