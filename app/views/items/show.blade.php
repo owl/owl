@@ -21,7 +21,7 @@
         <?php if ($item->user->id == $User->id) : ?>
         {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
         {{link_to_route('items.edit','編集',$item->open_item_id)}} 
-        <a onclick="this.parentNode.submit();return false;" href="void()">削除</a>
+        <a onclick="confirm('本当に削除しますか？'); this.parentNode.submit();return false;" href="void()">削除</a>
         {{Form::close()}}
         <?php endif; ?>
 

@@ -26,12 +26,6 @@
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{{ $user->username }}}</h4>
-            <?php if ($user->id == $User->id) : ?>
-            {{Form::open(['route'=>['items.destroy', $user->id], 'method'=>'DELETE'])}}
-            {{link_to_route('items.edit','編集',$user->id)}}
-            <a onclick="this.parentNode.submit();return false;" href="void()">削除</a>
-            {{Form::close()}}
-            <?php endif; ?>
         </div>
     </div>
 
