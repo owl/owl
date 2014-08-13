@@ -14,8 +14,23 @@
 
 @section('contents-main')
     <br />
-    {{Form::open(array('url'=>'templates','class'=>'form-templates'))}}
+    @if($errors->has('display_title'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('display_title')}}
+    </div>
+    @endif
+    @if($errors->has('title'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('title')}}
+    </div>
+    @endif
+    @if($errors->has('body'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('body')}}
+    </div>
+    @endif
 
+    {{Form::open(array('url'=>'templates','class'=>'form-templates'))}}
     <div class="form-group">
         {{Form::label('display_title', 'テンプレート名')}}
         {{Form::text('display_title','',array('class'=>'form-control'))}}

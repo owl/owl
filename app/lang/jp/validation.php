@@ -95,5 +95,8 @@ return array(
         'email' => 'このEmail',
         'password' => 'パスワード',
         'new_password' => 'パスワード',
+        'title' => 'タイトル',
+        'display_title' => 'テンプレート名',
+        'body' => '本文',
     ),
 );

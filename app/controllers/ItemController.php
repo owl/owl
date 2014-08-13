@@ -13,6 +13,19 @@ class ItemController extends BaseController{
     }
 
     public function store(){
+        // バリデーションルールの作成
+        $valid_rule = array(
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'published' => 'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        // 失敗の場合
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
         $user = Sentry::getUser();
         $item = new Item;
         $item->fill(array(
@@ -68,6 +81,19 @@ class ItemController extends BaseController{
     }
 
     public function update($openItemId){
+        // バリデーションルールの作成
+        $valid_rule = array(
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'published' => 'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        // 失敗の場合
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
         $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();;
 
