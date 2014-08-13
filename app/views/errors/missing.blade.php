@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-新規投稿 | Athena
+404 Not Found | Owl
 @stop
 
 @section('navbar-menu')

@@ -1,3 +1,7 @@
+html {
+    overflow-y:scroll;
+}
+
 body {
     word-wrap: break-word;
 }
@@ -20,14 +24,21 @@ a {
 }
 
 .navbar-default .navbar-brand {
-    font-family: "Allerta","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Lobster", "Allerta","Helvetica Neue",Helvetica,Arial,sans-serif;
     float: left;
     height: 50px;
     padding: 15px 15px;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 24px;
+    line-height: 25px;
     text-shadow: 0 1.5px 0 #ffffff;
-    color: black;
+    color: #333333;
+}
+
+.navbar-default .navbar-brand-image {
+    float: left;
+    height: 50px;
+    margin-left: -15px;
+    padding: 8px 0px 8px 7px;
 }
 
 .navbar-default .navbar-nav li a {

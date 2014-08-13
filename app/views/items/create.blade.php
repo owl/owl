@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-新規投稿 | Athena
+新規投稿 | Owl
 @stop
 
 @section('navbar-menu')

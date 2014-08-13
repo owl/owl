@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ストック一覧 | Athena
+ストック一覧 | Owl
 @stop
 
 @section('navbar-menu')

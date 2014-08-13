@@ -42,7 +42,7 @@ class CreateUserGroup extends Migration {
             // ユーザーの作成
             $user = Sentry::createUser(array(
                 'username' => 'admin',
-                'email' => 'admin@athena.example',
+                'email' => 'admin@owl.example',
                 'password' => 'password',
                 'activated' => 1,
                 'permissions' => array(

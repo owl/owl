@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{{$item->title}}} | Athena
+{{{$item->title}}} | Owl
 @stop
 
 @section('navbar-menu')
