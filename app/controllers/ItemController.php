@@ -53,7 +53,13 @@ class ItemController extends BaseController{
     }
 
     public function edit($openItemId){
+        $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();
+
+        if ($item->user_id !== $user->id){
+            App::abort(404);
+        }
+
         if ($item == null){
             App::abort(404);
         }
@@ -64,6 +70,11 @@ class ItemController extends BaseController{
     public function update($openItemId){
         $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();;
+
+        if ($item->user_id !== $user->id){
+            App::abort(404);
+        }
+
         if ($item == null){
             App::abort(404);
         }
@@ -78,6 +89,16 @@ class ItemController extends BaseController{
     }
 
     public function destroy($openItemId){
+        $user = Sentry::getUser();
+        $item = Item::where('open_item_id',$openItemId)->first();;
+
+        if ($item->user_id !== $user->id){
+            App::abort(404);
+        }
+
+        if ($item == null){
+            App::abort(404);
+        }
         Item::where('open_item_id',$openItemId)->delete();
         return Redirect::route('items.index');
     }
