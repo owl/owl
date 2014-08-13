@@ -8,6 +8,10 @@
     @include('layouts.navbar-menu')
 @stop
 
+@section('contents-pagehead')
+<p class="page-title">すべての投稿</p>
+@stop
+
 @section('contents-main')
 <div class="items">
     @foreach ($items as $item)

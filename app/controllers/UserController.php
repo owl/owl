@@ -3,14 +3,25 @@
 class UserController extends BaseController{
 
     public function show($username){
+        $LoginUser = Sentry::getUser();
         $user = User::where('username', '=', $username)->first();
         if ($user == null){
             App::abort(404);
         }
-        $items = Item::with('user')
-                    ->where('user_id', $user->id)
-                    ->orderBy('id','desc')
-                    ->paginate(3);
+
+        if ($LoginUser->id === $user->id){
+            $items = Item::with('user')
+                        ->where('user_id', $user->id)
+                        ->orderBy('id','desc')
+                        ->paginate(3);
+        } else {
+            $items = Item::with('user')
+                        ->where('published', '2')
+                        ->where('user_id', $user->id)
+                        ->orderBy('id','desc')
+                        ->paginate(3);
+        }
+
         $templates = Template::all();
         return View::make('user.show', compact('user', 'items', 'templates'));
     }

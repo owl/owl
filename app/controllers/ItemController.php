@@ -45,6 +45,7 @@ class ItemController extends BaseController{
 
     public function index(){
         $items = Item::with('user')
+                    ->where('published', '2')
                     ->orderBy('id','desc')
                     ->paginate(10);
         $templates = Template::all();
@@ -52,7 +53,13 @@ class ItemController extends BaseController{
     }
 
     public function show($openItemId){
+        $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();;
+
+        if ($item->published === '0' && $item->user_id !== $user->id){
+            App::abort(404);
+        }
+
         if ($item == null){
             App::abort(404);
         }
