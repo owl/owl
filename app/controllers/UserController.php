@@ -36,7 +36,7 @@ class UserController extends BaseController{
 
         // バリデーションルールの作成
         $valid_rule = array(
-            "username" => "required|alpha_num|reserved_word|unique:users,username,$LoginUser->id",
+            "username" => "required|alpha_num|reserved_word|max:30|unique:users,username,$LoginUser->id",
             "email" => "required|email|unique:users,email,$LoginUser->id",
         );
 
