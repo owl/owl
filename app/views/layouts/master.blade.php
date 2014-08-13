@@ -9,6 +9,7 @@
     {{HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen'))}}
     {{HTML::style('css/style.css')}}
     {{HTML::style('http://fonts.googleapis.com/css?family=Lobster')}}
+    {{HTML::style('css/highight.js-8.1.github.min.css')}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,6 +69,8 @@
 
 {{HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
 {{HTML::script("/packages/bootstrap/js/bootstrap.min.js")}}
+{{HTML::script("js/highlight.js-8.1.min.js")}}
+<script>hljs.initHighlightingOnLoad();</script>
 @yield('addJs')
 </body>
 </html>
