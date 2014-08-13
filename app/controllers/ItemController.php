@@ -32,7 +32,7 @@ class ItemController extends BaseController{
             'user_id'=>$user->id,
             'open_item_id' => $this->createOpenItemId(),
             'title'=>Input::get('title'),
-            'body'=>Input::get('body'),
+            'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES, 'UTF-8'),
             'published'=>Input::get('published')
         ));
         $item->save();

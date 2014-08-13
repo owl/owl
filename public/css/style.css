@@ -60,6 +60,11 @@ a {
     font-size: 20px;
 }
 
+.item-title {
+    margin: 0px 0px 0px;
+    font-size: 28px;
+}
+
 #contents .items {
     margin: 10px 0px;
 }
@@ -141,3 +146,40 @@ a {
 #footer p {
     text-align: center;
 }
+
+
+/*********************************************
+ * markdown
+ *********************************************/
+
+pre {
+    padding: 0px;
+}
+
+h1 {
+    padding: 3px 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 24px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    background-color: #e0e0e0;
+}
+
+h2 {
+    font-size: 22px;
+    border-bottom: solid 1px #d4d4d4;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
