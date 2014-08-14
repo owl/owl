@@ -30,17 +30,13 @@ class ItemController extends BaseController{
         $item = new Item;
         $item->fill(array(
             'user_id'=>$user->id,
-            'open_item_id' => $this->createOpenItemId(),
+            'open_item_id' => Item::createOpenItemId(),
             'title'=>Input::get('title'),
             'body'=>str_replace('<', '&lt;', Input::get('body')),
             'published'=>Input::get('published')
         ));
         $item->save();
         return Redirect::to('/'); 
-    }
-
-    private function createOpenItemId(){
-        return substr(md5(uniqid(rand(),1)),0,20);
     }
 
     public function index(){

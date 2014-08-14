@@ -8,4 +8,9 @@ class Item extends Eloquent{
     public function user() {
         return $this->belongsTo('User');
     }
+
+    public static function createOpenItemId(){
+        return substr(md5(uniqid(rand(),1)),0,20);
+    }
+
 }
