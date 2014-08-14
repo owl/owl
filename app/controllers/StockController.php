@@ -27,7 +27,14 @@ class StockController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$user = Sentry::getUser();
+
+		$openItemId = Input::get('open_item_id');
+                $item = Item::where('open_item_id',$openItemId)->first();
+
+                Stock::firstOrCreate(array('user_id'=> $user->id, 'item_id' => $item->id));
+
+		return Response::json();
 	}
 
 
@@ -37,10 +44,11 @@ class StockController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($openItemId)
 	{
-		//
-	}
+		$user = Sentry::getUser();
+                $item = Item::where('open_item_id',$openItemId)->first();
 
-
+		Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
+        }
 }

@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section ('addJs')
+{{HTML::script("/js/stock.change.js")}}$
+@stop
+
 @section('title')
 {{{$item->title}}} | Athena
 @stop
@@ -24,8 +28,21 @@
         <a onclick="confirm('本当に削除しますか？'); this.parentNode.submit();return false;" href="void()">削除</a>
         {{Form::close()}}
         <?php endif; ?>
-
     </div>
+
+
+    @if (count($stock) > 0)
+    <div class="media-sidebar">
+        <a href="javascript:void(0)" class="btn btn-success btn-block" id="unstock_id">ストックを解除する</a>
+        <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
+    </div>
+    @else
+    <div class="media-sidebar">
+        <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id">この記事をストックする</a>
+        <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
+    </div>
+    @endif
+
 </div>
 @stop
 

@@ -39,7 +39,9 @@ class ItemController extends BaseController{
     }
 
     public function show($openItemId){
-        $item = Item::where('open_item_id',$openItemId)->first();;
+        $user = Sentry::getUser();
+
+        $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null){
             App::abort(404);
         }
@@ -48,8 +50,13 @@ class ItemController extends BaseController{
         $parser = new CustomMarkdown;
         $parser->enableNewlines = true;
         $item->body = $parser->parse($item->body);
+
         $templates = Template::all();
-        return View::make('items.show', compact('item', 'templates'));
+
+        $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))
+                      ->get();
+
+        return View::make('items.show', compact('item', 'templates', 'stock'));
     }
 
     public function edit($openItemId){
