@@ -5,7 +5,7 @@
 @stop
 
 @section('title')
-{{{$item->title}}} | Athena
+{{{$item->title}}} | Owl
 @stop
 
 @section('navbar-menu')
@@ -19,7 +19,7 @@
     {{ HTML::gravator($item->user->email, 60,'mm','g','true',array('class'=>'media-object')) }}
     </a>
     <div class="media-body">
-        <p class="page-title">{{{ $item->title }}}</p>
+        <p class="item-title">{{{ $item->title }}}</p>
         <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
 
         <?php if ($item->user->id == $User->id) : ?>
@@ -48,6 +48,12 @@
 
 
 @section('contents-main')
+<?php if ($item->published === '0') : ?>
+    <div class="alert alert-warning" role="alert">この記事は非公開設定です。投稿者本人のみアクセスできます。</div>
+<?php elseif ($item->published === '1') : ?>
+    <div class="alert alert-warning" role="alert">この記事は限定公開です。URLを知っている人のみアクセスすることができます。</div>
+<?php endif; ?>
+
 <p class="page-body">{{ $item->body }}</p>
 @stop
 

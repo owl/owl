@@ -12,7 +12,7 @@ end
 
 
 # アプリケーション設定
-Capybara.app = "athena"
+Capybara.app = "owl"
 Capybara.javascript_driver = :poltergeist
 Capybara.app_host = 'http://0.0.0.0:3000'
 Capybara.run_server = false

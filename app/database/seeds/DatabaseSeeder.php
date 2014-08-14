@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder {
             DB::table('items')->truncate();
             Item::create(
                 [
+                    'open_item_id' => $this->tempid(),
                     'title' => '1回目の投稿',
                     'body' => 'This items number is 1.',
                     'user_id' => 1,
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder {
                 ]);
             Item::create(
                 [
+                    'open_item_id' => $this->tempid(),
                     'title' => '2回目の投稿',
                     'body' => 'This items number is 2.',
                     'user_id' => 1,
@@ -28,5 +30,10 @@ class DatabaseSeeder extends Seeder {
                 ]);
 
             $this->call('StockTableSeeder');
-        }
+    }
+
+    private function tempid(){
+        return substr(md5(uniqid(rand(),1)),0,20);
+    }
+
 }

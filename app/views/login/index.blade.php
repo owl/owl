@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ログイン | Athena
+ログイン | Owl
 @stop
 
 @section('contents-pagehead')

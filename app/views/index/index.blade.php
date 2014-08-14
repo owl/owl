@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Athena | TOP
+Owl | TOP
 @stop
 
 @section('navbar-menu')

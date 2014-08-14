@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-新規ユーザー登録 | Athena
+新規ユーザー登録 | Owl
 @stop
 
 @section('contents-pagehead')

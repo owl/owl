@@ -112,6 +112,15 @@
 
     {{Form::close()}}
 
+    <div class="page-header">
+        <h5>プロフィール画像設定</h5>
+    </div>
+    <p>
+        Gravatarという外部サービスを利用してEmailに紐付けられた画像を表示しています。<br/>
+        プロフィール画像を設定したい場合は、<a href="http://ja.gravatar.com/" target="_blank">こちら</a>から登録しEmailと画像を紐付けください。
+    </p>
+
+
 @stop
 
 @section('contents-sidebar')

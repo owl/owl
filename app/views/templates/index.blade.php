@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-テンプレート一覧 | Athena
+テンプレート一覧 | Owl
 @stop
 
 @section('navbar-menu')

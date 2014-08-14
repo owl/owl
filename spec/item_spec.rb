@@ -6,7 +6,7 @@ describe 'item page index', :js => true do
     it 'access item page index' do
         login
         visit "/items/"
-        page.should have_content("情報を共有しよう")
+        page.should have_content("すべての投稿")
     end
 end
 
@@ -24,7 +24,7 @@ describe 'item create', :js => true do
         testBody += "![test_image_alt6](//test.jpg \"test_image_title6\" =250x200)\n";
         fill_in('body',  :with => testBody)
         click_on('投稿')
-        click_link('Test Title')
+        click_link('Test Title', :match => :first)
         page.find(:xpath, "//img[@alt='test_image_alt1']")
         page.find(:xpath, "//img[@alt='test_image_alt2'][@title='test_image_title2']")
         page.find(:xpath, "//img[@alt='test_image_alt3'][@height='250'][@width='200']")
@@ -39,7 +39,7 @@ describe 'item delete', :js => true do
     it 'delete item' do
         login
         visit "/items/"
-        click_link('Test Title')
+        click_link('Test Title', :match => :first)
         click_link('削除')
     end
 end

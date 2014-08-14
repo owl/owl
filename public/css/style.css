@@ -1,3 +1,7 @@
+html {
+    overflow-y:scroll;
+}
+
 body {
     word-wrap: break-word;
 }
@@ -20,14 +24,21 @@ a {
 }
 
 .navbar-default .navbar-brand {
-    font-family: "Allerta","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Lobster", "Allerta","Helvetica Neue",Helvetica,Arial,sans-serif;
     float: left;
     height: 50px;
     padding: 15px 15px;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 24px;
+    line-height: 25px;
     text-shadow: 0 1.5px 0 #ffffff;
-    color: black;
+    color: #333333;
+}
+
+.navbar-default .navbar-brand-image {
+    float: left;
+    height: 50px;
+    margin-left: -15px;
+    padding: 8px 0px 8px 7px;
 }
 
 .navbar-default .navbar-nav li a {
@@ -47,6 +58,11 @@ a {
 .page-title {
     margin: 0px 0px 0px;
     font-size: 20px;
+}
+
+.item-title {
+    margin: 0px 0px 0px;
+    font-size: 28px;
 }
 
 #contents .items {
@@ -130,3 +146,40 @@ a {
 #footer p {
     text-align: center;
 }
+
+
+/*********************************************
+ * markdown
+ *********************************************/
+
+pre {
+    padding: 0px;
+}
+
+h1 {
+    padding: 3px 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 24px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    background-color: #e0e0e0;
+}
+
+h2 {
+    font-size: 22px;
+    border-bottom: solid 1px #d4d4d4;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+

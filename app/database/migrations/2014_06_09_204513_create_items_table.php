@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration {
         Schema::create('items',function($table)
         {
             $table->increments('id');
+            $table->string('open_item_id',20)->unique();
             $table->integer('user_id');
             $table->string('title',255);
             $table->text('body');

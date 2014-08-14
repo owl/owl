@@ -1,6 +1,6 @@
 {
-	"name": "athena-pjt/athena",
-	"description": "Athena Project",
+	"name": "fortkle/owl",
+	"description": "Owl is collaboration tool.",
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",

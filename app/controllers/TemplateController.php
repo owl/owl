@@ -7,6 +7,19 @@ class TemplateController extends BaseController{
     }
 
     public function store(){
+        // バリデーションルールの作成
+        $valid_rule = array(
+            'display_title' => 'required|max:255',
+            'title' => 'required|max:255',
+            'body' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        // 失敗の場合
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
         $template = new Template;
         $template->fill(array(
             'display_title'=>Input::get('display_title'),
@@ -35,6 +48,19 @@ class TemplateController extends BaseController{
     }
 
     public function update($templateId){
+        // バリデーションルールの作成
+        $valid_rule = array(
+            'display_title' => 'required|max:255',
+            'title' => 'required|max:255',
+            'body' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $valid_rule);
+
+        // 失敗の場合
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
         $template = Template::where('id',$templateId)->first();
         if ($template == null){
             App::abort(404);

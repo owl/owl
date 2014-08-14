@@ -19,7 +19,7 @@ class SignUpController extends BaseController {
     public function register(){
         // バリデーションルールの作成
         $valid_rule = array(
-            'username' => 'required|alpha_num|reserved_word|unique:users',
+            'username' => 'required|alpha_num|reserved_word|max:30|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|alpha_num|min:4'
         );

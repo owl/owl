@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-新規投稿 | Athena
+新規投稿 | Owl
 @stop
 
 @section('navbar-menu')
@@ -15,6 +15,22 @@
 @section('contents-main')
 
     <br />
+    @if($errors->has('title'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('title')}}
+    </div>
+    @endif
+    @if($errors->has('body'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('body')}}
+    </div>
+    @endif
+    @if($errors->has('published'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('published')}}
+    </div>
+    @endif
+
     {{Form::open(array('url'=>'items','class'=>'form-items'))}}
 
     <div class="form-group">

@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-すべての投稿 | Athena
+すべての投稿 | Owl
 @stop
 
 @section('navbar-menu')
     @include('layouts.navbar-menu')
+@stop
+
+@section('contents-pagehead')
+<p class="page-title">すべての投稿</p>
 @stop
 
 @section('contents-main')

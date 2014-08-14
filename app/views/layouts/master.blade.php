@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
+    <link rel="shortcut icon" href="img/favicon.ico">
     {{HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen'))}}
     {{HTML::style('css/style.css')}}
-    {{HTML::style('http://fonts.googleapis.com/css?family=Allerta')}}
+    {{HTML::style('http://fonts.googleapis.com/css?family=Lobster')}}
+    {{HTML::style('css/highight.js-8.1.github.min.css')}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,7 +28,7 @@
             <nav class="navbar navbar-default navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
-                        @yield('title_logo', '<a href="/" class="navbar-brand">Athena</a>')
+                        @yield('title_logo', '<a href="/"><img src="/img/owl_logo_mini.png" class="navbar-brand-image"><span class="navbar-brand">Owl</span></a>')
                     </div>
                     @yield('navbar-menu')
                 </div>
@@ -58,7 +60,7 @@
     <!-- footer -->
     <div id="footer">
         <div class="container">
-            <p>Powered by Athena</p>
+            <p>Powered by Owl</p>
         </div>
     </div>
     <!-- /footer -->
@@ -67,6 +69,8 @@
 
 {{HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
 {{HTML::script("/packages/bootstrap/js/bootstrap.min.js")}}
+{{HTML::script("js/highlight.js-8.1.min.js")}}
+<script>hljs.initHighlightingOnLoad();</script>
 @yield('addJs')
 </body>
 </html>

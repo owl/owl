@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{ $user->username }} | Athena
+{{ $user->username }} | Owl
 @stop
 
 @section('navbar-menu')
