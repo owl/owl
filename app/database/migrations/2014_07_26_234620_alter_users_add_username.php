@@ -14,7 +14,7 @@ class AlterUsersAddUsername extends Migration {
 	{
         Schema::table('users', function($table)
         {
-            $table->string('username')->after('id')->unique();
+            $table->string('username')->after('id')->unique()->nullable();
         });
 	}
 
