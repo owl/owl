@@ -12,6 +12,8 @@ $(function() {
         });
 
         $('#stock_id').text('ストックを解除する');
+        $('#stock_id').removeClass('btn-success');
+        $('#stock_id').addClass('btn-default');
         $('#stock_id').attr('id', 'unstock_id');
     });
     $(document).on('click', '#unstock_id', function() {
@@ -26,6 +28,8 @@ $(function() {
         });
 
         $('#unstock_id').text('この記事をストックする');
+        $('#unstock_id').removeClass('btn-default');
+        $('#unstock_id').addClass('btn-success');
         $('#unstock_id').attr('id', 'stock_id');
     });
 });
