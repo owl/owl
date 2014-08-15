@@ -13,6 +13,11 @@
 @stop
 
 @section('contents-main')
+
+<div class="page-header">
+    <h5>最近のストック</h5>
+</div>
+
 <div class="stocks">
     @foreach ($stocks as $stock)
     <div class="stock">

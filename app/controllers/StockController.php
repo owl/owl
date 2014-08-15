@@ -10,15 +10,14 @@ class StockController extends BaseController {
 	public function index()
 	{
 		$user = Sentry::getUser();
-		$stocks = Stock::with('user')->with('item')
-                                ->where('user_id', $user->id)
-				->orderBy('id','desc')
-				->get();
-		$templates = Template::all();
+        $stocks = Stock::with('user')->with('item')
+                    ->where('user_id', $user->id)
+                    ->orderBy('id','desc')
+                    ->paginate(10);
 
+		$templates = Template::all();
 		return View::make('stocks.index', compact('stocks', 'templates'));
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
