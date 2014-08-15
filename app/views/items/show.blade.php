@@ -33,7 +33,7 @@
 
     @if (count($stock) > 0)
     <div class="media-sidebar">
-        <a href="javascript:void(0)" class="btn btn-success btn-block" id="unstock_id">ストックを解除する</a>
+        <a href="javascript:void(0)" class="btn btn-default btn-block" id="unstock_id">ストックを解除する</a>
         <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
     </div>
     @else

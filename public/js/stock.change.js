@@ -11,7 +11,7 @@ $(function() {
             }
         });
 
-        $('#stock_id').text('ストックを解除');
+        $('#stock_id').text('ストックを解除する');
         $('#stock_id').attr('id', 'unstock_id');
     });
     $(document).on('click', '#unstock_id', function() {
