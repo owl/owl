@@ -14,7 +14,6 @@ before_script:
   - composer install
   - bundle config build.nokogiri --use-system-libraries
   - bundle install --path vendor/bundle
-  - mysql -e 'create database athena;'
   - php artisan migrate --package=cartalyst/sentry
   - php artisan migrate
   - php artisan db:seed

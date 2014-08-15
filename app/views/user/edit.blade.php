@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ユーザー情報変更 | Athena
+ユーザー情報変更 | Owl
 @stop
 
 @section('navbar-menu')

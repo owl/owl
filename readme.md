@@ -1,10 +1,10 @@
-# Athena Project [![Build Status](https://travis-ci.org/fortkle/athena.svg?branch=master)](https://travis-ci.org/fortkle/athena)
+# Owl Project [![Build Status](https://travis-ci.org/fortkle/owl.svg?branch=master)](https://travis-ci.org/fortkle/owl)
 
 ## Concept
-Athena is a simple team collaboration tool.  
+Owl is a simple team collaboration tool.  
 
 ## Release Scheduled
-2014/8/15  
+2014/8/15(beta)  
 
 ## Development setup
 1.composer   
@@ -13,21 +13,15 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install  
 ```
 
-2.database settings  
-application/config/database.php  
-
-3.initialization  
+2.initialization  
 ```
-// Sentry
-php artisan migrate --package=cartalyst/sentry  
-
 // migration
 php artisan migrate
 php artisan db:seed
 ```
-migration
+
+3.Start
 ```
-cd athena
 php artisan serve --host 0.0.0.0 --port 3000
 ```
 access http://localhost:3000  
