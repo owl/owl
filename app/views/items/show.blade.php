@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section ('addJs')
-{{HTML::script("/js/stock.change.js")}}$
+{{HTML::script("/js/stock.change.js")}}
 @stop
 
 @section('title')
