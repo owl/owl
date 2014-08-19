@@ -26,6 +26,7 @@
         <p><a href="{{ action('ItemController@show', $stock->open_item_id) }}"><strong>{{{ $stock->title }}}</strong></a></p>
     </div>
     @endforeach
+    <?php echo $stocks->links(); ?>
 </div>
 @stop
 
