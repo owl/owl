@@ -2,6 +2,7 @@
 
 @section ('addJs')
 {{HTML::script("/js/stock.change.js")}}
+{{HTML::script("/js/like.change.js")}}
 @stop
 
 @section('title')
@@ -59,6 +60,14 @@
 <?php endif; ?>
 
 <p class="page-body">{{ $item->body }}</p>
+
+
+@if (count($like) > 0)
+    <a href="javascript:void(0)" id="dislike_id" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！を取り消す</a>
+@else
+    <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a>
+@endif
+
 @stop
 
 @section('contents-sidebar')

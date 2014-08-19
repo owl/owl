@@ -88,7 +88,7 @@ class CustomValidator extends Illuminate\Validation\Validator {
             'dict','version','ver','gift','alpha','beta','tux','year',
             'public','private','default','request','req','data','master',
             'die','exit','eval','issue','thread','diagram','undef','nan',
-            'null','empty','0','templates','items'
+            'null','empty','0','templates','items','likes','stocks'
 );
 
         foreach($words as $word) {
