@@ -21,6 +21,8 @@ class ItemFts extends Eloquent{
               users us ON it.user_id = us.id
             WHERE
               fts.words MATCH :match
+            ORDER BY
+              it.updated_at DESC
             LIMIT 
               $limit 
             OFFSET
