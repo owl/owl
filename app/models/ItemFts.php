@@ -22,7 +22,7 @@ class ItemFts extends Eloquent{
             WHERE
               fts.words MATCH :match
             ORDER BY
-              it.updated_at DESC
+              it.updated_at DESC, it.id DESC
             LIMIT 
               $limit 
             OFFSET

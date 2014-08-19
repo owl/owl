@@ -13,7 +13,7 @@ class CreateFullTextSearchRelatedTables extends Migration {
 	public function up()
 	{
 		//
-        DB::statement('CREATE VIRTUAL TABLE items_fts USING fts4(item_id, words);');
+        DB::statement('CREATE VIRTUAL TABLE items_fts USING fts3(item_id, words);');
         $items = Item::get();
         foreach($items as $item){
             $fts = new ItemFts;
