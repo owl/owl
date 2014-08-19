@@ -18,7 +18,7 @@ class CreateFullTextSearchRelatedTables extends Migration {
         foreach($items as $item){
             $fts = new ItemFts;
             $fts->item_id = $item->id;
-            $fts->words = NGram::convert($item->title . " " . $item->body);
+            $fts->words = NGram::convert($item->title . "\n\n" . $item->body);
             $fts->save();
         }
 	}

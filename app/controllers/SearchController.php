@@ -16,6 +16,22 @@ class SearchController extends BaseController{
         return View::make('search.index', compact('results', 'q', 'templates', 'pagination'));
     }
 
+    public function json(){
+        $q = Input::get('q');
+        $items = ItemFts::match($q, $this->_perPage);
+        
+        $json = array();
+        foreach($items as $item){
+            $json[] = array('title' => $item->title, 'url' => '://'.$_SERVER['HTTP_HOST'].'/item/'.$item->open_item_id);
+        }
+
+        return Response::json(array(
+            'list' => $json,
+            200
+        ));
+    }
+
+
     private function calcOffset($page){
         if(empty($page))
             return 0;
