@@ -31,6 +31,7 @@ Route::group(array('before' => 'sentry'), function() {
     Route::resource('items', 'ItemController');
     Route::resource('templates', 'TemplateController');
     Route::resource('stocks', 'StockController');
+    Route::resource('likes', 'LikeController');
 
     // Users
     Route::get('user/edit', array('uses' => 'UserController@edit'));
