@@ -28,7 +28,7 @@ class ItemFts extends Eloquent{
             OFFSET
               $offset 
 __SQL__;
-        return DB::select( DB::raw($query), array( 'match' => NGram::convert($str)));
+        return DB::select( DB::raw($query), array( 'match' => self::createMatchWord($str) ));
     }
 
     public static function matchCount($str){
@@ -40,7 +40,16 @@ __SQL__;
             WHERE
               fts.words MATCH :match
 __SQL__;
-        return DB::select( DB::raw($query), array( 'match' => NGram::convert($str)));
+        return DB::select( DB::raw($query), array( 'match' => self::createMatchWord($str) ));
+    }
+
+    private static function createMatchWord($word){
+        $searchWords = array();
+        $words = explode(" ", trim($word));
+        foreach($words as $word){
+            $searchWords[] = NGram::convert($word);
+        }
+        return implode(' ',$searchWords);
     }
 
 
