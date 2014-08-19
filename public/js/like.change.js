@@ -15,9 +15,9 @@ $(function() {
         $('#like_id').html("<span class=\"glyphicon glyphicon-thumbs-up\"></span> いいね！を取り消す");
         $('#like_id').removeClass('btn-primary');
         $('#like_id').addClass('btn-default');
-        $('#like_id').attr('id', 'dislike_id');
+        $('#like_id').attr('id', 'unlike_id');
     });
-    $(document).on('click', '#dislike_id', function() {
+    $(document).on('click', '#unlike_id', function() {
         var open_id = $("#open_id").val();
         $.ajax({
             type:"POST",
@@ -28,9 +28,9 @@ $(function() {
             }
         });
 
-        $('#dislike_id').html("<span class=\"glyphicon glyphicon-thumbs-up\"></span> いいね！");
-        $('#dislike_id').removeClass('btn-default');
-        $('#dislike_id').addClass('btn-primary');
-        $('#dislike_id').attr('id', 'like_id');
+        $('#unlike_id').html("<span class=\"glyphicon glyphicon-thumbs-up\"></span> いいね！");
+        $('#unlike_id').removeClass('btn-default');
+        $('#unlike_id').addClass('btn-primary');
+        $('#unlike_id').attr('id', 'like_id');
     });
 });
