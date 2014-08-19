@@ -138,15 +138,19 @@ class ItemController extends BaseController{
     }
 
     private function insertFts($item_id, $title, $body){
-            $fts = new ItemFts;
-            $fts->item_id = $item_id;
-            $fts->words = NGram::convert($title . " " . $body);
-            $fts->save();
+        $fts = new ItemFts;
+        $fts->item_id = $item_id;
+        $fts->words = $this->itemToNgram($title, $body);
+        $fts->save();
     }
     private function updateFts($item_id, $title, $body){
-            $fts = ItemFts::where('item_id', $item_id)->update(array('words' => NGram::convert($title . " " . $body)));
+        $fts = ItemFts::where('item_id', $item_id)->update(array('words' => $this->itemToNgram($title, $body)));
     }
     private function deleteFts($item_id){
-            $fts = ItemFts::where('item_id', $item_id)->delete();
+        $fts = ItemFts::where('item_id', $item_id)->delete();
+    }
+
+    private function itemToNgram($title, $body){
+        return NGram::convert($title . "\n\n" . $body);
     }
 }

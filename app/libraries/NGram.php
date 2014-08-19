@@ -9,6 +9,7 @@ class NGram{
      */
     public static function convert($str, $n = 2){
         $res = array();
+        $str = self::removeTag($str);
         $str = self::stripCrLf($str);
         $len = mb_strlen($str, 'UTF8');
     
@@ -29,5 +30,10 @@ class NGram{
         return preg_replace("/[\r\n]+/", "", $str);
     }
 
+    private static function removeTag($str){
+        $parser = new CustomMarkdown;
+        $parser->enableNewlines = true;
+        return strip_tags($parser->parse($str));
+    }
 
 }
