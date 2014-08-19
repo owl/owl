@@ -147,6 +147,20 @@ a {
     text-align: center;
 }
 
+/**********
+ * search result
+ */
+p.page-title span.search-word {
+    background-color: #EFE2E1;
+    color: #ED4512;
+    padding:4px;
+}
+
+div.noresults{
+    margin:10px 4px;
+    font-size:16px;
+}
+
 
 /*********************************************
  * markdown

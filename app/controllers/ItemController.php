@@ -36,6 +36,7 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+        $this->insertFts($item->id, Input::get('title'), Input::get('body'));
         return Redirect::to('/'); 
     }
 
@@ -116,6 +117,7 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+        $this->updateFts($item->id, Input::get('title'), Input::get('body'));
         return Redirect::route('items.show',[$openItemId]);
     }
 
@@ -131,6 +133,20 @@ class ItemController extends BaseController{
             App::abort(404);
         }
         Item::where('open_item_id',$openItemId)->delete();
+        $this->deleteFts($item->id);
         return Redirect::route('items.index');
+    }
+
+    private function insertFts($item_id, $title, $body){
+            $fts = new ItemFts;
+            $fts->item_id = $item_id;
+            $fts->words = NGram::convert($title . " " . $body);
+            $fts->save();
+    }
+    private function updateFts($item_id, $title, $body){
+            $fts = ItemFts::where('item_id', $item_id)->update(array('words' => NGram::convert($title . " " . $body)));
+    }
+    private function deleteFts($item_id){
+            $fts = ItemFts::where('item_id', $item_id)->delete();
     }
 }

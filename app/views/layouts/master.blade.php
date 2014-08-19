@@ -30,6 +30,12 @@
                     <div class="navbar-header">
                         @yield('title_logo', '<a href="/"><img src="/img/owl_logo_mini.png" class="navbar-brand-image"><span class="navbar-brand">Owl</span></a>')
                     </div>
+                    <form class="navbar-form navbar-left" role="search" method="GET" action="/search">
+                        <div class="form-group">
+                            <input name="q" value="{{isset($q)? $q : ''}}" type="text" class="form-control" placeholder="Search">
+                        </div>
+                    <button type="submit" class="btn btn-default">検索</button>
+                    </form>
                     @yield('navbar-menu')
                 </div>
             </nav>
