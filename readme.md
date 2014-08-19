@@ -3,9 +3,6 @@
 ## Concept
 Owl is a simple team collaboration tool.  
 
-## Release Scheduled
-2014/8/15(beta)  
-
 ## Development setup
 1.composer   
 ```
@@ -13,14 +10,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install  
 ```
 
-2.initialization  
-```
-// migration
-php artisan migrate
-php artisan db:seed
-```
-
-3.Start
+2.Start
 ```
 php artisan serve --host 0.0.0.0 --port 3000
 ```
