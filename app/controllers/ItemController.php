@@ -136,4 +136,5 @@ class ItemController extends BaseController{
         Item::where('open_item_id',$openItemId)->delete();
         return Redirect::route('items.index');
     }
+
 }
