@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{$q}}の検索結果 | Owl
+{{$q}}{{ $q === "" ? "":"の"}}検索結果 | Owl
 @stop
 
 @section('navbar-menu')
@@ -9,7 +9,11 @@
 @stop
 
 @section('contents-pagehead')
+@if (is_null($q) || $q === "") 
+<p class="page-title">検索ワードが設定されていません。</p>
+@else
 <p class="page-title"><span class='search-word'>{{$q}}</span>の検索結果</p>
+@endif
 @stop
 
 @section('contents-main')
@@ -30,7 +34,7 @@
     </div>
     @else
     <div class="noresults">
-    検索結果は見つかりませんでした。クエリを変えて再度検索して下さい。
+    検索結果は見つかりませんでした。検索ワードを変えて再度検索して下さい。
     </div> 
     @endif
 @stop
