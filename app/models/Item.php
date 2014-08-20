@@ -22,7 +22,7 @@ class Item extends Eloquent{
         ItemFts::where('item_id', $this->id)->delete();
         $fts = new ItemFts;
         $fts->item_id = $this->id;
-        $fts->words = $this->itemToNgram($this->title, $this->body);
+        $fts->words = $this->toNgram($this->title, $this->body);
         $fts->save();
 
         return $ret;
@@ -36,7 +36,7 @@ class Item extends Eloquent{
     }
 
 
-    private function itemToNgram($title, $body){
-        return NGram::convert($title . "\n\n" . $body);
+    private function toNgram($title, $body){
+        return FtsUtils::toNgram($title . "\n\n" . $body);
     }
 }

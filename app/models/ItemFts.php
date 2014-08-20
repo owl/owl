@@ -47,7 +47,7 @@ __SQL__;
         $searchWords = array();
         $words = explode(" ", trim($word));
         foreach($words as $word){
-            $searchWords[] = NGram::convert($word);
+            $searchWords[] = FtsUtils::toNgram($word);
         }
         return implode(' ',$searchWords);
     }
