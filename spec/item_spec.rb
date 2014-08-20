@@ -51,6 +51,30 @@ describe 'item update', :js => true do
     end
 end
 
+describe 'item detail page', :js => true do
+    it 'click like button' do
+        login
+        visit "/items/"
+        click_link('Update Test', :match => :first)
+        click_link('いいね！', :match => :first)
+        visit current_path
+
+        page.should have_css("#unlike_id")
+    end
+end
+
+describe 'item detail page', :js => true do
+    it 'click like button for dislike' do
+        login
+        visit "/items/"
+        click_link('Update Test', :match => :first)
+        click_link('いいね！を取り消す', :match => :first)
+        visit current_path
+
+        page.should have_css("#like_id")
+    end
+end
+
 describe 'item delete', :js => true do
     it 'delete item' do
         login
