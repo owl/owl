@@ -17,20 +17,28 @@ class SearchController extends BaseController{
     }
 
     public function json(){
-        $q = Input::get('q');
+        return Response::json(array(
+            'list' => $this->jsonResults(Input::get('q')),
+            200
+        ));
+    }
+
+    public function jsonp(){
+        return Response::json(array(
+            'list' => $this->jsonResults(Input::get('q')),
+            200
+        ))->setCallback(Input::get('callback'));;
+    }
+
+    private function jsonResults($q){
         $items = ItemFts::match($q, $this->_perPage);
         
         $json = array();
         foreach($items as $item){
             $json[] = array('title' => $item->title, 'url' => '://'.$_SERVER['HTTP_HOST'].'/item/'.$item->open_item_id);
         }
-
-        return Response::json(array(
-            'list' => $json,
-            200
-        ));
+        return $json;
     }
-
 
     private function calcOffset($page){
         if(empty($page))
