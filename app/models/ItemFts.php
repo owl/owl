@@ -16,7 +16,7 @@ class ItemFts extends Eloquent{
             FROM
               items_fts fts 
             INNER JOIN
-              items it ON it.id = fts.item_id 
+              items it ON it.id = fts.item_id AND it.published = 2
             INNER JOIN
               users us ON it.user_id = us.id
             WHERE
@@ -37,6 +37,8 @@ __SQL__;
               COUNT(*) as count
             FROM
               items_fts fts 
+            INNER JOIN
+              items it ON it.id = fts.item_id AND it.published = 2
             WHERE
               fts.words MATCH :match
 __SQL__;
