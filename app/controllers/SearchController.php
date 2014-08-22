@@ -35,7 +35,7 @@ class SearchController extends BaseController{
         
         $json = array();
         foreach($items as $item){
-            $json[] = array('title' => $item->title, 'url' => '://'.$_SERVER['HTTP_HOST'].'/item/'.$item->open_item_id);
+            $json[] = array('title' => $item->title, 'url' => '://'.$_SERVER['HTTP_HOST'].'/items/'.$item->open_item_id);
         }
         return $json;
     }
