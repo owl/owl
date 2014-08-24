@@ -50,8 +50,11 @@ class ItemController extends BaseController{
 
     public function show($openItemId){
         $user = Sentry::getUser();
-
         $item = Item::where('open_item_id',$openItemId)->first();
+
+        $like_users = Item::with('like.user')
+                        ->where('id', $item->id)
+                        ->first();
 
         if ($item->published === '0' && $item->user_id !== $user->id){
             App::abort(404);
@@ -62,15 +65,12 @@ class ItemController extends BaseController{
         $parser->enableNewlines = true;
         $item->body = $parser->parse($item->body);
 
+
+        $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
+        $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
+
         $templates = Template::all();
-
-        $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))
-                      ->get();
-
-        $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))
-                      ->get();
-
-        return View::make('items.show', compact('item', 'templates', 'stock', 'like'));
+        return View::make('items.show', compact('item', 'templates', 'stock', 'like', 'like_users'));
     }
 
     public function edit($openItemId){

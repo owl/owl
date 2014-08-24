@@ -1,3 +1,6 @@
+/*
+ * General
+ */
 html {
     overflow-y:scroll;
 }
@@ -10,9 +13,17 @@ a {
     color: #4eb691;
 }
 
+/*
+ * Layout
+ */
+
 .container {
     max-width: 980px;
 }
+
+/*
+ * navbar
+ */
 
 .navbar {
     margin-bottom: 0px;
@@ -46,6 +57,10 @@ a {
     text-shadow: 0 1.5px 0 #ffffff;
 }
 
+/*
+ * pagehead
+ */
+
 #pagehead {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -64,6 +79,10 @@ a {
     margin: 0px 0px 0px;
     font-size: 28px;
 }
+
+/*
+ * contents
+ */
 
 #contents .items {
     margin: 10px 0px;
@@ -132,10 +151,34 @@ a {
     border-color: #4cae4c;
 }
 
+.like-area {
+    margin-top: 30px;
+}
+
+.like-area .like-area-button .btn {
+    margin-right: 10px;
+}
+
+.like-area .like-area-icon {
+    margin-top: 5px;
+}
+
+.like-area .like-area-icon img {
+    float: left;
+    margin-right: 1px;
+}
+
+/*
+ * sidebar
+ */
+
 #sidebar .btn {
     margin: 10px 0px;
 }
 
+/*
+ * footer
+ */
 
 #footer .container {
     margin-top: 40px;
@@ -147,10 +190,9 @@ a {
     text-align: center;
 }
 
-
-/*********************************************
+/*
  * markdown
- *********************************************/
+ */
 
 pre {
     padding: 0px;

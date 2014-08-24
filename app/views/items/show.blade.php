@@ -63,9 +63,27 @@
 
 
 @if (count($like) > 0)
-    <a href="javascript:void(0)" id="unlike_id" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！を取り消す</a>
+<div class="like-area">
+    <div class="like-area-button">
+        <a href="javascript:void(0)" id="unlike_id" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！を取り消す</a>{{ count($like_users->like) }}人がいいね！と言っています。
+    </div>
+    <div class="like-area-icon">
+        @foreach ($like_users->like as $like_user)
+            {{ HTML::gravator($like_user->user->email, 20,'mm','g','true',array('class'=>'media-object', 'title' => $like_user->user->username)) }}
+        @endforeach
+    </div>
+</div>
 @else
-    <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a>
+<div class="like-area">
+    <div class="like-area-button">
+        <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a>{{ count($like_users->like) }}人がいいね！と言っています。
+    </div>
+    <div class="like-area-icon">
+        @foreach ($like_users->like as $like_user)
+            {{ HTML::gravator($like_user->user->email, 20,'mm','g','true',array('class'=>'media-object', 'title' => $like_user->user->username)) }}
+        @endforeach
+    </div>
+</div>
 @endif
 
 @stop
