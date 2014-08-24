@@ -65,7 +65,7 @@
 @if (count($like) > 0)
 <div class="like-area">
     <div class="like-area-button">
-        <a href="javascript:void(0)" id="unlike_id" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！を取り消す</a>{{ count($like_users->like) }}人がいいね！と言っています。
+        <a href="javascript:void(0)" id="unlike_id" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！を取り消す</a><span id="like_count">{{ count($like_users->like) }}</span>人がいいね！と言っています。
     </div>
     <div class="like-area-icon">
         @foreach ($like_users->like as $like_user)
@@ -76,7 +76,7 @@
 @else
 <div class="like-area">
     <div class="like-area-button">
-        <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a>{{ count($like_users->like) }}人がいいね！と言っています。
+        <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a><span id="like_count">{{ count($like_users->like) }}</span>人がいいね！と言っています。
     </div>
     <div class="like-area-icon">
         @foreach ($like_users->like as $like_user)
