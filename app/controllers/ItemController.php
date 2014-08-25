@@ -51,7 +51,7 @@ class ItemController extends BaseController{
     public function show($openItemId){
         $user = Sentry::getUser();
 
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
 
         if ($item->published === '0' && $item->user_id !== $user->id){
             App::abort(404);

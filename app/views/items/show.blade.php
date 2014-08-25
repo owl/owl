@@ -3,6 +3,7 @@
 @section ('addJs')
 {{HTML::script("/js/stock.change.js")}}
 {{HTML::script("/js/like.change.js")}}
+{{HTML::script("/js/comment.create.js")}}
 @stop
 
 @section('title')
@@ -67,6 +68,16 @@
 @else
     <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a>
 @endif
+
+<div id="comment_container">
+@if (count($item->comment) >0)
+    @foreach ($item->comment as $comment)
+        @include('comment.body')
+    @endforeach
+@endif
+</div>
+
+@include('comment.form')
 
 @stop
 
