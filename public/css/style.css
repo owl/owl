@@ -7,6 +7,8 @@ html {
 
 body {
     word-wrap: break-word;
+    color: #4a4a4a;
+    font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
 
 a {
@@ -213,13 +215,17 @@ pre {
     padding: 0px;
 }
 
+hr {
+    border-top: 1px solid #bbb;
+}
+
 h1 {
     padding: 3px 10px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     font-size: 24px;
-    text-shadow: 0 1px 0 #FFFFFF;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
     background-color: #e0e0e0;
 }
 
@@ -229,6 +235,7 @@ h2 {
 }
 
 h3 {
+    font-weight: bold;
     font-size: 18px;
 }
 
