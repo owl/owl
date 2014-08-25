@@ -13,13 +13,13 @@ class UserController extends BaseController{
             $items = Item::with('user')
                         ->where('user_id', $user->id)
                         ->orderBy('id','desc')
-                        ->paginate(3);
+                        ->paginate(10);
         } else {
             $items = Item::with('user')
                         ->where('published', '2')
                         ->where('user_id', $user->id)
                         ->orderBy('id','desc')
-                        ->paginate(3);
+                        ->paginate(10);
         }
 
         $templates = Template::all();
