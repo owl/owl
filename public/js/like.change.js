@@ -2,6 +2,7 @@ $(function() {
     $(document).on('click', '#like_id', function() {
 
         var open_id = $("#open_id").val();
+        var like_count = $("#like_count").text();
 
         $.ajax({
             type:"POST",
@@ -16,9 +17,11 @@ $(function() {
         $('#like_id').removeClass('btn-primary');
         $('#like_id').addClass('btn-default');
         $('#like_id').attr('id', 'unlike_id');
+        $('#like_count').html( parseInt(like_count) + 1);
     });
     $(document).on('click', '#unlike_id', function() {
         var open_id = $("#open_id").val();
+        var like_count = $("#like_count").text();
         $.ajax({
             type:"POST",
             url:"/likes/" + open_id,
@@ -32,5 +35,6 @@ $(function() {
         $('#unlike_id').removeClass('btn-default');
         $('#unlike_id').addClass('btn-primary');
         $('#unlike_id').attr('id', 'like_id');
+        $('#like_count').html( parseInt(like_count) - 1);
     });
 });

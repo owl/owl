@@ -9,6 +9,10 @@ class Item extends Eloquent{
         return $this->belongsTo('User');
     }
 
+    public function like(){
+        return $this->hasMany('Like');
+    }
+
     public static function createOpenItemId(){
         return substr(md5(uniqid(rand(),1)),0,20);
     }
