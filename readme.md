@@ -2,6 +2,9 @@
 
 ## Concept
 Owl is a simple team collaboration tool.  
+This software is released under the MIT License, see LICENSE.txt.
+
+![screenshot](https://raw.githubusercontent.com/wiki/fortkle/owl/images/owl_screenshot.png)
 
 ## Development setup
 1.composer   
