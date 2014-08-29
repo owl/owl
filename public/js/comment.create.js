@@ -14,7 +14,6 @@ $(function() {
     });
     $(document).on('click', '.comment-delete', function() {
         var obj = $(this).closest('div.comment'); 
-        alert(obj.find('.comment-id').val());
         $.ajax({
             type:"POST",
             url:"/comment/destroy",
