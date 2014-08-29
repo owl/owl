@@ -18,6 +18,14 @@ class CommentController extends BaseController{
     }
 
     public function update(){
+        $comment = Comment::find(Input::get('id'));
+        $comment->body = Input::get('body');
+        $comment->save();
+
+        $user = Sentry::findUserById($comment->user_id);
+        $comment->user->username = $user->username;
+        $comment->user->email = $user->email;
+        return View::make('comment.body', compact('comment'));
 
     }
 

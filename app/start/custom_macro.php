@@ -14,3 +14,11 @@ HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = tr
     }
     return $url;
 });
+
+
+HTML::macro('markdown', function($str)
+{
+    $parser = new CustomMarkdown;
+    $parser->enableNewlines = true;
+    return $parser->parse($str);
+});
