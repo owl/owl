@@ -1,5 +1,5 @@
 $(function() {
-    $(document).on('submit', '#comment', function() {
+    $(document).on('submit', '#comment-form', function() {
         $.ajax({
             type:"POST",
             url:"/comment/create",
@@ -11,5 +11,32 @@ $(function() {
             }
         });
 
+    });
+    $(document).on('click', '.comment-delete', function() {
+        var obj = $(this).closest('div.comment'); 
+        $.ajax({
+            type:"POST",
+            url:"/comment/destroy",
+            data:{"id": $(this).prev('.comment-delete').val()},
+
+            success: function(msg){
+                obj.hide();
+            }
+        });
+    });
+    $(document).on('click', '.start-edit', function() {
+        alert('hoge');
+    });
+    $(document).on('click', '.comment-edit', function() {
+        var obj = $(this).closest('div.comment'); 
+        $.ajax({
+            type:"POST",
+            url:"/comment/destroy",
+            data:{"id": $(this).prev('.comment-delete').val()},
+
+            success: function(msg){
+                obj.hide();
+            }
+        });
     });
 });

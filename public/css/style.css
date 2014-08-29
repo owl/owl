@@ -203,48 +203,46 @@ h5 {
  ******/
 
     
-#comment_container {
-    margin-top:15px;
+div.comment_container {
     border-top:1px solid #CCCCCC;
 }
 
-#comment {
-    margin-top:15px;
+div.comment {
+    padding-top:10px;
 }
 
-#comment div.media-body div.left {
+div.comment div.media-body div.left {
     float:left;
 }
 
-#comment div.media-body div.left #inside{
+div.comment div.media-body div.left #inside{
     margin-top:5px;
 }
 
-#comment div.media-body div.right {
+div.comment div.media-body div.right {
     text-align:right;
     font-size:13px;
     color:#888888;
 }
-#comment div.media-body div.right a{
+div.comment div.media-body div.right a{
     color:#888888;
 }
 
-#comment div.body {
+div.comment div.body {
     clear:both;
     margin-top:12px;
-    margin-bottom:5px;
 }
 
 
 
-#comment .arrow_box {
+div.comment .arrow_box {
     position: relative;
     background: #ffffff;
     border: 1px solid #CCCCCC;
     border-bottom: 2px solid #CCCCCC;
     padding:15px 8px;
 }
-#comment .arrow_box:after, .arrow_box:before {
+div.comment .arrow_box:after, .arrow_box:before {
     bottom: 100%;
     left: 20px;
     border: solid transparent;
@@ -255,13 +253,13 @@ h5 {
     pointer-events: none;
 }
 
-#comment .arrow_box:after {
+div.comment .arrow_box:after {
     border-color: rgba(255, 255, 255, 0);
     border-bottom-color: #ffffff;
     border-width: 6px;
     margin-left: -6px;
 }
-#comment .arrow_box:before {
+div.comment .arrow_box:before {
     border-color: rgba(170, 170, 170, 0);
     border-bottom-color: #CCCCCC;
     border-width: 7px;
