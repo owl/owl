@@ -86,6 +86,7 @@
     </div>
 </div>
 @endif
+<div style='clear:both;'></div>
 
 <div id="comment_container">
 @if (count($item->comment) >0)
