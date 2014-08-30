@@ -1,4 +1,6 @@
+@if (!isset($needContainerDiv))
 <div class="media comment">
+@endif
   <a class="pull-left" href="/{{{$comment->user->username}}}">
     {{ HTML::gravator($comment->user->email, 40,'mm','g','true',array('class'=>'media-object')) }}
   </a>
@@ -41,4 +43,6 @@
     @endif
       {{Form::close()}}
   </div>
+@if (!isset($needContainerDiv))
 </div>
+@endif
