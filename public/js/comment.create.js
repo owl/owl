@@ -3,7 +3,7 @@ $(function() {
         $.ajax({
             type:"POST",
             url:"/comment/create",
-            data:{"open_item_id": this.open_item_id.value, "user_id": this.user_id.value, "body": this.body.value},
+            data:{"open_item_id": this.open_item_id.value, "body": this.body.value},
 
             success: function(msg){
                 $('#comment_container').append(msg);
@@ -20,6 +20,7 @@ $(function() {
             data:{"id": obj.find('.comment-id').val()},
 
             success: function(msg){
+
                 obj.hide();
             }
         });
