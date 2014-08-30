@@ -11,6 +11,7 @@ class Item extends Eloquent{
 
     public function like(){
         return $this->hasMany('Like');
+    }
 
     public function comment(){
         return $this->hasMany('Comment');
