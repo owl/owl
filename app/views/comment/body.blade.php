@@ -8,7 +8,7 @@
     <div class='left'>
       <div id="inside">
         <h4 class="media-heading title-username" ><a class="pull-left" href="/{{{$comment->user->username}}}">{{$comment->user->username}}</a></h4>
-        <h4 class="media-heading title-onedit" style="font-weight:bold;display:none;">コメントを編集する</h4>
+        <h4 class="media-heading title-onedit">コメントを編集する</h4>
       </div>
     </div>
     <div class="right">
@@ -28,14 +28,14 @@
     {{HTML::markdown($comment->body)}}
     </div>
     @if ($comment->user_id === $User->id)
-    <div class="comment-edit" style='display:none'>
-      <div style="margin-top:25px;">
+    <div class="comment-edit">
+      <div class="form">
       {{Form::open(array('url'=>'comment/update', 'onsubmit' => 'return false;'))}}
         {{Form::hidden('comment-id', $comment->id, array('class' => 'comment-id'))}}
         {{Form::textarea('body', $comment->body ,array('class'=>'form-control comment-edit-body', 'rows'=>'5'))}}
         {{Form::hidden('orig_comment', $comment->body, array('class' => 'orig_comment'))}}
       </div>
-      <div style="text-align:right;margin-top:5px;">
+      <div class="button">
         {{Form::button('キャンセル',array('class'=>'edit-cancel btn'))}}
         {{Form::submit('編集',array('class'=>'edit-confirm btn'))}}
       </div>

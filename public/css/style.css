@@ -283,7 +283,23 @@ div.comment div.body {
     margin-top:12px;
 }
 
+div.comment h4.title-onedit {
+    font-weight:bold;
+    display:none;
+}
 
+div.comment div.comment-edit {
+    display:none;
+}
+
+div.comment div.comment-edit div.form {
+    margin-top:25px;
+}
+
+div.comment div.comment-edit div.button {
+    text-align:right;
+    margin-top:5px;
+}
 
 div.comment .arrow_box {
     position: relative;
