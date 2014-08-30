@@ -12,13 +12,20 @@
     <div class="right">
       <div><?php echo date('Y/m/d H:i', strtotime($comment->updated_at)); ?></div>
       
-      <div><a href="javascript:void(0)" class="start-edit">編集</a>・<a href="javascript:void(0)" class="comment-delete" value="anonakami">削除</a></div>
+      <div>
+        @if ($comment->user_id === $User->id)
+        <a href="javascript:void(0)" class="start-edit">編集</a>・<a href="javascript:void(0)" class="comment-delete" value="anonakami">削除</a>
+        @else
+         　 
+        @endif
+      </div>
     </div>
   </div>
   <div class="body">
     <div class="arrow_box">
     {{HTML::markdown($comment->body)}}
     </div>
+    @if ($comment->user_id === $User->id)
     <div class="comment-edit" style='display:none'>
       <div style="margin-top:25px;">
       {{Form::open(array('url'=>'comment/update','class'=>'edit-confirm', 'onsubmit' => 'return false;'))}}
@@ -31,6 +38,7 @@
         {{Form::submit('編集',array('class'=>'btn'))}}
       </div>
     </div>
+    @endif
       {{Form::close()}}
   </div>
 </div>

@@ -11,7 +11,6 @@
     {{Form::open(array('url'=>'comment/create','class'=>'form-comments', 'id'=>'comment-form', 'onsubmit' => 'return false;'))}}
         {{Form::textarea('body', '' ,array('class'=>'form-control', 'rows'=>'5', 'id' => 'comment_text', 'placeholder' => 'コメントを入力して下さい。'))}}
         {{Form::hidden('open_item_id',$item->open_item_id)}}
-        {{Form::hidden('user_id', $User->id)}}
   </div>
   <div style="text-align:right">
         {{Form::submit('投稿する',array('class'=>'btn'))}}
