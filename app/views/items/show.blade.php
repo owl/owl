@@ -60,7 +60,7 @@
     <div class="alert alert-warning" role="alert">この記事は限定公開です。URLを知っている人のみアクセスすることができます。</div>
 <?php endif; ?>
 
-<p class="page-body">{{ $item->body }}</p>
+<div class="page-body">{{ $item->body }}</div>
 
 
 @if (count($like) > 0)
@@ -88,7 +88,8 @@
 @endif
 <div style='clear:both;'></div>
 
-<div id="comment_container">
+<div id="comment-container">
+<hr>
 @if (count($item->comment) >0)
     @foreach ($item->comment as $comment)
         @include('comment.body')

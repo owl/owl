@@ -6,8 +6,8 @@ $(function() {
             data:{"open_item_id": this.open_item_id.value, "body": this.body.value},
 
             success: function(msg){
-                $('#comment_container').append(msg);
-                $('#comment_text').val("");
+                $('#comment-container').append(msg);
+                $('#comment-text').val("");
             }
         });
 

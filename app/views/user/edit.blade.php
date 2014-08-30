@@ -33,7 +33,7 @@
     {{Form::open(array('url'=>'user/edit', 'class' => 'form-horizontal', 'method'=>'PUT'))}}
 
     <div class="form-group">
-        {{Form::label('username', 'ユーザ名', array('class' => 'col-sm-2 control-label'))}}
+        {{Form::label('username', 'ユーザ名', array('class' => 'col-sm-3 control-label'))}}
         <div class="col-sm-4">
             {{Form::text('username',$User->username,array('class' => 'form-control'))}}
         </div>
@@ -47,7 +47,7 @@
     @endif
 
     <div class="form-group">
-        {{Form::label('email', 'Email', array('class' => 'col-sm-2 control-label'))}}
+        {{Form::label('email', 'Email', array('class' => 'col-sm-3 control-label'))}}
         <div class="col-sm-4">
             {{Form::text('email',$User->email,array('class' => 'form-control'))}}
         </div>
@@ -61,7 +61,7 @@
     @endif
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-3 col-sm-9">
             {{Form::submit('登録', array('class' => 'btn btn-default'))}}
         </div>
     </div>
@@ -83,7 +83,7 @@
         </div>
     </div>
     @if($errors->has('password'))
-    <div class="col-sm-offset-3 col-sm-09">
+    <div class="col-sm-offset-3 col-sm-9">
         <div class="alert alert-warning" role="alert">
             {{$errors->first('password')}}
         </div>
@@ -97,7 +97,7 @@
         </div>
     </div>
     @if($errors->has('new_password'))
-    <div class="col-sm-offset-3 col-sm-09">
+    <div class="col-sm-offset-3 col-sm-9">
         <div class="alert alert-warning" role="alert">
             {{$errors->first('new_password')}}
         </div>
@@ -105,7 +105,7 @@
     @endif
 
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-10">
+        <div class="col-sm-offset-3 col-sm-9">
             {{Form::submit('変更', array('class' => 'btn btn-default'))}}
         </div>
     </div>
