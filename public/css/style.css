@@ -192,6 +192,24 @@ a {
     margin: 10px 0px;
 }
 
+#sidebar .sidebar-info {
+    margin: 10px 0px 30px 10px;
+}
+
+#sidebar .sidebar-info .btn {
+    margin: 0px;
+}
+
+#sidebar .sidebar-user {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#sidebar .sidebar-user-items ul {
+    margin: 0px 0px 0px 20px;
+    padding: 0px;
+}
+
 /*
  * footer
  */

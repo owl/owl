@@ -69,8 +69,12 @@ class ItemController extends BaseController{
         $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
         $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
 
-        $templates = Template::all();
-        return View::make('items.show', compact('item', 'templates', 'stock', 'like', 'like_users'));
+        $user_items = Item::with('user')
+                    ->where('published', '2')
+                    ->where('user_id', $item->user_id)
+                    ->orderBy('id','desc')
+                    ->take(5)->get();
+        return View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users'));
     }
 
     public function edit($openItemId){
