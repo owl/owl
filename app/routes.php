@@ -44,6 +44,9 @@ Route::group(array('before' => 'sentry'), function() {
     Route::get('/{username}', array('uses' => 'UserController@show'));
 
     Route::post('image/upload', array('uses' => 'ImageController@upload'));
+    Route::post('comment/create', array('uses' => 'CommentController@create'));
+    Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
+    Route::post('comment/update', array('uses' => 'CommentController@update'));
 });
 
 

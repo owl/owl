@@ -247,3 +247,87 @@ h5 {
     font-size: 14px;
 }
 
+
+/******
+ * comment & comment balloon
+ ******/
+
+    
+div.comment_container {
+    border-top:1px solid #CCCCCC;
+}
+
+div.comment {
+    padding-top:10px;
+}
+
+div.comment div.media-body div.left {
+    float:left;
+}
+
+div.comment div.media-body div.left #inside{
+    margin-top:5px;
+}
+
+div.comment div.media-body div.right {
+    text-align:right;
+    font-size:13px;
+    color:#888888;
+}
+div.comment div.media-body div.right a{
+    color:#888888;
+}
+
+div.comment div.body {
+    clear:both;
+    margin-top:12px;
+}
+
+div.comment h4.title-onedit {
+    font-weight:bold;
+    display:none;
+}
+
+div.comment div.comment-edit {
+    display:none;
+}
+
+div.comment div.comment-edit div.form {
+    margin-top:25px;
+}
+
+div.comment div.comment-edit div.button {
+    text-align:right;
+    margin-top:5px;
+}
+
+div.comment .arrow_box {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
+    padding:15px 8px;
+}
+div.comment .arrow_box:after, .arrow_box:before {
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+div.comment .arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #ffffff;
+    border-width: 6px;
+    margin-left: -6px;
+}
+div.comment .arrow_box:before {
+    border-color: rgba(170, 170, 170, 0);
+    border-bottom-color: #CCCCCC;
+    border-width: 7px;
+    margin-left: -7px;
+}

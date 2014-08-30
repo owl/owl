@@ -50,7 +50,7 @@ class ItemController extends BaseController{
 
     public function show($openItemId){
         $user = Sentry::getUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
 
         $like_users = Item::with('like.user')
                         ->where('id', $item->id)
