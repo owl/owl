@@ -25,9 +25,6 @@ class CommentController extends BaseController{
         $comment->body = Input::get('body');
         $comment->save();
 
-        $user = sentry::finduserbyid($comment->user_id);
-        $comment->user->username = $user->username;
-        $comment->user->email = $user->email;
         $needContainerDiv = false; //remove outer div for update js div replace
         return View::make('comment.body', compact('comment', 'needContainerDiv'));
 
@@ -43,7 +40,7 @@ class CommentController extends BaseController{
 
     private function getComment(){
         $user = Sentry::getUser();
-        $comment = Comment::find(Input::get('id'));
+        $comment = Comment::with('user')->find(Input::get('id'));
         if($user->id === $comment->user_id)
             return $comment;
         return false;
