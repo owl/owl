@@ -97,16 +97,6 @@
 
 @include('comment.form')
 
-<div id="comment_container">
-@if (count($item->comment) >0)
-    @foreach ($item->comment as $comment)
-        @include('comment.body')
-    @endforeach
-@endif
-</div>
-
-@include('comment.form')
-
 @stop
 
 @section('contents-sidebar')
