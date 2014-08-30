@@ -28,14 +28,14 @@
     @if ($comment->user_id === $User->id)
     <div class="comment-edit" style='display:none'>
       <div style="margin-top:25px;">
-      {{Form::open(array('url'=>'comment/update','class'=>'edit-confirm', 'onsubmit' => 'return false;'))}}
+      {{Form::open(array('url'=>'comment/update', 'onsubmit' => 'return false;'))}}
         {{Form::hidden('comment-id', $comment->id, array('class' => 'comment-id'))}}
         {{Form::textarea('body', $comment->body ,array('class'=>'form-control comment-edit-body', 'rows'=>'5'))}}
         {{Form::hidden('orig_comment', $comment->body, array('class' => 'orig_comment'))}}
       </div>
       <div style="text-align:right;margin-top:5px;">
         {{Form::button('キャンセル',array('class'=>'edit-cancel btn'))}}
-        {{Form::submit('編集',array('class'=>'btn'))}}
+        {{Form::submit('編集',array('class'=>'edit-confirm btn'))}}
       </div>
     </div>
     @endif

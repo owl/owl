@@ -20,7 +20,6 @@ $(function() {
             data:{"id": obj.find('.comment-id').val()},
 
             success: function(msg){
-
                 obj.hide();
             }
         });
@@ -42,7 +41,7 @@ $(function() {
         obj.find('.title-username').show();
         obj.find('.title-onedit').hide();
     });
-    $(document).on('submit', '.edit-confirm', function() {
+    $(document).on('click', '.edit-confirm', function() {
         var obj = $(this).closest('div.comment'); 
         $.ajax({
             type:"POST",
