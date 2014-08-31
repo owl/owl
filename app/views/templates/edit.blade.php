@@ -56,6 +56,10 @@
     {{Form::close()}}
 @stop
 
+@section('contents-sidebar')
+    @include('layouts.templates-sidebar')
+@stop
+
 @section('addJs')
 {{HTML::script('js/jquery.upload-1.0.2.min.js')}}
 {{HTML::script('js/image.upload.js')}}
