@@ -1,4 +1,5 @@
 @section('navbar-menu')
+@if(isset($User))
 <ul class="nav navbar-nav navbar-right">
     <li><a href="/items/create">投稿する</a></li>
     <li><a href="/stocks">ストック一覧</a></li>
@@ -13,4 +14,10 @@
         </ul>
     </li>
 </ul>
+@else
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="/signup">新規登録</a></li>
+    <li><a href="/login">ログイン</a></li>
+</ul>
+@endif
 @stop

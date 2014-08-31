@@ -50,21 +50,28 @@ class ItemController extends BaseController{
 
     public function show($openItemId){
         $user = Sentry::getUser();
+
+        if(empty($user)){
+            return $this->notLoginShow($openItemId);
+        }
+
         $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
+
+        if (empty($item)){
+            App::abort(404);
+        }
+        if ($item->published === '0' && $item->user_id !== $user->id){
+            App::abort(404);
+        }
 
         $like_users = Item::with('like.user')
                         ->where('id', $item->id)
                         ->first();
 
-        if ($item->published === '0' && $item->user_id !== $user->id){
-            App::abort(404);
-        }
-
         // Markdown Parse
         $parser = new CustomMarkdown;
         $parser->enableNewlines = true;
         $item->body = $parser->parse($item->body);
-
 
         $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
         $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
@@ -140,5 +147,33 @@ class ItemController extends BaseController{
         Item::where('open_item_id',$openItemId)->delete();
         return Redirect::route('items.index');
     }
+
+    public function notLoginShow($openItemId){
+        $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
+
+        if (empty($item)){
+            App::abort(404);
+        }
+        if ($item->published !== '2'){
+            App::abort(404);
+        }
+
+        $like_users = Item::with('like.user')
+                        ->where('id', $item->id)
+                        ->first();
+
+        // Markdown Parse
+        $parser = new CustomMarkdown;
+        $parser->enableNewlines = true;
+        $item->body = $parser->parse($item->body);
+
+        $user_items = Item::with('user')
+                    ->where('published', '2')
+                    ->where('user_id', $item->user_id)
+                    ->orderBy('id','desc')
+                    ->take(5)->get();
+        return View::make('items.show', compact('item', 'user_items', 'like_users'));
+    }
+
 
 }
