@@ -22,3 +22,14 @@ HTML::macro('markdown', function($str)
     $parser->enableNewlines = true;
     return $parser->parse($str);
 });
+
+HTML::macro('date_replace', function($str)
+{
+    $str = str_replace("%{Year}",date('Y'), $str);
+    $str = str_replace("%{month}",date('m'), $str);
+    $str = str_replace("%{day}",date('d'), $str);
+    return $str;
+});
+
+
+
