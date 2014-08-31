@@ -3,13 +3,20 @@
 class ItemController extends BaseController{
 
     public function create($templateId = null){
+        $user = Sentry::getUser();
+        $user_items = Item::with('user')
+                    ->where('published', '2')
+                    ->where('user_id', $user->id)
+                    ->orderBy('id','desc')
+                    ->take(5)->get();
+
         if(!Input::get('t')) {
-            return View::make('items.create', compact('template'));
+            return View::make('items.create', compact('template', 'user_items'));
         }
 
         $templateId = Input::get('t');
         $template = Template::where('id',$templateId)->first();
-        return View::make('items.create', compact('template'));
+        return View::make('items.create', compact('template', 'user_items'));
     }
 
     public function store(){
