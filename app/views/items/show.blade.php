@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
 @section ('addJs')
+    <script type="text/javascript" language="JavaScript">
+    function confirmDelete(t) {
+        var answer = confirm("本当に削除しますか？");
+        if (answer) {
+            t.parentNode.submit()
+        }
+    }
+    </script>
     {{HTML::script("/js/stock.change.js")}}
     {{HTML::script("/js/like.change.js")}}
     {{HTML::script("/js/comment.create.js")}}
@@ -28,7 +36,7 @@
             @if(isset($User) && $item->user->id == $User->id)
                 {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
                 {{link_to_route('items.edit','編集',$item->open_item_id)}} 
-                <a onclick="confirm('本当に削除しますか？'); if(ok) this.parentNode.submit();return false;" href="void()">削除</a>
+                <a onclick="confirmDelete(this);return false;" href="void()">削除</a>
                 {{Form::close()}}
             @endif
         </div>
