@@ -33,8 +33,6 @@
 
     {{Form::open(array('url'=>'items','class'=>'form-items'))}}
 
-            {{ HTML::gravator($User->email, 30,'mm','g','true',array('class'=>'media-object')) }}
-
     <div class="form-group">
         {{Form::label('title', 'タイトル')}}
         {{Form::text('title', isset($template->title) ? HTML::date_replace($template->title) : '' ,array('class'=>'form-control'))}}
