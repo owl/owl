@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
     {{HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen'))}}
     {{HTML::style('css/style.css')}}
     {{HTML::style('http://fonts.googleapis.com/css?family=Lobster')}}
