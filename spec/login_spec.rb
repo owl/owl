@@ -6,7 +6,7 @@ require File.dirname(__FILE__)+'/spec_helper'
 describe 'Login' do
     describe 'Smoke Test', :js => true do
         context 'when access the top page.(not logged in)' do
-            it 'will be displayed' do
+            it 'will redirect login page' do
                 visit "/"
                 expect(page).to have_content 'ログイン'
             end
