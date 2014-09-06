@@ -59,7 +59,7 @@
             </div>
         </div>
         @if($errors->has('password'))
-        <div class="col-sm-offset-3 col-sm-9">
+        <div class="col-sm-offset-2 col-sm-10">
             <div class="alert alert-warning" role="alert">
                 {{$errors->first('password')}}
             </div>
