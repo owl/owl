@@ -93,6 +93,40 @@ describe 'Item' do
                 expect(page).to have_css('#like_id')
             end
         end
+        context 'When post a comment' do
+            it 'is true' do
+                login
+                visit "/items/"
+                click_link('Update Test', :match => :first)
+                fill_in('body', :with => 'test comment')
+                click_button('投稿する', :match => :first)
+                expect(page).to have_content 'test comment'
+            end
+        end
+        context 'When update a comment' do
+            it 'is true' do
+                login
+                visit "/items/"
+                click_link('Update Test', :match => :first)
+                within("#comment-container") do
+                      click_link('編集')
+                end
+                fill_in('body', :with => 'update comment', :match => :first)
+                click_button('編集', :match => :first)
+                expect(page).to have_content 'update comment'
+            end
+        end
+        context 'When delete a comment' do
+            it 'is true' do
+                login
+                visit "/items/"
+                click_link('Update Test', :match => :first)
+                within("#comment-container") do
+                      click_link('削除')
+                end
+                expect(page).to have_no_content 'update comment'
+            end
+        end
         context 'When delete item' do
             it 'is true' do
                 login
