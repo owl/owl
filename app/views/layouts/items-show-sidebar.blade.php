@@ -1,6 +1,4 @@
 <div class="sidebar-info">
-    <h5>記事URL</h5>
-        <input type="text" class="form-control" value="<?php echo Request::url(); ?>">
     <h5>記事リンクMarkdown</h5>
         <input type="text" class="form-control" value="<?php echo "[".$item->title."](".Request::url().")"  ?>">
 </div>
