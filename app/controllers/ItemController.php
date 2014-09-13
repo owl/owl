@@ -93,6 +93,12 @@ class ItemController extends BaseController{
 
     public function edit($openItemId){
         $user = Sentry::getUser();
+        $user_items = Item::with('user')
+                    ->where('published', '2')
+                    ->where('user_id', $user->id)
+                    ->orderBy('id','desc')
+                    ->take(5)->get();
+
         $item = Item::where('open_item_id',$openItemId)->first();
 
         if ($item->user_id !== $user->id){
@@ -103,7 +109,7 @@ class ItemController extends BaseController{
             App::abort(404);
         }
         $templates = Template::all();
-        return View::make('items.edit', compact('item', 'templates'));
+        return View::make('items.edit', compact('item', 'templates', 'user_items'));
     }
 
     public function update($openItemId){
