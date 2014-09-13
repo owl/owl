@@ -11,11 +11,12 @@ class Stock extends Eloquent {
 
     public static function getStockList($userId) {
         return DB::table('stocks')
-                   ->join('items', 'stocks.item_id', '=', 'items.id')
-                   ->join('users', 'items.user_id', '=', 'users.id')
-                   ->where('stocks.user_id', $userId)
-                   ->select('users.email', 'users.username', 'items.open_item_id',
+                    ->join('items', 'stocks.item_id', '=', 'items.id')
+                    ->join('users', 'items.user_id', '=', 'users.id')
+                    ->where('stocks.user_id', $userId)
+                    ->select('users.email', 'users.username', 'items.open_item_id',
                             'items.updated_at', 'items.title')
-                   ->paginate(10);
+                    ->orderBy('stocks.created_at', 'desc')
+                    ->paginate(10);
     }
 }
