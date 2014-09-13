@@ -21,6 +21,21 @@ class Item extends Eloquent{
         return substr(md5(uniqid(rand(),1)),0,20);
     }
 
+    public static function getAllItems() {
+        return  Item::with('user')
+                    ->where('published', '2')
+                    ->orderBy('updated_at','desc')
+                    ->paginate(10);
+    }
+
+    public static function getRecentItemsByUserId($userId) {
+        return  Item::with('user')
+                    ->where('published', '2')
+                    ->where('user_id', $userId)
+                    ->orderBy('id','desc')
+                    ->take(5)->get();
+    }
+
     /* @Override */
     public function save(array $options = array())
     {

@@ -68,7 +68,9 @@
     <div class="alert alert-warning" role="alert">この記事は限定公開です。URLを知っている人のみアクセスすることができます。</div>
 <?php endif; ?>
 
-<div class="page-body">{{ $item->body }}</div>
+<div class="page-body">
+{{HTML::markdown($item->body)}}
+</div>
 
 @if (isset($User))
     @if (count($like) > 0)
