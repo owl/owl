@@ -18,4 +18,26 @@ class Stock extends Eloquent {
                             'items.updated_at', 'items.title')
                    ->paginate(10);
     }
+    public static function getRankingStockList($limit) {
+
+        return DB::select(
+            'select '.
+            '    * '.
+            'from '.
+            '    items as i '.
+            '    inner join ( '.
+            '        select '.
+            '            s.item_id, count(*) as stock_count '.
+            '        from '.
+            '            stocks s '.
+            '        group by '.
+            '            s.item_id '.
+            '    ) as sc on i.id = sc.item_id '.
+            'order by '.
+            '    sc.stock_count desc '.
+            'limit ?', 
+            array($limit)
+        );
+
+    }
 }

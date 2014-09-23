@@ -64,10 +64,12 @@ class ItemController extends BaseController{
 
         $templates = Template::all();
 
-        $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))
-                      ->get();
+        $stock = Stock::whereRaw(
+                          'user_id = ? and item_id = ?', array($user->id, $item->id))->get();
+        $stocks = Stock::where('item_id', $item->id)->get();
+        $rankingStock = Stock::getRankingStockList(3);
 
-        return View::make('items.show', compact('item', 'templates', 'stock'));
+        return View::make('items.show', compact('item', 'templates', 'stock', 'stocks', 'rankingStock'));
     }
 
     public function edit($openItemId){
