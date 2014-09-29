@@ -1,6 +1,12 @@
 <?php
+require 'vendor/autoload.php';
+
+use Carbon\Carbon;
 
 class Stock extends Eloquent {
+    const RANKING_STOCK_KEY = 'ranking_stock_';
+    const EXPIRE_AT_ADD_MINUTES = 15;
+
     protected $fillable = array('user_id', 'item_id');
     public function user() {
         return $this->belongsTo('User');
@@ -19,8 +25,8 @@ class Stock extends Eloquent {
                     ->orderBy('stocks.created_at', 'desc')
                     ->paginate(10);
     }
-    public static function getRankingStockList($limit) {
 
+    public static function getRankingStockList($limit) {
         return DB::select(
             'select '.
             '    * '.
@@ -39,6 +45,17 @@ class Stock extends Eloquent {
             'limit ?', 
             array($limit)
         );
+    }
 
+    public static function getRankingStockListWithCache($limit) {
+        $result = Cache::get(Stock::RANKING_STOCK_KEY.$limit);
+
+        if (!empty($result)) return $result;
+
+        $result = Stock::getRankingStockList($limit);
+        $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
+        Cache::put(Stock::RANKING_STOCK_KEY.$limit, $result, $expiresAt);
+
+        return $result;
     }
 }
