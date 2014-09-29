@@ -12,5 +12,11 @@
         </ul>
     </div>
     <p><a href="/templates">テンプレート編集</a></p>
+    <?php if(!empty($ranking_stock)) : ?>
+        投稿ランキング
+        @for ($i = 0; $i < count($ranking_stock); $i++)
+            <p><a href="{{ action('ItemController@show', $ranking_stock[$i]->open_item_id) }}">第{{{ $i + 1 }}}位　{{{ $ranking_stock[$i] -> title }}}</a></p>
+        @endfor
+    <?php endif; ?>
 @endif
 @stop
