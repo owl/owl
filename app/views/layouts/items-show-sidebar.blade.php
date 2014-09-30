@@ -21,11 +21,3 @@
         </ul>
     </div>
 </div>
-@if(!empty($ranking_stock))
-<div class="sidebar-info">
-    投稿ランキング
-    @for ($i = 0; $i < count($ranking_stock); $i++)
-        <p><a href="{{ action('ItemController@show', $ranking_stock[$i]->open_item_id) }}">第{{{ $i + 1 }}}位　{{{ $ranking_stock[$i] -> title }}}</a></p>
-    @endfor
-</div>
-@endif

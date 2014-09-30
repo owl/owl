@@ -47,9 +47,9 @@ class Stock extends Eloquent {
     }
 
     public static function getRankingStockListWithCache($limit) {
-        $result = Cache::get(Stock::RANKING_STOCK_KEY.$limit);
+        //$result = Cache::get(Stock::RANKING_STOCK_KEY.$limit);
 
-        if (!empty($result)) return $result;
+        //if (!empty($result)) return $result;
 
         $result = Stock::getRankingStockList($limit);
         $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
