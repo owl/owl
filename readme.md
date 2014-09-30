@@ -23,21 +23,21 @@ This software is released under the MIT License, see LICENSE.txt.
 
 # For Developer
 ## Development setup
-1. Clone the project
+1.Clone the project
 
 ```
 git clone https://github.com/fortkle/owl.git
 cd owl
 ```
 
-1. Composer
+2.Composer
 
 ```
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-1. Database migration
+3.Database migration
 
 ```
 php artisan migrate --package=cartalyst/sentry
@@ -50,7 +50,7 @@ if you need a seed data (optional)
 php artisan db:seed
 ```
 
-1. Access the page
+4.Access the page
 
 ```
 php artisan serve --host 0.0.0.0 --port 3000
@@ -66,20 +66,20 @@ Rspec + Capybara + PhantomJS（Poltergeist）
 ※ PhantomJS required  
 https://github.com/teampoltergeist/poltergeist
 
-1. gem install
+1.gem install
 
 ```
 $ bundle install --path vendor/bundle
 ```
 
-1. fix settings
+2.fix settings
 
 ```
 $ vim spec/spec_helper.rb
 ```
 please change host.
 
-1. run test
+3.run test
 move root directory.
 
 ```
