@@ -82,6 +82,31 @@ a {
     font-size: 28px;
 }
 
+.item-statuses {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.comment-status {
+    width: 33%;
+    float: left;
+    border-right:1px dotted #333333;
+    text-align: center;
+}
+
+.stock-status {
+    width: 33%;
+    float: left;
+    border-right:1px dotted #333333;
+    text-align: center;
+}
+
+.like-status {
+    text-align: center;
+}
+
+
 /*
  * contents
  */
@@ -194,6 +219,11 @@ a {
 
 #sidebar .sidebar-info {
     margin: 10px 0px 30px 10px;
+}
+
+#sidebar .sidebar-info-items ol {
+    margin: 0px 0px 0px 20px;
+    padding: 0px;
 }
 
 #sidebar .sidebar-info .btn {

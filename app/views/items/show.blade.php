@@ -44,9 +44,19 @@
     </div>
     <div class="col-md-3">
         @if(isset($User))
-            <div class="text-center">
-                {{{ count($stocks) }}}<br />
-                ストック
+            <div class="item-statuses">
+                <div class="comment-status">
+                    <span class="glyphicon glyphicon-comment"></span> {{{ count($item->comment) }}}<br />
+                    コメント
+                </div>
+                <div class="stock-status">
+                    <span class="glyphicon glyphicon-folder-close"></span> {{{ count($stocks) }}}<br />
+                    ストック
+                </div>
+                <div class="like-status">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> {{{ count($like_users->like) }}}<br />
+                    いいね！
+                </div>
             </div>
             @if (count($stock) > 0)
             <div class="media-sidebar">
