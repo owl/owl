@@ -30,14 +30,14 @@ git clone https://github.com/fortkle/owl.git
 cd owl
 ```
 
-2. Composer
+1. Composer
 
 ```
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-3. Database migration
+1. Database migration
 
 ```
 php artisan migrate --package=cartalyst/sentry
@@ -50,7 +50,7 @@ if you need a seed data (optional)
 php artisan db:seed
 ```
 
-4. Access the page
+1. Access the page
 
 ```
 php artisan serve --host 0.0.0.0 --port 3000
@@ -66,20 +66,20 @@ Rspec + Capybara + PhantomJS（Poltergeist）
 ※ PhantomJS required  
 https://github.com/teampoltergeist/poltergeist
 
-1.gem install
+1. gem install
 
 ```
 $ bundle install --path vendor/bundle
 ```
 
-1.fix settings
+1. fix settings
 
 ```
 $ vim spec/spec_helper.rb
 ```
 please change host.
 
-1.run test  
+1. run test
 move root directory.
 
 ```
