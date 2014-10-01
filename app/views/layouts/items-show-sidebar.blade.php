@@ -20,4 +20,14 @@
         @endforeach
         </ul>
     </div>
+    @if(!empty($recent_stocks))
+        <h5>最新ストック数ランキング</h5>
+        <div class="sidebar-info-items">
+            <ol>
+            @for ($i = 0; $i < count($recent_stocks); $i++)
+                <li><a href="{{ action('ItemController@show', $recent_stocks[$i]->open_item_id) }}">{{{ $recent_stocks[$i] -> title }}}</a></li>
+            @endfor
+            </ol>
+        </div>
+    @endif
 </div>

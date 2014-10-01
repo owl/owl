@@ -1,4 +1,5 @@
 <?php
+require 'vendor/autoload.php';
 
 use Carbon\Carbon;
 
@@ -25,35 +26,57 @@ class Stock extends Eloquent {
                     ->paginate(10);
     }
 
-    public static function getRankingStockList($limit) {
-        return DB::select(
-            'select '.
-            '    * '.
-            'from '.
-            '    items as i '.
-            '    inner join ( '.
-            '        select '.
-            '            s.item_id, count(*) as stock_count '.
-            '        from '.
-            '            stocks s '.
-            '        group by '.
-            '            s.item_id '.
-            '    ) as sc on i.id = sc.item_id '.
-            'order by '.
-            '    sc.stock_count desc '.
-            'limit ?', 
-            array($limit)
-        );
+    public static function getRankingStockList($limit, $dayPeriod = null) {
+        $options = array($limit);
+        $where = '';
+        if (!empty($dayPeriod)) {
+            $where = <<<__SQL__
+                where i.created_at > ?
+__SQL__;
+            $period = Carbon::now()->subDays($dayPeriod);
+            array_unshift($options, $period);
+        }
+        $query = <<<__SQL__
+            select 
+                * 
+            from 
+                items as i 
+                inner join ( 
+                    select 
+                        s.item_id, count(*) as stock_count 
+                    from 
+                        stocks s 
+                    group by 
+                        s.item_id 
+                ) as sc on i.id = sc.item_id 
+            $where
+            order by 
+                sc.stock_count desc 
+            limit ? 
+
+__SQL__;
+        return DB::select($query,$options);
     }
 
-    public static function getRankingStockListWithCache($limit) {
-        //$result = Cache::get(Stock::RANKING_STOCK_KEY.$limit);
+    public static function getRankingWithCache($limit) {
+        $result = Cache::get(Stock::RANKING_STOCK_KEY.$limit);
 
-        //if (!empty($result)) return $result;
+        if (!empty($result)) return $result;
 
         $result = Stock::getRankingStockList($limit);
         $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
         Cache::put(Stock::RANKING_STOCK_KEY.$limit, $result, $expiresAt);
+
+        return $result;
+    }
+
+    public static function getRecentRankingWithCache($limit, $dayPeriod) {
+//        $result = Cache::get(Stock::RANKING_STOCK_KEY.$limit.'_'.$dayPeriod);
+//        if (!empty($result)) return $result;
+
+        $result = Stock::getRankingStockList($limit, $dayPeriod);
+//        $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
+//        Cache::put(Stock::RANKING_STOCK_KEY.$limit.'_'.$dayPeriod, $result, $expiresAt);
 
         return $result;
     }

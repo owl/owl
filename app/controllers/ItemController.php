@@ -66,9 +66,10 @@ class ItemController extends BaseController{
             $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
         }
         $stocks = Stock::where('item_id', $item->id)->get();
+        $recent_stocks = Stock::getRecentRankingWithCache(5, 7);
         $user_items = Item::getRecentItemsByUserId($item->user_id);
         $like_users = Item::with('like.user')->where('id', $item->id)->first();
-        return View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'ranking_stock'));
+        return View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
     }
 
 
