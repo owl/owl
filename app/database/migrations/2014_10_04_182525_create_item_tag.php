@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTags extends Migration {
+class CreateItemTag extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateItemsTags extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('items_tags',function($table)
+        Schema::create('item_tag',function($table)
         {
             $table->integer('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
@@ -28,7 +28,7 @@ class CreateItemsTags extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('items_tags');
+        Schema::drop('item_tag');
 	}
 
 }
