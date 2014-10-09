@@ -108,6 +108,13 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $tags = Input::get('tags');
+        $tag_names = explode(",", $tags);
+        $tag_ids = Tag::getTagIdsByTagName($tag_names);
+        $item = Item::find($item->id);
+        $item->tag()->sync($tag_ids);
+
         return Redirect::route('items.show',[$openItemId]);
     }
 

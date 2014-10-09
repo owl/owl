@@ -38,6 +38,12 @@
     </div>
 
     <div class="form-group">
+        {{Form::label('tags', 'タグ')}}
+        {{Form::text('tags',HTML::tags($item->tag->toArray()),array('class'=>'form-control'))}}
+        
+    </div>
+
+    <div class="form-group">
         {{Form::label('body', '本文')}}
         {{Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text'))}}
     </div>

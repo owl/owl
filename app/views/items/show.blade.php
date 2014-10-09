@@ -31,7 +31,9 @@
         </a>
         <div class="media-body">
             <p class="item-title">{{{ $item->title }}}</p>
-            <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
+            <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。<br/>
+{{ HTML::tags($item->tag->toArray()) }}
+</p>
 
             @if(isset($User) && $item->user->id == $User->id)
                 {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}

@@ -15,6 +15,18 @@ HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = tr
     return $url;
 });
 
+HTML::macro('tags', function($array)
+{
+    $tag_lists = "";
+    foreach($array as $tag){
+        if($tag === end($array)) {
+            $tag_lists .= $tag["name"];
+            break;
+        }
+        $tag_lists .= $tag["name"] . ",";
+    }
+    return $tag_lists;
+});
 
 HTML::macro('markdown', function($str)
 {
