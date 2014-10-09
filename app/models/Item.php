@@ -9,6 +9,10 @@ class Item extends Eloquent{
         return $this->belongsTo('User');
     }
 
+    public function tag() {
+        return $this->belongsToMany('Tag');
+    }
+
     public function like(){
         return $this->hasMany('Like');
     }
