@@ -25,6 +25,11 @@
         {{$errors->first('body')}}
     </div>
     @endif
+    @if($errors->has('tags'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('tags')}}
+    </div>
+    @endif
     @if($errors->has('published'))
     <div class="alert alert-warning" role="alert">
         {{$errors->first('published')}}
@@ -36,6 +41,11 @@
     <div class="form-group">
         {{Form::label('title', 'タイトル')}}
         {{Form::text('title', isset($template->title) ? HTML::date_replace($template->title) : '' ,array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('tags', 'タグ')}}
+        {{Form::text('tags','',array('class'=>'form-control'))}}
     </div>
 
     <div class="form-group">

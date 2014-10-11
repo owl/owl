@@ -19,6 +19,11 @@
         {{$errors->first('title')}}
     </div>
     @endif
+    @if($errors->has('tags'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('tags')}}
+    </div>
+    @endif
     @if($errors->has('body'))
     <div class="alert alert-warning" role="alert">
         {{$errors->first('body')}}
@@ -40,7 +45,6 @@
     <div class="form-group">
         {{Form::label('tags', 'タグ')}}
         {{Form::text('tags',HTML::tags($item->tag->toArray()),array('class'=>'form-control'))}}
-        
     </div>
 
     <div class="form-group">

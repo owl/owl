@@ -7,7 +7,7 @@ class Tag extends Eloquent {
         return $this->belongsToMany('Item');
     }
 
-    public static function getTagIdsByTagName($tag_names) {
+    public static function getTagIdsByTagNames($tag_names) {
         $tag_ids = array();
 
         foreach($tag_names as $tag_name) {

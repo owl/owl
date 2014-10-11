@@ -16,6 +16,7 @@ class ItemController extends BaseController{
     public function store(){
         $valid_rule = array(
             'title' => 'required|max:255',
+            'tags' => 'max:64',
             'body' => 'required',
             'published' => 'required|numeric'
         );
@@ -35,6 +36,13 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $tags = Input::get('tags');
+        $tag_names = explode(",", $tags);
+        $tag_ids = Tag::getTagIdsByTagNames($tag_names);
+        $item = Item::find($item->id);
+        $item->tag()->sync($tag_ids);
+
         return Redirect::route('items.show',[$openItemId]);
     }
 
@@ -88,6 +96,7 @@ class ItemController extends BaseController{
     public function update($openItemId){
         $valid_rule = array(
             'title' => 'required|max:255',
+            'tags' => 'max:64',
             'body' => 'required',
             'published' => 'required|numeric'
         );
@@ -111,7 +120,7 @@ class ItemController extends BaseController{
 
         $tags = Input::get('tags');
         $tag_names = explode(",", $tags);
-        $tag_ids = Tag::getTagIdsByTagName($tag_names);
+        $tag_ids = Tag::getTagIdsByTagNames($tag_names);
         $item = Item::find($item->id);
         $item->tag()->sync($tag_ids);
 

@@ -98,5 +98,6 @@ return array(
         'title' => 'タイトル',
         'display_title' => 'テンプレート名',
         'body' => '本文',
+        'tags' => 'タグ',
     ),
 );
