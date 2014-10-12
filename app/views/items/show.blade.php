@@ -25,24 +25,24 @@
 @section('contents-pagehead')
 <div class="row">
     <div class="col-md-9">
-    <div class="media">
-        <a class="pull-left" href="#">
-        {{ HTML::gravator($item->user->email, 60,'mm','g','true',array('class'=>'media-object')) }}
-        </a>
-        <div class="media-body">
-            <p class="item-title">{{{ $item->title }}}</p>
-            <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。<br/>
-{{ HTML::tags($item->tag->toArray()) }}
-</p>
+        <p class="item-title">{{{ $item->title }}}</p>
+        {{ HTML::show_tags($item->tag->toArray()) }}
 
-            @if(isset($User) && $item->user->id == $User->id)
-                {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
-                {{link_to_route('items.edit','編集',$item->open_item_id)}} 
-                <a onclick="confirmDelete(this);return false;" href="void()">削除</a>
-                {{Form::close()}}
-            @endif
+        <div class="media">
+            <a class="pull-left" href="#">
+            {{ HTML::gravator($item->user->email, 40,'mm','g','true',array('class'=>'media-object')) }}
+            </a>
+            <div class="media-body">
+                <span class="item-manage"><p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p></span>
+                @if(isset($User) && $item->user->id == $User->id)
+                    {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
+                    {{link_to_route('items.edit','編集',$item->open_item_id)}}
+                    <a onclick="confirmDelete(this);return false;" href="void()">削除</a>
+                    {{Form::close()}}
+                @endif
+
+            </div>
         </div>
-    </div>
     </div>
     <div class="col-md-3">
         @if(isset($User))

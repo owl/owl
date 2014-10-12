@@ -20,10 +20,23 @@ HTML::macro('tags', function($array)
     $tag_lists = "";
     foreach($array as $tag){
         if($tag === end($array)) {
-            $tag_lists .= '<a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a>';
+            $tag_lists .= $tag["name"];
             break;
         }
-        $tag_lists .= '<a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a> ';
+        $tag_lists .= $tag["name"] . ",";
+    }
+    return $tag_lists;
+});
+
+HTML::macro('show_tags', function($array)
+{
+    $tag_lists = "";
+    foreach($array as $tag){
+        if($tag === end($array)) {
+            $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span>';
+            break;
+        }
+        $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span> ';
     }
     return $tag_lists;
 });

@@ -21,6 +21,7 @@
         <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
     </div>
     @endforeach
+    <?php echo $items->links(); ?>
 </div>
 @stop
 

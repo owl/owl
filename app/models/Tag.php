@@ -11,8 +11,12 @@ class Tag extends Eloquent {
         $tag_ids = array();
 
         foreach($tag_names as $tag_name) {
+            $tag_name = trim(mb_convert_kana( $tag_name, "&quot;s&quot;"));
+            $tag_name = str_replace(" ","", $tag_name);
+            if (empty($tag_name)) {
+                continue;
+            }
             $tag_name = mb_strtolower($tag_name);
-            // タグがなかった場合は新規でcreateする
             $tag = Tag::firstOrCreate(array('name' => $tag_name))->toArray();
             $tag_ids[] = (string)$tag['id'];
         }

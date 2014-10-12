@@ -168,6 +168,25 @@ a {
     background-color: #dfdfdf;
 }
 
+#contents .tag-label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border: 1px solid #4eb691;
+    border-radius: .25em;
+    background-color: #FFFFFF;
+}
+
+#contents .item-manage p {
+    margin: 0px;
+}
+
 #contents #main .page-body {
     line-height: 1.6;
     font-size: 16px;

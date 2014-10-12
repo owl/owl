@@ -40,6 +40,11 @@ class CustomValidator extends Illuminate\Validation\Validator {
 		return preg_match('/^[\pL\pN_-]+$/', $value);
 	}
 
+	protected function validateAlphaComma($attribute, $value)
+	{
+		return preg_match('/^[\pL\pN\s　_,-]+$/u', $value);
+	}
+
     /**
      * 半角英字&スペース
      */

@@ -43,8 +43,8 @@
     </div>
 
     <div class="form-group">
-        {{Form::label('tags', 'タグ')}}
-        {{Form::text('tags',HTML::tags($item->tag->toArray()),array('class'=>'form-control'))}}
+        {{Form::label('tags', 'タグ（カンマ区切り）')}}
+        {{Form::text('tags',HTML::tags($item->tag->toArray()),array('class'=>'form-control', 'placeholder' => '例）日報, php, pjt-timeline'))}}
     </div>
 
     <div class="form-group">
