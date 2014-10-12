@@ -40,6 +40,18 @@ class Item extends Eloquent{
                     ->take(5)->get();
     }
 
+    public static function getRecentItemsByTagId($tagId) {
+        return DB::table('items')
+                    ->join('users', 'items.user_id', '=', 'users.id')
+                    ->join('tags', 'tags.id', '=', 'item_tag.tag_id')
+                    ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+                    ->where('tags.id', $tagId)
+                    ->where('published', '2')
+                    ->select('users.email', 'users.username', 'items.open_item_id', 'items.updated_at', 'items.title')
+                    ->orderBy('items.id', 'desc')
+                    ->paginate(10);
+    }
+
     /* @Override */
     public function save(array $options = array())
     {

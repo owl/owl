@@ -41,6 +41,9 @@ Route::group(array('before' => 'sentry'), function() {
     Route::resource('stocks', 'StockController');
     Route::resource('likes', 'LikeController');
 
+    // Tags
+    Route::get('tags/{tags}', array('as' => 'tags.show', 'uses' => 'TagController@show'));
+
     // Users
     Route::get('user/edit', array('uses' => 'UserController@edit'));
     Route::put('user/edit', array('uses' => 'UserController@update'));

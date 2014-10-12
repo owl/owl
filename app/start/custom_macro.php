@@ -20,13 +20,14 @@ HTML::macro('tags', function($array)
     $tag_lists = "";
     foreach($array as $tag){
         if($tag === end($array)) {
-            $tag_lists .= $tag["name"];
+            $tag_lists .= '<a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a>';
             break;
         }
-        $tag_lists .= $tag["name"] . ",";
+        $tag_lists .= '<a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a> ';
     }
     return $tag_lists;
 });
+
 
 HTML::macro('markdown', function($str)
 {
