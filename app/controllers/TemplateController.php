@@ -11,6 +11,7 @@ class TemplateController extends BaseController{
         $valid_rule = array(
             'display_title' => 'required|max:255',
             'title' => 'required|max:255',
+            'tags' => 'alpha_comma|max:64',
             'body' => 'required',
         );
         $validator = Validator::make(Input::all(), $valid_rule);
@@ -24,6 +25,7 @@ class TemplateController extends BaseController{
         $template->fill(array(
             'display_title'=>Input::get('display_title'),
             'title'=>Input::get('title'),
+            'tags'=>Input::get('tags'),
             'body'=>Input::get('body'),
         ));
         $template->save();
@@ -52,6 +54,7 @@ class TemplateController extends BaseController{
         $valid_rule = array(
             'display_title' => 'required|max:255',
             'title' => 'required|max:255',
+            'tags' => 'alpha_comma|max:64',
             'body' => 'required',
         );
         $validator = Validator::make(Input::all(), $valid_rule);
@@ -68,6 +71,7 @@ class TemplateController extends BaseController{
         $template->fill(array(
             'display_title'=>Input::get('display_title'),
             'title'=>Input::get('title'),
+            'tags'=>Input::get('tags'),
             'body'=>htmlspecialchars(Input::get('body'), ENT_QUOTES, 'UTF-8'),
         ));
         $template->save();

@@ -45,7 +45,7 @@
 
     <div class="form-group">
         {{Form::label('tags', 'タグ')}}
-        {{Form::text('tags','',array('id' => 'tag-input', 'class'=>'form-control', 'placeholder' => '例）日報, php, pjt-timeline'))}}
+        {{Form::text('tags', isset($template->tags) ? HTML::date_replace($template->tags) : '' ,array('id' => 'tag-input', 'class'=>'form-control', 'placeholder' => '例）日報, php, pjt-timeline'))}}
     </div>
 
     <div class="form-group">
