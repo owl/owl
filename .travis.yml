@@ -17,9 +17,10 @@ before_script:
   - php artisan db:seed
   - bundle config build.nokogiri --use-system-libraries
   - bundle install --path vendor/bundle
-  - php artisan migrate --package=cartalyst/sentry
-  - php artisan migrate
-  - php artisan db:seed
 
 script:
   - bundle exec rspec spec
+
+notifications:
+  webhooks:
+      - https://idobata.io/hook/travis_ci/22e5a58c-e633-4c04-a5c4-42083c471739

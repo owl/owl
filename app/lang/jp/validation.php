@@ -18,6 +18,7 @@ return array(
     "after"            => ":attributeは:dateより後の日付でなければなりません。",
     "alpha"            => ":attributeにはアルファベット以外使用できません。",
     "alpha_dash"       => ":attributeにはアルファベット、数字、ハイフン、アンダーバー以外使用できません。",
+    "alpha_comma"       => ":attributeにはアルファベット、数字、ハイフン、アンダーバー、カンマ以外使用できません。",
     "alpha_num"        => ":attributeにはアルファベット、数字以外使用できません。",
     "alpha_space"      => ":attributeにはアルファベット、空白以外使用できません。",
     "before"           => ":attributeは:dateより前の日付でなければなりません。",
@@ -98,5 +99,6 @@ return array(
         'title' => 'タイトル',
         'display_title' => 'テンプレート名',
         'body' => '本文',
+        'tags' => 'タグ',
     ),
 );

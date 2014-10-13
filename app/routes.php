@@ -21,6 +21,7 @@ Route::post('signup', array('uses' => 'SignupController@register'));
 Route::get('search', array('uses' => 'SearchController@index'));
 Route::get('search/json', array('uses' => 'SearchController@json'));
 Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
+Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 
 /*
  * Need Login.
@@ -40,6 +41,9 @@ Route::group(array('before' => 'sentry'), function() {
     Route::resource('templates', 'TemplateController');
     Route::resource('stocks', 'StockController');
     Route::resource('likes', 'LikeController');
+
+    // Tags
+    Route::get('tags/{tags}', array('as' => 'tags.show', 'uses' => 'TagController@show'));
 
     // Users
     Route::get('user/edit', array('uses' => 'UserController@edit'));

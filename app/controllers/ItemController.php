@@ -16,6 +16,7 @@ class ItemController extends BaseController{
     public function store(){
         $valid_rule = array(
             'title' => 'required|max:255',
+            'tags' => 'alpha_comma|max:64',
             'body' => 'required',
             'published' => 'required|numeric'
         );
@@ -35,6 +36,15 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $tags = Input::get('tags');
+        if (!empty($tags)) {
+            $tag_names = explode(",", $tags);
+            $tag_ids = Tag::getTagIdsByTagNames($tag_names);
+            $item = Item::find($item->id);
+            $item->tag()->sync($tag_ids);
+        }
+
         return Redirect::route('items.show',[$openItemId]);
     }
 
@@ -88,6 +98,7 @@ class ItemController extends BaseController{
     public function update($openItemId){
         $valid_rule = array(
             'title' => 'required|max:255',
+            'tags' => 'alpha_comma|max:64',
             'body' => 'required',
             'published' => 'required|numeric'
         );
@@ -108,16 +119,28 @@ class ItemController extends BaseController{
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $tags = Input::get('tags');
+        if (!empty($tags)) {
+            $tag_names = explode(",", $tags);
+            $tag_ids = Tag::getTagIdsByTagNames($tag_names);
+            $item = Item::find($item->id);
+            $item->tag()->sync($tag_ids);
+        }
+
         return Redirect::route('items.show',[$openItemId]);
     }
 
     public function destroy($openItemId){
         $user = Sentry::getUser();
-        $item = Item::where('open_item_id',$openItemId)->first();;
+        $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null || $item->user_id !== $user->id){
             App::abort(404);
         }
         Item::where('open_item_id',$openItemId)->delete();
+        $no_tag = array();
+        $item->tag()->sync($no_tag);
+
         return Redirect::route('items.index');
     }
 }

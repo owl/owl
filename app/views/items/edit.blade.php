@@ -19,6 +19,11 @@
         {{$errors->first('title')}}
     </div>
     @endif
+    @if($errors->has('tags'))
+    <div class="alert alert-warning" role="alert">
+        {{$errors->first('tags')}}
+    </div>
+    @endif
     @if($errors->has('body'))
     <div class="alert alert-warning" role="alert">
         {{$errors->first('body')}}
@@ -35,6 +40,11 @@
     <div class="form-group">
         {{Form::label('title', 'タイトル')}}
         {{Form::text('title',$item->title,array('class'=>'form-control'))}}
+    </div>
+
+    <div class="form-group">
+        {{Form::label('tags', 'タグ')}}
+        {{Form::text('tags',HTML::tags($item->tag->toArray()),array('id' => 'tag-input', 'class'=>'form-control', 'placeholder' => '例）日報, php, pjt-timeline'))}}
     </div>
 
     <div class="form-group">
@@ -85,6 +95,22 @@
 @stop
 
 @section('addJs')
+    <script type="text/javascript" language="JavaScript">
+        $(function() {
+            $('#tag-input').tagit({
+                removeConfirmation: true
+            });
+        });
+        $.ajax({
+            url: '/tags/suggest',
+            dataType: 'json',
+            success: function (data) {
+                $('#tag-input').tagit({
+                    availableTags: data
+                })
+            }
+        });
+    </script>
 {{HTML::script('js/jquery.upload-1.0.2.min.js')}}
 {{HTML::script('js/image.upload.js')}}
 @stop

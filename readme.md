@@ -12,6 +12,7 @@ This software is released under the MIT License, see LICENSE.txt.
 - Like button
 - Comment
 - Stock (favorite)
+- Tags
 - Full Text Search
 - Item Publishing Settings (Public, Limited, Only Me)
 
