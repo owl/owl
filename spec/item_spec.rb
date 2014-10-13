@@ -9,6 +9,7 @@ describe 'Item' do
         visit "/items/create"
         fill_in('title', :with => 'Test Title')
         fill_in('body',  :with => 'Test Body')
+        find('.ui-autocomplete-input').set('testtag')
         yield if block_given?
         click_on('投稿')
     end
@@ -69,8 +70,10 @@ describe 'Item' do
                 testBody = "test body\n";
                 testBody = "![test_image_alt7](" + Capybara.app_host + "/img/owl_logo_mini.png \"test_image_title7\" =250x200)\n";
                 fill_in('body',  :with => testBody)
+                find('.ui-autocomplete-input').set('testtag2')
                 click_on('投稿')
                 page.find(:xpath, "//img[@alt='test_image_alt7'][@title='test_image_title7']")
+                expect(page).to have_content 'testtag2'
             end
         end
         context 'When click the like button' do

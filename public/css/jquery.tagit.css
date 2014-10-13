@@ -1,9 +1,10 @@
 ul.tagit {
+	overflow: auto;
     width: 100%;
-    height: 34px;
+    min-height: 34px;
     padding: 0px 12px;
     font-size: 14px;
-    line-height: 1.42857143;
+    line-height: 1.3;
     color: #555;
     background-color: #fff;
     background-image: none;
@@ -32,7 +33,7 @@ ul.tagit li.tagit-choice {
     line-height: inherit;
 }
 ul.tagit li.tagit-new {
-	padding: .25em 4px .25em 0;
+	padding: .20em 4px .20em 0;
 }
 
 ul.tagit li.tagit-choice a.tagit-label {
