@@ -240,8 +240,12 @@ a {
     margin: 10px 0px;
 }
 
+#sidebar hr {
+    border-top: 1px dotted #bbb;
+}
+
 #sidebar .sidebar-info {
-    margin: 10px 0px 30px 10px;
+    margin: 10px 0px 10px 10px;
 }
 
 #sidebar .sidebar-info-items ol {

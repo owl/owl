@@ -4,6 +4,7 @@
 </div>
 
 <div class="sidebar-user">
+    <hr>
     <div class="media">
         <a class="pull-left" href="#">
             {{ HTML::gravator($item->user->email, 30,'mm','g','true',array('class'=>'media-object')) }}
@@ -12,7 +13,7 @@
             <h4 class="media-heading"><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a></h4>
         </div>
     </div>
-    <h5>最近の投稿</h5>
+    <h6><strong>最近の投稿</strong></h6>
     <div class="sidebar-user-items">
         <ul>
         @foreach ($user_items as $item)
@@ -20,8 +21,12 @@
         @endforeach
         </ul>
     </div>
+    <hr>
+</div>
+
+<div class="sidebar-info">
     @if(!empty($recent_stocks))
-        <h5>最新ストック数ランキング</h5>
+        <h6><strong>最新ストック数ランキング</strong></h6>
         <div class="sidebar-info-items">
             <ol>
             @for ($i = 0; $i < count($recent_stocks); $i++)
