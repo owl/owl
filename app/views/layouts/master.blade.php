@@ -7,8 +7,10 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="/img/favicon.ico">
     {{HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen'))}}
-    {{HTML::style('css/style.css')}}
+    {{HTML::style('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/flick/jquery-ui.css')}}
     {{HTML::style('http://fonts.googleapis.com/css?family=Lobster')}}
+    {{HTML::style('css/style.css')}}
+    {{HTML::style('css/jquery.tagit.css')}}
     {{HTML::style('css/highight.js-8.1.github.min.css')}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -74,8 +76,10 @@
 <!-- /wrapper -->
 
 {{HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
+{{HTML::script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')}}
 {{HTML::script("/packages/bootstrap/js/bootstrap.min.js")}}
 {{HTML::script("js/highlight.js-8.1.min.js")}}
+{{HTML::script("js/tag-it.js")}}
 <script>hljs.initHighlightingOnLoad();</script>
 @yield('addJs')
 </body>

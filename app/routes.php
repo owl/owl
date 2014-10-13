@@ -21,6 +21,7 @@ Route::post('signup', array('uses' => 'SignupController@register'));
 Route::get('search', array('uses' => 'SearchController@index'));
 Route::get('search/json', array('uses' => 'SearchController@json'));
 Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
+Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 
 /*
  * Need Login.
