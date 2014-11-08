@@ -336,6 +336,22 @@ h5 {
     font-size: 14px;
 }
 
+table {
+    width: auto;
+    border-collapse: collapse;
+}
+
+table th{
+    padding: 6px;
+    background-color: #eee;
+    border: 1px solid #b9b9b9;
+}
+
+table td{
+    padding: 6px;
+    background-color: #fff;
+    border: 1px solid #b9b9b9;
+}
 
 /******
  * comment & comment balloon

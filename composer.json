@@ -5,7 +5,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
         "cartalyst/sentry": "2.1.*",
-        "cebe/markdown": "0.9.2",
+        "cebe/markdown": "1.0.*",
         "twitter/bootstrap": "3.3.*"
 	},
     "require-dev": {
