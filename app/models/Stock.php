@@ -49,6 +49,7 @@ __SQL__;
                         s.item_id 
                 ) as sc on i.id = sc.item_id 
             $where
+                and i.published = 2
             order by 
                 sc.stock_count desc 
             limit ? 
