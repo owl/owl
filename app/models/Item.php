@@ -71,6 +71,7 @@ class Item extends Eloquent{
     public function delete()
     {
         ItemFts::where('item_id', $this->id)->delete();
+        ItemHistory::where('item_id', $this->id)->delete();
         return parent::delete();
     }
 

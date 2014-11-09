@@ -33,7 +33,7 @@
             {{ HTML::gravator($item->user->email, 40,'mm','g','true',array('class'=>'media-object')) }}
             </a>
             <div class="media-body">
-                <span class="item-manage"><p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p></span>
+                <span class="item-manage"><p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。{{link_to_route('items.history','変更履歴',$item->open_item_id)}}</p></span>
                 @if(isset($User) && $item->user->id == $User->id)
                     {{Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE'])}}
                     {{link_to_route('items.edit','編集',$item->open_item_id)}}

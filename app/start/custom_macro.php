@@ -49,6 +49,17 @@ HTML::macro('markdown', function($str)
     return $parser->parse($str);
 });
 
+HTML::macro('diff', function($from, $to)
+{
+    $from = mb_convert_encoding($from, 'HTML-ENTITIES', 'UTF-8');
+    $to = mb_convert_encoding($to, 'HTML-ENTITIES', 'UTF-8');
+
+    $granularity = new cogpowered\FineDiff\Granularity\Word;
+    $diff        = new cogpowered\FineDiff\Diff($granularity);
+    $result = htmlspecialchars_decode($diff->render($from, $to));
+    return nl2br($result);
+});
+
 HTML::macro('date_replace', function($str)
 {
     $str = str_replace("%{Year}",date('Y'), $str);

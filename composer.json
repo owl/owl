@@ -3,10 +3,11 @@
 	"description": "Owl is a simple team collaboration tool.",
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.2.*",
         "cartalyst/sentry": "2.1.*",
         "cebe/markdown": "1.0.*",
-        "twitter/bootstrap": "3.3.*"
+        "twitter/bootstrap": "3.3.*",
+        "cogpowered/finediff": "0.3.*"
 	},
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
