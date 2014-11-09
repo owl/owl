@@ -36,6 +36,7 @@ Route::group(array('before' => 'sentry'), function() {
     Route::get('items/create', array('as' => 'items.create', 'uses' => 'ItemController@create'));
     Route::post('items', array('as' => 'items.store', 'uses' => 'ItemController@store'));
     Route::get('items/{items}/edit', array('as' => 'items.edit', 'uses' => 'ItemController@edit'));
+    Route::get('items/{items}/history', array('as' => 'items.history', 'uses' => 'ItemController@history'));
     Route::put('items/{items}', array('as' => 'items.update', 'uses' => 'ItemController@update'));
     Route::delete('items/{items}', array('as' => 'items.destroy', 'uses' => 'ItemController@destroy'));
     Route::resource('templates', 'TemplateController');

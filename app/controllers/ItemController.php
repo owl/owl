@@ -32,10 +32,15 @@ class ItemController extends BaseController{
             'user_id'=>$user->id,
             'open_item_id' => $openItemId,
             'title'=>Input::get('title'),
-            'body'=>str_replace('<', '&lt;', Input::get('body')),
+            'body'=>Input::get('body'),
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $result = ItemHistory::insertHistory($item);
+        if (empty($result)){
+            App::abort(500);
+        }
 
         $tags = Input::get('tags');
         if (!empty($tags)) {
@@ -115,10 +120,15 @@ class ItemController extends BaseController{
         $item->fill(array(
             'user_id'=>$user->id,
             'title'=>Input::get('title'),
-            'body'=>str_replace('<', '&lt;', Input::get('body')),
+            'body'=>Input::get('body'),
             'published'=>Input::get('published')
         ));
         $item->save();
+
+        $result = ItemHistory::insertHistory($item);
+        if (empty($result)){
+            App::abort(500);
+        }
 
         $tags = Input::get('tags');
         if (!empty($tags)) {
@@ -142,5 +152,14 @@ class ItemController extends BaseController{
         $item->tag()->sync($no_tag);
 
         return Redirect::route('items.index');
+    }
+
+    public function history($openItemId){
+        $histories = ItemHistory::with('user')
+            ->where('open_item_id', $openItemId)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return View::make('items.history', compact('histories'));
     }
 }
