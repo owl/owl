@@ -76,6 +76,15 @@ describe 'Item' do
                 expect(page).to have_content 'testtag2'
             end
         end
+        context 'When visit history page' do
+            it 'will be display' do
+                login
+                visit "/items/"
+                click_link('Update Test', :match => :first)
+                click_link('変更履歴', :match => :first)
+                expect(page).to have_content '作成'
+            end
+        end
         context 'When click the like button' do
             it 'is true' do
                 login
