@@ -91,7 +91,7 @@ class ItemController extends BaseController{
     public function edit($openItemId){
         $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();
-        if ($item == null || $item->user_id !== $user->id){
+        if ($item === null){
             App::abort(404);
         }
 
@@ -114,11 +114,17 @@ class ItemController extends BaseController{
 
         $user = Sentry::getUser();
         $item = Item::where('open_item_id',$openItemId)->first();
-        if ($item == null || $item->user_id !== $user->id){
+        if ($item == null){
             App::abort(404);
         }
+
+        $user_id = $user->id;
+        if ($item->user_id !== $user->id){
+            $user_id = $item->user_id;
+        }
+
         $item->fill(array(
-            'user_id'=>$user->id,
+            'user_id'=>$user_id,
             'title'=>Input::get('title'),
             'body'=>Input::get('body'),
             'published'=>Input::get('published')
