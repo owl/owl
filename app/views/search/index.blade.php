@@ -18,6 +18,9 @@
 
 @section('contents-main')
     @if (count($results) > 0)
+    @if (count($tags) > 0)
+       {{ HTML::show_tags($tags->toArray()) }}
+    @endif
     <div class="items">
     @foreach ($results as $item)
     <div class="item">

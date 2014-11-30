@@ -13,7 +13,8 @@ class SearchController extends BaseController{
             $pagination = Paginator::make($results, $res[0]->count, $this->_perPage);
         }
         $templates = Template::all();
-        return View::make('search.index', compact('results', 'q', 'templates', 'pagination'));
+        $tags = $this->searchTags($q);
+        return View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags'));
     }
 
     public function json(){
@@ -28,6 +29,13 @@ class SearchController extends BaseController{
             'list' => $this->jsonResults(Input::get('q')),
             200
         ))->setCallback(Input::get('callback'));;
+    }
+
+
+    private function searchTags($q){
+        $tagName = mb_strtolower($q);
+        $tags = Tag::where('name', 'like', "%$tagName%")->get();
+        return $tags;
     }
 
     private function jsonResults($q){
