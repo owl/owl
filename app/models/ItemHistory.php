@@ -10,11 +10,11 @@ class ItemHistory extends Eloquent{
     }
 
     public static function insertHistory($item){
-        // insert history
+        $user = Sentry::getUser();
         $his = new ItemHistory;
         $his->fill(array(
             'item_id'=> $item->id,
-            'user_id'=> $item->user_id,
+            'user_id'=> $user->id,
             'open_item_id' => $item->open_item_id,
             'title'=> $item->title,
             'body'=> $item->body,
