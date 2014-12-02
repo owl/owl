@@ -30,6 +30,10 @@ class LoginController extends BaseController {
             return Redirect::back()
                 ->withErrors(array('warning' => 'アクティベートされていません。'))
                 ->withInput();
+        } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
+            return Redirect::back()
+                ->withErrors(array('warning' => 'ログイン試行上限に達しました。15分間はログインできません。'))
+                ->withInput();
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
             return Redirect::back()
                 ->withErrors(array('warning' => 'ユーザ名又はパスワードが正しくありません'))
