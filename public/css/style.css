@@ -360,7 +360,7 @@ table td{
     border: 1px solid #b9b9b9;
 }
 
-ins {
+.content-diff ins {
     display:block;
     background-color: rgba(89,187,12,0.15);
     text-decoration:none;
@@ -368,7 +368,7 @@ ins {
     padding: 0px 8px;
 }
 
-del {
+.content-diff del {
     display:block;
     background-color: rgba(254,77,8,0.15);
     margin: 0px -8px;
