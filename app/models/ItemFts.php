@@ -47,7 +47,7 @@ __SQL__;
 
     private static function createMatchWord($word){
         $searchWords = array();
-        $words = explode(" ", trim($word));
+        $words = preg_split("/( |　)/", trim($word));
         foreach($words as $word){
             $searchWords[] = FtsUtils::toNgram($word);
         }
