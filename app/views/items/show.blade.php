@@ -25,7 +25,7 @@
 @section('contents-pagehead')
 <div class="row">
     <div class="col-md-9">
-        <p class="item-title">{{{ $item->title }}}</p>
+        <h1 class="item-title">{{{ $item->title }}}</h1>
         {{ HTML::show_tags($item->tag->toArray()) }}
 
         <div class="media">

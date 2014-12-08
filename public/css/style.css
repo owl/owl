@@ -79,6 +79,14 @@ a {
 
 .item-title {
     font-size: 28px;
+    font-weight: normal;
+    margin: 0 0 10px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    text-shadow: none;
+    background-color: transparent;
 }
 
 .item-statuses {
