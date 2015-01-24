@@ -18,6 +18,7 @@ class Tag extends Eloquent {
             }
             $tag_name = mb_strtolower($tag_name);
             $tag = Tag::firstOrCreate(array('name' => $tag_name))->toArray();
+            TagFts::firstOrCreate(array('tag_id' => $tag['id'], 'words' => FtsUtils::toNgram($tag_name)));
             $tag_ids[] = (string)$tag['id'];
         }
         return $tag_ids;

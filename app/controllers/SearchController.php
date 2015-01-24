@@ -34,7 +34,10 @@ class SearchController extends BaseController{
 
     private function searchTags($q){
         $tagName = mb_strtolower($q);
-        $tags = Tag::where('name', 'like', "%$tagName%")->get();
+        $tags = TagFts::match($q);
+        foreach($tags as &$tag){
+            $tag = (array)$tag;
+        }
         return $tags;
     }
 

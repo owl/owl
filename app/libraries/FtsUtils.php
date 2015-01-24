@@ -39,4 +39,15 @@ class FtsUtils{
         return strip_tags($parser->parse($str));
     }
 
+    /**
+     * convert search words into ngram favored search words
+     */
+    public static function createMatchWord($word){
+        $searchWords = array();
+        $words = preg_split("/( |　)/", trim($word));
+        foreach($words as $word){
+            $searchWords[] = self::toNgram($word);
+        }
+        return implode(' ',$searchWords);
+    }
 }
