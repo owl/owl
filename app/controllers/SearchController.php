@@ -12,8 +12,9 @@ class SearchController extends BaseController{
             $res = ItemFts::matchCount($q);
             $pagination = Paginator::make($results, $res[0]->count, $this->_perPage);
         }
+        $users = User::where('username', 'like', "$q%")->get();
         $templates = Template::all();
-        return View::make('search.index', compact('results', 'q', 'templates', 'pagination'));
+        return View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'users'));
     }
 
     public function json(){

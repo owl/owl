@@ -32,7 +32,13 @@
     @endforeach
     <?php echo $pagination->appends(array('q' => $q))->links(); ?>
     </div>
-    @else
+    @endif
+
+    @if (count($users) > 0)
+         {{ HTML::show_users($users->toArray()) }}
+    @endif
+
+    @if (count($results) <= 0 && count($users) <= 0)
     <div class="noresults">
     検索結果は見つかりませんでした。検索ワードを変えて再度検索して下さい。
     </div> 
