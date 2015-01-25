@@ -41,6 +41,15 @@ HTML::macro('show_tags', function($array)
     return $tag_lists;
 });
 
+HTML::macro('show_users', function($array)
+{
+    $user_lists = "";
+    foreach($array as $user){
+        $user_lists .= '<span class="tag-label"><a href="/'. $user["username"] .'">'. $user["username"] .'</a></span>';
+        $user_lists .= ($user === end($array)) ? '' : ' ';
+    }
+    return $user_lists;
+});
 
 HTML::macro('markdown', function($str)
 {

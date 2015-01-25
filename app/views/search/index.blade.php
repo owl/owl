@@ -41,7 +41,11 @@
     </div>
     @endif
 
-    @if (count($results) <= 0 && count($tags) <= 0)
+    @if (count($users) > 0)
+         {{ HTML::show_users($users->toArray()) }}
+    @endif
+
+    @if (count($results) <= 0 && count($tags) <= 0 && count($users) <= 0)
     <div class="noresults">
     検索結果は見つかりませんでした。検索ワードを変えて再度検索して下さい。
     </div> 
