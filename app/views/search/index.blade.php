@@ -17,6 +17,13 @@
 @stop
 
 @section('contents-main')
+
+    @if (count($tags) > 0)
+    <div class="tags">
+        関連するタグ： {{ HTML::show_tags($tags) }}
+    </div>
+    @endif
+
     @if (count($results) > 0)
     <div class="items">
     @foreach ($results as $item)
@@ -32,9 +39,6 @@
     @endforeach
     <?php echo $pagination->appends(array('q' => $q))->links(); ?>
     </div>
-    @endif
-    @if (count($tags) > 0)
-       {{ HTML::show_tags($tags) }}
     @endif
 
     @if (count($results) <= 0 && count($tags) <= 0)
