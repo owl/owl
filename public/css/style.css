@@ -170,6 +170,14 @@ a {
     color: #333333;
 }
 
+#contents .users {
+    margin: 10px 0px;
+}
+
+#contents .users img {
+    vertical-align: middle;
+}
+
 #contents .tags {
     margin: 10px 0px;
     padding-bottom: 20px;

@@ -45,8 +45,9 @@ HTML::macro('show_users', function($array)
 {
     $user_lists = "";
     foreach($array as $user){
-        $user_lists .= '<span class="tag-label"><a href="/'. $user["username"] .'">'. $user["username"] .'</a></span>';
-        $user_lists .= ($user === end($array)) ? '' : ' ';
+        $image = HTML::gravator($user["email"], 20);
+        $user_lists .= $image . ' <a href="/'. $user["username"] .'">'. $user["username"] .'</a>';
+        $user_lists .= ($user === end($array)) ? '' : '　';
     }
     return $user_lists;
 });

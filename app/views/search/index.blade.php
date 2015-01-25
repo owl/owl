@@ -18,6 +18,12 @@
 
 @section('contents-main')
 
+    @if (count($users) > 0)
+    <div class="users">
+         関連するユーザー： {{ HTML::show_users($users->toArray()) }}
+    </div>
+    @endif
+
     @if (count($tags) > 0)
     <div class="tags">
         関連するタグ： {{ HTML::show_tags($tags) }}
@@ -39,10 +45,6 @@
     @endforeach
     <?php echo $pagination->appends(array('q' => $q))->links(); ?>
     </div>
-    @endif
-
-    @if (count($users) > 0)
-         {{ HTML::show_users($users->toArray()) }}
     @endif
 
     @if (count($results) <= 0 && count($tags) <= 0 && count($users) <= 0)
