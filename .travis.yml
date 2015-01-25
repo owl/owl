@@ -12,9 +12,9 @@ before_install:
 
 before_script:
   - composer install
-  - php artisan migrate --package=cartalyst/sentry --no-interaction
-  - php artisan migrate --no-interaction
-  - php artisan db:seed --no-interaction
+  - php artisan migrate --package=cartalyst/sentry --force
+  - php artisan migrate --force
+  - php artisan db:seed --force
   - bundle config build.nokogiri --use-system-libraries
   - bundle install --path vendor/bundle
 
