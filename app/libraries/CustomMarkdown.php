@@ -114,6 +114,8 @@ REGEXP;
 					null, // title
 					$offset + strlen($refMatches[0]), // offset
 					$key,
+					null,
+					null
 				];
 			}
 		}
