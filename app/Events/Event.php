@@ -1,4 +1,4 @@
-<?php namespace App\Events;
+<?php namespace Owl\Events;
 
 abstract class Event {
 

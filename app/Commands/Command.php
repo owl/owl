@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace Owl\Commands;
 
 abstract class Command {
 

@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace Owl\Services;
 
-use App\User;
+use Owl\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
