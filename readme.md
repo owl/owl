@@ -1,23 +1,88 @@
-## Laravel PHP Framework
+# Owl [![Build Status](https://travis-ci.org/fortkle/owl.svg?branch=master)](https://travis-ci.org/fortkle/owl)
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Owl is a simple team collaboration tool.  
+This software is released under the MIT License, see LICENSE.txt.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+![screenshot](https://raw.githubusercontent.com/wiki/fortkle/owl/images/owl_screenshot.png)
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Feature
 
-## Official Documentation
+- Markdown
+- Syntax Highight
+- Like button
+- Comment
+- Stock (favorite)
+- Tags
+- Full Text Search
+- Item Publishing Settings (Public, Limited, Only Me)
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Requirements
 
-## Contributing
+- PHP 5.4
+- SQLite 3
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-### License
+# For Developer
+## Development setup
+1.Clone the project
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+```
+git clone https://github.com/fortkle/owl.git
+cd owl
+```
+
+2.Composer
+
+```
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
+```
+
+3.Database migration
+
+```
+php artisan migrate --package=cartalyst/sentry
+php artisan migrate
+```
+
+if you need a seed data (optional)
+
+```
+php artisan db:seed
+```
+
+4.Access the page
+
+```
+php artisan serve --host 0.0.0.0 --port 3000
+```
+
+access http://localhost:3000  
+
+
+
+## Test
+Rspec + Capybara + PhantomJS（Poltergeist）
+
+※ PhantomJS required  
+https://github.com/teampoltergeist/poltergeist
+
+1.gem install
+
+```
+$ bundle install --path vendor/bundle
+```
+
+2.fix settings
+
+```
+$ vim spec/spec_helper.rb
+```
+please change host.
+
+3.run test
+move root directory.
+
+```
+$ bundle exec rspec spec
+```
