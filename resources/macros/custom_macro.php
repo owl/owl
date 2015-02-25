@@ -1,0 +1,81 @@
+<?php
+
+HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = true, $atts = array())
+{
+    $url = 'http://www.gravatar.com/avatar/';
+    $url .= md5( strtolower( trim( $email ) ) );
+    $url .= "?s=$s&d=$d&r=$r";
+    if ( $img ) {
+        $url = '<img src="' . $url . '"';
+        foreach ( $atts as $key => $val )
+            $url .= ' ' . $key . '="' . $val . '"';
+        $url .= ' />';
+    }
+    return $url;
+});
+
+HTML::macro('tags', function($array)
+{
+    $tag_lists = "";
+    foreach($array as $tag){
+        if($tag === end($array)) {
+            $tag_lists .= $tag["name"];
+            break;
+        }
+        $tag_lists .= $tag["name"] . ",";
+    }
+    return $tag_lists;
+});
+
+HTML::macro('show_tags', function($array)
+{
+    $tag_lists = "";
+    foreach($array as $tag){
+        if($tag === end($array)) {
+            $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span>';
+            break;
+        }
+        $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span> ';
+    }
+    return $tag_lists;
+});
+
+HTML::macro('show_users', function($array)
+{
+    $user_lists = "";
+    foreach($array as $user){
+        $image = HTML::gravator($user["email"], 20);
+        $user_lists .= $image . ' <a href="/'. $user["username"] .'">'. $user["username"] .'</a>';
+        $user_lists .= ($user === end($array)) ? '' : '　';
+    }
+    return $user_lists;
+});
+
+HTML::macro('markdown', function($str)
+{
+    $parser = new CustomMarkdown;
+    $parser->enableNewlines = true;
+    return $parser->parse($str);
+});
+
+HTML::macro('diff', function($from, $to)
+{
+    $from = mb_convert_encoding($from, 'HTML-ENTITIES', 'UTF-8');
+    $to = mb_convert_encoding($to, 'HTML-ENTITIES', 'UTF-8');
+
+    $granularity = new cogpowered\FineDiff\Granularity\Word;
+    $diff        = new cogpowered\FineDiff\Diff($granularity);
+    $result = htmlspecialchars_decode($diff->render($from, $to));
+    return nl2br($result);
+});
+
+HTML::macro('date_replace', function($str)
+{
+    $str = str_replace("%{Year}",date('Y'), $str);
+    $str = str_replace("%{month}",date('m'), $str);
+    $str = str_replace("%{day}",date('d'), $str);
+    return $str;
+});
+
+
+

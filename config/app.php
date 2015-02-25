@@ -145,6 +145,7 @@ return [
 		'Owl\Providers\ConfigServiceProvider',
 		'Owl\Providers\EventServiceProvider',
 		'Owl\Providers\RouteServiceProvider',
+		'Owl\Providers\MacroServiceProvider',
 
 	],
 
@@ -194,7 +195,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         'Form'      => 'Illuminate\Html\FormFacade',
-        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'HTML'      => 'Illuminate\Html\HtmlFacade',
 
 	],
 
