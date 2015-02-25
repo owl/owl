@@ -146,6 +146,7 @@ return [
 		'Owl\Providers\EventServiceProvider',
 		'Owl\Providers\RouteServiceProvider',
 		'Owl\Providers\MacroServiceProvider',
+		'Owl\Providers\TwitterBootstrapServiceProvider',
 
 	],
 
