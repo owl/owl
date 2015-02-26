@@ -1,5 +1,7 @@
-<?php
+<?php namespace Owl\Repositories;
 
-class Image extends Eloquent{
+use Illuminate\Database\Eloquent\Model;
+
+class Image extends Model {
 
 }
