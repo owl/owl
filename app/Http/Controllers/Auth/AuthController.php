@@ -35,4 +35,31 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+	/**
+	 * Show the application registration form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getRegister()
+	{
+		return view('signup.index');
+	}
+
+
+    public function postLogin(Request $request) {
+        $this->validate($request, [
+            'username' => 'required', 'password' => 'required',
+        ]);
+        $credentials = $request->only('name', 'password');
+
+        if ($this->auth->attempt($credentials, $request->has('remember'))) {
+            return redirect()->intended($this->redirectPath());
+        }
+
+        return redirect($this->loginPath())
+            ->withInput($request->only('name', 'remember'))
+            ->withErrors([
+            'name' => '資格情報が記録と一致しません。',
+        ]);
+    }
 }

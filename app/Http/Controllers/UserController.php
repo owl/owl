@@ -1,6 +1,40 @@
 <?php namespace Owl\Http\Controllers;
 
-class UserController extends Controller {
+use Owl\Services\UserService;
+use Owl\Http\Requests\UserRegisterRequest;
+
+class UserController extends Controller
+{
+    protected $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
+    /*
+     * 新規会員登録：入力画面
+     */
+    public function signup()
+    {
+        return view('signup.index');
+    }
+
+    /*
+     * 新規会員登録：登録処理
+     */
+    public function register(UserRegisterRequest $request){
+
+        $credentials = $request->only('username', 'email', 'password');
+        try {
+            $user = $this->userService->createUser($credentials);
+            return \Redirect::to('login')->with('status', '登録が完了しました。');
+        } catch (\Exception $e) {
+            return \Redirect::back()
+                ->withErrors(array('warning' => 'システムエラーが発生したため登録に失敗しました。'))
+                ->withInput();
+        }
+    }
 
     public function show($username){
         $LoginUser = Sentry::getUser();

@@ -11,13 +11,18 @@
 |
 */
 
+//Route::controllers([
+//    'auth' => 'Auth\AuthController',
+//    'password' => 'Auth\PasswordController',
+//]);
+
 /*
  * Dont Need Login.
  */
-Route::get('login', array('uses' => 'LoginController@login'));
-Route::post('login', array('uses' => 'LoginController@auth'));
-Route::get('signup', array('uses' => 'SignupController@signup'));
-Route::post('signup', array('uses' => 'SignupController@register'));
+Route::get('login', array('uses' => 'AuthController@login'));
+Route::post('login', array('uses' => 'AuthController@attempt'));
+Route::get('signup', array('uses' => 'UserController@signup'));
+Route::post('signup', array('uses' => 'UserController@register'));
 Route::get('search', array('uses' => 'SearchController@index'));
 Route::get('search/json', array('uses' => 'SearchController@json'));
 Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
@@ -26,10 +31,10 @@ Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 /*
  * Need Login.
  */
-Route::group(array('before' => 'sentry'), function() {
+Route::group(['middleware' => 'auth'], function() {
     // Basic
     Route::get('/', array('uses' => 'IndexController@index'));
-    Route::get('logout', array('uses' => 'LogoutController@logout'));
+    Route::get('logout', array('uses' => 'AuthController@logout'));
 
     // Items
     Route::get('items', array('as' => 'items.index', 'uses' => 'ItemController@index'));

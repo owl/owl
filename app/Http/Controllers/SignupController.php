@@ -1,24 +1,19 @@
 <?php namespace Owl\Http\Controllers;
 
+use Owl\Repositories\User;
+use Illuminate\Http\Request;
+
 class SignUpController extends Controller {
 
-    public function __construct(){
-    }
-
-    /*
-     * 新規会員登録：入力画面
-     */
-    public function signup(){
-        if (Sentry::check()) {
-            return Redirect::to('/');
-        }
-        return View::make('signup/index');
-    }
 
     /*
      * 新規会員登録：登録処理
      */
-    public function register(){
+    public function register(Request $request){
+
+        $data = $request->all();
+var_dump($data);exit;
+
         // バリデーションルールの作成
         $valid_rule = array(
             'username' => 'required|alpha_num|reserved_word|max:30|unique:users',
@@ -27,40 +22,29 @@ class SignUpController extends Controller {
         );
 
         // バリデーション実行
-        $validator = Validator::make(Input::all(), $valid_rule);
+        $validator = \Validator::make(\Input::all(), $valid_rule);
 
         // 失敗の場合
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
+            return \Redirect::back()->withErrors($validator)->withInput();
         }
 
         // 成功の場合
         try {
             // ユーザーの作成
-            $user = Sentry::createUser(array(
-                'username' => Input::get('username'),
-                'email' => Input::get('email'),
-                'password' => Input::get('password'),
-                'activated' => 1,
-                'permissions' => array(
-                    'user' => 1,
-                ),
+            $user = new User;
+            $user->fill(array(
+                'username' => \Input::get('username'),
+                'email' => \Input::get('email'),
+                'password' => password_hash(\Input::get('password'), PASSWORD_DEFAULT)
             ));
-            $userGroup = Sentry::findGroupById(2);
-            $user->addGroup($userGroup);
-            return Redirect::to('login')->with('status', '登録が完了しました。');
+            $user->save();
 
-        }catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
-            return Redirect::back()
-                ->withErrors(array('warning' => 'ユーザ名とパスワードを入力してください。'))
-                ->withInput();
-        } catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
-            return Redirect::back()
-                ->withErrors(array('warning' => 'パスワードを入力してください。'))
-                ->withInput();
-        } catch (Cartalyst\Sentry\Users\UserExistsException $e) {
-            return Redirect::back()
-                ->withErrors(array('warning' => 'このログインユーザーは存在します。'))
+            return \Redirect::to('login')->with('status', '登録が完了しました。');
+
+        } catch (\Exception $e) {
+            return \Redirect::back()
+                ->withErrors(array('warning' => 'システムエラーが発生したため登録に失敗しました。'))
                 ->withInput();
         }
     }

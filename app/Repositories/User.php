@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Model implements UserInterface, RemindableInterface {
+class User extends Model {
 
 	/**
 	 * The database table used by the model.
@@ -13,7 +13,7 @@ class User extends Model implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
-    protected $fillable = ['username', 'email'];
+    protected $fillable = ['username', 'email', 'password'];
 
     public function item(){
         return $this->hasMany('Item');

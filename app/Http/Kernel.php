@@ -16,6 +16,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
 		'Owl\Http\Middleware\VerifyCsrfToken',
+		'Owl\Http\Middleware\AutoLoginMiddleware',
 	];
 
 	/**
@@ -24,9 +25,10 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => 'Owl\Http\Middleware\Authenticate',
-		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' => 'Owl\Http\Middleware\RedirectIfAuthenticated',
+		'auth' => 'Owl\Http\Middleware\LoginCheckMiddleware',
+		//'auth' => 'Owl\Http\Middleware\Authenticate',
+		//'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		//'guest' => 'Owl\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 }
