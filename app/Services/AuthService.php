@@ -132,8 +132,8 @@ class AuthService extends Service
 
         // TokenをCookieに登録
         $TWO_WEEKS = 14;
-        $limit = Carbon::now()->subDays($TWO_WEEKS);
-        \Cookie::queue('remember_token', $token, $limit->minute);
+        $limit = Carbon::now()->addDays($TWO_WEEKS);
+        \Cookie::queue('remember_token', $token, $limit->diffInMinutes(Carbon::now()));
     }
 
     /*
