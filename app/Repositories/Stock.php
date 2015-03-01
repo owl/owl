@@ -3,16 +3,18 @@
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Stock extends Model {
+class Stock extends Model
+{
     const RANKING_STOCK_KEY = 'ranking_stock_';
     const EXPIRE_AT_ADD_MINUTES = 15;
 
     protected $fillable = array('user_id', 'item_id');
+
     public function user() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('Owl\Repositories\User');
     }
     public function item() {
-        return $this->belongsTo('Item');
+        return $this->belongsTo('Owl\Repositories\Item');
     }
 
     public static function getStockList($userId) {

@@ -1,12 +1,13 @@
 <?php namespace Owl\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Owl\Libraries\FtsUtils;
 
 class Tag extends Model {
     protected $guarded = array();
 
     public function item() {
-        return $this->belongsToMany('Item');
+        return $this->belongsToMany('Owl\Repositories\Item');
     }
 
     public static function getTagIdsByTagNames($tag_names) {

@@ -3,17 +3,20 @@
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Owl\Services\UserService;
 
 abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-    public function __construct()
+    private $userService;
+    protected $currentUser;
+
+    public function __construct(UserService $userService)
     {
-        $userService = new \Owl\Services\UserService();
-        if ($user = $userService->getCurrentUser()) {
-            \View::share("User", $user);
+        $this->userService = $userService;
+        if ($this->currentUser = $this->userService->getCurrentUser()) {
+            \View::share("User", $this->currentUser);
         }
     }
-
 }

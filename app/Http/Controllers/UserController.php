@@ -5,13 +5,6 @@ use Owl\Http\Requests\UserRegisterRequest;
 
 class UserController extends Controller
 {
-    protected $userService;
-
-    public function __construct()
-    {
-        $this->userService = new UserService();
-    }
-
     /*
      * 新規会員登録：入力画面
      */

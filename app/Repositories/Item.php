@@ -1,6 +1,8 @@
 <?php namespace Owl\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Owl\Repositories\ItemFts;
+use Owl\Libraries\FtsUtils;
 
 class Item extends Model {
     protected $table = 'items';
@@ -8,19 +10,19 @@ class Item extends Model {
     protected $fillable = ['user_id','title','body','published', 'open_item_id'];
 
     public function user() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('Owl\Repositories\User');
     }
 
     public function tag() {
-        return $this->belongsToMany('Tag');
+        return $this->belongsToMany('Owl\Repositories\Tag');
     }
 
     public function like(){
-        return $this->hasMany('Like');
+        return $this->hasMany('Owl\Repositories\Like');
     }
 
     public function comment(){
-        return $this->hasMany('Comment');
+        return $this->hasMany('Owl\Repositories\Comment');
     }
 
     public static function createOpenItemId(){

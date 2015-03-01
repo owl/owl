@@ -1,16 +1,24 @@
 <?php namespace Owl\Http\Controllers;
 
+use Owl\Services\UserService;
+use Owl\Repositories\Item;
+use Owl\Repositories\ItemHistory;
+use Owl\Repositories\Template;
+use Owl\Repositories\Tag;
+use Owl\Repositories\Stock;
+use Owl\Repositories\Like;
+
 class ItemController extends Controller {
 
     public function create($templateId = null){
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         $user_items = Item::getRecentItemsByUserId($user->id);
         $template = null;
-        if(Input::get('t')) {
-            $templateId = Input::get('t');
+        if(\Input::get('t')) {
+            $templateId = \Input::get('t');
             $template = Template::where('id',$templateId)->first();
         }
-        return View::make('items.create', compact('template', 'user_items'));
+        return \View::make('items.create', compact('template', 'user_items'));
     }
 
     public function store(){
@@ -20,29 +28,29 @@ class ItemController extends Controller {
             'body' => 'required',
             'published' => 'required|numeric'
         );
-        $validator = Validator::make(Input::all(), $valid_rule);
+        $validator = \Validator::make(\Input::all(), $valid_rule);
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
+            return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         $openItemId = Item::createOpenItemId();
         $item = new Item;
         $item->fill(array(
-            'user_id'=>$user->id,
+            'user_id' => $user->id,
             'open_item_id' => $openItemId,
-            'title'=>Input::get('title'),
-            'body'=>Input::get('body'),
-            'published'=>Input::get('published')
+            'title' => \Input::get('title'),
+            'body' => \Input::get('body'),
+            'published' => \Input::get('published')
         ));
         $item->save();
 
-        $result = ItemHistory::insertHistory($item);
+        $result = ItemHistory::insertHistory($item, $user);
         if (empty($result)){
-            App::abort(500);
+            \App::abort(500);
         }
 
-        $tags = Input::get('tags');
+        $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
             $tag_ids = Tag::getTagIdsByTagNames($tag_names);
@@ -50,7 +58,7 @@ class ItemController extends Controller {
             $item->tag()->sync($tag_ids);
         }
 
-        return Redirect::route('items.show',[$openItemId]);
+        return \Redirect::route('items.show',[$openItemId]);
     }
 
     public function index(){
@@ -62,15 +70,15 @@ class ItemController extends Controller {
     public function show($openItemId){
         $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
         if (empty($item)){
-            App::abort(404);
+            \App::abort(404);
         }
 
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         if ($item->published === "0"){
             if (empty($user)){
-                App::abort(404);
+                \App::abort(404);
             } elseif ($item->user_id !== $user->id) {
-                App::abort(404);
+                \App::abort(404);
             }
         }
 
@@ -84,7 +92,7 @@ class ItemController extends Controller {
         $recent_stocks = Stock::getRecentRankingWithCache(5, 7);
         $user_items = Item::getRecentItemsByUserId($item->user_id);
         $like_users = Item::with('like.user')->where('id', $item->id)->first();
-        return View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
+        return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
     }
 
 

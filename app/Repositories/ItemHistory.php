@@ -8,11 +8,10 @@ class ItemHistory extends Model {
     protected $fillable = ['item_id','user_id','title','body','published', 'open_item_id', 'created_at', 'updated_at'];
 
     public function user() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('Owl\Repositories\User');
     }
 
-    public static function insertHistory($item){
-        $user = Sentry::getUser();
+    public static function insertHistory($item, $user){
         $his = new ItemHistory;
         $his->fill(array(
             'item_id'=> $item->id,
