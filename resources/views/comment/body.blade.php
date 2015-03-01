@@ -2,7 +2,7 @@
 <div class="media comment">
 @endif
   <a class="pull-left" href="/{{{$comment->user->username}}}">
-    {{ HTML::gravator($comment->user->email, 40,'mm','g','true',array('class'=>'media-object')) }}
+    {!! HTML::gravator($comment->user->email, 40,'mm','g','true',array('class'=>'media-object')) !!}
   </a>
   <div class="media-body">
     <div class='left'>
@@ -25,23 +25,23 @@
   </div>
   <div class="body">
     <div class="arrow_box">
-    {{HTML::markdown($comment->body)}}
+    {!! HTML::markdown($comment->body) !!}
     </div>
     @if ($comment->user_id === $User->id)
     <div class="comment-edit">
       <div class="form">
-      {{Form::open(array('url'=>'comment/update', 'onsubmit' => 'return false;'))}}
-        {{Form::hidden('comment-id', $comment->id, array('class' => 'comment-id'))}}
-        {{Form::textarea('body', $comment->body ,array('class'=>'form-control comment-edit-body', 'rows'=>'5'))}}
-        {{Form::hidden('orig_comment', $comment->body, array('class' => 'orig_comment'))}}
+      {!! Form::open(array('url'=>'comment/update', 'onsubmit' => 'return false;')) !!}
+        {!! Form::hidden('comment-id', $comment->id, array('class' => 'comment-id')) !!}
+        {!! Form::textarea('body', $comment->body ,array('class'=>'form-control comment-edit-body', 'rows'=>'5')) !!}
+        {!! Form::hidden('orig_comment', $comment->body, array('class' => 'orig_comment')) !!}
       </div>
       <div class="button">
-        {{Form::button('キャンセル',array('class'=>'edit-cancel btn'))}}
-        {{Form::submit('編集',array('class'=>'edit-confirm btn'))}}
+        {!! Form::button('キャンセル',array('class'=>'edit-cancel btn')) !!}
+        {!! Form::submit('編集',array('class'=>'edit-confirm btn')) !!}
       </div>
     </div>
     @endif
-      {{Form::close()}}
+      {!! Form::close() !!}
   </div>
 @if (!isset($needContainerDiv))
 </div>

@@ -7,7 +7,7 @@
     <hr>
     <div class="media">
         <a class="pull-left" href="#">
-            {{ HTML::gravator($item->user->email, 30,'mm','g','true',array('class'=>'media-object')) }}
+            {!! HTML::gravator($item->user->email, 30,'mm','g','true',array('class'=>'media-object')) !!}
         </a>
         <div class="media-body">
             <h4 class="media-heading"><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a></h4>

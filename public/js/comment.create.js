@@ -3,7 +3,7 @@ $(function() {
         $.ajax({
             type:"POST",
             url:"/comment/create",
-            data:{"open_item_id": this.open_item_id.value, "body": this.body.value},
+            data:{"open_item_id": this.open_item_id.value, "body": this.body.value, "_token": this._token.value},
 
             success: function(msg){
                 $('#comment-container').append(msg);
@@ -17,7 +17,7 @@ $(function() {
         $.ajax({
             type:"POST",
             url:"/comment/destroy",
-            data:{"id": obj.find('.comment-id').val()},
+            data:{"id": obj.find('.comment-id').val(), "_token": obj.find('[name=_token]').val()},
 
             success: function(msg){
                 obj.hide();
@@ -46,7 +46,7 @@ $(function() {
         $.ajax({
             type:"POST",
             url:"/comment/update",
-            data:{"id": obj.find('.comment-id').val(), "body" : obj.find('.comment-edit-body').val()},
+            data:{"id": obj.find('.comment-id').val(), "body" : obj.find('.comment-edit-body').val(), "_token" : obj.find('[name=_token]').val()},
             success: function(msg){
                 obj.html(msg);
             }

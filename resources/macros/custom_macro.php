@@ -53,7 +53,7 @@ HTML::macro('show_users', function($array)
 
 HTML::macro('markdown', function($str)
 {
-    $parser = new CustomMarkdown;
+    $parser = new Owl\Libraries\CustomMarkdown;
     $parser->enableNewlines = true;
     return $parser->parse($str);
 });
