@@ -9,7 +9,7 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-    private $userService;
+    protected $userService;
     protected $currentUser;
 
     public function __construct(UserService $userService)

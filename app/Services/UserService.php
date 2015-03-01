@@ -37,4 +37,18 @@ class UserService extends Service
 
         return false;
     }
+
+    /*
+     * IDを使ってユーザー情報を取得する
+     *
+     * @return array
+     */
+    public function getUserById($id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($user) {
+            return $user;
+        }
+        return false;
+    }
 }

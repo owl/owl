@@ -29,13 +29,12 @@
     <div class="page-header">
         <h5>アカウント設定</h5>
     </div>
-
-    {{Form::open(array('url'=>'user/edit', 'class' => 'form-horizontal', 'method'=>'PUT'))}}
+    {!! Form::open(array('url'=>'user/edit', 'class' => 'form-horizontal', 'method'=>'PUT')) !!}
 
     <div class="form-group">
-        {{Form::label('username', 'ユーザ名', array('class' => 'col-sm-3 control-label'))}}
+        {!! Form::label('username', 'ユーザ名', array('class' => 'col-sm-3 control-label')) !!}
         <div class="col-sm-4">
-            {{Form::text('username',$User->username,array('class' => 'form-control'))}}
+            {!! Form::text('username',$User->username,array('class' => 'form-control')) !!}
         </div>
     </div>
     @if($errors->has('username'))
@@ -47,9 +46,9 @@
     @endif
 
     <div class="form-group">
-        {{Form::label('email', 'Email', array('class' => 'col-sm-3 control-label'))}}
+        {!! Form::label('email', 'Email', array('class' => 'col-sm-3 control-label')) !!}
         <div class="col-sm-4">
-            {{Form::text('email',$User->email,array('class' => 'form-control'))}}
+            {!! Form::text('email',$User->email,array('class' => 'form-control')) !!}
         </div>
     </div>
     @if($errors->has('email'))
@@ -62,24 +61,22 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
-            {{Form::submit('登録', array('class' => 'btn btn-default'))}}
+            {!! Form::submit('登録', array('class' => 'btn btn-default')) !!}
         </div>
     </div>
 
-    {{Form::close()}}
-
-
+    {!! Form::close() !!}
 
     <div class="page-header">
         <h5>パスワード設定</h5>
     </div>
 
-    {{Form::open(array('url'=>'user/password', 'class' => 'form-horizontal', 'method'=>'POST'))}}
+    {!! Form::open(array('url'=>'user/password', 'class' => 'form-horizontal', 'method'=>'POST')) !!}
 
     <div class="form-group">
-        {{Form::label('password', '現在のパスワード', array('class' => 'col-sm-3 control-label'))}}
+        {!! Form::label('password', '現在のパスワード', array('class' => 'col-sm-3 control-label')) !!}
         <div class="col-sm-4">
-            {{Form::password('password',array('class' => 'form-control'))}}
+            {!! Form::password('password',array('class' => 'form-control')) !!}
         </div>
     </div>
     @if($errors->has('password'))
@@ -91,9 +88,9 @@
     @endif
 
     <div class="form-group">
-        {{Form::label('new_password', '新しいパスワード', array('class' => 'col-sm-3 control-label'))}}
+        {!! Form::label('new_password', '新しいパスワード', array('class' => 'col-sm-3 control-label')) !!}
         <div class="col-sm-4">
-            {{Form::password('new_password',array('class' => 'form-control'))}}
+            {!! Form::password('new_password',array('class' => 'form-control')) !!}
         </div>
     </div>
     @if($errors->has('new_password'))
@@ -106,11 +103,11 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
-            {{Form::submit('変更', array('class' => 'btn btn-default'))}}
+            {!! Form::submit('変更', array('class' => 'btn btn-default')) !!}
         </div>
     </div>
 
-    {{Form::close()}}
+    {!! Form::close() !!}
 
     <div class="page-header">
         <h5>プロフィール画像設定</h5>
@@ -119,7 +116,6 @@
         Gravatarという外部サービスを利用してEmailに紐付けられた画像を表示しています。<br/>
         プロフィール画像を設定したい場合は、<a href="http://ja.gravatar.com/" target="_blank">こちら</a>から登録しEmailと画像を紐付けください。
     </p>
-
 
 @stop
 

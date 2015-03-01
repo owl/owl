@@ -14,17 +14,12 @@ class AuthService extends Service
      */
 	public function attempt(array $credentials = [], $remember = false)
     {
-        // DBからハッシュされているパスワードを取得
-        $user_db = User::where('username', $credentials['username'])->first();
-        if (!isset($user_db->id)) {
-            return false; // そんな名前のユーザーはいません
-        }
-
-        if (password_verify($credentials['password'], $user_db->password)) {
+        // パスワードのチェック
+        if ($this->checkPassword($credentials['username'], $credentials['password'])) {
+            $user_db = User::where('username', $credentials['username'])->first();
             $this->login($user_db, $remember);
             return true;
         }
-
         return false;
     }
 
@@ -156,4 +151,39 @@ class AuthService extends Service
         \Cookie::queue('remember_token', '', -1);
     }
 
+    /*
+     * 指定されたユーザーのパスワードが、渡されたパスワードと等しいかチェックする
+     *
+     * @return boolean
+     */
+    public function checkPassword($username, $password)
+    {
+        // DBからハッシュされているパスワードを取得
+        $user_db = User::where('username', $username)->first();
+        if (!isset($user_db->id)) {
+            return false; // そんな名前のユーザーはいません
+        }
+
+        if (password_verify($password, $user_db->password)) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * パスワードを再設定する
+     *
+     * @return boolean
+     */
+    public function attemptResetPassword($username, $password)
+    {
+        $user = User::where('username', $username)->first();
+        $user->password = password_hash($password, PASSWORD_DEFAULT);
+
+        if($user->save()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

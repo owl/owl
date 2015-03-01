@@ -12,7 +12,6 @@ class SignUpController extends Controller {
     public function register(Request $request){
 
         $data = $request->all();
-var_dump($data);exit;
 
         // バリデーションルールの作成
         $valid_rule = array(
