@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Owl\Repositories\ItemFts;
+use Owl\Repositories\ItemHistory;
 use Owl\Libraries\FtsUtils;
 
 class Item extends Model {
@@ -45,7 +46,7 @@ class Item extends Model {
     }
 
     public static function getRecentItemsByTagId($tagId) {
-        return DB::table('items')
+        return \DB::table('items')
                     ->join('users', 'items.user_id', '=', 'users.id')
                     ->join('tags', 'tags.id', '=', 'item_tag.tag_id')
                     ->join('item_tag', 'items.id', '=', 'item_tag.item_id')

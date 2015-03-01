@@ -111,6 +111,6 @@
             }
         });
     </script>
-{{HTML::script('js/jquery.upload-1.0.2.min.js')}}
-{{HTML::script('js/image.upload.js')}}
+{!! HTML::script('js/jquery.upload-1.0.2.min.js') !!}
+{!! HTML::script('js/image.upload.js') !!}
 @stop
