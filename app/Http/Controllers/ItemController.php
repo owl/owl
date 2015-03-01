@@ -64,7 +64,7 @@ class ItemController extends Controller {
     public function index(){
         $items = Item::getAllItems();
         $templates = Template::all();
-        return View::make('items.index', compact('items', 'templates'));
+        return \View::make('items.index', compact('items', 'templates'));
     }
 
     public function show($openItemId){
@@ -97,15 +97,15 @@ class ItemController extends Controller {
 
 
     public function edit($openItemId){
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item === null){
-            App::abort(404);
+            \App::abort(404);
         }
 
         $templates = Template::all();
         $user_items = Item::getRecentItemsByUserId($user->id);
-        return View::make('items.edit', compact('item', 'templates', 'user_items'));
+        return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }
 
     public function update($openItemId){
@@ -115,15 +115,15 @@ class ItemController extends Controller {
             'body' => 'required',
             'published' => 'required|numeric'
         );
-        $validator = Validator::make(Input::all(), $valid_rule);
+        $validator = \Validator::make(\Input::all(), $valid_rule);
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
+            return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null){
-            App::abort(404);
+            \App::abort(404);
         }
 
         $user_id = $user->id;
@@ -132,19 +132,19 @@ class ItemController extends Controller {
         }
 
         $item->fill(array(
-            'user_id'=>$user_id,
-            'title'=>Input::get('title'),
-            'body'=>Input::get('body'),
-            'published'=>Input::get('published')
+            'user_id' => $user_id,
+            'title' => \Input::get('title'),
+            'body' => \Input::get('body'),
+            'published' => \Input::get('published')
         ));
         $item->save();
 
-        $result = ItemHistory::insertHistory($item);
+        $result = ItemHistory::insertHistory($item, $user);
         if (empty($result)){
-            App::abort(500);
+            \App::abort(500);
         }
 
-        $tags = Input::get('tags');
+        $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
             $tag_ids = Tag::getTagIdsByTagNames($tag_names);
@@ -152,20 +152,20 @@ class ItemController extends Controller {
             $item->tag()->sync($tag_ids);
         }
 
-        return Redirect::route('items.show',[$openItemId]);
+        return \Redirect::route('items.show',[$openItemId]);
     }
 
     public function destroy($openItemId){
-        $user = Sentry::getUser();
+        $user = $this->currentUser;
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null || $item->user_id !== $user->id){
-            App::abort(404);
+            \App::abort(404);
         }
         Item::where('open_item_id',$openItemId)->delete();
         $no_tag = array();
         $item->tag()->sync($no_tag);
 
-        return Redirect::route('items.index');
+        return \Redirect::route('items.index');
     }
 
     public function history($openItemId){
@@ -174,6 +174,6 @@ class ItemController extends Controller {
             ->orderBy('updated_at', 'DESC')
             ->get();
 
-        return View::make('items.history', compact('histories'));
+        return \View::make('items.history', compact('histories'));
     }
 }
