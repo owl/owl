@@ -74,13 +74,7 @@ __SQL__;
     }
 
     public static function getRecentRankingWithCache($limit, $dayPeriod) {
-//        $result = \Cache::get(Stock::RANKING_STOCK_KEY.$limit.'_'.$dayPeriod);
-//        if (!empty($result)) return $result;
-
         $result = Stock::getRankingStockList($limit, $dayPeriod);
-//        $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
-//        \Cache::put(Stock::RANKING_STOCK_KEY.$limit.'_'.$dayPeriod, $result, $expiresAt);
-
         return $result;
     }
 }

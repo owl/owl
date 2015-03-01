@@ -1,46 +1,49 @@
 <?php namespace Owl\Http\Controllers;
 
-class LikeController extends Controller {
+use Owl\Repositories\Like;
+use Owl\Repositories\Item;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+class LikeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
     {
-        return Redirect::to('/'); 
-	}
+        return \Redirect::to('/'); 
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$user = Sentry::getUser();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $user = $this->currentUser;
 
-		$openItemId = Input::get('open_item_id');
+        $openItemId = \Input::get('open_item_id');
         $item = Item::where('open_item_id',$openItemId)->first();
 
         Like::firstOrCreate(array('user_id'=> $user->id, 'item_id' => $item->id));
 
-		return Response::json();
-	}
+        return \Response::json();
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($openItemId)
-	{
-		$user = Sentry::getUser();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($openItemId)
+    {
+        $user = $this->currentUser;
         $item = Item::where('open_item_id',$openItemId)->first();
 
-		Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
+        Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
     }
 }

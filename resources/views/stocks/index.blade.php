@@ -21,12 +21,12 @@
 <div class="stocks">
     @foreach ($stocks as $stock)
     <div class="stock">
-        {{ HTML::gravator($stock->email, 40) }}
+        {!! HTML::gravator($stock->email, 40) !!}
         <p><a href="/{{{$stock->username}}}" class="username">{{{$stock->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($stock->updated_at)); ?>に投稿しました。</p>
         <p><a href="{{ action('ItemController@show', $stock->open_item_id) }}"><strong>{{{ $stock->title }}}</strong></a></p>
     </div>
     @endforeach
-    <?php echo $stocks->links(); ?>
+    <?php echo $stocks->render(); ?>
 </div>
 @stop
 
