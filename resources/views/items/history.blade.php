@@ -9,9 +9,9 @@
         }
     }
     </script>
-    {{HTML::script("/js/stock.change.js")}}
-    {{HTML::script("/js/like.change.js")}}
-    {{HTML::script("/js/comment.create.js")}}
+    {!! HTML::script("/js/stock.change.js") !!}
+    {!! HTML::script("/js/like.change.js") !!}
+    {!! HTML::script("/js/comment.create.js") !!}
 @stop
 
 
@@ -39,7 +39,7 @@
 @for ($i = 0; $i < count($histories); $i++)
 
     @if (count($histories) == ($i + 1))
-        <h2><a href="/{{{$histories[$i]->user->username}}}">{{ HTML::gravator($histories[$i]->user->email, 30) }} {{ $histories[$i]->user->username }}</a> が {{ date('Y/m/d', strtotime($histories[$i]->updated_at)) }} に作成</h2>
+        <h2><a href="/{{{$histories[$i]->user->username}}}">{!! HTML::gravator($histories[$i]->user->email, 30) !!} {{ $histories[$i]->user->username }}</a> が {{ date('Y/m/d', strtotime($histories[$i]->updated_at)) }} に作成</h2>
         <h3>本文</h3>
         <div class="content-diff">
             {{ nl2br($histories[$i]->body) }}
@@ -47,10 +47,10 @@
         <?php continue; ?>
     @endif
 
-<h2><a href="/{{{$histories[$i]->user->username}}}">{{ HTML::gravator($histories[$i]->user->email, 30) }} {{ $histories[$i]->user->username }}</a> が {{ date('Y/m/d', strtotime($histories[$i]->updated_at)) }} に変更</h2>
+<h2><a href="/{{{$histories[$i]->user->username}}}">{!! HTML::gravator($histories[$i]->user->email, 30) !!} {{ $histories[$i]->user->username }}</a> が {{ date('Y/m/d', strtotime($histories[$i]->updated_at)) }} に変更</h2>
 <h3>本文</h3>
 <div class="content-diff">
-{{HTML::diff($histories[($i + 1)]->body, $histories[$i]->body)}}
+{!! HTML::diff($histories[($i + 1)]->body, $histories[$i]->body) !!}
 </div>
  <br/>
 @endfor
