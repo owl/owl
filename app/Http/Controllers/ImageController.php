@@ -1,11 +1,13 @@
 <?php namespace Owl\Http\Controllers;
 
+use Owl\Repositories\Image;
+
 class ImageController extends Controller {
 
     public function upload(){
         $image = $this->moveImage();
         $image->save();
-        return View::make('image.add')->withTag($this->makeTag($image));
+        return \View::make('image.add')->withTag($this->makeTag($image));
     }
 
     private function makeTag($image){
@@ -15,7 +17,7 @@ class ImageController extends Controller {
 
     private function moveImage(){
         $ds = "/";
-        $orgImage = Input::file('image');
+        $orgImage = \Input::file('image');
         $exImgPath = $this->createExternalImagePath();
         $exImgName = $this->createExternalImageFileName($orgImage->getClientOriginalName());
         $orgImage->move(public_path().$ds."images".$ds.$exImgPath, $exImgName);
