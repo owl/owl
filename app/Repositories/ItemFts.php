@@ -32,7 +32,7 @@ class ItemFts extends Model
             OFFSET
               $offset 
 __SQL__;
-        return \DB::select( DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
+        return \DB::select( \DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
     }
 
     public static function matchCount($str){
@@ -46,7 +46,7 @@ __SQL__;
             WHERE
               fts.words MATCH :match
 __SQL__;
-        return \DB::select( DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
+        return \DB::select( \DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
     }
 
 }

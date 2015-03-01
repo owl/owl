@@ -20,13 +20,13 @@
 
     @if (count($users) > 0)
     <div class="users">
-         関連するユーザー： {{ HTML::show_users($users->toArray()) }}
+         関連するユーザー： {!! HTML::show_users($users->toArray()) !!}
     </div>
     @endif
 
     @if (count($tags) > 0)
     <div class="tags">
-        関連するタグ： {{ HTML::show_tags($tags) }}
+        関連するタグ： {!! HTML::show_tags($tags) !!}
     </div>
     @endif
 
@@ -35,7 +35,7 @@
     @foreach ($results as $item)
     <div class="item">
         <a class="pull-left" href="/{{$item->username}}">
-            {{ HTML::gravator($item->email, 40) }}
+            {!! HTML::gravator($item->email, 40) !!}
         </a>
         <div class="media-body">
             <p><a href="/{{{$item->username}}}" class="username">{{{$item->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
@@ -43,7 +43,7 @@
         </div>
     </div>
     @endforeach
-    <?php echo $pagination->appends(array('q' => $q))->links(); ?>
+    <?php echo $pagination->appends(array('q' => $q))->render(); ?>
     </div>
     @endif
 

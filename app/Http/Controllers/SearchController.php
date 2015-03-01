@@ -1,35 +1,41 @@
 <?php namespace Owl\Http\Controllers;
 
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Owl\Repositories\ItemFts;
+use Owl\Repositories\TagFts;
+use Owl\Repositories\User;
+use Owl\Repositories\Template;
+
 class SearchController extends Controller {
 
     private $_perPage = 10;
 
     public function index(){
-        $q = Input::get('q');
-        $offset = $this->calcOffset(Input::get('page'));
+        $q = \Input::get('q');
+        $offset = $this->calcOffset(\Input::get('page'));
         $results = ItemFts::match($q, $this->_perPage, $offset);
         if(count($results) > 0){
             $res = ItemFts::matchCount($q);
-            $pagination = Paginator::make($results, $res[0]->count, $this->_perPage);
+            $pagination = new Paginator($results, $res[0]->count, $this->_perPage);
         }
         $users = User::where('username', 'like', "$q%")->get();
         $templates = Template::all();
         $tags = $this->searchTags($q);
-        return View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users'));
+        return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users'));
     }
 
     public function json(){
-        return Response::json(array(
-            'list' => $this->jsonResults(Input::get('q')),
+        return \Response::json(array(
+            'list' => $this->jsonResults(\Input::get('q')),
             200
         ));
     }
 
     public function jsonp(){
-        return Response::json(array(
-            'list' => $this->jsonResults(Input::get('q')),
+        return \Response::json(array(
+            'list' => $this->jsonResults(\Input::get('q')),
             200
-        ))->setCallback(Input::get('callback'));;
+        ))->setCallback(\Input::get('callback'));;
     }
 
 
