@@ -41,14 +41,7 @@ php composer.phar install
 3.Database migration
 
 ```
-php artisan migrate --package=cartalyst/sentry
 php artisan migrate
-```
-
-if you need a seed data (optional)
-
-```
-php artisan db:seed
 ```
 
 4.Access the page
