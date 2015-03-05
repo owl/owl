@@ -3,3 +3,6 @@
 .env
 /public/packages/*
 /public/images/*
+
+# test
+.bundle/
