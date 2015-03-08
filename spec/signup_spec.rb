@@ -99,7 +99,7 @@ describe 'Signup' do
         context 'fill in with email which already exists' do
             it 'is invalid' do
                 input_and_submit_user_info do
-                    fill_in 'email', with: 'admin@owl.example'
+                    fill_in 'email', with: 'admin@example.com'
                 end
                 expect(page).to have_content 'このEmailはすでに使われています'
             end
