@@ -42,6 +42,7 @@ php composer.phar install
 
 ```
 php artisan migrate
+php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
 ```
 
 4.Access the page
