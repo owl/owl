@@ -18,7 +18,7 @@
 
 @section('contents-main')
 
-    @if (count($users) > 0)
+    @if (count($users) > 0 && $q !== "")
     <div class="users">
          関連するユーザー： {!! HTML::show_users($users->toArray()) !!}
     </div>
