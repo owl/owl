@@ -22,7 +22,7 @@ end
 
 def login
     visit "/login/"
-    fill_in('username', :with => 'takanof')
-    fill_in('password', :with => 'takanof')
+    fill_in('username', :with => 'admin')
+    fill_in('password', :with => 'password')
     click_on('ログイン')
 end
