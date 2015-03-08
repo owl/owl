@@ -26,9 +26,6 @@ class Kernel extends HttpKernel {
 	 */
 	protected $routeMiddleware = [
 		'auth' => 'Owl\Http\Middleware\LoginCheckMiddleware',
-		//'auth' => 'Owl\Http\Middleware\Authenticate',
-		//'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		//'guest' => 'Owl\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 }
