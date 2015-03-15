@@ -112,6 +112,6 @@
             }
         });
     </script>
-{!! HTML::script('js/jquery.upload-1.0.2.min.js') !!}
-{!! HTML::script('js/image.upload.js') !!}
+<script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
+<script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
 @stop

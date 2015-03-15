@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="/img/favicon.ico">
-    {!! HTML::style('packages/bootstrap/css/bootstrap.min.css', array('media'=>'screen')) !!}
     {!! HTML::style('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/flick/jquery-ui.css') !!}
     {!! HTML::style('http://fonts.googleapis.com/css?family=Lobster') !!}
-    {!! HTML::style('css/style.css') !!}
-    {!! HTML::style('css/jquery.tagit.css') !!}
-    {!! HTML::style('css/highight.js-8.1.github.min.css') !!}
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('packages/bootstrap/css/bootstrap.min.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/style.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/jquery.tagit.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/highight.js-8.1.github.min.css') !!}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,9 +77,9 @@
 
 {!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js') !!}
 {!! HTML::script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js') !!}
-{!! HTML::script("/packages/bootstrap/js/bootstrap.min.js") !!}
-{!! HTML::script("js/highlight.js-8.1.min.js") !!}
-{!! HTML::script("js/tag-it.js") !!}
+<script src="{!! \HTML::cached_asset('/packages/bootstrap/js/bootstrap.min.js') !!}"></script>
+<script src="{!! \HTML::cached_asset('js/highlight.js-8.1.min.js') !!}"></script>
+<script src="{!! \HTML::cached_asset('js/tag-it.js') !!}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 @yield('addJs')
 </body>

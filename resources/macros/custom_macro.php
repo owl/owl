@@ -1,6 +1,20 @@
 <?php
 
-HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = true, $atts = array())
+\HTML::macro('cached_asset', function($path)
+{
+    $realPath = public_path($path);
+
+    if ( ! file_exists($realPath)) {
+        throw new LogicException("File not found at [{$realPath}]");
+    }
+
+    $timestamp = filemtime($realPath);
+    $path  .= '?' . $timestamp;
+
+    return asset($path);
+});
+
+\HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = true, $atts = array())
 {
     $url = 'http://www.gravatar.com/avatar/';
     $url .= md5( strtolower( trim( $email ) ) );
@@ -14,7 +28,7 @@ HTML::macro('gravator', function($email, $s = 80, $d = 'mm', $r = 'g', $img = tr
     return $url;
 });
 
-HTML::macro('tags', function($array)
+\HTML::macro('tags', function($array)
 {
     $tag_lists = "";
     foreach($array as $tag){
@@ -27,7 +41,7 @@ HTML::macro('tags', function($array)
     return $tag_lists;
 });
 
-HTML::macro('show_tags', function($array)
+\HTML::macro('show_tags', function($array)
 {
     $tag_lists = "";
     foreach($array as $tag){

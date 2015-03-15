@@ -9,9 +9,9 @@
         }
     }
     </script>
-    {!! HTML::script("/js/stock.change.js") !!}
-    {!! HTML::script("/js/like.change.js") !!}
-    {!! HTML::script("/js/comment.create.js") !!}
+    <script src="{!! \HTML::cached_asset('js/stock.change.js') !!}"></script>
+    <script src="{!! \HTML::cached_asset('js/like.change.js') !!}"></script>
+    <script src="{!! \HTML::cached_asset('js/comment.create.js') !!}"></script>
 @stop
 
 @section('title')
