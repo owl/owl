@@ -42,7 +42,7 @@
         <h2><a href="/{{{$histories[$i]->user->username}}}">{!! HTML::gravator($histories[$i]->user->email, 30) !!} {{ $histories[$i]->user->username }}</a> が {{ date('Y/m/d', strtotime($histories[$i]->updated_at)) }} に作成</h2>
         <h3>本文</h3>
         <div class="content-diff">
-            {{ nl2br($histories[$i]->body) }}
+            {!! nl2br($histories[$i]->body) !!}
         </div>
         <?php continue; ?>
     @endif
