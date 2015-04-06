@@ -16,7 +16,7 @@ class SearchController extends Controller {
         $results = ItemFts::match($q, $this->_perPage, $offset);
         if(count($results) > 0){
             $res = ItemFts::matchCount($q);
-            $pagination = new Paginator($results, $res[0]->count, $this->_perPage, null, array('path' => 'search'));
+            $pagination = new Paginator($results, $res[0]->count, $this->_perPage, null, array('path' => '/search'));
         }
         $users = User::where('username', 'like', "$q%")->get();
         $templates = Template::all();
