@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('likes', 'LikeController');
 
     // Tags
+    Route::get('tags', array('as' => 'tags.index', 'uses' => 'TagController@index'));
     Route::get('tags/{tags}', array('as' => 'tags.show', 'uses' => 'TagController@show'));
 
     // Users

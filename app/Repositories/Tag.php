@@ -10,6 +10,26 @@ class Tag extends Model {
         return $this->belongsToMany('Owl\Repositories\Item');
     }
 
+    public function getAllTags()
+    {
+        $query = <<<__SQL__
+            SELECT
+                count(t.name) as count, t.id, t.name, it.item_id, i.title, i.open_item_id
+            FROM
+                tags as t
+                LEFT JOIN
+                    item_tag as it ON t.id = it.tag_id
+                LEFT JOIN
+                    items as i ON it.item_id = i.id
+            WHERE
+                i.published = 2
+            GROUP BY
+                t.id
+            ORDER BY count DESC
+__SQL__;
+        return \DB::select($query);
+    }
+
     public static function getTagIdsByTagNames($tag_names) {
         $tag_ids = array();
 

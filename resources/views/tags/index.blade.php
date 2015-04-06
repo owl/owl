@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-すべての投稿 | Owl
+タグ一覧 | Owl
 @stop
 
 @section('navbar-menu')
@@ -9,20 +9,27 @@
 @stop
 
 @section('contents-pagehead')
-<p class="page-title">タグの記事</p>
+<p class="page-title">タグ一覧</p>
 @stop
 
 @section('contents-main')
-<div class="items">
-    @foreach ($items as $item)
-    <div class="item">
-        {!! HTML::gravator($item->user->email, 40) !!}
-        <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
-        <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
-    </div>
-    @endforeach
-<?php echo $items->render(); ?>
+
+<div class="page-header">
+    <h5>人気のタグ</h5>
 </div>
+
+<div class="tags">
+    <ul class="list-group">
+        @foreach ($tags as $tag)
+        <li class="list-group-item">
+            <span class="badge">{{ $tag->count }}</span>
+            <p class="list-group-item-heading"><span class="tag-label"><a href="/tags/{{ $tag->name }}">{{ $tag->name }}</a></span></p>
+            <p class="list-group-item-text">　<a href="/items/{{ $tag->open_item_id }}">{{ $tag->title }}</a></p>
+        </li>
+        @endforeach
+    </ul>
+</div>
+
 @stop
 
 @section('contents-sidebar')
