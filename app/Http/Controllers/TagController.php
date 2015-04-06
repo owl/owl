@@ -2,10 +2,29 @@
 
 use Owl\Repositories\Tag;
 use Owl\Repositories\Item;
+use Owl\Repositories\Template;
+use Owl\Services\TagService;
+use Owl\Services\UserService;
 
 class TagController extends Controller {
 
     private $_perPage = 10;
+
+    protected $tagService;
+    protected $userService;
+
+    public function __construct(TagService $tagService, UserService $userService)
+    {
+        $this->tagService = $tagService;
+        parent::__construct($userService);
+    }
+
+    public function index()
+    {
+        $tags = $this->tagService->getAllTags();
+        $templates = Template::all();
+        return view('tags.index', compact('tags', 'templates'));
+    }
 
     public function show($tagName){
         $tagName = mb_strtolower($tagName);
