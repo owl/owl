@@ -33,5 +33,25 @@
 @stop
 
 @section('contents-sidebar')
-    @include('layouts.contents-sidebar')
+    @if(!empty($recent_ranking))
+        <h4>最新ストック数ランキング</h4>
+        <div class="sidebar-info-items">
+            <ol>
+            @for ($i = 0; $i < count($recent_ranking); $i++)
+                <li><a href="{{ action('ItemController@show', $recent_ranking[$i]->open_item_id) }}">{{{ $recent_ranking[$i] -> title }}}</a></li>
+            @endfor
+            </ol>
+        </div>
+    @endif
+
+    @if(!empty($all_ranking))
+        <h4>総合ストック数ランキング</h4>
+        <div class="sidebar-info-items">
+            <ol>
+            @for ($i = 0; $i < count($all_ranking); $i++)
+                <li><a href="{{ action('ItemController@show', $all_ranking[$i]->open_item_id) }}">{{{ $all_ranking[$i] -> title }}}</a></li>
+            @endfor
+            </ol>
+        </div>
+    @endif
 @stop

@@ -2,7 +2,7 @@
 
 use Owl\Repositories\Tag;
 use Owl\Repositories\Item;
-use Owl\Repositories\Template;
+use Owl\Repositories\Stock;
 use Owl\Services\TagService;
 use Owl\Services\UserService;
 
@@ -22,8 +22,9 @@ class TagController extends Controller {
     public function index()
     {
         $tags = $this->tagService->getAllTags();
-        $templates = Template::all();
-        return view('tags.index', compact('tags', 'templates'));
+        $recent_ranking = Stock::getRecentRankingWithCache(5, 7);
+        $all_ranking = Stock::getRankingWithCache(5);
+        return view('tags.index', compact('tags', 'recent_ranking', 'all_ranking'));
     }
 
     public function show($tagName){
