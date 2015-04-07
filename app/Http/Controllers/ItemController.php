@@ -46,9 +46,6 @@ class ItemController extends Controller {
         $item->save();
 
         $result = ItemHistory::insertHistory($item, $user);
-        if (empty($result)){
-            \App::abort(500);
-        }
 
         $tags = \Input::get('tags');
         if (!empty($tags)) {
@@ -140,9 +137,6 @@ class ItemController extends Controller {
         $item->save();
 
         $result = ItemHistory::insertHistory($item, $user);
-        if (empty($result)){
-            \App::abort(500);
-        }
 
         $tags = \Input::get('tags');
         if (!empty($tags)) {

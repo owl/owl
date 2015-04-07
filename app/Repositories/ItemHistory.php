@@ -12,6 +12,10 @@ class ItemHistory extends Model {
     }
 
     public static function insertHistory($item, $user){
+        if ($item->published === '0') {
+            return;
+        }
+
         $his = new ItemHistory;
         $his->fill(array(
             'item_id'=> $item->id,
@@ -27,7 +31,6 @@ class ItemHistory extends Model {
     }
 
     public static function insertPastHistory($item){
-        // insert history
         $his = new ItemHistory;
         $his->fill(array(
             'item_id'=> $item->id,
