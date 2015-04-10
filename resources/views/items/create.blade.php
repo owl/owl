@@ -111,6 +111,14 @@
                 })
             }
         });
+
+        $('.form-items').submit(function() {
+            $(this).submit(function() {
+                alert('処理中です');
+                return false;
+            });
+        });
+
     </script>
 <script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
 <script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
