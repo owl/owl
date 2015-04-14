@@ -1,0 +1,3 @@
+default:
+    autoload:
+        '': %paths.base%/tests_e2e/features/bootstrap
