@@ -138,4 +138,27 @@ REGEXP;
 			. ($this->html5 ? '>' : ' />');
 	}
 
+    // @Override
+	protected function renderLink($block)
+	{
+		if (isset($block['refkey'])) {
+			if (($ref = $this->lookupReference($block['refkey'])) !== false) {
+				$block = array_merge($block, $ref);
+			} else {
+				return $block['orig'];
+			}
+		}
+		return '<a href="' . htmlspecialchars($block['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
+			. (empty($block['title']) ? '' : ' title="' . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
+            . ' rel=noreferrer'
+			. '>' . $this->renderAbsy($block['text']) . '</a>';
+	}
+
+    // @Override
+	protected function renderAutoUrl($block)
+	{
+		$href = htmlspecialchars($block[1], ENT_COMPAT | ENT_HTML401, 'UTF-8');
+		$text = htmlspecialchars(urldecode($block[1]), ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8');
+		return "<a href=\"$href\" rel=noreferrer>$text</a>";
+	}
 }
