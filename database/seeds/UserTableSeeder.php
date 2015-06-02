@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Owl\Repositories\User;
+use Owl\Models\User;
 
 class UserTableSeeder extends Seeder {
 

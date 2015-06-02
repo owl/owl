@@ -1,7 +1,7 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\Comment;
-use Owl\Repositories\Item;
+use Owl\Models\Comment;
+use Owl\Models\Item;
 
 class CommentController extends Controller {
 

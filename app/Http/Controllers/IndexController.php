@@ -1,8 +1,8 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\Item;
-use Owl\Repositories\Template;
-use Owl\Repositories\Stock;
+use Owl\Models\Item;
+use Owl\Models\Template;
+use Owl\Models\Stock;
 
 class IndexController extends Controller
 {

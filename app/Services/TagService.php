@@ -1,6 +1,6 @@
 <?php namespace Owl\Services;
 
-use Owl\Repositories\Tag;
+use Owl\Models\Tag;
 
 class TagService extends Service
 {

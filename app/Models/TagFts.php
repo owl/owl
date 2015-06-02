@@ -1,4 +1,4 @@
-<?php namespace Owl\Repositories;
+<?php namespace Owl\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Owl\Libraries\FtsUtils;

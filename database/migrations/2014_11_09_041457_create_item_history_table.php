@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Owl\Repositories\Item;
-use Owl\Repositories\ItemHistory;
+use Owl\Models\Item;
+use Owl\Models\ItemHistory;
 
 class CreateItemHistoryTable extends Migration {
 

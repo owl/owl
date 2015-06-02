@@ -1,6 +1,6 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\User;
+use Owl\Models\User;
 use Illuminate\Http\Request;
 
 class SignUpController extends Controller {
