@@ -2,13 +2,15 @@
 
 use Owl\Models\Template;
 
-class TemplateController extends Controller {
-
-    public function create(){
+class TemplateController extends Controller
+{
+    public function create()
+    {
         return \View::make('templates.create');
     }
 
-    public function store(){
+    public function store()
+    {
         $valid_rule = array(
             'display_title' => 'required|max:255',
             'title' => 'required|max:255',
@@ -29,27 +31,31 @@ class TemplateController extends Controller {
             'body' => \Input::get('body'),
         ));
         $template->save();
-        return \Redirect::to('/templates'); 
+        return \Redirect::to('/templates');
     }
 
-    public function index(){
+    public function index()
+    {
         $templates = Template::orderBy('id', 'desc')->get();
         return \View::make('templates.index', compact('templates'));
     }
 
-    public function show(){
-        return \Redirect::to('/templates'); 
+    public function show()
+    {
+        return \Redirect::to('/templates');
     }
 
-    public function edit($templateId){
-        $template = Template::where('id',$templateId)->first();
-        if ($template == null){
+    public function edit($templateId)
+    {
+        $template = Template::where('id', $templateId)->first();
+        if ($template == null) {
             \App::abort(404);
         }
         return \View::make('templates.edit', compact('template'));
     }
 
-    public function update($templateId){
+    public function update($templateId)
+    {
         $valid_rule = array(
             'display_title' => 'required|max:255',
             'title' => 'required|max:255',
@@ -62,8 +68,8 @@ class TemplateController extends Controller {
             return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $template = Template::where('id',$templateId)->first();
-        if ($template == null){
+        $template = Template::where('id', $templateId)->first();
+        if ($template == null) {
             \App::abort(404);
         }
         $template->fill(array(
@@ -76,8 +82,9 @@ class TemplateController extends Controller {
         return \Redirect::route('templates.index');
     }
 
-    public function destroy($templateId){
-        Template::where('id',$templateId)->delete();
+    public function destroy($templateId)
+    {
+        Template::where('id', $templateId)->delete();
         return \Redirect::route('templates.index');
     }
 }

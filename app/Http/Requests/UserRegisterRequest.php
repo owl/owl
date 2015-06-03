@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class UserRegisterRequest extends Request {
+class UserRegisterRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,5 +28,4 @@ class UserRegisterRequest extends Request {
             'password' => 'required|alpha_num|min:4'
         ];
     }
-
 }

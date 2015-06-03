@@ -3,10 +3,12 @@
 use Illuminate\Database\Eloquent\Model;
 use Owl\Libraries\FtsUtils;
 
-class Tag extends Model {
+class Tag extends Model
+{
     protected $guarded = array();
 
-    public function item() {
+    public function item()
+    {
         return $this->belongsToMany('Owl\Models\Item');
     }
 
@@ -30,12 +32,13 @@ __SQL__;
         return \DB::select($query);
     }
 
-    public static function getTagIdsByTagNames($tag_names) {
+    public static function getTagIdsByTagNames($tag_names)
+    {
         $tag_ids = array();
 
-        foreach($tag_names as $tag_name) {
-            $tag_name = trim(mb_convert_kana( $tag_name, "&quot;s&quot;"));
-            $tag_name = str_replace(" ","", $tag_name);
+        foreach ($tag_names as $tag_name) {
+            $tag_name = trim(mb_convert_kana($tag_name, "&quot;s&quot;"));
+            $tag_name = str_replace(" ", "", $tag_name);
             if (empty($tag_name)) {
                 continue;
             }

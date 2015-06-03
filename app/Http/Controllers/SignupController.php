@@ -3,14 +3,13 @@
 use Owl\Models\User;
 use Illuminate\Http\Request;
 
-class SignUpController extends Controller {
-
-
+class SignUpController extends Controller
+{
     /*
      * 新規会員登録：登録処理
      */
-    public function register(Request $request){
-
+    public function register(Request $request)
+    {
         $data = $request->all();
 
         // バリデーションルールの作成

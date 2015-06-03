@@ -2,16 +2,19 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ItemHistory extends Model {
+class ItemHistory extends Model
+{
     protected $table = 'items_history';
 
     protected $fillable = ['item_id','user_id','title','body','published', 'open_item_id', 'created_at', 'updated_at'];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('Owl\Models\User');
     }
 
-    public static function insertHistory($item, $user){
+    public static function insertHistory($item, $user)
+    {
         if ($item->published === '0') {
             return;
         }
@@ -30,7 +33,8 @@ class ItemHistory extends Model {
         return $his;
     }
 
-    public static function insertPastHistory($item){
+    public static function insertPastHistory($item)
+    {
         $his = new ItemHistory;
         $his->fill(array(
             'item_id'=> $item->id,
@@ -47,7 +51,8 @@ class ItemHistory extends Model {
         return $his;
     }
 
-    public static function createOpenItemId(){
-        return substr(md5(uniqid(rand(),1)),0,20);
+    public static function createOpenItemId()
+    {
+        return substr(md5(uniqid(rand(), 1)), 0, 20);
     }
 }

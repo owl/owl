@@ -5,47 +5,56 @@ use Owl\Models\ItemFts;
 use Owl\Models\ItemHistory;
 use Owl\Libraries\FtsUtils;
 
-class Item extends Model {
+class Item extends Model
+{
     protected $table = 'items';
 
     protected $fillable = ['user_id','title','body','published', 'open_item_id'];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('Owl\Models\User');
     }
 
-    public function tag() {
+    public function tag()
+    {
         return $this->belongsToMany('Owl\Models\Tag');
     }
 
-    public function like(){
+    public function like()
+    {
         return $this->hasMany('Owl\Models\Like');
     }
 
-    public function comment(){
+    public function comment()
+    {
         return $this->hasMany('Owl\Models\Comment');
     }
 
-    public static function createOpenItemId(){
-        return substr(md5(uniqid(rand(),1)),0,20);
+    public static function createOpenItemId()
+    {
+        return substr(md5(uniqid(rand(), 1)), 0, 20);
     }
 
-    public static function getAllItems() {
+    public static function getAllItems()
+    {
         return  Item::with('user')
                     ->where('published', '2')
-                    ->orderBy('updated_at','desc')
+                    ->orderBy('updated_at', 'desc')
                     ->paginate(10);
     }
 
-    public static function getRecentItemsByUserId($userId) {
+    public static function getRecentItemsByUserId($userId)
+    {
         return  Item::with('user')
                     ->where('published', '2')
                     ->where('user_id', $userId)
-                    ->orderBy('id','desc')
+                    ->orderBy('id', 'desc')
                     ->take(5)->get();
     }
 
-    public static function getRecentItemsByTagId($tagId) {
+    public static function getRecentItemsByTagId($tagId)
+    {
         return \DB::table('items')
                     ->join('users', 'items.user_id', '=', 'users.id')
                     ->join('tags', 'tags.id', '=', 'item_tag.tag_id')
@@ -81,7 +90,8 @@ class Item extends Model {
     }
 
 
-    private function toNgram($title, $body){
+    private function toNgram($title, $body)
+    {
         return FtsUtils::toNgram($title . "\n\n" . $body);
     }
 }

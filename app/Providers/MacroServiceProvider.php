@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class MacroServiceProvider extends ServiceProvider {
-
+class MacroServiceProvider extends ServiceProvider
+{
     /**
      * Register any application services.
      *

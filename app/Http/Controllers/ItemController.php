@@ -17,18 +17,20 @@ class ItemController extends Controller
         $this->userService = $userService;
     }
 
-    public function create($templateId = null){
+    public function create($templateId = null)
+    {
         $user = $this->userService->getCurrentUser();
         $user_items = Item::getRecentItemsByUserId($user->id);
         $template = null;
-        if(\Input::get('t')) {
+        if (\Input::get('t')) {
             $templateId = \Input::get('t');
-            $template = Template::where('id',$templateId)->first();
+            $template = Template::where('id', $templateId)->first();
         }
         return \View::make('items.create', compact('template', 'user_items'));
     }
 
-    public function store(){
+    public function store()
+    {
         $valid_rule = array(
             'title' => 'required|max:255',
             'tags' => 'alpha_comma|max:64',
@@ -62,24 +64,26 @@ class ItemController extends Controller
             $item->tag()->sync($tag_ids);
         }
 
-        return \Redirect::route('items.show',[$openItemId]);
+        return \Redirect::route('items.show', [$openItemId]);
     }
 
-    public function index(){
+    public function index()
+    {
         $items = Item::getAllItems();
         $templates = Template::all();
         return \View::make('items.index', compact('items', 'templates'));
     }
 
-    public function show($openItemId){
-        $item = Item::with('comment.user')->where('open_item_id',$openItemId)->first();
-        if (empty($item)){
+    public function show($openItemId)
+    {
+        $item = Item::with('comment.user')->where('open_item_id', $openItemId)->first();
+        if (empty($item)) {
             \App::abort(404);
         }
 
         $user = $this->userService->getCurrentUser();
-        if ($item->published === "0"){
-            if (empty($user)){
+        if ($item->published === "0") {
+            if (empty($user)) {
                 \App::abort(404);
             } elseif ($item->user_id !== $user->id) {
                 \App::abort(404);
@@ -88,7 +92,7 @@ class ItemController extends Controller
 
         $stock = null;
         $like = null;
-        if(!empty($user)){
+        if (!empty($user)) {
             $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
             $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
         }
@@ -99,11 +103,11 @@ class ItemController extends Controller
         return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
     }
 
-
-    public function edit($openItemId){
+    public function edit($openItemId)
+    {
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
-        if ($item === null){
+        $item = Item::where('open_item_id', $openItemId)->first();
+        if ($item === null) {
             \App::abort(404);
         }
 
@@ -112,7 +116,8 @@ class ItemController extends Controller
         return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }
 
-    public function update($openItemId){
+    public function update($openItemId)
+    {
         $valid_rule = array(
             'title' => 'required|max:255',
             'tags' => 'alpha_comma|max:64',
@@ -125,13 +130,13 @@ class ItemController extends Controller
         }
 
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
-        if ($item == null){
+        $item = Item::where('open_item_id', $openItemId)->first();
+        if ($item == null) {
             \App::abort(404);
         }
 
         $user_id = $user->id;
-        if ($item->user_id !== $user->id){
+        if ($item->user_id !== $user->id) {
             $user_id = $item->user_id;
         }
 
@@ -153,23 +158,25 @@ class ItemController extends Controller
             $item->tag()->sync($tag_ids);
         }
 
-        return \Redirect::route('items.show',[$openItemId]);
+        return \Redirect::route('items.show', [$openItemId]);
     }
 
-    public function destroy($openItemId){
+    public function destroy($openItemId)
+    {
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
-        if ($item == null || $item->user_id !== $user->id){
+        $item = Item::where('open_item_id', $openItemId)->first();
+        if ($item == null || $item->user_id !== $user->id) {
             \App::abort(404);
         }
-        Item::where('open_item_id',$openItemId)->delete();
+        Item::where('open_item_id', $openItemId)->delete();
         $no_tag = array();
         $item->tag()->sync($no_tag);
 
         return \Redirect::route('items.index');
     }
 
-    public function history($openItemId){
+    public function history($openItemId)
+    {
         $histories = ItemHistory::with('user')
             ->where('open_item_id', $openItemId)
             ->orderBy('updated_at', 'DESC')

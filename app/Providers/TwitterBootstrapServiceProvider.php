@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class TwitterBootstrapServiceProvider extends ServiceProvider {
-
+class TwitterBootstrapServiceProvider extends ServiceProvider
+{
     /**
      * Register any application services.
      *
@@ -23,6 +23,6 @@ class TwitterBootstrapServiceProvider extends ServiceProvider {
     {
         $this->publishes([
             __DIR__.'/../../vendor/twitter/bootstrap/dist' => public_path('/packages/bootstrap'),
-        ]); 
+        ]);
     }
 }

@@ -10,25 +10,29 @@ class Stock extends Model
 
     protected $fillable = array('user_id', 'item_id');
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('Owl\Models\User');
     }
-    public function item() {
+
+    public function item()
+    {
         return $this->belongsTo('Owl\Models\Item');
     }
 
-    public static function getStockList($userId) {
+    public static function getStockList($userId)
+    {
         return \DB::table('stocks')
                     ->join('items', 'stocks.item_id', '=', 'items.id')
                     ->join('users', 'items.user_id', '=', 'users.id')
                     ->where('stocks.user_id', $userId)
-                    ->select('users.email', 'users.username', 'items.open_item_id',
-                            'items.updated_at', 'items.title')
+                    ->select('users.email', 'users.username', 'items.open_item_id', 'items.updated_at', 'items.title')
                     ->orderBy('stocks.created_at', 'desc')
                     ->paginate(10);
     }
 
-    public static function getRankingStockList($limit, $dayPeriod = null) {
+    public static function getRankingStockList($limit, $dayPeriod = null)
+    {
         $options = array($limit);
         $where = '';
         if (!empty($dayPeriod)) {
@@ -58,13 +62,16 @@ __SQL__;
             limit ? 
 
 __SQL__;
-        return \DB::select($query,$options);
+        return \DB::select($query, $options);
     }
 
-    public static function getRankingWithCache($limit) {
+    public static function getRankingWithCache($limit)
+    {
         $result = \Cache::get(Stock::RANKING_STOCK_KEY.$limit);
 
-        if (!empty($result)) return $result;
+        if (!empty($result)) {
+            return $result;
+        }
 
         $result = Stock::getRankingStockList($limit);
         $expiresAt = Carbon::now()->addMinutes(Stock::EXPIRE_AT_ADD_MINUTES);
@@ -73,7 +80,8 @@ __SQL__;
         return $result;
     }
 
-    public static function getRecentRankingWithCache($limit, $dayPeriod) {
+    public static function getRecentRankingWithCache($limit, $dayPeriod)
+    {
         $result = Stock::getRankingStockList($limit, $dayPeriod);
         return $result;
     }

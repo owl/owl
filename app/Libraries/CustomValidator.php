@@ -1,59 +1,61 @@
 <?php namespace Owl\Libraries;
 
-class CustomValidator extends \Illuminate\Validation\Validator {
-	/**
-	 * Validate that an attribute contains only alphabetic characters.
-	 *
-	 * @param  string  $attribute
-	 * @param  mixed   $value
-	 * @return bool
-	 */
-	protected function validateAlpha($attribute, $value)
-	{
-		return preg_match('/^\pL+$/', $value);
-	}
+class CustomValidator extends \Illuminate\Validation\Validator
+{
+    /**
+     * Validate that an attribute contains only alphabetic characters.
+     *
+     * @param  string  $attribute
+     * @param  mixed   $value
+     * @return bool
+     */
+    protected function validateAlpha($attribute, $value)
+    {
+        return preg_match('/^\pL+$/', $value);
+    }
 
-	/**
-	 * Validate that an attribute contains only alpha-numeric characters.
-	 *
-	 * @param  string  $attribute
-	 * @param  mixed   $value
-	 * @return bool
-	 */
-	protected function validateAlphaNum($attribute, $value)
-	{
-		return preg_match('/^[\pL\pN]+$/', $value);
-	}
+    /**
+     * Validate that an attribute contains only alpha-numeric characters.
+     *
+     * @param  string  $attribute
+     * @param  mixed   $value
+     * @return bool
+     */
+    protected function validateAlphaNum($attribute, $value)
+    {
+        return preg_match('/^[\pL\pN]+$/', $value);
+    }
 
-	/**
-	 * Validate that an attribute contains only alpha-numeric characters, dashes, and underscores.
-	 *
-	 * @param  string  $attribute
-	 * @param  mixed   $value
-	 * @return bool
-	 */
-	protected function validateAlphaDash($attribute, $value)
-	{
-		return preg_match('/^[\pL\pN_-]+$/', $value);
-	}
+    /**
+     * Validate that an attribute contains only alpha-numeric characters, dashes, and underscores.
+     *
+     * @param  string  $attribute
+     * @param  mixed   $value
+     * @return bool
+     */
+    protected function validateAlphaDash($attribute, $value)
+    {
+        return preg_match('/^[\pL\pN_-]+$/', $value);
+    }
 
-	protected function validateAlphaComma($attribute, $value)
-	{
-		return preg_match('/^[\pL\pN\s$B!!(B_,-]+$/u', $value);
-	}
+    protected function validateAlphaComma($attribute, $value)
+    {
+        return preg_match('/^[\pL\pN\s$B!!(B_,-]+$/u', $value);
+    }
 
     /**
      * 半角英字&空白
      */
-    protected function validateAlphaSpace($attribute, $value) {
-        return preg_match('/^[\pL\s]+$/',$value);
+    protected function validateAlphaSpace($attribute, $value)
+    {
+        return preg_match('/^[\pL\s]+$/', $value);
     }
 
     /**
      * 予約語
      */
-    protected function validateReservedWord($attribute, $value) {
-
+    protected function validateReservedWord($attribute, $value)
+    {
         $words = array(
             'index','home','top','help','about','security','contact',
             'connect','support','faq','form','mail','update','mobile',
@@ -91,9 +93,9 @@ class CustomValidator extends \Illuminate\Validation\Validator {
             'public','private','default','request','req','data','master',
             'die','exit','eval','issue','thread','diagram','undef','nan',
             'null','empty','0','templates','items','likes','stocks'
-);
+        );
 
-        foreach($words as $word) {
+        foreach ($words as $word) {
             if ($value ===  $word) {
                 return false;
             }

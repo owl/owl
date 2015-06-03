@@ -3,28 +3,26 @@
 use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
-class VerifyCsrfToken extends BaseVerifier {
-
+class VerifyCsrfToken extends BaseVerifier
+{
     //add an array of Routes to skip CSRF check
     private $openRoutes = ['likes', 'likes/*', 'stocks', 'stocks/*', 'image/upload'];
 
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
-        //add this condition 
-        foreach($this->openRoutes as $route) {
-
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        //add this condition
+        foreach ($this->openRoutes as $route) {
             if ($request->is($route)) {
                 return $next($request);
             }
         }
-		return parent::handle($request, $next);
-	}
-
+        return parent::handle($request, $next);
+    }
 }

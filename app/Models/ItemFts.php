@@ -3,13 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 use Owl\Libraries\FtsUtils;
 
-class ItemFts extends Model 
+class ItemFts extends Model
 {
     protected $table = 'items_fts';
 
     public $timestamps = false;
 
-    public static function match($str, $limit=10, $offset=0) {
+    public static function match($str, $limit = 10, $offset = 0)
+    {
         $query = <<<__SQL__
             SELECT
               it.title,
@@ -32,10 +33,11 @@ class ItemFts extends Model
             OFFSET
               $offset 
 __SQL__;
-        return \DB::select( \DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
+        return \DB::select(\DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str)));
     }
 
-    public static function matchCount($str){
+    public static function matchCount($str)
+    {
         $query = <<<__SQL__
             SELECT
               COUNT(*) as count
@@ -46,7 +48,6 @@ __SQL__;
             WHERE
               fts.words MATCH :match
 __SQL__;
-        return \DB::select( \DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
+        return \DB::select(\DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str)));
     }
-
 }

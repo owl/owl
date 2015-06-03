@@ -26,7 +26,7 @@ Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 /*
  * Need Login.
  */
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     // Basic
     Route::get('/', array('uses' => 'IndexController@index'));
     Route::get('logout', array('uses' => 'AuthController@logout'));

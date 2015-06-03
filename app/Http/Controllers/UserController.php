@@ -32,8 +32,8 @@ class UserController extends Controller
     /*
      * 新規会員登録：登録処理
      */
-    public function register(UserRegisterRequest $request){
-
+    public function register(UserRegisterRequest $request)
+    {
         $credentials = $request->only('username', 'email', 'password');
         try {
             $user = $this->userService->createUser($credentials);
@@ -45,23 +45,24 @@ class UserController extends Controller
         }
     }
 
-    public function show($username){
+    public function show($username)
+    {
         $loginUser = $this->userService->getCurrentUser();
         $user = User::where('username', '=', $username)->first();
-        if ($user == null){
+        if ($user == null) {
             \App::abort(404);
         }
 
-        if ($loginUser->id === $user->id){
+        if ($loginUser->id === $user->id) {
             $items = Item::with('user')
                         ->where('user_id', $user->id)
-                        ->orderBy('id','desc')
+                        ->orderBy('id', 'desc')
                         ->paginate(10);
         } else {
             $items = Item::with('user')
                         ->where('published', '2')
                         ->where('user_id', $user->id)
-                        ->orderBy('id','desc')
+                        ->orderBy('id', 'desc')
                         ->paginate(10);
         }
 
@@ -69,12 +70,14 @@ class UserController extends Controller
         return \View::make('user.show', compact('user', 'items', 'templates'));
     }
 
-    public function edit(){
+    public function edit()
+    {
         $templates = Template::all();
         return \View::make('user.edit', compact('templates'));
     }
 
-    public function update(){
+    public function update()
+    {
         $loginUser = $this->userService->getCurrentUser();
 
         // バリデーションルールの作成
@@ -97,10 +100,10 @@ class UserController extends Controller
             $user->username = \Input::get('username');
             $user->email = \Input::get('email');
 
-            if($user->save()){
+            if ($user->save()) {
                 $this->authService->setUser($user);
                 return \Redirect::to('user/edit')->with('status', '編集が完了しました。');
-            }else{
+            } else {
                 \App::abort(500);
             }
         } catch (\Exception $e) {
@@ -110,7 +113,8 @@ class UserController extends Controller
         }
     }
 
-    public function reset(){
+    public function reset()
+    {
         $loginUser = $this->userService->getCurrentUser();
 
         // バリデーションルールの作成
@@ -130,15 +134,15 @@ class UserController extends Controller
         try {
             $user = $this->userService->getUserById($loginUser->id);
 
-            if(!$this->authService->checkPassword($user->username, \Input::get('password'))){
+            if (!$this->authService->checkPassword($user->username, \Input::get('password'))) {
                 return \Redirect::back()
                     ->withErrors(array('warning' => 'パスワードに誤りがあります。'))
                     ->withInput();
             }
 
-            if ($this->authService->attemptResetPassword($user->username, \Input::get('new_password'))){
+            if ($this->authService->attemptResetPassword($user->username, \Input::get('new_password'))) {
                 return \Redirect::to('user/edit')->with('status', 'パスワード変更が完了しました。');
-            }else{
+            } else {
                 return \Redirect::back()
                     ->withErrors(array('warning' => 'パスワードリセットに失敗しました。'))
                     ->withInput();
@@ -150,5 +154,4 @@ class UserController extends Controller
                 ->withInput();
         }
     }
-
 }

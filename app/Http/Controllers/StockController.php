@@ -37,7 +37,7 @@ class StockController extends Controller
         $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::where('open_item_id', $openItemId)->first();
 
         Stock::firstOrCreate(array('user_id'=> $user->id, 'item_id' => $item->id));
 
@@ -54,7 +54,7 @@ class StockController extends Controller
     public function destroy($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::where('open_item_id', $openItemId)->first();
 
         Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
     }

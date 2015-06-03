@@ -6,11 +6,13 @@ class Like extends Model
 {
     protected $fillable = array('user_id', 'item_id');
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('Owl\Models\User');
     }
 
-    public function item() {
+    public function item()
+    {
         return $this->belongsTo('Owl\Models\Item');
     }
 }

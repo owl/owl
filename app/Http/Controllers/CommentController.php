@@ -7,20 +7,23 @@ use Owl\Services\UserService;
 class CommentController extends Controller
 {
     protected $userService;
-    private $_status = 400;
+    private $status = 400;
 
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    public function create(){
+    public function create()
+    {
         $item = Item::where('open_item_id', \Input::get('open_item_id'))->first();
         $user = $this->userService->getCurrentUser();
-        if(preg_match("/^[\s　\t\r\n]*$/s", \Input::get('body') || !$user || !$item)) return "";
+        if (preg_match("/^[\s　\t\r\n]*$/s", \Input::get('body') || !$user || !$item)) {
+            return "";
+        }
         $comment = new Comment;
         $comment->item_id = $item->id;
-        $comment->user_id = $user->id; 
+        $comment->user_id = $user->id;
         $comment->body = \Input::get('body');
         $comment->save();
         $comment->user->username = $user->username;
@@ -28,9 +31,10 @@ class CommentController extends Controller
         return \View::make('comment.body', compact('comment'));
     }
 
-    public function update(){
-        if(!$comment = $this->getComment()){
-            return  \Response::make("", $this->_status);
+    public function update()
+    {
+        if (!$comment = $this->getComment()) {
+            return  \Response::make("", $this->status);
         }
         $comment->body = \Input::get('body');
         $comment->save();
@@ -40,19 +44,22 @@ class CommentController extends Controller
 
     }
 
-    public function destroy(){
-        if($comment = $this->getComment()){
+    public function destroy()
+    {
+        if ($comment = $this->getComment()) {
             $comment->delete();
-            $this->_status = 200;
+            $this->status = 200;
         }
-        return  \Response::make("", $this->_status);
+        return  \Response::make("", $this->status);
     }
 
-    private function getComment(){
+    private function getComment()
+    {
         $user = $this->userService->getCurrentUser();
         $comment = Comment::with('user')->find(\Input::get('id'));
-        if($user->id === $comment->user_id)
+        if ($user->id === $comment->user_id) {
             return $comment;
+        }
         return false;
     }
 }

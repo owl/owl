@@ -20,7 +20,7 @@ class LikeController extends Controller
      */
     public function index()
     {
-        return \Redirect::to('/'); 
+        return \Redirect::to('/');
     }
 
     /**
@@ -33,7 +33,7 @@ class LikeController extends Controller
         $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::where('open_item_id', $openItemId)->first();
 
         Like::firstOrCreate(array('user_id'=> $user->id, 'item_id' => $item->id));
 
@@ -50,7 +50,7 @@ class LikeController extends Controller
     public function destroy($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id',$openItemId)->first();
+        $item = Item::where('open_item_id', $openItemId)->first();
 
         Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
     }

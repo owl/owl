@@ -12,7 +12,7 @@ class AuthService extends Service
      * @param array ログイン情報（username, password）
      * @return array
      */
-	public function attempt(array $credentials = [], $remember = false)
+    public function attempt(array $credentials = [], $remember = false)
     {
         // パスワードのチェック
         if ($this->checkPassword($credentials['username'], $credentials['password'])) {
@@ -183,9 +183,9 @@ class AuthService extends Service
         $user = User::where('username', $username)->first();
         $user->password = password_hash($password, PASSWORD_DEFAULT);
 
-        if($user->save()){
+        if ($user->save()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

@@ -34,7 +34,7 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
 
         if ($this->authService->attempt($credentials, $request->has('remember'))) {
-            return \Redirect::to('/'); 
+            return \Redirect::to('/');
         } else {
             return \Redirect::back()
                 ->withErrors(array('warning' => 'ユーザ名又はパスワードが正しくありません'))
@@ -45,7 +45,8 @@ class AuthController extends Controller
     /*
      * ログアウト処理
      */
-    public function logout(){
+    public function logout()
+    {
         $this->authService->unsetUser();
         $token = \Request::cookie('remember_token');
         if ($token) {

@@ -2,8 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class AuthAttemptRequest extends Request {
-
+class AuthAttemptRequest extends Request
+{
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,5 +26,4 @@ class AuthAttemptRequest extends Request {
             'password' => 'required|alpha_num|min:4'
         ];
     }
-
 }

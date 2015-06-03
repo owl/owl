@@ -5,10 +5,8 @@ use Owl\Models\Item;
 use Owl\Models\Stock;
 use Owl\Services\TagService;
 
-class TagController extends Controller {
-
-    private $_perPage = 10;
-
+class TagController extends Controller
+{
     protected $tagService;
 
     public function __construct(TagService $tagService)
@@ -24,11 +22,12 @@ class TagController extends Controller {
         return view('tags.index', compact('tags', 'recent_ranking', 'all_ranking'));
     }
 
-    public function show($tagName){
+    public function show($tagName)
+    {
         $tagName = mb_strtolower($tagName);
         $tag = Tag::where('name', $tagName)->first();
 
-        if (empty($tag)){
+        if (empty($tag)) {
             \App::abort(404);
         }
 
@@ -37,11 +36,12 @@ class TagController extends Controller {
         return \View::make('tags.show', compact('tag', 'items'));
     }
 
-    public function suggest(){
+    public function suggest()
+    {
         $tags = Tag::all();
 
         $json = array();
-        foreach($tags as $tag){
+        foreach ($tags as $tag) {
             $json[] = $tag->name;
         }
         return \Response::json($json);

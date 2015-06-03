@@ -3,13 +3,15 @@
 use Illuminate\Database\Eloquent\Model;
 use Owl\Libraries\FtsUtils;
 
-class TagFts extends Model {
+class TagFts extends Model
+{
     protected $table = 'tags_fts';
 
     public $timestamps = false;
     protected $fillable = ['tag_id','words'];
 
-    public static function match($str, $limit=10, $offset=0) {
+    public static function match($str, $limit = 10, $offset = 0)
+    {
         $query = <<<__SQL__
             SELECT
               ta.name
@@ -26,9 +28,6 @@ class TagFts extends Model {
             OFFSET
               $offset 
 __SQL__;
-        return \DB::select( \DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str) ));
+        return \DB::select(\DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str)));
     }
-
-
-
 }

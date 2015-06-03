@@ -3,8 +3,8 @@
 use Closure;
 use Owl\Services\UserService;
 
-class LoginCheckMiddleware {
-
+class LoginCheckMiddleware
+{
     protected $authService;
 
     public function __construct()
@@ -12,20 +12,19 @@ class LoginCheckMiddleware {
         $this->userService = new UserService();
     }
 
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
         if (!$this->userService->getCurrentUser()) {
             return redirect('login');
         }
 
-		return $next($request);
-	}
-
+        return $next($request);
+    }
 }
