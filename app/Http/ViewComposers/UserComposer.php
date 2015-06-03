@@ -26,6 +26,9 @@ class UserComposer
      */
     public function compose(View $view)
     {
-        $view->with('User', $this->user->getCurrentUser());
+        $currentUser = $this->user->getCurrentUser();
+        if (!empty($currentUser)) {
+            $view->with('User', $currentUser);
+        }
     }
 }
