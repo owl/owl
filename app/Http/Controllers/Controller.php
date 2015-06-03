@@ -15,8 +15,6 @@ abstract class Controller extends BaseController {
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        if ($this->currentUser = $this->userService->getCurrentUser()) {
-            \View::share("User", $this->currentUser);
-        }
+        $this->currentUser = $this->userService->getCurrentUser();
     }
 }

@@ -31,8 +31,8 @@ class UserService extends Service
     public function getCurrentUser()
     {
         if (\Session::has('User')) {
-            $user = User::where('id', \Session::get('User.id'))->first();
-            return $user;
+            $user = \Session::get('User');
+            return $user[0];
         }
 
         return false;

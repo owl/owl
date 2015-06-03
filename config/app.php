@@ -145,6 +145,7 @@ return [
 		'Owl\Providers\ConfigServiceProvider',
 		'Owl\Providers\EventServiceProvider',
 		'Owl\Providers\RouteServiceProvider',
+		'Owl\Providers\ComposerServiceProvider',
 		'Owl\Providers\MacroServiceProvider',
 		'Owl\Providers\TwitterBootstrapServiceProvider',
 		'Owl\Providers\ValidatorServiceProvider',

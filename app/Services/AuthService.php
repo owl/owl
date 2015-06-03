@@ -40,7 +40,7 @@ class AuthService extends Service
     /*
      * ログインユーザーの情報をセッションに保存する
      *
-     * @param object ユーザー情報（username, email, password）
+     * @param Object $user ユーザー情報
      * @return void
      */
     public function setUser(User $user)
@@ -51,10 +51,13 @@ class AuthService extends Service
         // ログインに成功したのでセッションIDを再生成
         \Session::regenerate();
 
+        $object = app('stdClass');
+        $object->id = $user->id;
+        $object->username = $user->username;
+        $object->email = $user->email;
+
         // ログインユーザーの情報を保存
-        \Session::push('User.id', $user->id);
-        \Session::push('User.username', $user->username);
-        \Session::push('User.email', $user->email);
+        \Session::push('User', $object);
         \Session::save();
     }
 
