@@ -8,10 +8,17 @@ use Owl\Models\Tag;
 use Owl\Models\Stock;
 use Owl\Models\Like;
 
-class ItemController extends Controller {
+class ItemController extends Controller
+{
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     public function create($templateId = null){
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $user_items = Item::getRecentItemsByUserId($user->id);
         $template = null;
         if(\Input::get('t')) {
@@ -33,7 +40,7 @@ class ItemController extends Controller {
             return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $openItemId = Item::createOpenItemId();
         $item = new Item;
         $item->fill(array(
@@ -70,7 +77,7 @@ class ItemController extends Controller {
             \App::abort(404);
         }
 
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         if ($item->published === "0"){
             if (empty($user)){
                 \App::abort(404);
@@ -94,7 +101,7 @@ class ItemController extends Controller {
 
 
     public function edit($openItemId){
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item === null){
             \App::abort(404);
@@ -117,7 +124,7 @@ class ItemController extends Controller {
             return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null){
             \App::abort(404);
@@ -150,7 +157,7 @@ class ItemController extends Controller {
     }
 
     public function destroy($openItemId){
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id',$openItemId)->first();
         if ($item == null || $item->user_id !== $user->id){
             \App::abort(404);

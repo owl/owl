@@ -4,19 +4,16 @@ use Owl\Models\Tag;
 use Owl\Models\Item;
 use Owl\Models\Stock;
 use Owl\Services\TagService;
-use Owl\Services\UserService;
 
 class TagController extends Controller {
 
     private $_perPage = 10;
 
     protected $tagService;
-    protected $userService;
 
-    public function __construct(TagService $tagService, UserService $userService)
+    public function __construct(TagService $tagService)
     {
         $this->tagService = $tagService;
-        parent::__construct($userService);
     }
 
     public function index()

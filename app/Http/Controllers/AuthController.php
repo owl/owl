@@ -7,11 +7,12 @@ use Owl\Http\Requests\AuthAttemptRequest;
 class AuthController extends Controller
 {
     protected $authService;
+    protected $userService;
 
-    public function __construct()
+    public function __construct(AuthService $authService, UserService $userService)
     {
-        $this->authService = new AuthService();
-        $this->userService = new UserService();
+        $this->authService = $authService;
+        $this->userService = $userService;
     }
 
     /*

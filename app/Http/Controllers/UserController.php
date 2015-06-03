@@ -16,7 +16,6 @@ class UserController extends Controller
     {
         $this->userService = $userService;
         $this->authService = $authService;
-        parent::__construct($userService);
     }
 
     /*
@@ -47,7 +46,7 @@ class UserController extends Controller
     }
 
     public function show($username){
-        $loginUser = $this->currentUser;
+        $loginUser = $this->userService->getCurrentUser();
         $user = User::where('username', '=', $username)->first();
         if ($user == null){
             \App::abort(404);
@@ -76,7 +75,7 @@ class UserController extends Controller
     }
 
     public function update(){
-        $loginUser = $this->currentUser;
+        $loginUser = $this->userService->getCurrentUser();
 
         // バリデーションルールの作成
         $valid_rule = array(
@@ -112,7 +111,7 @@ class UserController extends Controller
     }
 
     public function reset(){
-        $loginUser = $this->currentUser;
+        $loginUser = $this->userService->getCurrentUser();
 
         // バリデーションルールの作成
         $valid_rule = array(

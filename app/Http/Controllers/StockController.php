@@ -3,9 +3,16 @@
 use Owl\Models\Stock;
 use Owl\Models\Item;
 use Owl\Models\Template;
+use Owl\Services\UserService;
 
 class StockController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -14,7 +21,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $stocks = Stock::getStockList($user->id);
         $templates = Template::all();
         return \View::make('stocks.index', compact('stocks', 'templates'));
@@ -27,7 +34,7 @@ class StockController extends Controller
      */
     public function store()
     {
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
         $item = Item::where('open_item_id',$openItemId)->first();
@@ -46,7 +53,7 @@ class StockController extends Controller
      */
     public function destroy($openItemId)
     {
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id',$openItemId)->first();
 
         Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();

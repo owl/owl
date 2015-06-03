@@ -2,14 +2,21 @@
 
 use Owl\Models\Comment;
 use Owl\Models\Item;
+use Owl\Services\UserService;
 
-class CommentController extends Controller {
-
+class CommentController extends Controller
+{
+    protected $userService;
     private $_status = 400;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     public function create(){
         $item = Item::where('open_item_id', \Input::get('open_item_id'))->first();
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         if(preg_match("/^[\s　\t\r\n]*$/s", \Input::get('body') || !$user || !$item)) return "";
         $comment = new Comment;
         $comment->item_id = $item->id;
@@ -42,7 +49,7 @@ class CommentController extends Controller {
     }
 
     private function getComment(){
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $comment = Comment::with('user')->find(\Input::get('id'));
         if($user->id === $comment->user_id)
             return $comment;

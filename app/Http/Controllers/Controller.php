@@ -3,18 +3,8 @@
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Owl\Services\UserService;
 
-abstract class Controller extends BaseController {
-
-	use DispatchesCommands, ValidatesRequests;
-
-    protected $userService;
-    protected $currentUser;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-        $this->currentUser = $this->userService->getCurrentUser();
-    }
+abstract class Controller extends BaseController
+{
+    use DispatchesCommands, ValidatesRequests;
 }

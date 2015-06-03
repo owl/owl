@@ -2,9 +2,17 @@
 
 use Owl\Models\Like;
 use Owl\Models\Item;
+use Owl\Services\UserService;
 
 class LikeController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +30,7 @@ class LikeController extends Controller
      */
     public function store()
     {
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
         $item = Item::where('open_item_id',$openItemId)->first();
@@ -41,7 +49,7 @@ class LikeController extends Controller
      */
     public function destroy($openItemId)
     {
-        $user = $this->currentUser;
+        $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id',$openItemId)->first();
 
         Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
