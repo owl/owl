@@ -217,6 +217,9 @@ a {
     margin: 20px 0px;
 }
 
+#contents #main img {
+    max-width: 100%;
+}
 
 .pagination li a,
 .pagination li span {
@@ -401,7 +404,7 @@ table td{
  * comment & comment balloon
  ******/
 
-    
+
 div.comment_container {
     border-top:1px solid #CCCCCC;
 }
