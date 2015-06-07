@@ -28,7 +28,7 @@ class Item extends Model
 
     public function comment()
     {
-        return $this->hasMany('Owl\Models\Comment');
+        return $this->hasMany('Owl\Repositories\Eloquent\Models\Comment');
     }
 
     public static function createOpenItemId()

@@ -1,17 +1,20 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\Comment;
+//use Owl\Repositories\Eloquent\CommentRepository;
+use Owl\Repositories\CommentRepositoryInterface;
 use Owl\Models\Item;
 use Owl\Services\UserService;
 
 class CommentController extends Controller
 {
     protected $userService;
+    protected $commentRepo;
     private $status = 400;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, CommentRepositoryInterface $commentRepo)
     {
         $this->userService = $userService;
+        $this->commentRepo = $commentRepo;
     }
 
     public function create()
@@ -21,23 +24,23 @@ class CommentController extends Controller
         if (preg_match("/^[\s　\t\r\n]*$/s", \Input::get('body') || !$user || !$item)) {
             return "";
         }
-        $comment = new Comment;
-        $comment->item_id = $item->id;
-        $comment->user_id = $user->id;
-        $comment->body = \Input::get('body');
-        $comment->save();
-        $comment->user->username = $user->username;
-        $comment->user->email = $user->email;
+
+        $object = new \stdClass();
+        $object->item_id = $item->id;
+        $object->user_id = $user->id;
+        $object->body = \Input::get('body');
+        $object->username = $user->username;
+        $object->email = $user->email;
+        $comment = $this->commentRepo->createComment($object);
         return \View::make('comment.body', compact('comment'));
     }
 
     public function update()
     {
-        if (!$comment = $this->getComment()) {
+        if (!$comment = $this->commentRepo->getCommentById(\Input::get('id'))) {
             return  \Response::make("", $this->status);
         }
-        $comment->body = \Input::get('body');
-        $comment->save();
+        $comment = $this->commentRepo->updateComment($comment->id, \Input::get('body'));
 
         $needContainerDiv = false; //remove outer div for update js div replace
         return \View::make('comment.body', compact('comment', 'needContainerDiv'));
@@ -46,20 +49,10 @@ class CommentController extends Controller
 
     public function destroy()
     {
-        if ($comment = $this->getComment()) {
-            $comment->delete();
+        if ($comment = $this->commentRepo->getCommentById(\Input::get('id'))) {
+            $this->commentRepo->deleteComment($comment->id);
             $this->status = 200;
         }
         return  \Response::make("", $this->status);
-    }
-
-    private function getComment()
-    {
-        $user = $this->userService->getCurrentUser();
-        $comment = Comment::with('user')->find(\Input::get('id'));
-        if ($user->id === $comment->user_id) {
-            return $comment;
-        }
-        return false;
     }
 }
