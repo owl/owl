@@ -1,13 +1,20 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\Image;
+use Owl\Repositories\ImageRepositoryInterface;
+use Owl\Repositories\Eloquent\Models\Image;
 
 class ImageController extends Controller
 {
+    public $imageRepo;
+
+    public function __construct(ImageRepositoryInterface $imageRepo)
+    {
+        $this->imageRepo = $imageRepo;
+    }
+
     public function upload()
     {
         $image = $this->moveImage();
-        $image->save();
         return \View::make('image.add')->withTag($this->makeTag($image));
     }
 
@@ -24,10 +31,12 @@ class ImageController extends Controller
         $exImgPath = $this->createExternalImagePath();
         $exImgName = $this->createExternalImageFileName($orgImage->getClientOriginalName());
         $orgImage->move(public_path().$ds."images".$ds.$exImgPath, $exImgName);
-        $image = new Image;
-        $image->alt_text = $orgImage->getClientOriginalName();
-        $image->external_path = $exImgPath;
-        $image->external_name = $exImgName;
+
+        $object = new \stdClass();
+        $object->alt_text = $orgImage->getClientOriginalName();
+        $object->external_path = $exImgPath;
+        $object->external_name = $exImgName;
+        $image = $this->imageRepo->createImage($object);
         return $image;
     }
 

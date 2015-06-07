@@ -22,5 +22,6 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register()
     {
         \App::bind('Owl\Repositories\CommentRepositoryInterface', 'Owl\Repositories\Eloquent\CommentRepository');
+        \App::bind('Owl\Repositories\ImageRepositoryInterface', 'Owl\Repositories\Eloquent\ImageRepository');
     }
 }
