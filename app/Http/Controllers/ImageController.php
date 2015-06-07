@@ -32,7 +32,7 @@ class ImageController extends Controller
         $exImgName = $this->createExternalImageFileName($orgImage->getClientOriginalName());
         $orgImage->move(public_path().$ds."images".$ds.$exImgPath, $exImgName);
 
-        $object = new \stdClass();
+        $object = app('stdClass');
         $object->alt_text = $orgImage->getClientOriginalName();
         $object->external_path = $exImgPath;
         $object->external_name = $exImgName;

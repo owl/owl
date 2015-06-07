@@ -25,7 +25,7 @@ class CommentController extends Controller
             return "";
         }
 
-        $object = new \stdClass();
+        $object = app('stdClass');
         $object->item_id = $item->id;
         $object->user_id = $user->id;
         $object->body = \Input::get('body');

@@ -23,5 +23,6 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         \App::bind('Owl\Repositories\CommentRepositoryInterface', 'Owl\Repositories\Eloquent\CommentRepository');
         \App::bind('Owl\Repositories\ImageRepositoryInterface', 'Owl\Repositories\Eloquent\ImageRepository');
+        \App::bind('Owl\Repositories\LoginTokenRepositoryInterface', 'Owl\Repositories\Eloquent\LoginTokenRepository');
     }
 }

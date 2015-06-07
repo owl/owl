@@ -1,11 +1,18 @@
 <?php namespace Owl\Services;
 
+use Owl\Repositories\LoginTokenRepositoryInterface;
 use Owl\Models\User;
-use Owl\Models\LoginToken;
 use Carbon\Carbon;
 
 class AuthService extends Service
 {
+    protected $loginTokenRepo;
+
+    public function __construct(LoginTokenRepositoryInterface $loginTokenRepo)
+    {
+        $this->loginTokenRepo = $loginTokenRepo;
+    }
+
     /*
      * ログイン情報を使ってログインを試行する
      *
@@ -102,7 +109,7 @@ class AuthService extends Service
         $TWO_WEEKS = 14;
         $limit = Carbon::now()->subDays($TWO_WEEKS);
 
-        $tokenResult = LoginToken::where('token', $token)->where('updated_at', '>', $limit)->first();
+        $tokenResult = $this->loginTokenRepo->getValidLoginToken($token, $limit);
         if (isset($tokenResult)) {
             $user = User::where('id', $tokenResult->user_id)->first();
             return $user;
@@ -123,10 +130,10 @@ class AuthService extends Service
         $token = bin2hex(openssl_random_pseudo_bytes($TOKEN_LENGTH));
 
         // TokenをDBに登録
-        $loginToken = new LoginToken();
-        $loginToken->token = $token;
-        $loginToken->user_id = $userId;
-        $loginToken->save();
+        $object = app('stdClass');
+        $object->token = $token;
+        $object->user_id = $userId;
+        $this->loginTokenRepo->createLoginToken($object);
 
         // TokenをCookieに登録
         $TWO_WEEKS = 14;
@@ -141,7 +148,7 @@ class AuthService extends Service
      */
     public function deleteOldRememberToken($token)
     {
-        LoginToken::where('token', '=', $token)->delete();
+        $this->loginTokenRepo->deleteLoginTokenByToken($token);
     }
 
     /*

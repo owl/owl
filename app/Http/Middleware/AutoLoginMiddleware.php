@@ -7,9 +7,9 @@ class AutoLoginMiddleware
 {
     protected $authService;
 
-    public function __construct()
+    public function __construct(AuthService $autoService)
     {
-        $this->authService = new AuthService();
+        $this->authService = $autoService;
     }
 
     /**
