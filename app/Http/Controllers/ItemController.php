@@ -6,15 +6,17 @@ use Owl\Models\ItemHistory;
 use Owl\Models\Template;
 use Owl\Models\Tag;
 use Owl\Models\Stock;
-use Owl\Models\Like;
+use Owl\Repositories\LikeRepositoryInterface;
 
 class ItemController extends Controller
 {
     protected $userService;
+    protected $likeRepo;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, LikeRepositoryInterface $likeRepo)
     {
         $this->userService = $userService;
+        $this->likeRepo = $likeRepo;
     }
 
     public function create($templateId = null)
@@ -94,7 +96,7 @@ class ItemController extends Controller
         $like = null;
         if (!empty($user)) {
             $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
-            $like = Like::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
+            $like = $this->likeRepo->get($user->id, $item->id);
         }
         $stocks = Stock::where('item_id', $item->id)->get();
         $recent_stocks = Stock::getRecentRankingWithCache(5, 7);

@@ -1,6 +1,5 @@
 <?php namespace Owl\Http\Controllers;
 
-//use Owl\Repositories\Eloquent\CommentRepository;
 use Owl\Repositories\CommentRepositoryInterface;
 use Owl\Models\Item;
 use Owl\Services\UserService;

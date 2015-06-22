@@ -23,7 +23,7 @@ class Item extends Model
 
     public function like()
     {
-        return $this->hasMany('Owl\Models\Like');
+        return $this->hasMany('Owl\Repositories\Eloquent\Models\Like');
     }
 
     public function comment()
