@@ -5,18 +5,23 @@ use Owl\Models\Item;
 use Owl\Models\ItemHistory;
 use Owl\Models\Template;
 use Owl\Models\Tag;
-use Owl\Models\Stock;
 use Owl\Repositories\LikeRepositoryInterface;
+use Owl\Repositories\StockRepositoryInterface;
 
 class ItemController extends Controller
 {
     protected $userService;
     protected $likeRepo;
+    protected $stockRepo;
 
-    public function __construct(UserService $userService, LikeRepositoryInterface $likeRepo)
-    {
+    public function __construct(
+        UserService $userService,
+        LikeRepositoryInterface $likeRepo,
+        StockRepositoryInterface $stockRepo
+    ) {
         $this->userService = $userService;
         $this->likeRepo = $likeRepo;
+        $this->stockRepo = $stockRepo;
     }
 
     public function create($templateId = null)
@@ -95,11 +100,11 @@ class ItemController extends Controller
         $stock = null;
         $like = null;
         if (!empty($user)) {
-            $stock = Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->get();
+            $stock = $this->stockRepo->getByUserIdAndItemId($user->id, $item->id);
             $like = $this->likeRepo->get($user->id, $item->id);
         }
-        $stocks = Stock::where('item_id', $item->id)->get();
-        $recent_stocks = Stock::getRecentRankingWithCache(5, 7);
+        $stocks = $this->stockRepo->getByItemId($item->id);
+        $recent_stocks = $this->stockRepo->getRecentRankingWithCache(5, 7);
         $user_items = Item::getRecentItemsByUserId($item->user_id);
         $like_users = Item::with('like.user')->where('id', $item->id)->first();
         return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));

@@ -25,5 +25,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\ImageRepositoryInterface', 'Owl\Repositories\Eloquent\ImageRepository');
         \App::bind('Owl\Repositories\LoginTokenRepositoryInterface', 'Owl\Repositories\Eloquent\LoginTokenRepository');
         \App::bind('Owl\Repositories\LikeRepositoryInterface', 'Owl\Repositories\Eloquent\LikeRepository');
+        \App::bind('Owl\Repositories\StockRepositoryInterface', 'Owl\Repositories\Eloquent\StockRepository');
     }
 }

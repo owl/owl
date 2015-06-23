@@ -1,6 +1,6 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\Stock;
+use Owl\Repositories\StockRepositoryInterface;
 use Owl\Models\Item;
 use Owl\Models\Template;
 use Owl\Services\UserService;
@@ -8,10 +8,12 @@ use Owl\Services\UserService;
 class StockController extends Controller
 {
     protected $userService;
+    protected $stockRepo;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, StockRepositoryInterface $stockRepo)
     {
         $this->userService = $userService;
+        $this->stockRepo = $stockRepo;
     }
 
     /**
@@ -22,7 +24,7 @@ class StockController extends Controller
     public function index()
     {
         $user = $this->userService->getCurrentUser();
-        $stocks = Stock::getStockList($user->id);
+        $stocks = $this->stockRepo->getStockList($user->id);
         $templates = Template::all();
         return \View::make('stocks.index', compact('stocks', 'templates'));
     }
@@ -39,7 +41,7 @@ class StockController extends Controller
         $openItemId = \Input::get('open_item_id');
         $item = Item::where('open_item_id', $openItemId)->first();
 
-        Stock::firstOrCreate(array('user_id'=> $user->id, 'item_id' => $item->id));
+        $this->stockRepo->firstOrCreate($user->id, $item->id);
 
         return \Response::json();
     }
@@ -56,6 +58,6 @@ class StockController extends Controller
         $user = $this->userService->getCurrentUser();
         $item = Item::where('open_item_id', $openItemId)->first();
 
-        Stock::whereRaw('user_id = ? and item_id = ?', array($user->id, $item->id))->delete();
+        $this->stockRepo->delete($user->id, $item->id);
     }
 }
