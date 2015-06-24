@@ -1,19 +1,24 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Repositories\StockRepositoryInterface;
+use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Models\Item;
-use Owl\Models\Template;
 use Owl\Services\UserService;
 
 class StockController extends Controller
 {
     protected $userService;
     protected $stockRepo;
+    protected $templateRepo;
 
-    public function __construct(UserService $userService, StockRepositoryInterface $stockRepo)
-    {
+    public function __construct(
+        UserService $userService,
+        StockRepositoryInterface $stockRepo,
+        TemplateRepositoryInterface $templateRepo
+    ) {
         $this->userService = $userService;
         $this->stockRepo = $stockRepo;
+        $this->templateRepo = $templateRepo;
     }
 
     /**
@@ -25,7 +30,7 @@ class StockController extends Controller
     {
         $user = $this->userService->getCurrentUser();
         $stocks = $this->stockRepo->getStockList($user->id);
-        $templates = Template::all();
+        $templates = $this->templateRepo->getAll();
         return \View::make('stocks.index', compact('stocks', 'templates'));
     }
 

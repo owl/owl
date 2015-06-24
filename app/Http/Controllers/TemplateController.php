@@ -1,9 +1,16 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\Template;
+use Owl\Repositories\TemplateRepositoryInterface;
 
 class TemplateController extends Controller
 {
+    protected $templateRepo;
+
+    public function __construct(TemplateRepositoryInterface $templateRepo)
+    {
+        $this->templateRepo = $templateRepo;
+    }
+
     public function create()
     {
         return \View::make('templates.create');
@@ -23,20 +30,19 @@ class TemplateController extends Controller
             return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $template = new Template;
-        $template->fill(array(
-            'display_title' => \Input::get('display_title'),
-            'title' => \Input::get('title'),
-            'tags' => \Input::get('tags'),
-            'body' => \Input::get('body'),
-        ));
-        $template->save();
+        $object = app('stdClass');
+        $object->display_title = \Input::get('display_title');
+        $object->title = \Input::get('title');
+        $object->tags = \Input::get('tags');
+        $object->body = \Input::get('body');
+        $this->templateRepo->create($object);
+
         return \Redirect::to('/templates');
     }
 
     public function index()
     {
-        $templates = Template::orderBy('id', 'desc')->get();
+        $templates = $this->templateRepo->getAll();
         return \View::make('templates.index', compact('templates'));
     }
 
@@ -47,7 +53,7 @@ class TemplateController extends Controller
 
     public function edit($templateId)
     {
-        $template = Template::where('id', $templateId)->first();
+        $template = $this->templateRepo->getById($templateId);
         if ($template == null) {
             \App::abort(404);
         }
@@ -68,23 +74,19 @@ class TemplateController extends Controller
             return \Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $template = Template::where('id', $templateId)->first();
-        if ($template == null) {
-            \App::abort(404);
-        }
-        $template->fill(array(
-            'display_title' => \Input::get('display_title'),
-            'title' => \Input::get('title'),
-            'tags' => \Input::get('tags'),
-            'body' => htmlspecialchars(\Input::get('body'), ENT_QUOTES, 'UTF-8'),
-        ));
-        $template->save();
+        $object = app('stdClass');
+        $object->display_title = \Input::get('display_title');
+        $object->title = \Input::get('title');
+        $object->tags = \Input::get('tags');
+        $object->body = htmlspecialchars(\Input::get('body'), ENT_QUOTES, 'UTF-8');
+        $this->templateRepo->update($templateId, $object);
+
         return \Redirect::route('templates.index');
     }
 
     public function destroy($templateId)
     {
-        Template::where('id', $templateId)->delete();
+        $this->templateRepo->delete($templateId);
         return \Redirect::route('templates.index');
     }
 }

@@ -3,25 +3,28 @@
 use Owl\Services\UserService;
 use Owl\Models\Item;
 use Owl\Models\ItemHistory;
-use Owl\Models\Template;
 use Owl\Models\Tag;
 use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
+use Owl\Repositories\TemplateRepositoryInterface;
 
 class ItemController extends Controller
 {
     protected $userService;
     protected $likeRepo;
     protected $stockRepo;
+    protected $templateRepo;
 
     public function __construct(
         UserService $userService,
         LikeRepositoryInterface $likeRepo,
-        StockRepositoryInterface $stockRepo
+        StockRepositoryInterface $stockRepo,
+        TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
         $this->likeRepo = $likeRepo;
         $this->stockRepo = $stockRepo;
+        $this->templateRepo = $templateRepo;
     }
 
     public function create($templateId = null)
@@ -31,7 +34,7 @@ class ItemController extends Controller
         $template = null;
         if (\Input::get('t')) {
             $templateId = \Input::get('t');
-            $template = Template::where('id', $templateId)->first();
+            $template = $this->templateRepo->getById($templateId);
         }
         return \View::make('items.create', compact('template', 'user_items'));
     }
@@ -77,7 +80,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::getAllItems();
-        $templates = Template::all();
+        $templates = $this->templateRepo->getAll();
         return \View::make('items.index', compact('items', 'templates'));
     }
 
@@ -118,7 +121,7 @@ class ItemController extends Controller
             \App::abort(404);
         }
 
-        $templates = Template::all();
+        $templates = $this->templateRepo->getAll();
         $user_items = Item::getRecentItemsByUserId($user->id);
         return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }

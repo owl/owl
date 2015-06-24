@@ -2,7 +2,7 @@
 
 use Owl\Models\User;
 use Owl\Models\Item;
-use Owl\Models\Template;
+use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Services\UserService;
 use Owl\Services\AuthService;
 use Owl\Http\Requests\UserRegisterRequest;
@@ -11,11 +11,16 @@ class UserController extends Controller
 {
     protected $userService;
     protected $authService;
+    protected $templateRepo;
 
-    public function __construct(UserService $userService, AuthService $authService)
-    {
+    public function __construct(
+        UserService $userService,
+        AuthService $authService,
+        TemplateRepositoryInterface $templateRepo
+    ) {
         $this->userService = $userService;
         $this->authService = $authService;
+        $this->templateRepo = $templateRepo;
     }
 
     /*
@@ -66,13 +71,13 @@ class UserController extends Controller
                         ->paginate(10);
         }
 
-        $templates = Template::all();
+        $templates = $this->templateRepo->getAll();
         return \View::make('user.show', compact('user', 'items', 'templates'));
     }
 
     public function edit()
     {
-        $templates = Template::all();
+        $templates = $this->templateRepo->getAll();
         return \View::make('user.edit', compact('templates'));
     }
 
