@@ -3,17 +3,21 @@
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Owl\Models\ItemFts;
 use Owl\Models\TagFts;
-use Owl\Models\User;
+use Owl\Services\UserService;
 use Owl\Repositories\TemplateRepositoryInterface;
 
 class SearchController extends Controller
 {
     private $perPage = 10;
     protected $templateRepo;
+    protected $userService;
 
-    public function __construct(TemplateRepositoryInterface $templateRepo)
-    {
+    public function __construct(
+        TemplateRepositoryInterface $templateRepo,
+        UserService $userService
+    ) {
         $this->templateRepo = $templateRepo;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -25,7 +29,8 @@ class SearchController extends Controller
             $res = ItemFts::matchCount($q);
             $pagination = new Paginator($results, $res[0]->count, $this->perPage, null, array('path' => '/search'));
         }
-        $users = User::where('username', 'like', "$q%")->get();
+        $users = $this->userService->getLikeUsername($q);
+
         $templates = $this->templateRepo->getAll();
         $tags = $this->searchTags($q);
         return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users'));

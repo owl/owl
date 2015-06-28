@@ -1,54 +1,71 @@
 <?php namespace Owl\Services;
 
-use Owl\Models\User;
+use Owl\Repositories\UserRepositoryInterface;
+use Owl\Repositories\LoginTokenRepositoryInterface;
+use Carbon\Carbon;
 
 class UserService extends Service
 {
-    /*
-     * ユーザーの作成
-     *
-     * @param array ユーザー情報（username, email, password）
-     * @return array
-     */
-    public function createUser(array $credentials = [])
-    {
-        $user = new User;
-        $user->fill(array(
-            'username' => $credentials['username'],
-            'email' => $credentials['email'],
-            'password' => password_hash($credentials['password'], PASSWORD_DEFAULT)
-        ));
-        $user->save();
+    protected $userRepo;
+    protected $loginTokenRepo;
 
-        return $user;
+    public function __construct(
+        UserRepositoryInterface $userRepo,
+        LoginTokenRepositoryInterface $loginTokenRepo
+    ) {
+        $this->userRepo = $userRepo;
+        $this->loginTokenRepo = $loginTokenRepo;
     }
 
-    /*
-     * ログインユーザーの情報を取得する
-     *
-     * @return array
-     */
     public function getCurrentUser()
     {
         if (\Session::has('User')) {
             $user = \Session::get('User');
             return $user[0];
         }
-
         return false;
     }
 
-    /*
-     * IDを使ってユーザー情報を取得する
-     *
-     * @return array
-     */
-    public function getUserById($id)
+    public function create(array $credentials = [])
     {
-        $user = User::where('id', $id)->first();
-        if ($user) {
+        $object = app('stdClass');
+        $object->username = $credentials['username'];
+        $object->email = $credentials['email'];
+        $object->password = $credentials['password'];
+        return $this->userRepo->create($object);
+    }
+
+    public function update($id, $username, $email)
+    {
+        return $this->userRepo->update($id, $username, $email);
+    }
+
+    public function getById($id)
+    {
+        return $this->userRepo->getById($id);
+    }
+
+    public function getByUsername($username)
+    {
+        return $this->userRepo->getByUsername($username);
+    }
+
+    public function getLikeUsername($username)
+    {
+        return $this->userRepo->getLikeUsername($username);
+    }
+
+    public function getByToken($token)
+    {
+        $TWO_WEEKS = 14;
+        $limit = Carbon::now()->subDays($TWO_WEEKS);
+
+        $tokenResult = $this->loginTokenRepo->getValidLoginToken($token, $limit);
+        if (isset($tokenResult)) {
+            $user = $this->getById($tokenResult->user_id);
             return $user;
+        } else {
+            return false;
         }
-        return false;
     }
 }

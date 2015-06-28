@@ -1,12 +1,9 @@
-<?php namespace Owl\Models;
+<?php namespace Owl\Repositories\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Model
 {
-
     /**
      * The database table used by the model.
      *
@@ -18,7 +15,7 @@ class User extends Model
 
     public function item()
     {
-        return $this->hasMany('Item');
+        return $this->hasMany('Owl\Models\Item');
     }
 
     /**

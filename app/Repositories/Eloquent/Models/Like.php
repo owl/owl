@@ -8,7 +8,7 @@ class Like extends Model
 
     public function user()
     {
-        return $this->belongsTo('Owl\Models\User');
+        return $this->belongsTo('Owl\Repositories\Eloquent\Models\User');
     }
 
     public function item()

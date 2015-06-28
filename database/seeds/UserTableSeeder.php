@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Owl\Models\User;
+use Owl\Repositories\Eloquent\Models\User;
 
-class UserTableSeeder extends Seeder {
-
+class UserTableSeeder extends Seeder
+{
     public function run()
     {
         $user = new User;

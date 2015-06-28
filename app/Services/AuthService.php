@@ -1,16 +1,21 @@
 <?php namespace Owl\Services;
 
 use Owl\Repositories\LoginTokenRepositoryInterface;
-use Owl\Models\User;
+use Owl\Repositories\Eloquent\Models\User;
+use Owl\Services\UserService;
 use Carbon\Carbon;
 
 class AuthService extends Service
 {
     protected $loginTokenRepo;
+    protected $userService;
 
-    public function __construct(LoginTokenRepositoryInterface $loginTokenRepo)
-    {
+    public function __construct(
+        LoginTokenRepositoryInterface $loginTokenRepo,
+        UserService $userService
+    ) {
         $this->loginTokenRepo = $loginTokenRepo;
+        $this->userService = $userService;
     }
 
     /*
@@ -23,7 +28,7 @@ class AuthService extends Service
     {
         // パスワードのチェック
         if ($this->checkPassword($credentials['username'], $credentials['password'])) {
-            $user_db = User::where('username', $credentials['username'])->first();
+            $user_db = $this->userService->getByUsername($credentials['username']);
             $this->login($user_db, $remember);
             return true;
         }
@@ -81,7 +86,6 @@ class AuthService extends Service
         }
     }
 
-
     /*
      * オートログインのチェックを行う
      *
@@ -90,32 +94,13 @@ class AuthService extends Service
     public function autoLoginCheck()
     {
         $token = \Request::cookie('remember_token');
-        if ($user = $this->getUserByToken($token)) {
+        if ($user = $this->userService->getByToken($token)) {
             $this->deleteOldRememberToken($token);
             $remember = true;
             $this->login($user, $remember);
             return true;
         }
         return false;
-    }
-
-    /*
-     * RememberTokenを元にユーザー情報を取得する
-     *
-     * @return Object User
-     */
-    public function getUserByToken($token)
-    {
-        $TWO_WEEKS = 14;
-        $limit = Carbon::now()->subDays($TWO_WEEKS);
-
-        $tokenResult = $this->loginTokenRepo->getValidLoginToken($token, $limit);
-        if (isset($tokenResult)) {
-            $user = User::where('id', $tokenResult->user_id)->first();
-            return $user;
-        } else {
-            return false;
-        }
     }
 
     /*
@@ -169,7 +154,7 @@ class AuthService extends Service
     public function checkPassword($username, $password)
     {
         // DBからハッシュされているパスワードを取得
-        $user_db = User::where('username', $username)->first();
+        $user_db = $this->userService->getByUsername($username);
         if (!isset($user_db->id)) {
             return false; // そんな名前のユーザーはいません
         }
@@ -187,7 +172,7 @@ class AuthService extends Service
      */
     public function attemptResetPassword($username, $password)
     {
-        $user = User::where('username', $username)->first();
+        $user = $this->userService->getByUsername($username);
         $user->password = password_hash($password, PASSWORD_DEFAULT);
 
         if ($user->save()) {

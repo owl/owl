@@ -10,7 +10,7 @@ class ItemHistory extends Model
 
     public function user()
     {
-        return $this->belongsTo('Owl\Models\User');
+        return $this->belongsTo('Owl\Repositories\Eloquent\Models\User');
     }
 
     public static function insertHistory($item, $user)

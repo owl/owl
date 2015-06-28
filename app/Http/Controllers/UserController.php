@@ -1,6 +1,5 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\User;
 use Owl\Models\Item;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Services\UserService;
@@ -41,7 +40,7 @@ class UserController extends Controller
     {
         $credentials = $request->only('username', 'email', 'password');
         try {
-            $user = $this->userService->createUser($credentials);
+            $user = $this->userService->create($credentials);
             return \Redirect::to('login')->with('status', '登録が完了しました。');
         } catch (\Exception $e) {
             return \Redirect::back()
@@ -53,7 +52,7 @@ class UserController extends Controller
     public function show($username)
     {
         $loginUser = $this->userService->getCurrentUser();
-        $user = User::where('username', '=', $username)->first();
+        $user = $this->userService->getByUsername($username);
         if ($user == null) {
             \App::abort(404);
         }
@@ -100,12 +99,9 @@ class UserController extends Controller
         }
 
         try {
-            $user = $this->userService->getUserById($loginUser->id);
+            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'));
 
-            $user->username = \Input::get('username');
-            $user->email = \Input::get('email');
-
-            if ($user->save()) {
+            if ($user) {
                 $this->authService->setUser($user);
                 return \Redirect::to('user/edit')->with('status', '編集が完了しました。');
             } else {
@@ -137,7 +133,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = $this->userService->getUserById($loginUser->id);
+            $user = $this->userService->getById($loginUser->id);
 
             if (!$this->authService->checkPassword($user->username, \Input::get('password'))) {
                 return \Redirect::back()
