@@ -18,7 +18,7 @@ class Item extends Model
 
     public function tag()
     {
-        return $this->belongsToMany('Owl\Models\Tag');
+        return $this->belongsToMany('Owl\Repositories\Eloquent\Models\Tag');
     }
 
     public function like()

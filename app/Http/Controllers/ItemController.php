@@ -1,9 +1,9 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Services\UserService;
 use Owl\Models\Item;
 use Owl\Models\ItemHistory;
-use Owl\Models\Tag;
+use Owl\Services\UserService;
+use Owl\Services\TagService;
 use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
@@ -11,17 +11,20 @@ use Owl\Repositories\TemplateRepositoryInterface;
 class ItemController extends Controller
 {
     protected $userService;
+    protected $tagService;
     protected $likeRepo;
     protected $stockRepo;
     protected $templateRepo;
 
     public function __construct(
         UserService $userService,
+        tagService $tagService,
         LikeRepositoryInterface $likeRepo,
         StockRepositoryInterface $stockRepo,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
+        $this->tagService = $tagService;
         $this->likeRepo = $likeRepo;
         $this->stockRepo = $stockRepo;
         $this->templateRepo = $templateRepo;
@@ -69,7 +72,7 @@ class ItemController extends Controller
         $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
-            $tag_ids = Tag::getTagIdsByTagNames($tag_names);
+            $tag_ids = $this->tagService->getTagIdsByTagNames($tag_names);
             $item = Item::find($item->id);
             $item->tag()->sync($tag_ids);
         }
@@ -163,7 +166,7 @@ class ItemController extends Controller
         $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
-            $tag_ids = Tag::getTagIdsByTagNames($tag_names);
+            $tag_ids = $this->tagService->getTagIdsByTagNames($tag_names);
             $item = Item::find($item->id);
             $item->tag()->sync($tag_ids);
         }

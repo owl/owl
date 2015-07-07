@@ -28,5 +28,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\StockRepositoryInterface', 'Owl\Repositories\Eloquent\StockRepository');
         \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Eloquent\TemplateRepository');
         \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Eloquent\UserRepository');
+        \App::bind('Owl\Repositories\TagRepositoryInterface', 'Owl\Repositories\Eloquent\TagRepository');
+        \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Eloquent\TagFtsRepository');
     }
 }

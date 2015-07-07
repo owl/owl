@@ -2,21 +2,24 @@
 
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Owl\Models\ItemFts;
-use Owl\Models\TagFts;
 use Owl\Services\UserService;
+use Owl\Repositories\TagFtsRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
 
 class SearchController extends Controller
 {
     private $perPage = 10;
     protected $templateRepo;
+    protected $tagFtsRepo;
     protected $userService;
 
     public function __construct(
         TemplateRepositoryInterface $templateRepo,
+        TagFtsRepositoryInterface $tagFtsRepo,
         UserService $userService
     ) {
         $this->templateRepo = $templateRepo;
+        $this->tagFtsRepo = $tagFtsRepo;
         $this->userService = $userService;
     }
 
@@ -55,7 +58,7 @@ class SearchController extends Controller
     private function searchTags($q)
     {
         $tagName = mb_strtolower($q);
-        $tags = TagFts::match($q);
+        $tags = $this->tagFtsRepo->match($q);
         foreach ($tags as &$tag) {
             $tag = (array)$tag;
         }
