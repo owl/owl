@@ -26,6 +26,12 @@ class UserService extends Service
         return false;
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param mixed $credentials (email, username, password)
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function create(array $credentials = [])
     {
         $object = app('stdClass');
@@ -35,26 +41,58 @@ class UserService extends Service
         return $this->userRepo->create($object);
     }
 
+    /**
+     * Update a user information(username, email).
+     *
+     * @param int $id
+     * @param string $username
+     * @param string $email
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function update($id, $username, $email)
     {
         return $this->userRepo->update($id, $username, $email);
     }
 
+    /**
+     * Get a user by user id.
+     *
+     * @param int $id
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function getById($id)
     {
         return $this->userRepo->getById($id);
     }
 
+    /**
+     * Get a user by username.
+     *
+     * @param string $username
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function getByUsername($username)
     {
         return $this->userRepo->getByUsername($username);
     }
 
+    /**
+     * Get users by username like search.
+     *
+     * @param string $username
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function getLikeUsername($username)
     {
         return $this->userRepo->getLikeUsername($username);
     }
 
+    /**
+     * Get a user by login token.
+     *
+     * @param string $token
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function getByToken($token)
     {
         $TWO_WEEKS = 14;
