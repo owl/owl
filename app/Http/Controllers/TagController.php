@@ -1,18 +1,22 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Models\Item;
-use Owl\Repositories\Eloquent\Models\Tag;
+use Owl\Repositories\ItemRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Services\TagService;
 
 class TagController extends Controller
 {
     protected $tagService;
+    protected $itemRepo;
     protected $stockRepo;
 
-    public function __construct(TagService $tagService, StockRepositoryInterface $stockRepo)
-    {
+    public function __construct(
+        TagService $tagService,
+        StockRepositoryInterface $stockRepo,
+        ItemRepositoryInterface $itemRepo
+    ) {
         $this->tagService = $tagService;
+        $this->itemRepo = $itemRepo;
         $this->stockRepo = $stockRepo;
     }
 
@@ -44,7 +48,7 @@ class TagController extends Controller
             \App::abort(404);
         }
 
-        $items = Item::getRecentItemsByTagId($tag->id);
+        $items = $this->itemRepo->getRecentsByTagId($tag->id);
 
         return \View::make('tags.show', compact('tag', 'items'));
     }

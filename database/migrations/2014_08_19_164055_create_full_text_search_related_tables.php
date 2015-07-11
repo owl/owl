@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Owl\Models\Item;
+use Owl\Repositories\Eloquent\Models\Item;
+use Owl\Repositories\Eloquent\Models\ItemFts;
 
 class CreateFullTextSearchRelatedTables extends Migration {
 

@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Owl\Models\Item;
-use Owl\Models\ItemHistory;
+use Owl\Repositories\Eloquent\Models\Item;
+use Owl\Repositories\Eloquent\Models\ItemHistory;
 
-class CreateItemHistoryTable extends Migration {
-
+class CreateItemHistoryTable extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -28,7 +28,7 @@ class CreateItemHistoryTable extends Migration {
 
         $items = Item::all();
         foreach( $items as $item ){
-            ItemHistory::insertPastHistory($item);
+            $this->createPastHistory($item);
         }
 	}
 
@@ -40,6 +40,21 @@ class CreateItemHistoryTable extends Migration {
 	public function down()
 	{
         Schema::drop('items_history');
-	}
+    }
 
+    public function createPastHistory($item)
+    {
+        $his = ItemHistory::newInstance();
+        $his->item_id = $item->id;
+        $his->user_id = $item->user_id;
+        $his->open_item_id = $item->open_item_id;
+        $his->title = $item->title;
+        $his->body = $item->body;
+        $his->published = $item->published;
+        $his->created_at = $item->created_at;
+        $his->updated_at = $item->updated_at;
+        $his->save();
+
+        return $his;
+    }
 }

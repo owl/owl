@@ -30,5 +30,8 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Eloquent\UserRepository');
         \App::bind('Owl\Repositories\TagRepositoryInterface', 'Owl\Repositories\Eloquent\TagRepository');
         \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Eloquent\TagFtsRepository');
+        \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Eloquent\ItemRepository');
+        \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Eloquent\ItemFtsRepository');
+        \App::bind('Owl\Repositories\ItemHistoryRepositoryInterface', 'Owl\Repositories\Eloquent\ItemHistoryRepository');
     }
 }

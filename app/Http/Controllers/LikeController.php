@@ -1,18 +1,23 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Repositories\LikeRepositoryInterface;
-use Owl\Models\Item;
+use Owl\Repositories\ItemRepositoryInterface;
 use Owl\Services\UserService;
 
 class LikeController extends Controller
 {
     protected $userService;
     protected $likeRepo;
+    protected $itemRepo;
 
-    public function __construct(UserService $userService, LikeRepositoryInterface $likeRepo)
-    {
+    public function __construct(
+        UserService $userService,
+        LikeRepositoryInterface $likeRepo,
+        ItemRepositoryInterface $itemRepo
+    ) {
         $this->userService = $userService;
         $this->likeRepo = $likeRepo;
+        $this->itemRepo = $itemRepo;
     }
 
     /**
@@ -35,7 +40,7 @@ class LikeController extends Controller
         $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
-        $item = Item::where('open_item_id', $openItemId)->first();
+        $item = $this->itemRepo->getByOpenItemId($openItemId);
 
         $this->likeRepo->firstOrCreate($user->id, $item->id);
 
@@ -52,7 +57,7 @@ class LikeController extends Controller
     public function destroy($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = Item::where('open_item_id', $openItemId)->first();
+        $item = $this->itemRepo->getByOpenItemId($openItemId);
 
         $this->likeRepo->delete($user->id, $item->id);
     }

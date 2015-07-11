@@ -1,24 +1,27 @@
 <?php namespace Owl\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use Owl\Models\ItemFts;
 use Owl\Services\UserService;
+use Owl\Repositories\ItemFtsRepositoryInterface;
 use Owl\Repositories\TagFtsRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
 
 class SearchController extends Controller
 {
-    private $perPage = 10;
+    protected $perPage = 10;
     protected $templateRepo;
+    protected $itemFtsRepo;
     protected $tagFtsRepo;
     protected $userService;
 
     public function __construct(
         TemplateRepositoryInterface $templateRepo,
+        ItemFtsRepositoryInterface $itemFtsRepo,
         TagFtsRepositoryInterface $tagFtsRepo,
         UserService $userService
     ) {
         $this->templateRepo = $templateRepo;
+        $this->itemFtsRepo = $itemFtsRepo;
         $this->tagFtsRepo = $tagFtsRepo;
         $this->userService = $userService;
     }
@@ -27,9 +30,9 @@ class SearchController extends Controller
     {
         $q = \Input::get('q');
         $offset = $this->calcOffset(\Input::get('page'));
-        $results = ItemFts::match($q, $this->perPage, $offset);
+        $results = $this->itemFtsRepo->match($q, $this->perPage, $offset);
         if (count($results) > 0) {
-            $res = ItemFts::matchCount($q);
+            $res = $this->itemFtsRepo->matchCount($q);
             $pagination = new Paginator($results, $res[0]->count, $this->perPage, null, array('path' => '/search'));
         }
         $users = $this->userService->getLikeUsername($q);
@@ -67,7 +70,7 @@ class SearchController extends Controller
 
     private function jsonResults($q)
     {
-        $items = ItemFts::match($q, $this->perPage);
+        $items = $this->itemFtsRepo->match($q, $this->perPage);
 
         $json = array();
         foreach ($items as $item) {
