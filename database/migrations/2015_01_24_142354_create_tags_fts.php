@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Owl\Models\Tag;
-use Owl\Models\TagFts;
+use Owl\Repositories\Eloquent\Models\Tag;
+use Owl\Repositories\Eloquent\Models\TagFts;
 
 class CreateTagsFts extends Migration {
 
