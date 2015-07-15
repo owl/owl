@@ -1,8 +1,0 @@
-default:
-    autoload:
-        '': %paths.base%/tests_e2e/features/bootstrap
-    suites:
-        default:
-            contexts:
-                - FeatureContext:
-                    base_url: 'http://google.com'
