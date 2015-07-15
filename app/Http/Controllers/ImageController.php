@@ -1,7 +1,6 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Repositories\ImageRepositoryInterface;
-use Owl\Repositories\Eloquent\Models\Image;
 
 class ImageController extends Controller
 {

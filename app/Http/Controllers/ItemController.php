@@ -7,7 +7,6 @@ use Owl\Repositories\ItemHistoryRepositoryInterface;
 use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
-use Owl\Repositories\Eloquent\Models\ItemHistory;
 
 class ItemController extends Controller
 {

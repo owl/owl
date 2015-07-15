@@ -1,7 +1,6 @@
 <?php namespace Owl\Services;
 
 use Owl\Repositories\LoginTokenRepositoryInterface;
-use Owl\Repositories\Eloquent\Models\User;
 use Owl\Services\UserService;
 use Carbon\Carbon;
 
@@ -55,7 +54,7 @@ class AuthService extends Service
      * @param Object $user ユーザー情報
      * @return void
      */
-    public function setUser(User $user)
+    public function setUser($user)
     {
         // Userのセッションを削除
         \Session::forget("User");
