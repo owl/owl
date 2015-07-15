@@ -20,7 +20,7 @@ class ItemController extends Controller
 
     public function __construct(
         UserService $userService,
-        tagService $tagService,
+        TagService $tagService,
         ItemRepositoryInterface $itemRepo,
         ItemHistoryRepositoryInterface $itemHistoryRepo,
         LikeRepositoryInterface $likeRepo,
