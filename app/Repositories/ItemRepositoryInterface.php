@@ -74,13 +74,6 @@ interface ItemRepositoryInterface
     public function getLikeUsersById($item_id);
 
     /**
-     * Create open item id.
-     *
-     * @return string
-     */
-    public function createOpenItemId();
-
-    /**
      * Create a new item.
      *
      * @param $obj user_id, open_item_id, title, body, published
@@ -104,13 +97,4 @@ interface ItemRepositoryInterface
      * @return boolean
      */
     public function delete($item_id);
-
-    /**
-     * change fts data. (delete and insert)
-     *
-     * @param int $id
-     * @param object $obj
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function changeFts($id, $obj);
 }

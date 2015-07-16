@@ -1,24 +1,15 @@
 <?php namespace Owl\Repositories\Eloquent;
 
 use Owl\Repositories\ItemRepositoryInterface;
-use Owl\Repositories\ItemFtsRepositoryInterface;
-use Owl\Repositories\ItemHistoryRepositoryInterface;
 use Owl\Repositories\Eloquent\Models\Item;
 
 class ItemRepository implements ItemRepositoryInterface
 {
     protected $item;
-    protected $itemFtsRepo;
-    protected $itemHistoryRepo;
 
-    public function __construct(
-        Item $item,
-        ItemFtsRepositoryInterface $itemFtsRepo,
-        ItemHistoryRepositoryInterface $itemHistoryRepo
-    ) {
+    public function __construct(Item $item)
+    {
         $this->item = $item;
-        $this->itemFtsRepo = $itemFtsRepo;
-        $this->itemHistoryRepo = $itemHistoryRepo;
     }
 
     /**
@@ -142,16 +133,6 @@ class ItemRepository implements ItemRepositoryInterface
     }
 
     /**
-     * Create open item id.
-     *
-     * @return string
-     */
-    public function createOpenItemId()
-    {
-        return substr(md5(uniqid(rand(), 1)), 0, 20);
-    }
-
-    /**
      * Create a new item.
      *
      * @param $obj user_id, open_item_id, title, body, published
@@ -166,8 +147,6 @@ class ItemRepository implements ItemRepositoryInterface
         $item->body = $obj->body;
         $item->published = $obj->published;
         $item->save();
-
-        $this->changeFts($item->id, $obj);
 
         return $item;
     }
@@ -188,8 +167,6 @@ class ItemRepository implements ItemRepositoryInterface
         $item->published = $obj->published;
         $item->save();
 
-        $this->changeFts($id, $obj);
-
         return $item;
     }
 
@@ -201,22 +178,6 @@ class ItemRepository implements ItemRepositoryInterface
      */
     public function delete($item_id)
     {
-        $this->itemFtsRepo->delete($item_id);
-        $this->itemHistoryRepo->delete($item_id);
         return $this->item->where('id', $item_id)->delete();
-    }
-
-    /**
-     * change fts data. (delete and insert)
-     *
-     * @param int $id
-     * @param object $obj
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function changeFts($id, $obj)
-    {
-        //delete & insert fts
-        $this->itemFtsRepo->delete($id);
-        return $this->itemFtsRepo->create($id, $obj->title, $obj->body);
     }
 }

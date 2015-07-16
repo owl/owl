@@ -2,7 +2,7 @@
 
 use Owl\Services\UserService;
 use Owl\Services\AuthService;
-use Owl\Repositories\ItemRepositoryInterface;
+use Owl\Services\ItemService;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Http\Requests\UserRegisterRequest;
 
@@ -10,18 +10,18 @@ class UserController extends Controller
 {
     protected $userService;
     protected $authService;
-    protected $itemRepo;
+    protected $itemService;
     protected $templateRepo;
 
     public function __construct(
         UserService $userService,
         AuthService $authService,
-        ItemRepositoryInterface $itemRepo,
+        ItemService $itemService,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
         $this->authService = $authService;
-        $this->itemRepo = $itemRepo;
+        $this->itemService = $itemService;
         $this->templateRepo = $templateRepo;
     }
 
@@ -61,9 +61,9 @@ class UserController extends Controller
         }
 
         if ($loginUser->id === $user->id) {
-            $items = $this->itemRepo->getRecentsByLoginUserIdWithPaginate($user->id);
+            $items = $this->itemService->getRecentsByLoginUserIdWithPaginate($user->id);
         } else {
-            $items = $this->itemRepo->getRecentsByUserIdWithPaginate($user->id);
+            $items = $this->itemService->getRecentsByUserIdWithPaginate($user->id);
         }
 
         $templates = $this->templateRepo->getAll();

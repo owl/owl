@@ -1,29 +1,29 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Repositories\CommentRepositoryInterface;
-use Owl\Repositories\ItemRepositoryInterface;
 use Owl\Services\UserService;
+use Owl\Services\ItemService;
 
 class CommentController extends Controller
 {
     protected $userService;
+    protected $itemService;
     protected $commentRepo;
-    protected $itemRepo;
     private $status = 400;
 
     public function __construct(
         UserService $userService,
-        CommentRepositoryInterface $commentRepo,
-        ItemRepositoryInterface $itemRepo
+        ItemService $itemService,
+        CommentRepositoryInterface $commentRepo
     ) {
         $this->userService = $userService;
+        $this->itemService = $itemService;
         $this->commentRepo = $commentRepo;
-        $this->itemRepo = $itemRepo;
     }
 
     public function create()
     {
-        $item = $this->itemRepo->getByOpenItemId(\Input::get('open_item_id'));
+        $item = $this->itemService->getByOpenItemId(\Input::get('open_item_id'));
         $user = $this->userService->getCurrentUser();
         if (preg_match("/^[\s　\t\r\n]*$/s", \Input::get('body') || !$user || !$item)) {
             return "";

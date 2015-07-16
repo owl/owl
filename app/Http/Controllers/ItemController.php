@@ -2,8 +2,7 @@
 
 use Owl\Services\UserService;
 use Owl\Services\TagService;
-use Owl\Repositories\ItemRepositoryInterface;
-use Owl\Repositories\ItemHistoryRepositoryInterface;
+use Owl\Services\ItemService;
 use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
@@ -12,8 +11,7 @@ class ItemController extends Controller
 {
     protected $userService;
     protected $tagService;
-    protected $itemRepo;
-    protected $itemHistoryRepo;
+    protected $itemService;
     protected $likeRepo;
     protected $stockRepo;
     protected $templateRepo;
@@ -21,16 +19,14 @@ class ItemController extends Controller
     public function __construct(
         UserService $userService,
         TagService $tagService,
-        ItemRepositoryInterface $itemRepo,
-        ItemHistoryRepositoryInterface $itemHistoryRepo,
+        ItemService $itemService,
         LikeRepositoryInterface $likeRepo,
         StockRepositoryInterface $stockRepo,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
         $this->tagService = $tagService;
-        $this->itemRepo = $itemRepo;
-        $this->itemHistoryRepo = $itemHistoryRepo;
+        $this->itemService = $itemService;
         $this->likeRepo = $likeRepo;
         $this->stockRepo = $stockRepo;
         $this->templateRepo = $templateRepo;
@@ -39,7 +35,7 @@ class ItemController extends Controller
     public function create($templateId = null)
     {
         $user = $this->userService->getCurrentUser();
-        $user_items = $this->itemRepo->getRecentsByUserId($user->id);
+        $user_items = $this->itemService->getRecentsByUserId($user->id);
         $template = null;
         if (\Input::get('t')) {
             $templateId = \Input::get('t');
@@ -65,19 +61,19 @@ class ItemController extends Controller
 
         $object = app('stdClass');
         $object->user_id = $user->id;
-        $object->open_item_id = $this->itemRepo->createOpenItemId();
+        $object->open_item_id = $this->itemService->createOpenItemId();
         $object->title = \Input::get('title');
         $object->body = \Input::get('body');
         $object->published = \Input::get('published');
-        $item = $this->itemRepo->create($object);
+        $item = $this->itemService->create($object);
 
-        $result = $this->itemHistoryRepo->create($item, $user);
+        $result = $this->itemService->createHistory($item, $user);
 
         $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
             $tag_ids = $this->tagService->getTagIdsByTagNames($tag_names);
-            $item = $this->itemRepo->getById($item->id);
+            $item = $this->itemService->getById($item->id);
             $item->tag()->sync($tag_ids);
         }
 
@@ -86,14 +82,14 @@ class ItemController extends Controller
 
     public function index()
     {
-        $items = $this->itemRepo->getAllPublished();
+        $items = $this->itemService->getAllPublished();
         $templates = $this->templateRepo->getAll();
         return \View::make('items.index', compact('items', 'templates'));
     }
 
     public function show($openItemId)
     {
-        $item = $this->itemRepo->getByOpenItemIdWithComment($openItemId);
+        $item = $this->itemService->getByOpenItemIdWithComment($openItemId);
         if (empty($item)) {
             \App::abort(404);
         }
@@ -115,21 +111,21 @@ class ItemController extends Controller
         }
         $stocks = $this->stockRepo->getByItemId($item->id);
         $recent_stocks = $this->stockRepo->getRecentRankingWithCache(5, 7);
-        $user_items = $this->itemRepo->getRecentsByUserId($item->user_id);
-        $like_users = $this->itemRepo->getLikeUsersById($item->id);
+        $user_items = $this->itemService->getRecentsByUserId($item->user_id);
+        $like_users = $this->itemService->getLikeUsersById($item->id);
         return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
     }
 
     public function edit($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = $this->itemRepo->getByOpenItemId($openItemId);
+        $item = $this->itemService->getByOpenItemId($openItemId);
         if ($item === null) {
             \App::abort(404);
         }
 
         $templates = $this->templateRepo->getAll();
-        $user_items = $this->itemRepo->getRecentsByUserId($user->id);
+        $user_items = $this->itemService->getRecentsByUserId($user->id);
         return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }
 
@@ -147,7 +143,7 @@ class ItemController extends Controller
         }
 
         $user = $this->userService->getCurrentUser();
-        $item = $this->itemRepo->getByOpenItemId($openItemId);
+        $item = $this->itemService->getByOpenItemId($openItemId);
         if ($item == null) {
             \App::abort(404);
         }
@@ -162,15 +158,15 @@ class ItemController extends Controller
         $object->title = \Input::get('title');
         $object->body = \Input::get('body');
         $object->published = \Input::get('published');
-        $item = $this->itemRepo->update($item->id, $object);
+        $item = $this->itemService->update($item->id, $object);
 
-        $result = $this->itemHistoryRepo->create($item, $user);
+        $result = $this->itemService->createHistory($item, $user);
 
         $tags = \Input::get('tags');
         if (!empty($tags)) {
             $tag_names = explode(",", $tags);
             $tag_ids = $this->tagService->getTagIdsByTagNames($tag_names);
-            $item = $this->itemRepo->getById($item->id);
+            $item = $this->itemService->getById($item->id);
             $item->tag()->sync($tag_ids);
         }
 
@@ -180,11 +176,11 @@ class ItemController extends Controller
     public function destroy($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = $this->itemRepo->getByOpenItemId($openItemId);
+        $item = $this->itemService->getByOpenItemId($openItemId);
         if ($item == null || $item->user_id !== $user->id) {
             \App::abort(404);
         }
-        $this->itemRepo->delete($item->id);
+        $this->itemService->delete($item->id);
         $no_tag = array();
         $item->tag()->sync($no_tag);
 
@@ -193,7 +189,7 @@ class ItemController extends Controller
 
     public function history($openItemId)
     {
-        $histories = $this->itemHistoryRepo->getByOpenItemId($openItemId);
+        $histories = $this->itemService->getHistoryByOpenItemId($openItemId);
         return \View::make('items.history', compact('histories'));
     }
 }

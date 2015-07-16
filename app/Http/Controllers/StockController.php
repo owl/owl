@@ -2,25 +2,25 @@
 
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
-use Owl\Repositories\ItemRepositoryInterface;
 use Owl\Services\UserService;
+use Owl\Services\ItemService;
 
 class StockController extends Controller
 {
     protected $userService;
+    protected $itemService;
     protected $stockRepo;
-    protected $itemRepo;
     protected $templateRepo;
 
     public function __construct(
         UserService $userService,
+        ItemService $itemService,
         StockRepositoryInterface $stockRepo,
-        ItemRepositoryInterface $itemRepo,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
+        $this->itemService = $itemService;
         $this->stockRepo = $stockRepo;
-        $this->itemRepo = $itemRepo;
         $this->templateRepo = $templateRepo;
     }
 
@@ -47,7 +47,7 @@ class StockController extends Controller
         $user = $this->userService->getCurrentUser();
 
         $openItemId = \Input::get('open_item_id');
-        $item = $this->itemRepo->getByOpenItemId($openItemId);
+        $item = $this->itemService->getByOpenItemId($openItemId);
 
         $this->stockRepo->firstOrCreate($user->id, $item->id);
 
@@ -64,7 +64,7 @@ class StockController extends Controller
     public function destroy($openItemId)
     {
         $user = $this->userService->getCurrentUser();
-        $item = $this->itemRepo->getByOpenItemId($openItemId);
+        $item = $this->itemService->getByOpenItemId($openItemId);
 
         $this->stockRepo->delete($user->id, $item->id);
     }
