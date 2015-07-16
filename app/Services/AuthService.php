@@ -40,7 +40,7 @@ class AuthService extends Service
      * @param object ユーザー情報（id, username, email, password）
      * @return array
      */
-    public function login(User $user, $remember = false)
+    public function login($user, $remember = false)
     {
         $this->setUser($user);
         if ($remember) {
