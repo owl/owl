@@ -1,3 +1,8 @@
+# common
+.DS_Store
+.idea/*
+
+# application
 /vendor
 /node_modules
 .env
