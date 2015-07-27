@@ -82,6 +82,7 @@ class ItemRepository implements ItemRepositoryInterface
     public function getRecentsByUserIdWithPaginate($user_id)
     {
         return $this->item->with('user')
+                    ->where('published', '2')
                     ->where('user_id', $user_id)
                     ->orderBy('id', 'desc')
                     ->paginate(10);
@@ -96,7 +97,6 @@ class ItemRepository implements ItemRepositoryInterface
     public function getRecentsByLoginUserIdWithPaginate($user_id)
     {
         return $this->item->with('user')
-                    ->where('published', '2')
                     ->where('user_id', $user_id)
                     ->orderBy('id', 'desc')
                     ->paginate(10);
