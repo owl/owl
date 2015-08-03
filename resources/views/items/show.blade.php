@@ -12,6 +12,7 @@
     <script src="{!! \HTML::cached_asset('js/stock.change.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/like.change.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/comment.create.js') !!}"></script>
+    <script src="{!! \HTML::cached_asset('js/contents.js') !!}"></script>
 @stop
 
 @section('title')
