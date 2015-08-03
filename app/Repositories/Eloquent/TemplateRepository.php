@@ -39,7 +39,7 @@ class TemplateRepository implements TemplateRepositoryInterface
      */
     public function getAll()
     {
-        return $this->template->orderBy('id', 'desc')->get();
+        return $this->template->orderBy('id', 'asc')->get();
     }
 
     /**
