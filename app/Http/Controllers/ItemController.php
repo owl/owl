@@ -77,7 +77,7 @@ class ItemController extends Controller
             $item->tag()->sync($tag_ids);
         }
 
-        return \Redirect::route('items.show', [$item->openItemId]);
+        return \Redirect::route('items.show', [$item->open_item_id]);
     }
 
     public function index()
