@@ -1,6 +1,13 @@
 <div class="sidebar-info">
     <h5>記事リンクMarkdown</h5>
+    <div class="sidebar-link-url">
         <input type="text" class="form-control" value="<?php echo "[".$item->title."](".Request::url().")"  ?>">
+        <span class="clipboard_area">
+            <button class="clipboard_button" type="button">
+                <span class="clipboard_button_text">copy</span>
+            </button>
+        </span>
+    </div>
 </div>
 
 <div class="sidebar-user">
