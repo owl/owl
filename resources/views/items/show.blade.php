@@ -13,6 +13,23 @@
     <script src="{!! \HTML::cached_asset('js/like.change.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/comment.create.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/contents.js') !!}"></script>
+    {{-- クリップボードコピー用のライブラリ読み込み --}}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.5/ZeroClipboard.min.js"></script>
+    <script>
+    $(function() {
+        var clip = new ZeroClipboard($('.clipboard_button'));
+        clip.on('ready', function() {
+            /* after copy text to clipboard */
+            clip.on('beforecopy', function() {
+                $('.clipboard_button')
+                    .attr(
+                        'data-clipboard-text',
+                        $('.sidebar-link-url input').val()
+                    );
+            });
+        });
+    });
+    </script>
 @stop
 
 @section('title')
