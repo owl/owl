@@ -306,6 +306,7 @@ a {
 #sidebar .sidebar-link-url input {
     display: table-cell;
     height: 34px;
+    padding-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
