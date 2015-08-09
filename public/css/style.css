@@ -318,6 +318,7 @@ a {
 #sidebar .clipboard_button {
     height: 34px;
     margin-left: -1px;
+    padding: 0 7px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     background-color: #eee;

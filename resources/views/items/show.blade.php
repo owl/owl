@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section ('addCss')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+@endsection
+
 @section ('addJs')
     <script type="text/javascript" language="JavaScript">
     function confirmDelete(t) {

@@ -4,7 +4,7 @@
         <input type="text" class="form-control" value="<?php echo "[".$item->title."](".Request::url().")"  ?>">
         <span class="clipboard_area">
             <button class="clipboard_button" data-clipboard-text="copy_text" type="button">
-                <span class="clipboard_button_text">copy</span>
+                <i class="fa fa-clipboard"></i>
             </button>
         </span>
     </div>
