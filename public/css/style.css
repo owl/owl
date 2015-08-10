@@ -299,6 +299,33 @@ a {
     padding: 0px;
 }
 
+#sidebar .sidebar-link-url {
+    display: table;
+}
+
+#sidebar .sidebar-link-url input {
+    display: table-cell;
+    height: 34px;
+    padding-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#sidebar .clipboard_area {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#sidebar .clipboard_button {
+    height: 34px;
+    margin-left: -1px;
+    padding: 0 7px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #eee;
+    border: 1px solid #d5d5d5;
+}
+
 /*
  * footer
  */
