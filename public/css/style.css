@@ -313,6 +313,7 @@ a {
 
 #sidebar .clipboard_area {
     display: table-cell;
+    vertical-align: middle;
 }
 
 #sidebar .clipboard_button {
