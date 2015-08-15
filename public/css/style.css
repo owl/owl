@@ -274,14 +274,21 @@ a {
   right: 0;
   width: 85px;
 }
+
+#cssload-loader {
+  height: 160px;
+}
+
 #cssload-loader ul {
-  margin: 0;
+  margin: 0 auto;
+  top: 100px;
   list-style: none;
   width: 85px;
-  height: 62px;
+  height: 200px;
   position: relative;
   padding: 0;
   height: 9px;
+  background-color: white;
 }
 #cssload-loader ul li {
   position: absolute;
