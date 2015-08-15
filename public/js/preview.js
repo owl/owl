@@ -37,7 +37,7 @@ $(function() {
         makePreview(msg['html']);
       },
       error: function() {
-        // TODO: エラーメッセージを表示
+        makePreview('Something error...');
       }
     });
   });
