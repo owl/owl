@@ -140,6 +140,7 @@ return [
          * Libraries Service Providers...
          */
         'Collective\Html\HtmlServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
 
 		/*
 		 * Application Service Providers...
