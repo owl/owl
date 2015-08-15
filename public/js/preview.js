@@ -18,15 +18,22 @@ $(function() {
     return $('textarea').val();
   };
 
+  // アクセス用トークン取得
+  var getLaravelToken = function() {
+    return $('input[name=_token]').val();
+  }
+
   /* Event listener */
   $('.preview').click(function() {
     $.ajax({
       type: 'POST',
       url: '/items/parse',
-      data: getMarkdown(),
+      data: {
+        'md'    : getMarkdown(),
+        '_token': getLaravelToken()
+      },
       success: function(msg) {
-        var res = $.parseJSON(msg);
-        makePreview(res['html']);
+        makePreview(msg['html']);
       },
       error: function() {
         // TODO: エラーメッセージを表示
