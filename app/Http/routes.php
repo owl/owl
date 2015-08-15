@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('items/{items}/history', array('as' => 'items.history', 'uses' => 'ItemController@history'));
     Route::put('items/{items}', array('as' => 'items.update', 'uses' => 'ItemController@update'));
     Route::delete('items/{items}', array('as' => 'items.destroy', 'uses' => 'ItemController@destroy'));
+    Route::post('items/parse', array('as' => 'items.parse', 'uses' => 'ItemController@parse'));
     Route::resource('templates', 'TemplateController');
     Route::resource('stocks', 'StockController');
     Route::resource('likes', 'LikeController');
