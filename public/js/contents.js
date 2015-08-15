@@ -32,4 +32,7 @@ $(function(){
     $('html,body').animate({scrollTop: $(this.hash).offset().top}, 600);
     return false;
   });
+
+  // クリップボードボタンにツールチップを設定
+  $('[data-toggle="tooltip"]').tooltip();
 });
