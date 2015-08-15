@@ -58,7 +58,9 @@
                 {!! Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
             </div>
             <div class="tab-pane fade" id="tab2">
-                {!! Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+                <div class="page-body">
+                    {!! HTML::markdown(isset($template->body) ? $template->body: '') !!}
+                </div>
             </div>
         </div>
     </div>
@@ -106,6 +108,7 @@
 @stop
 
 @section('addJs')
+    <script type="text/javascript" language="JavaScript" src="js/preview.js"></script>
     <script type="text/javascript" language="JavaScript">
         $(function() {
             $('#tag-input').tagit({
