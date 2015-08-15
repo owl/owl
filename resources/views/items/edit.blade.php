@@ -57,8 +57,8 @@
                 {!! Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
             </div>
             <div class="tab-pane fade" id="tab2">
+                @include('items._loader')
                 <div class="preview-body">
-                    @include('items._loader')
                     {!! HTML::markdown($item->body) !!}
                 </div>
             </div>

@@ -5,12 +5,13 @@ $(function() {
   /* variable */
   var editFlag = false;
   var $loding  = $('#cssload-loader');
+  var $preview = $('.preview-body');
 
   /* functions */
 
   // 受け取った内容でpreview内を書き換え
   var makePreview = function(body) {
-    $('.preview-body').html(body);
+    $preview.html(body);
   };
 
   // 編集中のデータを取得
@@ -43,9 +44,11 @@ $(function() {
 
   $(document)
     .ajaxStart(function() {
+      $preview.hide();
       $loding.show();
     })
     .ajaxStop(function() {
       $loding.hide();
+      $preview.show();
     });
 });
