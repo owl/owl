@@ -6,6 +6,8 @@ use Owl\Services\ItemService;
 use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Http\Requests\ItemStoreRequest;
+use Owl\Http\Requests\ItemUpdateRequest;
 
 class ItemController extends Controller
 {
@@ -44,19 +46,8 @@ class ItemController extends Controller
         return \View::make('items.create', compact('template', 'user_items'));
     }
 
-    public function store()
+    public function store(ItemStoreRequest $request)
     {
-        $valid_rule = array(
-            'title' => 'required|max:255',
-            'tags' => 'alpha_comma|max:64',
-            'body' => 'required',
-            'published' => 'required|numeric'
-        );
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
-
         $user = $this->userService->getCurrentUser();
 
         $object = app('stdClass');
@@ -129,20 +120,8 @@ class ItemController extends Controller
         return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }
 
-    public function update($openItemId)
+    public function update(ItemUpdateRequest $request, $openItemId)
     {
-        $valid_rule = array(
-            'title' => 'required|max:255',
-            'tags' => 'alpha_comma|max:64',
-            'body' => 'required',
-            'updated_at' => 'required',
-            'published' => 'required|numeric'
-        );
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
-
         $user = $this->userService->getCurrentUser();
         $item = $this->itemService->getByOpenItemId($openItemId);
         if ($item->updated_at != \Input::get('updated_at')) {
