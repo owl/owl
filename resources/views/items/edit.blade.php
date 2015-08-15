@@ -48,8 +48,18 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('body', '本文') !!}
-        {!! Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">本文</a></li>
+            <li><a href="#tab2" data-toggle="tab">プレビュー</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+                {!! Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                {!! Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
