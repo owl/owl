@@ -34,6 +34,11 @@
         {{$errors->first('published')}}
     </div>
     @endif
+    @if(\Session::has('updated_at'))
+    <div class="alert alert-warning" role="alert">
+        {{\Session::get('updated_at')}}
+    </div>
+    @endif
 
     {!! Form::open(['route'=>['items.update', $item->open_item_id], 'method'=>'PUT'], array('class'=>'form-items')) !!}
 
@@ -58,6 +63,7 @@
         <div class="col-sm-4">
             {!! Form::label('published', '記事の公開設定：') !!}
             {!! Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), $item->published) !!}
+            {!! Form::hidden('updated_at', $item->updated_at) !!}
             {!! Form::submit('投稿',array('class'=>'btn btn-success btn-block')) !!}
         </div>
     </div>

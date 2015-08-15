@@ -135,6 +135,7 @@ class ItemController extends Controller
             'title' => 'required|max:255',
             'tags' => 'alpha_comma|max:64',
             'body' => 'required',
+            'updated_at' => 'required',
             'published' => 'required|numeric'
         );
         $validator = \Validator::make(\Input::all(), $valid_rule);
@@ -144,6 +145,9 @@ class ItemController extends Controller
 
         $user = $this->userService->getCurrentUser();
         $item = $this->itemService->getByOpenItemId($openItemId);
+        if ($item->updated_at != \Input::get('updated_at')) {
+            return \Redirect::back()->with("updated_at", "コンフリクトの可能性があるため更新できませんでした。")->withInput();
+        }
         if ($item == null) {
             \App::abort(404);
         }
