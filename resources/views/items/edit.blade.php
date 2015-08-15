@@ -58,6 +58,7 @@
             </div>
             <div class="tab-pane fade" id="tab2">
                 <div class="preview-body">
+                    @include('items._loader')
                     {!! HTML::markdown($item->body) !!}
                 </div>
             </div>
