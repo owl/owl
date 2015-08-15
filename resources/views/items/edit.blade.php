@@ -50,14 +50,14 @@
     <div class="form-group">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">本文</a></li>
-            <li><a href="#tab2" data-toggle="tab">プレビュー</a></li>
+            <li><a href="#tab2" data-toggle="tab" class="preview">プレビュー</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="tab1">
                 {!! Form::textarea('body',$item->body,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
             </div>
             <div class="tab-pane fade" id="tab2">
-                <div class="page-body">
+                <div class="preview-body">
                     {!! HTML::markdown($item->body) !!}
                 </div>
             </div>
@@ -107,7 +107,6 @@
 @stop
 
 @section('addJs')
-    <script type="text/javascript" language="JavaScript" src="js/preview.js">
     <script type="text/javascript" language="JavaScript">
         $(function() {
             $('#tag-input').tagit({
@@ -124,6 +123,7 @@
             }
         });
     </script>
-<script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
-<script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/preview.js') !!}"></script>
 @stop
