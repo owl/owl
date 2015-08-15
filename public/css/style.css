@@ -317,7 +317,6 @@ a {
 }
 
 #sidebar .clipboard_button {
-    position: relative;
     height: 34px;
     margin-left: -1px;
     padding: 0 7px;
@@ -331,36 +330,6 @@ a {
 #sidebar .zeroclipboard-is-hover {
     background-color: #ddd;
     background-image: linear-gradient(#eee, #ddd);
-}
-
-#sidebar .clipboard_popup {
-    display: none;
-}
-
-#sidebar .zeroclipboard-is-hover .clipboard_popup {
-    display: block;
-    position: absolute;
-    text-align: center;
-    font-size: 13px;
-    width: 150px;
-    background-color: black;
-    color: white;
-    padding: 2px;
-    top: 40px;
-    right: -60px;
-    border-radius: 5px;
-}
-
-#sidebar .zeroclipboard-is-hover .clipboard_popup:after {
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    border: 3px solid black;
-    border-color: transparent;
-    border-bottom-color: black;
-    bottom: 100%;
-    left: 50%;
 }
 
 /*
