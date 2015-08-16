@@ -50,7 +50,7 @@ $(function() {
 
   $textarea.keyup(function() {
     editFlag = false;
-  });$
+  });
 
   $(document)
     .ajaxStart(function() {
