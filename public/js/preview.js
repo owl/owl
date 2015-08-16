@@ -3,12 +3,12 @@
  */
 $(function() {
   /* variable */
-  var editFlag = false;
-  var $loding  = $('#cssload-loader');
-  var $preview = $('.preview-body');
+  var editFlag  = false;
+  var $textarea = $('textarea');
+  var $loding   = $('#cssload-loader');
+  var $preview  = $('.preview-body');
 
   /* functions */
-
   // 受け取った内容でpreview内を書き換え
   var makePreview = function(body) {
     $preview.html(body);
@@ -16,7 +16,7 @@ $(function() {
 
   // 編集中のデータを取得
   var getMarkdown = function() {
-    return $('textarea').val();
+    return $textarea.val();
   };
 
   // アクセス用トークン取得
@@ -26,6 +26,11 @@ $(function() {
 
   /* Event listener */
   $('.preview').click(function() {
+    // 未編集の場合、POSTしない
+    if(editFlag) {
+      return;
+    }
+    // POST request
     $.ajax({
       type: 'POST',
       url: '/items/parse',
@@ -35,12 +40,17 @@ $(function() {
       },
       success: function(msg) {
         makePreview(msg['html']);
+        editFlag = true;
       },
       error: function() {
         makePreview('Something error...');
       }
     });
   });
+
+  $textarea.keyup(function() {
+    editFlag = false;
+  });$
 
   $(document)
     .ajaxStart(function() {
