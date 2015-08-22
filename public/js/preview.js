@@ -44,7 +44,7 @@ $(function() {
         editFlag = true;
       },
       error: function() {
-        makePreview('Something error...');
+        makePreview('<h3 style="text-align: center">Something error...</h3>');
       }
     });
   });
