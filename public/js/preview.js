@@ -34,6 +34,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: '/items/parse',
+      timeout: 5000,
       data: {
         'md'    : getMarkdown(),
         '_token': getLaravelToken()
