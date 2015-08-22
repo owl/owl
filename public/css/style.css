@@ -323,7 +323,13 @@ a {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     background-color: #eee;
+    background-image: linear-gradient(#fcfcfc, #eee);
     border: 1px solid #d5d5d5;
+}
+
+#sidebar .zeroclipboard-is-hover {
+    background-color: #ddd;
+    background-image: linear-gradient(#eee, #ddd);
 }
 
 /*

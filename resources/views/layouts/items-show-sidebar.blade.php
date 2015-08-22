@@ -2,7 +2,7 @@
     <h5>記事リンクMarkdown</h5>
     <div class="sidebar-link-url">
         <input type="text" class="form-control" value="<?php echo "[".$item->title."](".Request::url().")"  ?>">
-        <span class="clipboard_area">
+        <span class="clipboard_area" data-toggle="tooltip" data-placement="bottom" title="Copy text">
             <button class="clipboard_button" data-clipboard-text="copy_text" type="button">
                 <i class="fa fa-clipboard"></i>
             </button>
