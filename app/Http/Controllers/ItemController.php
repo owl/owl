@@ -175,4 +175,18 @@ class ItemController extends Controller
         $histories = $this->itemService->getHistoryByOpenItemId($openItemId);
         return \View::make('items.history', compact('histories'));
     }
+
+    /**
+     * POSTされたMarkdownをレンダリングし、json形式でreturn
+     *
+     * @return Response
+     */
+    public function parse()
+    {
+        $parsedMd = '';
+        if(\Input::get('md')) {
+            $parsedMd= \HTML::markdown(\Input::get('md'));
+        }
+        return response()->json(['html' => $parsedMd]);
+    }
 }

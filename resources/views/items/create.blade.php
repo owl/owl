@@ -49,8 +49,21 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('body', '本文') !!}
-        {!! Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">本文</a></li>
+            <li><a href="#tab2" data-toggle="tab" class="preview">プレビュー</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+                {!! Form::textarea('body', isset($template->body) ? $template->body : '' ,array('class'=>'form-control', 'rows'=>'15', 'id' => 'item_text')) !!}
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                @include('items._loader')
+                <div class="preview-body">
+                    {!! HTML::markdown(isset($template->body) ? $template->body: '') !!}
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
@@ -120,6 +133,7 @@
         });
 
     </script>
-<script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
-<script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('js/preview.js') !!}"></script>
 @stop
