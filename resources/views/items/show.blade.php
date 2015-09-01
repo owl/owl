@@ -17,6 +17,7 @@
     <script src="{!! \HTML::cached_asset('js/like.change.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/comment.create.js') !!}"></script>
     <script src="{!! \HTML::cached_asset('js/contents.js') !!}"></script>
+    <script src="{!! \HTML::cached_asset('js/slide.js') !!}"></script>
     {{-- クリップボードコピー用のライブラリ読み込み --}}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.5/ZeroClipboard.min.js"></script>
     <script>
@@ -153,6 +154,9 @@
 
     @include('comment.form')
 @endif
+
+@include('slide._slide')
+
 @stop
 
 @section('contents-sidebar')
