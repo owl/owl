@@ -12,6 +12,10 @@ $(function() {
   // 受け取った内容でpreview内を書き換え
   var makePreview = function(body) {
     $preview.html(body);
+    // highlight.js
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
   };
 
   // 編集中のデータを取得
