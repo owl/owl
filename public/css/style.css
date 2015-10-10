@@ -59,10 +59,6 @@ a {
     text-shadow: 0 1.5px 0 #ffffff;
 }
 
-.navbar-static-top {
-    z-index: 0;
-}
-
 /*
  * pagehead
  */
@@ -478,7 +474,7 @@ a {
  */
 .slide {
   visibility: none;
-  z-index: 1;
+  z-index: 1000;
   background-color: white;
   height: 100%;
   width: 100%;
@@ -498,7 +494,7 @@ a {
   filter: alpha(opacity=80);
   -moz-opacity: 0.8;
   opacity: 0.8;
-  z-index: 2;
+  z-index: 1001;
   text-decoration: none;
 }
 
@@ -590,7 +586,7 @@ a {
   height: 5px;
   background: blue;
   transition: width 0.7s;
-  z-index: 1;
+  z-index: 1000;
 }
 
 /*
