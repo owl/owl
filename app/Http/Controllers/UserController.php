@@ -110,7 +110,7 @@ class UserController extends Controller
         }
     }
 
-    public function reset()
+    public function password()
     {
         $loginUser = $this->userService->getCurrentUser();
 
