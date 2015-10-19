@@ -12,16 +12,18 @@
 */
 
 /*
- * Dont Need Login.
+ * Not Logged In.
  */
-Route::get('login', array('uses' => 'AuthController@login'));
-Route::post('login', array('uses' => 'AuthController@attempt'));
-Route::get('signup', array('uses' => 'UserController@signup'));
-Route::post('signup', array('uses' => 'UserController@register'));
-Route::get('search', array('uses' => 'SearchController@index'));
-Route::get('search/json', array('uses' => 'SearchController@json'));
-Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
-Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
+Route::group(['middleware' => 'notLogin'], function () {
+    Route::get('login', array('uses' => 'AuthController@login'));
+    Route::post('login', array('uses' => 'AuthController@attempt'));
+    Route::get('signup', array('uses' => 'UserController@signup'));
+    Route::post('signup', array('uses' => 'UserController@register'));
+    Route::get('password/reminder', array('uses' => 'ReminderController@remind'));
+    Route::post('password/reminder', array('uses' => 'ReminderController@send'));
+    Route::get('password/reset', array('uses' => 'ReminderController@edit'));
+    Route::post('password/reset', array('uses' => 'ReminderController@update'));
+});
 
 /*
  * Need Login.
@@ -60,6 +62,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
     Route::post('comment/update', array('uses' => 'CommentController@update'));
 });
+
+/*
+ * Dont Need Login.
+ */
+Route::get('search', array('uses' => 'SearchController@index'));
+Route::get('search/json', array('uses' => 'SearchController@json'));
+Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
+Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 
 /*
  * Dont Need Login. (must write after items/***)

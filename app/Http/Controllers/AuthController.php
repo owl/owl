@@ -20,9 +20,6 @@ class AuthController extends Controller
      */
     public function login()
     {
-        if ($this->userService->getCurrentUser()) {
-            return redirect('/');
-        }
         return view('login.index');
     }
 
