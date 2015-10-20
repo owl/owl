@@ -1,4 +1,4 @@
-# Owl [![Build Status](https://travis-ci.org/fortkle/owl.svg?branch=master)](https://travis-ci.org/fortkle/owl)
+# Owl [![Build Status](https://travis-ci.org/owl/owl.svg?branch=master)](https://travis-ci.org/owl/owl)
 
 Owl is a simple team collaboration tool.  
 This software is released under the MIT License, see LICENSE.txt.
