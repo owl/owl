@@ -30,9 +30,6 @@ class UserController extends Controller
      */
     public function signup()
     {
-        if ($this->userService->getCurrentUser()) {
-            return redirect('/');
-        }
         return view('signup.index');
     }
 
@@ -110,7 +107,7 @@ class UserController extends Controller
         }
     }
 
-    public function reset()
+    public function password()
     {
         $loginUser = $this->userService->getCurrentUser();
 

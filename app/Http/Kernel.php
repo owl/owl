@@ -26,5 +26,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => 'Owl\Http\Middleware\LoginCheckMiddleware',
+        'notLogin' => 'Owl\Http\Middleware\NotLoginCheckMiddleware',
     ];
 }

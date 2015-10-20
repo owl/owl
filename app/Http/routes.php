@@ -12,12 +12,22 @@
 */
 
 /*
+ * Not Logged In.
+ */
+Route::group(['middleware' => 'notLogin'], function () {
+    Route::get('login', array('uses' => 'AuthController@login'));
+    Route::post('login', array('uses' => 'AuthController@attempt'));
+    Route::get('signup', array('uses' => 'UserController@signup'));
+    Route::post('signup', array('uses' => 'UserController@register'));
+    Route::get('password/reminder', array('uses' => 'ReminderController@remind'));
+    Route::post('password/reminder', array('uses' => 'ReminderController@send'));
+    Route::get('password/reset/{token}', array('uses' => 'ReminderController@edit'));
+    Route::post('password/reset', array('uses' => 'ReminderController@update'));
+});
+
+/*
  * Dont Need Login.
  */
-Route::get('login', array('uses' => 'AuthController@login'));
-Route::post('login', array('uses' => 'AuthController@attempt'));
-Route::get('signup', array('uses' => 'UserController@signup'));
-Route::post('signup', array('uses' => 'UserController@register'));
 Route::get('search', array('uses' => 'SearchController@index'));
 Route::get('search/json', array('uses' => 'SearchController@json'));
 Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
@@ -52,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/edit', array('uses' => 'UserController@edit'));
     Route::put('user/edit', array('uses' => 'UserController@update'));
     Route::get('user/stock', array('uses' => 'UserController@stock'));
-    Route::post('user/password', array('uses' => 'UserController@reset'));
+    Route::post('user/password', array('uses' => 'UserController@password'));
     Route::get('/{username}', array('uses' => 'UserController@show'));
 
     Route::post('image/upload', array('uses' => 'ImageController@upload'));

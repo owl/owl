@@ -63,10 +63,20 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
-                {!! Form::submit('ログイン', array('class' => 'btn btn-default')) !!}
+                {!! Form::submit('ログイン', array('class' => 'btn btn-default')) !!} 
+                @if (env('MAIL_ENABLE') == 'true')
+                  <a href="/password/reminder">パスワードを忘れた場合はこちら</a>
+                @else
+                  <p>メールを送信できないので<br/>パスワードリマインダーはご利用になれません。</p>
+                @endif
             </div>
         </div>
         {!! Form::close() !!}
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+            </div>
+        </div>
     </div>
 </div>
 @stop

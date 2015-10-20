@@ -9,12 +9,6 @@
 @stop
 
 @section('contents-main')
-
-@section('contents-pagehead')
-<p class="page-title">Owlへようこそ！</p>
-@stop
-
-@section('contents-main')
 <div class="panel panel-default col-sm-offset-3">
     <div class="panel-heading">
         <h3 class="panel-title">新規登録</h3>
@@ -74,7 +68,14 @@
     </div>
 </div>
 @stop
-        <div class="form-group">
-            <p><a href="/login">ログインはこちら</a></p>
-        </div>
+
+@section('contents-sidebar')
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">登録済みの方へ</h3>
+    </div>
+    <div class="panel-body">
+        <a href="/login" type="button" class="btn btn-info btn-block">ログインはこちら</a>
+    </div>
+</div>
 @stop

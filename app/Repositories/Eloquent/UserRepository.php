@@ -80,6 +80,17 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
+     * Get a user by email.
+     *
+     * @param string $email
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getByEmail($email)
+    {
+        return $this->user->where('email', $email)->first();
+    }
+
+    /**
      * Get users by username like search.
      *
      * @param string $username

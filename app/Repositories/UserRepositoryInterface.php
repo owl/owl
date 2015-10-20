@@ -37,6 +37,14 @@ interface UserRepositoryInterface
     public function getByUsername($username);
 
     /**
+     * Get a user by email.
+     *
+     * @param string $email
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getByEmail($email);
+
+    /**
      * Get users by username like search.
      *
      * @param string $username
