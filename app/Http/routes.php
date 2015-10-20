@@ -26,6 +26,14 @@ Route::group(['middleware' => 'notLogin'], function () {
 });
 
 /*
+ * Dont Need Login.
+ */
+Route::get('search', array('uses' => 'SearchController@index'));
+Route::get('search/json', array('uses' => 'SearchController@json'));
+Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
+Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
+
+/*
  * Need Login.
  */
 Route::group(['middleware' => 'auth'], function () {
@@ -62,14 +70,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
     Route::post('comment/update', array('uses' => 'CommentController@update'));
 });
-
-/*
- * Dont Need Login.
- */
-Route::get('search', array('uses' => 'SearchController@index'));
-Route::get('search/json', array('uses' => 'SearchController@json'));
-Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
-Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 
 /*
  * Dont Need Login. (must write after items/***)
