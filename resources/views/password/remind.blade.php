@@ -14,7 +14,7 @@
         <h3 class="panel-title">登録時のメールアドレスを入力してください。</h3>
     </div>
     <div class="panel-body">
-        {!! Form::open(array('url'=>'password/reminder', 'class' => 'form-horizontal')) !!}
+        {!! Form::open(array('url'=>'password/reminder', 'class' => 'form-horizontal form-reminder')) !!}
         @if($errors->has('warning'))
         <div class="alert alert-warning" role="alert">
             {{$errors->first('warning')}}
@@ -41,4 +41,17 @@
         {!! Form::close() !!}
     </div>
 </div>
+@stop
+
+@section('addJs')
+<script type="text/javascript" language="JavaScript">
+  $(function() {
+    $('.form-reminder').submit(function() {
+      $(this).submit(function() {
+        alert('処理中です');
+        return false;
+      });
+    });
+  });
+</script>
 @stop

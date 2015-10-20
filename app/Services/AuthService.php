@@ -180,4 +180,12 @@ class AuthService extends Service
             return false;
         }
     }
+
+    public function createReminderToken()
+    {
+        $TOKEN_LENGTH = 16; //16*2=32桁
+        $token = bin2hex(openssl_random_pseudo_bytes($TOKEN_LENGTH));
+
+        return $token;
+    }
 }
