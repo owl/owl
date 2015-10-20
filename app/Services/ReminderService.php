@@ -20,6 +20,11 @@ class ReminderService extends Service
         return $this->reminderTokenRepo->getByUserId($userId);
     }
 
+    public function getByToken($token)
+    {
+        return $this->reminderTokenRepo->getByToken($token);
+    }
+
     public function create($userId, $token)
     {
         $params = [];
@@ -34,6 +39,13 @@ class ReminderService extends Service
             $wkey = ['id' => $data->id];
             $ret = $this->reminderTokenRepo->update($params, $wkey);
         }
+        return $ret;
+    }
+
+    public function delete($tokenId)
+    {
+        $wkey = ['id' => $tokenId];
+        $ret = $this->reminderTokenRepo->delete($wkey);
         return $ret;
     }
 

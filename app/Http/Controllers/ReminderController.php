@@ -4,6 +4,7 @@ use Owl\Services\UserService;
 use Owl\Services\AuthService;
 use Owl\Services\ReminderService;
 use Owl\Http\Requests\ReminderSendRequest;
+use Owl\Http\Requests\ReminderUpdateRequest;
 
 class ReminderController extends Controller
 {
@@ -45,8 +46,6 @@ class ReminderController extends Controller
 
             \DB::commit();
         } catch (\Exception $e) {
-            \Log::info($e);
-
             \DB::rollback();
             \App::abort(500);
         }
@@ -54,11 +53,41 @@ class ReminderController extends Controller
         return view('password.send', compact('email'));
     }
 
-    public function edit()
+    public function edit($token)
     {
+        $tokenData = $this->reminderService->getByToken($token);
+
+        if (empty($tokenData)) {
+            \App::abort(500);
+        }
+
+        return view('password.reset', compact('token'));
     }
 
-    public function update()
+    public function update(ReminderUpdateRequest $request)
     {
+        $password = $request->get('new_password');
+        $token = $request->get('token');
+
+        try {
+            \DB::beginTransaction();
+
+            $tokenData = $this->reminderService->getByToken($token);
+            if (isset($tokenData->user_id)) {
+                $user = $this->userService->getById($tokenData->user_id);
+            } else {
+                \App::abort(500);
+            }
+
+            $this->authService->attemptResetPassword($user->username, $password);
+            $this->reminderService->delete($tokenData->id);
+
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \App::abort(500);
+        }
+
+        return view('password.complete');
     }
 }

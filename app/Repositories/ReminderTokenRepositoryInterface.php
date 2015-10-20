@@ -16,4 +16,12 @@ interface ReminderTokenRepositoryInterface
      * @return Object
      */
     public function getByUserId($userId);
+
+    /**
+     * Get reminder token data by token.
+     * 
+     * @param string $token
+     * @return Object
+     */
+    public function getByToken($token);
 }

@@ -21,7 +21,7 @@ Route::group(['middleware' => 'notLogin'], function () {
     Route::post('signup', array('uses' => 'UserController@register'));
     Route::get('password/reminder', array('uses' => 'ReminderController@remind'));
     Route::post('password/reminder', array('uses' => 'ReminderController@send'));
-    Route::get('password/reset', array('uses' => 'ReminderController@edit'));
+    Route::get('password/reset/{token}', array('uses' => 'ReminderController@edit'));
     Route::post('password/reset', array('uses' => 'ReminderController@update'));
 });
 

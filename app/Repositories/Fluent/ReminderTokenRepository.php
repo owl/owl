@@ -28,4 +28,17 @@ class ReminderTokenRepository extends AbstractFluent implements ReminderTokenRep
             ->where('user_id', $userId)
             ->first();
     }
+
+    /**
+     * Get reminder token data by token.
+     * 
+     * @param string $token
+     * @return Object
+     */
+    public function getByToken($token)
+    {
+        return \DB::table($this->getTableName())
+            ->where('token', $token)
+            ->first();
+    }
 }
