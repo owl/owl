@@ -53,30 +53,10 @@ php artisan serve --host 0.0.0.0 --port 3000
 
 access http://localhost:3000  
 
-
-
 ## Test
-Rspec + Capybara + PhantomJS（Poltergeist）
-
-※ PhantomJS required  
-https://github.com/teampoltergeist/poltergeist
-
-1.gem install
+Behat acceptance test
+(after `composer install`)
 
 ```
-$ bundle install --path vendor/bundle
-```
-
-2.fix settings
-
-```
-$ vim spec/spec_helper.rb
-```
-please change host.
-
-3.run test
-move root directory.
-
-```
-$ bundle exec rspec spec
+$ vendor/bin/behat --colors
 ```
