@@ -1,0 +1,10 @@
+default:
+    extensions:
+        Laracasts\Behat:
+        Behat\MinkExtension:
+            default_session: laravel
+            laravel: ~
+    gherkin:
+       cache: %paths.base%/storage/behat/behat_gherkin_cache
+    testers:
+       rerun_cache: %paths.base%/storage/behat/behat_rerun_cache

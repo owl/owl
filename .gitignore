@@ -12,3 +12,4 @@ storage/debugbar
 
 # test
 .bundle/
+storage/behat/*
