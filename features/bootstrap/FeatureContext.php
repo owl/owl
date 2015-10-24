@@ -32,4 +32,32 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->fillField('password', 'password');
         $this->pressButton('ログイン');
     }
+
+    /**
+     * @When I create random user
+     */
+    public function iCreateRandomUser()
+    {
+        $this->visitPath('/signup');
+        $testUsername = $this->makeRandStr();
+        $this->fillField('username', $testUsername);
+        $testEmail  = $testUsername . "@example.com";
+        $this->fillField('email', $testEmail);
+        $this->fillField('password', 'password');
+        $this->pressButton('登録');
+    }
+
+    /**
+     * ランダム文字列生成 (英数字)
+     * @param int $length 
+     * @return string
+     */
+    public function makeRandStr($length = 8) {
+        static $chars = 'abcdefghijklmnopqrstuvwxyz';
+        $str = '';
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $chars[mt_rand(0, 25)];
+        }
+        return $str;
+    }
 }
