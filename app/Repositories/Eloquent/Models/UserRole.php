@@ -15,6 +15,6 @@ class UserRole extends Model
 
     public function user()
     {
-        return $this->hasMany('Owl\Models\User', 'role');
+        return $this->hasMany('Owl\Repositories\Eloquent\Models\User');
     }
 }

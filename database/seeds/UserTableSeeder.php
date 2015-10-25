@@ -11,7 +11,8 @@ class UserTableSeeder extends Seeder
         $user->fill(array(
             'username' => 'admin',
             'email' => 'admin@example.com',
-            'password' => password_hash('password', PASSWORD_DEFAULT)
+            'password' => password_hash('password', PASSWORD_DEFAULT),
+            'role' => 2 //owner
         ));
         $user->save();
     }

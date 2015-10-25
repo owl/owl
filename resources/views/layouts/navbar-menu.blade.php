@@ -9,6 +9,9 @@
         <ul class="dropdown-menu" role="menu">
             <li><a href="/{{{$User->username}}}">マイページ</a></li>
             <li><a href="/user/edit">ユーザ情報変更</a></li>
+@if($User->role == Owl\Services\UserRoleService::ROLE_ID_OWNER)
+            <li><a href="/user/index">ユーザー管理</a></li>
+@endif
             <li class="divider"></li>
             <li><a href="/logout">ログアウト</a></li>
         </ul>

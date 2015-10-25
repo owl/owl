@@ -20,7 +20,7 @@ class User extends Model
 
     public function userRole()
     {
-        return $this->belongsTo('Owl\Models\UserRole');
+        return $this->belongsTo('Owl\Repositories\Eloquent\Models\UserRole', 'role');
     }
 
     /**

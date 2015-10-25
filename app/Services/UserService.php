@@ -27,6 +27,17 @@ class UserService extends Service
         return false;
     }
 
+    public function isOwner()
+    {
+        if (\Session::has('User')) {
+            $user = \Session::get('User');
+            if ($user->role === UserRoleService::ROLE_ID_OWNER) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Create a new user.
      *
@@ -124,5 +135,10 @@ class UserService extends Service
     public function getOwners()
     {
         return $this->userRepo->getOwners();
+    }
+
+    public function getAll()
+    {
+        return $this->userRepo->getAll();
     }
 }

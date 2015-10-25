@@ -2,4 +2,5 @@
 
 interface UserRoleRepositoryInterface
 {
+    public function getAll();
 }

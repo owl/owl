@@ -15,17 +15,4 @@ class UserRoleRepository extends AbstractFluent implements UserRoleRepositoryInt
     {
         return $this->table;
     }
-
-    /**
-     * Get reminder token data by user_id.
-     * 
-     * @param int $userId 
-     * @return Object
-     */
-    public function getByUserId($userId)
-    {
-        return \DB::table($this->getTableName())
-            ->where('user_id', $userId)
-            ->first();
-    }
 }

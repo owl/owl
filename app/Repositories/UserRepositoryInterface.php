@@ -52,4 +52,19 @@ interface UserRepositoryInterface
      * @return Illuminate\Database\Eloquent\Model
      */
     public function getLikeUsername($username);
+
+    /**
+     * Get users which role is owner.
+     *
+     * @param string $username
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getOwners();
+
+    /**
+     * Get all user data.
+     *
+     * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
+     */
+    public function getAll();
 }

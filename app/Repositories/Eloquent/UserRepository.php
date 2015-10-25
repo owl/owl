@@ -104,8 +104,24 @@ class UserRepository implements UserRepositoryInterface
         return $this->user->where('username', 'like', "$username%")->get();
     }
 
+    /**
+     * Get users which role is owner.
+     *
+     * @param string $username
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function getOwners()
     {
         return $this->user->where('role', UserRoleService::ROLE_ID_OWNER)->get();
+    }
+
+    /**
+     * Get all user data.
+     *
+     * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
+     */
+    public function getAll()
+    {
+        return $this->user->with('userRole')->orderBy('id', 'asc')->get();
     }
 }

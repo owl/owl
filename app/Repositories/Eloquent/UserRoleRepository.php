@@ -11,4 +11,9 @@ class UserRoleRepository implements UserRoleRepositoryInterface
     {
         $this->userRole = $userRole;
     }
+
+    public function getAll()
+    {
+        return $this->userRole->orderBy('id', 'asc')->get();
+    }
 }
