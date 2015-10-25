@@ -1,5 +1,6 @@
 <?php namespace Owl\Services;
 
+use Owl\Services\UserRoleService;
 use Owl\Repositories\UserRepositoryInterface;
 use Owl\Repositories\LoginTokenRepositoryInterface;
 use Carbon\Carbon;
@@ -26,6 +27,17 @@ class UserService extends Service
         return false;
     }
 
+    public function isOwner()
+    {
+        if (\Session::has('User')) {
+            $user = \Session::get('User');
+            if ($user->role === UserRoleService::ROLE_ID_OWNER) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Create a new user.
      *
@@ -38,6 +50,7 @@ class UserService extends Service
         $object->username = $credentials['username'];
         $object->email = $credentials['email'];
         $object->password = $credentials['password'];
+        $object->role = UserRoleService::ROLE_ID_MEMBER;
         return $this->userRepo->create($object);
     }
 
@@ -47,11 +60,12 @@ class UserService extends Service
      * @param int $id
      * @param string $username
      * @param string $email
+     * @param int $role$
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $username, $email)
+    public function update($id, $username, $email, $role)
     {
-        return $this->userRepo->update($id, $username, $email);
+        return $this->userRepo->update($id, $username, $email, $role);
     }
 
     /**
@@ -116,5 +130,15 @@ class UserService extends Service
         } else {
             return false;
         }
+    }
+
+    public function getOwners()
+    {
+        return $this->userRepo->getOwners();
+    }
+
+    public function getAll()
+    {
+        return $this->userRepo->getAll();
     }
 }

@@ -1,28 +1,69 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Services\UserService;
+use Owl\Services\UserRoleService;
 use Owl\Services\AuthService;
 use Owl\Services\ItemService;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Http\Requests\UserRegisterRequest;
+use Owl\Http\Requests\UserRoleUpdateRequest;
 
 class UserController extends Controller
 {
     protected $userService;
+    protected $userRoleService;
     protected $authService;
     protected $itemService;
     protected $templateRepo;
 
     public function __construct(
         UserService $userService,
+        UserRoleService $userRoleService,
         AuthService $authService,
         ItemService $itemService,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
+        $this->userRoleService = $userRoleService;
         $this->authService = $authService;
         $this->itemService = $itemService;
         $this->templateRepo = $templateRepo;
+    }
+
+    public function index()
+    {
+        $users = $this->userService->getAll();
+        $ret = $this->userRoleService->getAll();
+        $roles = [];
+        foreach ($ret as $role) {
+            $roles[$role->id] = $role->name;
+        }
+        return \View::make('user.index', compact('users', 'roles'));
+    }
+
+    public function roleUpdate(UserRoleUpdateRequest $request, $user_id)
+    {
+        $user = $this->userService->getById($user_id);
+        if (empty($user)) {
+            \App::abort(500);
+        }
+
+        $role_id = $request->get('role_id');
+        $roles = $this->userRoleService->getAll();
+        if (!isset($roles[$role_id])) {
+            \App::abort(500);
+        }
+        $updateUser = $this->userService->update($user->id, $user->username, $user->email, $role_id);
+
+        $users = $this->userService->getAll();
+        $ret = $this->userRoleService->getAll();
+        $roles = [];
+        foreach ($ret as $role) {
+            $roles[$role->id] = $role->name;
+        }
+
+        $mes = '権限を変更しました。変更を有効にするためには ' . $user->username . ' がログインし直す必要があります。';
+        return redirect('user/index')->with('message', $mes);
     }
 
     /*
@@ -92,7 +133,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'));
+            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'), $loginUser->role);
 
             if ($user) {
                 $this->authService->setUser($user);

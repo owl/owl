@@ -11,11 +11,16 @@ class User extends Model
      */
     protected $table = 'users';
 
-    protected $fillable = ['username', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password', 'role'];
 
     public function item()
     {
         return $this->hasMany('Owl\Models\Item');
+    }
+
+    public function userRole()
+    {
+        return $this->belongsTo('Owl\Repositories\Eloquent\Models\UserRole', 'role');
     }
 
     /**

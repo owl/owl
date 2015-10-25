@@ -5,20 +5,21 @@ interface UserRepositoryInterface
     /**
      * Create a new user.
      *
-     * @param mixed $credentials (email, username, password)
+     * @param mixed $credentials (email, username, password, role)
      * @return Illuminate\Database\Eloquent\Model
      */
     public function create($credentials);
 
     /**
-     * Update a user information(username, email).
+     * Update a user information(username, email, role).
      *
      * @param int $id
      * @param string $username
      * @param string $email
+     * @param int $role
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $username, $email);
+    public function update($id, $username, $email, $role);
 
     /**
      * Get a user by user id.
@@ -51,4 +52,19 @@ interface UserRepositoryInterface
      * @return Illuminate\Database\Eloquent\Model
      */
     public function getLikeUsername($username);
+
+    /**
+     * Get users which role is owner.
+     *
+     * @param string $username
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getOwners();
+
+    /**
+     * Get all user data.
+     *
+     * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
+     */
+    public function getAll();
 }

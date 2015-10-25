@@ -36,7 +36,7 @@ Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 /*
  * Need Login.
  */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'login'], function () {
     // Basic
     Route::get('/', array('uses' => 'IndexController@index'));
     Route::get('logout', array('uses' => 'AuthController@logout'));
@@ -65,10 +65,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/password', array('uses' => 'UserController@password'));
     Route::get('/{username}', array('uses' => 'UserController@show'));
 
+    // User Roles
+    Route::get('user/role/initial', array('uses' => 'UserRoleController@initial'));
+    Route::post('user/role/initial', array('uses' => 'UserRoleController@initialRegister'));
+
     Route::post('image/upload', array('uses' => 'ImageController@upload'));
     Route::post('comment/create', array('uses' => 'CommentController@create'));
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
     Route::post('comment/update', array('uses' => 'CommentController@update'));
+});
+
+/*
+ * Need Login and Role is Owner
+ */
+Route::group(['middleware' => ['login','owner']], function () {
+    Route::get('user/index', array('uses' => 'UserController@index'));
+    Route::post('user/{user_id}/roleUpdate', array('uses' => 'UserController@roleUpdate'));
 });
 
 /*

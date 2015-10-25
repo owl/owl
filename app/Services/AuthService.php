@@ -66,6 +66,7 @@ class AuthService extends Service
         $object->id = $user->id;
         $object->username = $user->username;
         $object->email = $user->email;
+        $object->role = $user->role;
 
         // ログインユーザーの情報を保存
         \Session::push('User', $object);
