@@ -96,14 +96,16 @@ var start = function() {
   $('.slide').show();
   $('.slide_bar').show();
   changeButtonTxt('Return to owl');
-}
+  $('.slide_button').attr('name', 'finish');
+};
 
 // Finish owl Down
 var finish = function() {
   $('.slide').hide();
   $('.slide_bar').hide();
   changeButtonTxt('Start owl down');
-}
+  $('.slide_button').attr('name', 'start');
+};
 
 // Change button text
 var changeButtonTxt = function(txt) {
@@ -127,6 +129,8 @@ $(function() {
       next(); // Show next slide when right key pressed
     } else if (k == 37) {
       prev(); // Show previous slide when left key pressed
+    } else if (k == 27) {
+      finish(); // Finish owl down when esc key pressed
     }
     // Change length of progress bar
     $slide_bar.css('width', Math.floor(no / length * 100) + '%');
@@ -141,8 +145,5 @@ $(function() {
     } else {
       finish();
     }
-    // Switch button name
-    name = name === 'start' ? 'finish' : 'start';
-    $slide_button.attr('name', name);
   });
 });
