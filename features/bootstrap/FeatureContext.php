@@ -48,6 +48,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * @When I delete item
+     */
+    public function iDeleteItem()
+    {
+        $page = $this->getSession()->getPage();
+        $element = $page->find('css',"#item-delete");
+        $element->click();
+    }
+
+    /**
      * ランダム文字列生成 (英数字)
      * @param int $length 
      * @return string

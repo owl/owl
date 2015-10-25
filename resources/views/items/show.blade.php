@@ -61,6 +61,8 @@
                     {!! Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE']) !!}
                     {!! link_to_route('items.edit','編集',$item->open_item_id) !!}
                     <a onclick="confirmDelete(this);return false;" href="void()">削除</a>
+                    <?php // for behat test ?>
+                    {!! Form::submit('削除',array('id' => 'item-delete', 'style'=>'display:none;')) !!}
                     {!! Form::close() !!}
                 @elseif (isset($User))
                     {!! Form::open(['route'=>['items.destroy', $item->open_item_id], 'method'=>'DELETE']) !!}

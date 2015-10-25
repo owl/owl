@@ -58,6 +58,16 @@ Feature: Item Test
         Then I should see "作成"
         Then the response status code should be 200
 
+    Scenario: Delete Item
+        Given I am on the homepage
+        When I logged in
+        When I go to "/items/"
+        When I follow "Update Title"
+        When I delete item
+        Then I should be on "/items"
+        Then I should see "すべての投稿"
+        Then the response status code should be 200
+
     # Abnormal Test
     Scenario: validation error when fill in with empty params
         Given I am on the homepage
