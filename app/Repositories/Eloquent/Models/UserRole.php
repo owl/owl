@@ -12,4 +12,9 @@ class UserRole extends Model
     protected $table = 'user_roles';
 
     protected $fillable = ['name'];
+
+    public function user()
+    {
+        return $this->hasMany('Owl\Models\User', 'role');
+    }
 }

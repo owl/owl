@@ -65,6 +65,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/password', array('uses' => 'UserController@password'));
     Route::get('/{username}', array('uses' => 'UserController@show'));
 
+    // User Roles
+    Route::get('user/role/initial', array('uses' => 'UserRoleController@initial'));
+    Route::post('user/role/initial', array('uses' => 'UserRoleController@initialRegister'));
+
     Route::post('image/upload', array('uses' => 'ImageController@upload'));
     Route::post('comment/create', array('uses' => 'CommentController@create'));
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));

@@ -2,6 +2,7 @@
 
 use Owl\Repositories\UserRepositoryInterface;
 use Owl\Repositories\Eloquent\Models\User;
+use Owl\Services\UserRoleService;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -15,7 +16,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * Create a new user.
      *
-     * @param mixed $credentials (email, username, password)
+     * @param mixed $credentials (email, username, password, role)
      * @return Illuminate\Database\Eloquent\Model
      */
     public function create($credentials)
@@ -24,6 +25,7 @@ class UserRepository implements UserRepositoryInterface
         $user->username = $credentials->username;
         $user->email = $credentials->email;
         $user->password = password_hash($credentials->password, PASSWORD_DEFAULT);
+        $user->role = $credentials->role;
 
         if ($user->save()) {
             return $user;
@@ -33,14 +35,14 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * Update a user information(username, email).
+     * Update a user information(username, email, role).
      *
      * @param int $id
      * @param string $username
      * @param string $email
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $username, $email)
+    public function update($id, $username, $email, $role)
     {
         $user = $this->getById($id);
         if (!$user) {
@@ -48,6 +50,7 @@ class UserRepository implements UserRepositoryInterface
         }
         $user->username = $username;
         $user->email = $email;
+        $user->role = $role;
         $user->save();
 
         if ($user->save()) {
@@ -99,5 +102,10 @@ class UserRepository implements UserRepositoryInterface
     public function getLikeUsername($username)
     {
         return $this->user->where('username', 'like', "$username%")->get();
+    }
+
+    public function getOwners()
+    {
+        return $this->user->where('role', UserRoleService::ROLE_ID_OWNER)->get();
     }
 }

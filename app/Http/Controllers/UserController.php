@@ -92,7 +92,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'));
+            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'), $loginUser->role);
 
             if ($user) {
                 $this->authService->setUser($user);
