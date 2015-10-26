@@ -50,7 +50,7 @@ class UserController extends Controller
 
         $role_id = $request->get('role_id');
         $roles = $this->userRoleService->getAll();
-        if (!isset($roles[$role_id])) {
+        if (!isset($roles[$role_id - 1])) {
             \App::abort(500);
         }
         $updateUser = $this->userService->update($user->id, $user->username, $user->email, $role_id);
