@@ -27,7 +27,7 @@ This software is released under the MIT License, see LICENSE.txt.
 1.Clone the project
 
 ```
-git clone https://github.com/fortkle/owl.git
+git clone https://github.com/owl/owl.git
 cd owl
 ```
 
