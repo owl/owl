@@ -76,17 +76,21 @@ class ItemRepository implements ItemRepositoryInterface
             ->groupBy('it.item_id')
             ->toSql();
 
-        return \DB::table('items as i')
-            ->select('i.*', 'u.username', 'u.email')
-            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-            ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
-                {
-                    $join->on('tmp2.item_id', '=', 'i.id');
-                })
-            ->whereNotNull('tmp2.item_id')
-            ->where('published', '2')
-            ->orderBy('updated_at', 'desc')
-            ->paginate(10);
+        $page = (\Input::get("page")) ?: "1";
+        return \Cache::remember('items_flow_'.$page, 5, function() use ($joinSubquery)
+        {
+            return \DB::table('items as i')
+                ->select('i.*', 'u.username', 'u.email')
+                ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+                ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
+                    {
+                        $join->on('tmp2.item_id', '=', 'i.id');
+                    })
+                ->whereNotNull('tmp2.item_id')
+                ->where('published', '2')
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10);
+        });
     }
 
     /**
@@ -105,17 +109,21 @@ class ItemRepository implements ItemRepositoryInterface
             ->groupBy('it.item_id')
             ->toSql();
 
-        return \DB::table('items as i')
-            ->select('i.*', 'u.username', 'u.email')
-            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-            ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
-                {
-                    $join->on('tmp2.item_id', '=', 'i.id');
-                })
-            ->whereNull('tmp2.item_id')
-            ->where('published', '2')
-            ->orderBy('updated_at', 'desc')
-            ->paginate(10);
+        $page = (\Input::get("page")) ?: "1";
+        return \Cache::remember('items_stock_'.$page, 5, function() use ($joinSubquery)
+        {
+            return \DB::table('items as i')
+                ->select('i.*', 'u.username', 'u.email')
+                ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+                ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
+                    {
+                        $join->on('tmp2.item_id', '=', 'i.id');
+                    })
+                ->whereNull('tmp2.item_id')
+                ->where('published', '2')
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10);
+        });
     }
 
     /**
