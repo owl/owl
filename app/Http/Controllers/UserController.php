@@ -63,7 +63,7 @@ class UserController extends Controller
         }
 
         $mes = '権限を変更しました。変更を有効にするためには ' . $user->username . ' がログインし直す必要があります。';
-        return redirect('user/index')->with('message', $mes);
+        return redirect('manage/user/index')->with('message', $mes);
     }
 
     /*

@@ -34,6 +34,18 @@ Route::get('search/jsonp', array('uses' => 'SearchController@jsonp'));
 Route::get('tags/suggest', array('uses' => 'TagController@suggest'));
 
 /*
+ * Need Login and Role is Owner
+ */
+Route::group(['middleware' => ['login','owner']], function () {
+    Route::get('manage', array('uses' => 'AdminController@index'));
+    Route::get('manage/user/index', array('uses' => 'UserController@index'));
+    Route::post('manage/user/{user_id}/roleUpdate', array('uses' => 'UserController@roleUpdate'));
+    Route::get('manage/flow/index', array('uses' => 'FlowTagController@index'));
+    Route::post('manage/flow/store', array('uses' => 'FlowTagController@store'));
+    Route::delete('manage/flow/destroy', array('as' => 'flow.destroy', 'uses' => 'FlowTagController@destroy'));
+});
+
+/*
  * Need Login.
  */
 Route::group(['middleware' => 'login'], function () {
@@ -73,14 +85,6 @@ Route::group(['middleware' => 'login'], function () {
     Route::post('comment/create', array('uses' => 'CommentController@create'));
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
     Route::post('comment/update', array('uses' => 'CommentController@update'));
-});
-
-/*
- * Need Login and Role is Owner
- */
-Route::group(['middleware' => ['login','owner']], function () {
-    Route::get('user/index', array('uses' => 'UserController@index'));
-    Route::post('user/{user_id}/roleUpdate', array('uses' => 'UserController@roleUpdate'));
 });
 
 /*

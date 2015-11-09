@@ -26,6 +26,16 @@ class TagService extends Service
     }
 
     /**
+     * get all flow tags.
+     *
+     * @return Collection
+     */
+    public function getAllFlowTags()
+    {
+        return $this->tagRepo->getAllFlowTags();
+    }
+
+    /**
      * get all used tags.
      *
      * @return array
@@ -33,6 +43,17 @@ class TagService extends Service
     public function getAllUsedTags()
     {
         return $this->tagRepo->getAllUsedTags();
+    }
+
+    /**
+     * get a tag by tag id.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function getById($id)
+    {
+        return $this->tagRepo->getById($id);
     }
 
     /**
@@ -68,5 +89,27 @@ class TagService extends Service
             $tag_ids[] = (string)$tag['id'];
         }
         return $tag_ids;
+    }
+
+    /**
+     * Update a tag's flow_flag.
+     *
+     * @param int $id
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function updateFlowFlag($tag_id, $flag = true)
+    {
+        return $this->tagRepo->updateFlowFlag($tag_id, $flag);
+    }
+
+    /**
+     * Delete a flow tag settings.
+     *
+     * @param $tag_id int tag_id
+     * @return boolean
+     */
+    public function deleteFlowFlag($tag_id)
+    {
+        return $this->tagRepo->deleteFlowFlag($tag_id);
     }
 }

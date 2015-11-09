@@ -6,6 +6,9 @@ use Owl\Repositories\Eloquent\Models\TagFts;
 
 class TagRepository implements TagRepositoryInterface
 {
+    const FLOW_FLAG_ON = 1;
+    const FLOW_FLAG_OFF = 0;
+
     protected $tag;
     protected $tagFts;
 
@@ -23,6 +26,16 @@ class TagRepository implements TagRepositoryInterface
     public function getAll()
     {
         return $this->tag->all();
+    }
+
+    /**
+     * get all flow tags.
+     *
+     * @return Collection
+     */
+    public function getAllFlowTags()
+    {
+        return $this->tag->where('flow_flag', self::FLOW_FLAG_ON)->get();
     }
 
     /**
@@ -62,6 +75,17 @@ __SQL__;
     }
 
     /**
+     * get a tag by tag id.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function getById($id)
+    {
+        return $this->tag->where('id', $id)->first();
+    }
+
+    /**
      * get a tag or Create a tag.
      *
      * @param string $name
@@ -70,5 +94,50 @@ __SQL__;
     public function firstOrCreateByName($name)
     {
         return $this->tag->firstOrCreate(array('name' => $name))->toArray();
+    }
+
+    /**
+     * Update a tag's flow_flag.
+     *
+     * @param int $tag_id
+     * @param boolean $flag
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function updateFlowFlag($tag_id, $flag = true)
+    {
+        $tag = $this->getById($tag_id);
+        if (!$tag) {
+            return false;
+        }
+        $flow = ($flag) ? self::FLOW_FLAG_ON : self::FLOW_FLAG_OFF;
+
+        $tag->flow_flag = $flow;
+
+        if ($tag->save()) {
+            return $tag;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Delete a flow tag settings.
+     *
+     * @param $tag_id int tag_id
+     * @return boolean
+     */
+    public function deleteFlowFlag($tag_id)
+    {
+        $tag = $this->getById($tag_id);
+        if (!$tag) {
+            return false;
+        }
+        $tag->flow_flag = self::FLOW_FLAG_OFF;
+
+        if ($tag->save()) {
+            return $tag;
+        } else {
+            return false;
+        }
     }
 }

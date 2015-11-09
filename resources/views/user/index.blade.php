@@ -33,7 +33,7 @@
             <td>{{{ $user->email }}}</td>
             <td>{{{ $user->userRole->name }}}</td>
             <td>
-                {!! Form::open(array('url'=>"user/{$user->id}/roleUpdate",'class'=>'form-role-update')) !!}
+                {!! Form::open(array('url'=>"manage/user/{$user->id}/roleUpdate",'class'=>'form-role-update')) !!}
                 <div class="form-inline">
                     <div class="form-group">
                     {!! Form::select('role_id', $roles, $user->role , array('class' => 'form-control')) !!}

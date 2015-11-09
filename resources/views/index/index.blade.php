@@ -13,6 +13,12 @@ Owl | TOP
 @stop
 
 @section('contents-main')
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation" class="active"><a href="#">ストック</a></li>
+  <li role="presentation"><a href="#">フロー</a></li>
+  <li role="presentation"><a href="#">全ての投稿</a></li>
+</ul>
+
 <div class="items">
     @foreach ($items as $item)
     <div class="item">
