@@ -52,10 +52,70 @@ class ItemRepository implements ItemRepositoryInterface
      */
     public function getAllPublished()
     {
-        return $this->item->with('user')
+        return \DB::table('items')
+                    ->select('items.*', 'users.email', 'users.username')
+                    ->join('users', 'items.user_id', '=', 'users.id')
                     ->where('published', '2')
                     ->orderBy('updated_at', 'desc')
                     ->paginate(10);
+    }
+
+    /**
+     * Get flow published items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAllFlowPublished()
+    {
+        $joinSubquery = \DB::table('item_tag as it')
+            ->select('it.item_id')
+            ->leftJoin(\DB::raw('(SELECT t.id FROM tags as t WHERE t.flow_flag = 1) as tmp'), function($join) {
+                $join->on('tmp.id', '=', 'it.tag_id');
+            })
+            ->whereNotNull('tmp.id')
+            ->groupBy('it.item_id')
+            ->toSql();
+
+        return \DB::table('items as i')
+            ->select('i.*', 'u.username', 'u.email')
+            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+            ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
+                {
+                    $join->on('tmp2.item_id', '=', 'i.id');
+                })
+            ->whereNotNull('tmp2.item_id')
+            ->where('published', '2')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
+    }
+
+    /**
+     * Get stock published items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAllStockPublished()
+    {
+        $joinSubquery = \DB::table('item_tag as it')
+            ->select('it.item_id')
+            ->leftJoin(\DB::raw('(SELECT t.id FROM tags as t WHERE t.flow_flag = 1) as tmp'), function($join) {
+                $join->on('tmp.id', '=', 'it.tag_id');
+            })
+            ->whereNotNull('tmp.id')
+            ->groupBy('it.item_id')
+            ->toSql();
+
+        return \DB::table('items as i')
+            ->select('i.*', 'u.username', 'u.email')
+            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+            ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
+                {
+                    $join->on('tmp2.item_id', '=', 'i.id');
+                })
+            ->whereNull('tmp2.item_id')
+            ->where('published', '2')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
     }
 
     /**

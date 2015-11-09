@@ -64,6 +64,26 @@ class ItemService extends Service
     }
 
     /**
+     * Get flow published items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAllFlowPublished()
+    {
+        return $this->itemRepo->getAllFlowPublished();
+    }
+
+    /**
+     * Get stock published items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAllStockPublished()
+    {
+        return $this->itemRepo->getAllStockPublished();
+    }
+
+    /**
      * Get recent items by user id.
      *
      * @param int $user_id

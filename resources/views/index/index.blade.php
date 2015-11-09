@@ -14,20 +14,20 @@ Owl | TOP
 
 @section('contents-main')
 <ul class="nav nav-tabs nav-justified">
-  <li role="presentation" class="active"><a href="#">ストック</a></li>
-  <li role="presentation"><a href="#">フロー</a></li>
-  <li role="presentation"><a href="#">全ての投稿</a></li>
+  <li role="presentation" <?php ($kind === 'stock') ? print 'class="active"' : "" ?>><a href="/?kind=stock">ストック</a></li>
+  <li role="presentation" <?php ($kind === 'flow') ? print 'class="active"' : "" ?>><a href="/?kind=flow">フロー</a></li>
+  <li role="presentation" <?php ($kind === 'all') ? print 'class="active"' : "" ?>><a href="/?kind=all">全ての投稿</a></li>
 </ul>
 
 <div class="items">
     @foreach ($items as $item)
     <div class="item">
-        {!! \HTML::gravator($item->user->email, 40) !!}
-        <p><a href="/{{{$item->user->username}}}" class="username">{{{$item->user->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
+        {!! \HTML::gravator($item->email, 40) !!}
+        <p><a href="/{{{$item->username}}}" class="username">{{{$item->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
         <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
     </div>
     @endforeach
-<?php echo $items->render(); ?>
+<?php echo $items->appends(['kind' => $kind])->render(); ?>
 </div>
 @stop
 

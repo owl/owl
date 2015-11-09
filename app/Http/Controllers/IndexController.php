@@ -22,9 +22,19 @@ class IndexController extends Controller
 
     public function index()
     {
-        $items = $this->itemService->getAllPublished();
+        $kind = (\Input::get('kind')) ?: 'stock';
+
+        if ($kind === 'all') {
+            $items = $this->itemService->getAllPublished();
+        } elseif ($kind === 'flow') {
+            $items = $this->itemService->getAllFlowPublished();
+        } else {
+            $kind = 'stock';
+            $items = $this->itemService->getAllStockPublished();
+        }
+
         $templates = $this->templateRepo->getAll();
         $ranking_stock = $this->stockRepo->getRankingWithCache(5);
-        return \View::make('index.index', compact('items', 'templates', 'ranking_stock'));
+        return \View::make('index.index', compact('kind', 'items', 'templates', 'ranking_stock'));
     }
 }
