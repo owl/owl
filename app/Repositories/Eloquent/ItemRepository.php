@@ -67,30 +67,45 @@ class ItemRepository implements ItemRepositoryInterface
      */
     public function getAllFlowPublished()
     {
-        $joinSubquery = \DB::table('item_tag as it')
-            ->select('it.item_id')
-            ->leftJoin(\DB::raw('(SELECT t.id FROM tags as t WHERE t.flow_flag = 1) as tmp'), function($join) {
-                $join->on('tmp.id', '=', 'it.tag_id');
-            })
-            ->whereNotNull('tmp.id')
-            ->groupBy('it.item_id')
-            ->toSql();
+        $pageNumber = \Input::get("page", 1);
+        $perPage = 10;
+        $offset = $perPage * ($pageNumber - 1);
 
-        $page = (\Input::get("page")) ?: "1";
-        return \Cache::remember('items_flow_'.$page, 5, function() use ($joinSubquery)
-        {
-            return \DB::table('items as i')
-                ->select('i.*', 'u.username', 'u.email')
-                ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-                ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
-                    {
-                        $join->on('tmp2.item_id', '=', 'i.id');
-                    })
-                ->whereNotNull('tmp2.item_id')
-                ->where('published', '2')
-                ->orderBy('updated_at', 'desc')
-                ->paginate(10);
-        });
+        $joinSubquery = \DB::table('item_tag')
+            ->select('item_tag.item_id')
+            ->distinct('item_tag.item_id')
+            ->join('tags', 'item_tag.tag_id', '=', 'tags.id')
+            ->whereRaw('tags.flow_flag = 1');
+        $ret = \DB::table('items as i')
+            ->select('i.*', 'u.username', 'u.email')
+            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function($join)
+                {
+                    $join->on('tmp2.item_id', '=', 'i.id');
+                })
+            ->whereNotNull('tmp2.item_id')
+            ->where('i.published', '2')
+            ->orderBy('i.updated_at', 'desc')
+            ->skip($offset)
+            ->take($perPage)
+            ->get();
+
+        $allCount = \DB::table('items')->where('published', '2')->count();
+        $noTaggedCount = $allCount - (\DB::table('items')
+            ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+            ->where('items.published', '2')
+            ->distinct('items.id')
+            ->count('items.id'));
+        $flowCount = (\DB::table('items')
+            ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+            ->join('tags', 'item_tag.tag_id', '=', 'tags.id')
+            ->where('tags.flow_flag', '1')
+            ->where('items.published', '2')
+            ->distinct('items.id')->count('items.id'));
+        $stockCount = $allCount - $flowCount;
+
+        $ret = \App::make('Illuminate\Pagination\LengthAwarePaginator', [$ret, $flowCount, $perPage]);
+        return $ret;
     }
 
     /**
@@ -100,30 +115,45 @@ class ItemRepository implements ItemRepositoryInterface
      */
     public function getAllStockPublished()
     {
-        $joinSubquery = \DB::table('item_tag as it')
-            ->select('it.item_id')
-            ->leftJoin(\DB::raw('(SELECT t.id FROM tags as t WHERE t.flow_flag = 1) as tmp'), function($join) {
-                $join->on('tmp.id', '=', 'it.tag_id');
-            })
-            ->whereNotNull('tmp.id')
-            ->groupBy('it.item_id')
-            ->toSql();
+        $pageNumber = \Input::get("page", 1);
+        $perPage = 10;
+        $offset = $perPage * ($pageNumber - 1);
 
-        $page = (\Input::get("page")) ?: "1";
-        return \Cache::remember('items_stock_'.$page, 5, function() use ($joinSubquery)
-        {
-            return \DB::table('items as i')
-                ->select('i.*', 'u.username', 'u.email')
-                ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-                ->leftJoin(\DB::raw('(' . $joinSubquery .') as tmp2'), function($join)
-                    {
-                        $join->on('tmp2.item_id', '=', 'i.id');
-                    })
-                ->whereNull('tmp2.item_id')
-                ->where('published', '2')
-                ->orderBy('updated_at', 'desc')
-                ->paginate(10);
-        });
+        $joinSubquery = \DB::table('item_tag')
+            ->select('item_tag.item_id')
+            ->distinct('item_tag.item_id')
+            ->join('tags', 'item_tag.tag_id', '=', 'tags.id')
+            ->whereRaw('tags.flow_flag = 1');
+        $ret = \DB::table('items as i')
+            ->select('i.*', 'u.username', 'u.email')
+            ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
+            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function($join)
+                {
+                    $join->on('tmp2.item_id', '=', 'i.id');
+                })
+            ->whereNull('tmp2.item_id')
+            ->where('i.published', '2')
+            ->orderBy('i.updated_at', 'desc')
+            ->skip($offset)
+            ->take($perPage)
+            ->get();
+
+        $allCount = \DB::table('items')->where('published', '2')->count();
+        $noTaggedCount = $allCount - (\DB::table('items')
+            ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+            ->where('items.published', '2')
+            ->distinct('items.id')
+            ->count('items.id'));
+        $flowCount = (\DB::table('items')
+            ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+            ->join('tags', 'item_tag.tag_id', '=', 'tags.id')
+            ->where('tags.flow_flag', '1')
+            ->where('items.published', '2')
+            ->distinct('items.id')->count('items.id'));
+        $stockCount = $allCount - $flowCount;
+
+        $ret = \App::make('Illuminate\Pagination\LengthAwarePaginator', [$ret, $stockCount, $perPage]);
+        return $ret;
     }
 
     /**
