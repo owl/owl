@@ -53,6 +53,8 @@ php artisan serve --host 0.0.0.0 --port 3000
 
 access http://localhost:3000  
 
+You can sign in as a Owner with id:admin pw:password
+
 ## Test
 Behat acceptance test
 (after `composer install`)
