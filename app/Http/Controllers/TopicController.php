@@ -16,8 +16,10 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = $this->topicService->getAll();
-        return \View::make('topics.index', compact('topics'));
+        $no_sidebar = true;
+
+        $topics = $this->topicService->getAllWithPaginate();
+        return \View::make('topics.index', compact('no_sidebar', 'topics'));
     }
 
     public function create()
@@ -32,8 +34,7 @@ class TopicController extends Controller
         $object->body = $request->input('body');
         $topic = $this->topicService->create($object);
 
-        $topics = $this->topicService->getAll();
-        return \View::make('topics.index', compact('topics'));
+        return \Redirect::route('topics.show', [$topic->id]);
     }
 
     public function edit($topic_id)
@@ -57,8 +58,7 @@ class TopicController extends Controller
         $object->body = $request->input('body');
         $topic = $this->topicService->update($topic->id, $object);
 
-        $topics = $this->topicService->getAll();
-        return \View::make('topics.index', compact('topics'));
+        return \Redirect::route('topics.show', [$topic->id]);
     }
 
     public function destroy($topic_id)

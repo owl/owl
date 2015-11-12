@@ -11,4 +11,6 @@ interface TopicRepositoryInterface
     public function delete($topic_id);
 
     public function getById($topic_id);
+
+    public function getAllWithPaginate();
 }

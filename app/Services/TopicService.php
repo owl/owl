@@ -17,6 +17,11 @@ class TopicService extends Service
         return $this->topicRepo->getAll();
     }
 
+    public function getAllWithPaginate()
+    {
+        return $this->topicRepo->getAllWithPaginate();
+    }
+
     public function create($object)
     {
         $topic = $this->topicRepo->create($object);

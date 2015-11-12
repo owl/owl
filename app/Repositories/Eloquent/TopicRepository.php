@@ -46,4 +46,9 @@ class TopicRepository implements TopicRepositoryInterface
     {
         return $this->topicRepo->find($topic_id);
     }
+
+    public function getAllWithPaginate()
+    {
+        return $this->topicRepo->orderBy('updated_at', 'desc')->paginate(50);
+    }
 }

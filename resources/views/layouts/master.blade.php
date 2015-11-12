@@ -53,13 +53,19 @@
         </div>
         <div class="container">
             <div class="row">
-                <div id="main" class="col-sm-9">
-                    @yield('contents-main')
-                </div>
+                @if (isset($no_sidebar))
+                    <div id="main" class="col-sm-12">
+                        @yield('contents-main')
+                    </div>
+                @else
+                    <div id="main" class="col-sm-9">
+                        @yield('contents-main')
+                    </div>
 
-                <div id="sidebar" class="col-sm-3">
-                    @yield('contents-sidebar')
-                </div>
+                    <div id="sidebar" class="col-sm-3">
+                        @yield('contents-sidebar')
+                    </div>
+                @endif
             </div>
         </div>
     </div>

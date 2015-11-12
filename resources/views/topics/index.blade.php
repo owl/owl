@@ -15,28 +15,34 @@
 
 @section('contents-main')
 
-    <a href="/topics/create"><button type="button" class="btn btn-success btn-sm">新規作成</button></a><br />
-
+    <a href="/topics/create"><button type="button" class="btn btn-success btn-sm">新しくトピックスを作成する</button></a><br />
     <br>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>No</th>
-            <th>タイトル</th>
-            <th>操作</th>
-        </tr>
-        @foreach ($topics as $topic)
-        <tr>
-            <td>{{{ $topic->id }}}</td>
-            <td>{{{ $topic->title }}}</td>
-            <td>
-                {!! Form::open(['route'=>['topics.destroy', $topic->id], 'method'=>'DELETE']) !!}
-                <a href="/topics/{{$topic->id}}/edit"><button type="button" class="btn btn-default btn-sm">編集</button></a>
-                <button onClick="return confirm('本当に削除しますか？');" type="submit" class="btn btn-danger btn-sm">削除</button>
-                {!! Form::close() !!}
-            </td>
-        </tr>
-        @endforeach
-    </table>
+    @if(empty($topics))
+        <p>トピックスはまだありません。</p>
+    @else
 
+      <?php
+      $_topics = array_chunk($topics->toArray()["data"], 4);
+      ?>
+
+      @foreach ($_topics as $_k => $_v)
+      <div class="row">
+          @foreach ($_v as $k => $v)
+          <div class="col-xs-4 col-sm-3">
+
+              <div class="panel panel-default">
+                  <div class="panel-heading"><a href="/topics/{{$v['id']}}">{{ $v["title"] }}</a></div>
+                  <div class="panel-body">
+                      最終更新日：<?php echo date('Y/m/d', strtotime($v["updated_at"])); ?>
+                  </div>
+              </div>
+
+          </div>
+          @endforeach
+      </div>
+      @endforeach
+      <?php echo $topics->render(); ?>
+
+    @endif
 @stop
