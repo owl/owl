@@ -41,7 +41,7 @@ php composer.phar install
 3.Database migration
 
 ```
-php artisan migrate
+php artisan migrate --seed
 php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
 ```
 
