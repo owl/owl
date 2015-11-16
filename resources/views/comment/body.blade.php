@@ -15,7 +15,7 @@
       <div><?php echo date('Y/m/d H:i', strtotime($comment->updated_at)); ?></div>
       
       <div>
-        @if ($comment->user_id === $User->id)
+        @if (isset($User) && $comment->user_id === $User->id)
         <a href="javascript:void(0)" class="start-edit">編集</a>・<a href="javascript:void(0)" class="comment-delete" value="anonakami">削除</a>
         @else
          　 
@@ -27,7 +27,7 @@
     <div class="arrow_box">
     {!! HTML::markdown($comment->body) !!}
     </div>
-    @if ($comment->user_id === $User->id)
+    @if (isset($User) && $comment->user_id === $User->id)
     <div class="comment-edit">
       <div class="form">
       {!! Form::open(array('url'=>'comment/update', 'onsubmit' => 'return false;')) !!}
