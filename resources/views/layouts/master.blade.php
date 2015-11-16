@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/style.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/jquery.tagit.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/highight.js-8.1.github.min.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/print.css') !!}" media="print"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
