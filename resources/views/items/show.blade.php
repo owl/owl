@@ -144,16 +144,16 @@
 @endif
 <div style='clear:both;'></div>
 
-@if(isset($User))
-    <div id="comment-container">
-    <hr>
-    @if (count($item->comment) >0)
-        @foreach ($item->comment as $comment)
-            @include('comment.body')
-        @endforeach
-    @endif
-    </div>
+<div id="comment-container">
+<hr>
+@if (count($item->comment) >0)
+    @foreach ($item->comment as $comment)
+        @include('comment.body')
+    @endforeach
+@endif
+</div>
 
+@if(isset($User))
     @include('comment.form')
 @endif
 
