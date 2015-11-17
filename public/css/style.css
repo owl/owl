@@ -543,6 +543,7 @@ a {
   left: 0;
   bottom: 0;
   margin: auto;
+  overflow: auto;
 }
 
 .slide_contents h1 {
