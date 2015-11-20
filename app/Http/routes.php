@@ -66,14 +66,6 @@ Route::group(['middleware' => 'login'], function () {
     Route::resource('stocks', 'StockController');
     Route::resource('likes', 'LikeController');
 
-    // Topics
-    Route::get('topics', array('as' => 'topics.index', 'uses' => 'TopicController@index'));
-    Route::get('topics/create', array('as' => 'topics.create', 'uses' => 'TopicController@create'));
-    Route::post('topics', array('as' => 'topics.store', 'uses' => 'TopicController@store'));
-    Route::get('topics/{topics}/edit', array('as' => 'topics.edit', 'uses' => 'TopicController@edit'));
-    Route::put('topics/{topics}', array('as' => 'topics.update', 'uses' => 'TopicController@update'));
-    Route::delete('topics/{topics}', array('as' => 'topics.destroy', 'uses' => 'TopicController@destroy'));
-
     // Tags
     Route::get('tags', array('as' => 'tags.index', 'uses' => 'TagController@index'));
     Route::get('tags/{tags}', array('as' => 'tags.show', 'uses' => 'TagController@show'));
@@ -99,4 +91,3 @@ Route::group(['middleware' => 'login'], function () {
  * Dont Need Login. (must write after items/***)
  */
 Route::get('items/{items}', array('as' => 'items.show', 'uses' => 'ItemController@show'));
-Route::get('topics/{topics}', array('as' => 'topics.show', 'uses' => 'TopicController@show'));

@@ -2,7 +2,6 @@
 @if(isset($User))
 <ul class="nav navbar-nav navbar-right">
     <li><a href="/items/create">投稿する</a></li>
-    <li><a href="/topics">トピックス一覧</a></li>
     <li><a href="/stocks">ストック一覧</a></li>
 
     <li class="dropdown">
