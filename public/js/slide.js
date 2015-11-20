@@ -97,6 +97,7 @@ var start = function() {
   $('.slide_bar').show();
   changeButtonTxt('Return to owl');
   $('.slide_button').attr('name', 'finish');
+  $('#wrapper').css({position: 'fixed'});
 };
 
 // Finish owl Down
@@ -105,6 +106,7 @@ var finish = function() {
   $('.slide_bar').hide();
   changeButtonTxt('Start owl down');
   $('.slide_button').attr('name', 'start');
+  $('#wrapper').css({position: ''});
 };
 
 // Change button text
