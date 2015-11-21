@@ -3,23 +3,23 @@
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Owl\Services\UserService;
 use Owl\Services\SearchService;
-use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Services\TemplateService;
 
 class SearchController extends Controller
 {
     protected $perPage = 10;
-    protected $templateRepo;
     protected $userService;
     protected $searchService;
+    protected $templateService;
 
     public function __construct(
-        TemplateRepositoryInterface $templateRepo,
         UserService $userService,
-        SearchService $searchService
+        SearchService $searchService,
+        TemplateService $templateService
     ) {
-        $this->templateRepo = $templateRepo;
         $this->userService = $userService;
         $this->searchService = $searchService;
+        $this->templateService = $templateService;
     }
 
     public function index()
@@ -33,7 +33,7 @@ class SearchController extends Controller
         }
         $users = $this->userService->getLikeUsername($q);
 
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         $tags = $this->searchTags($q);
         return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users'));
     }

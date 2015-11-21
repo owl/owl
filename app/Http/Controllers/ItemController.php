@@ -5,7 +5,7 @@ use Owl\Services\TagService;
 use Owl\Services\ItemService;
 use Owl\Services\LikeService;
 use Owl\Services\StockService;
-use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Services\TemplateService;
 use Owl\Http\Requests\ItemStoreRequest;
 use Owl\Http\Requests\ItemUpdateRequest;
 
@@ -16,7 +16,7 @@ class ItemController extends Controller
     protected $itemService;
     protected $likeService;
     protected $stockService;
-    protected $templateRepo;
+    protected $templateService;
 
     public function __construct(
         UserService $userService,
@@ -24,14 +24,14 @@ class ItemController extends Controller
         ItemService $itemService,
         LikeService $likeService,
         StockService $stockService,
-        TemplateRepositoryInterface $templateRepo
+        TemplateService $templateService
     ) {
         $this->userService = $userService;
         $this->tagService = $tagService;
         $this->itemService = $itemService;
         $this->likeService = $likeService;
         $this->stockService = $stockService;
-        $this->templateRepo = $templateRepo;
+        $this->templateService = $templateService;
     }
 
     public function create($templateId = null)
@@ -41,7 +41,7 @@ class ItemController extends Controller
         $template = null;
         if (\Input::get('t')) {
             $templateId = \Input::get('t');
-            $template = $this->templateRepo->getById($templateId);
+            $template = $this->templateService->getById($templateId);
         }
         return \View::make('items.create', compact('template', 'user_items'));
     }
@@ -74,7 +74,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = $this->itemService->getAllPublished();
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         return \View::make('items.index', compact('items', 'templates'));
     }
 
@@ -115,7 +115,7 @@ class ItemController extends Controller
             \App::abort(404);
         }
 
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         $user_items = $this->itemService->getRecentsByUserId($user->id);
         return \View::make('items.edit', compact('item', 'templates', 'user_items'));
     }

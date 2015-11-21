@@ -4,7 +4,7 @@ use Owl\Services\UserService;
 use Owl\Services\UserRoleService;
 use Owl\Services\AuthService;
 use Owl\Services\ItemService;
-use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Services\TemplateService;
 use Owl\Http\Requests\UserRegisterRequest;
 use Owl\Http\Requests\UserRoleUpdateRequest;
 use Owl\Http\Requests\UserPasswordRequest;
@@ -16,20 +16,20 @@ class UserController extends Controller
     protected $userRoleService;
     protected $authService;
     protected $itemService;
-    protected $templateRepo;
+    protected $templateService;
 
     public function __construct(
         UserService $userService,
         UserRoleService $userRoleService,
         AuthService $authService,
         ItemService $itemService,
-        TemplateRepositoryInterface $templateRepo
+        TemplateService $templateService
     ) {
         $this->userService = $userService;
         $this->userRoleService = $userRoleService;
         $this->authService = $authService;
         $this->itemService = $itemService;
-        $this->templateRepo = $templateRepo;
+        $this->templateService = $templateService;
     }
 
     public function index()
@@ -106,13 +106,13 @@ class UserController extends Controller
             $items = $this->itemService->getRecentsByUserIdWithPaginate($user->id);
         }
 
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         return \View::make('user.show', compact('user', 'items', 'templates'));
     }
 
     public function edit()
     {
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         return \View::make('user.edit', compact('templates'));
     }
 

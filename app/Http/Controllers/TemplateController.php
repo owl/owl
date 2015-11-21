@@ -1,16 +1,16 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Services\TemplateService;
 use Owl\Http\Requests\TemplateStoreRequest;
 use Owl\Http\Requests\TemplateUpdateRequest;
 
 class TemplateController extends Controller
 {
-    protected $templateRepo;
+    protected $templateService;
 
-    public function __construct(TemplateRepositoryInterface $templateRepo)
+    public function __construct(TemplateService $templateService)
     {
-        $this->templateRepo = $templateRepo;
+        $this->templateService = $templateService;
     }
 
     public function create()
@@ -25,14 +25,14 @@ class TemplateController extends Controller
         $object->title = \Input::get('title');
         $object->tags = \Input::get('tags');
         $object->body = \Input::get('body');
-        $this->templateRepo->create($object);
+        $this->templateService->create($object);
 
         return \Redirect::to('/templates');
     }
 
     public function index()
     {
-        $templates = $this->templateRepo->getAll();
+        $templates = $this->templateService->getAll();
         return \View::make('templates.index', compact('templates'));
     }
 
@@ -43,7 +43,7 @@ class TemplateController extends Controller
 
     public function edit($templateId)
     {
-        $template = $this->templateRepo->getById($templateId);
+        $template = $this->templateService->getById($templateId);
         if ($template == null) {
             \App::abort(404);
         }
@@ -57,14 +57,14 @@ class TemplateController extends Controller
         $object->title = \Input::get('title');
         $object->tags = \Input::get('tags');
         $object->body = htmlspecialchars(\Input::get('body'), ENT_QUOTES, 'UTF-8');
-        $this->templateRepo->update($templateId, $object);
+        $this->templateService->update($templateId, $object);
 
         return \Redirect::route('templates.index');
     }
 
     public function destroy($templateId)
     {
-        $this->templateRepo->delete($templateId);
+        $this->templateService->delete($templateId);
         return \Redirect::route('templates.index');
     }
 }
