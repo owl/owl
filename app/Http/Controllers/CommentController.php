@@ -1,24 +1,24 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\CommentRepositoryInterface;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
+use Owl\Services\CommentService;
 
 class CommentController extends Controller
 {
     protected $userService;
     protected $itemService;
-    protected $commentRepo;
+    protected $commentService;
     private $status = 400;
 
     public function __construct(
         UserService $userService,
         ItemService $itemService,
-        CommentRepositoryInterface $commentRepo
+        CommentService $commentService
     ) {
         $this->userService = $userService;
         $this->itemService = $itemService;
-        $this->commentRepo = $commentRepo;
+        $this->commentService = $commentService;
     }
 
     public function create()
@@ -35,16 +35,16 @@ class CommentController extends Controller
         $object->body = \Input::get('body');
         $object->username = $user->username;
         $object->email = $user->email;
-        $comment = $this->commentRepo->createComment($object);
+        $comment = $this->commentService->createComment($object);
         return \View::make('comment.body', compact('comment'));
     }
 
     public function update()
     {
-        if (!$comment = $this->commentRepo->getCommentById(\Input::get('id'))) {
+        if (!$comment = $this->commentService->getCommentById(\Input::get('id'))) {
             return  \Response::make("", $this->status);
         }
-        $comment = $this->commentRepo->updateComment($comment->id, \Input::get('body'));
+        $comment = $this->commentService->updateComment($comment->id, \Input::get('body'));
 
         $needContainerDiv = false; //remove outer div for update js div replace
         return \View::make('comment.body', compact('comment', 'needContainerDiv'));
@@ -53,8 +53,8 @@ class CommentController extends Controller
 
     public function destroy()
     {
-        if ($comment = $this->commentRepo->getCommentById(\Input::get('id'))) {
-            $this->commentRepo->deleteComment($comment->id);
+        if ($comment = $this->commentService->getCommentById(\Input::get('id'))) {
+            $this->commentService->deleteComment($comment->id);
             $this->status = 200;
         }
         return  \Response::make("", $this->status);
