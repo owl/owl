@@ -10,6 +10,19 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
     protected function parseImage($markdown)
     {
         if (($parts = $this->parseLinkOrImage(substr($markdown, 1))) !== false) {
+
+            // if $parts'count over 6, it shows that markdown formats is wrong.
+            if (count($parts) < 6) {
+                // remove all starting [ markers to avoid next one to be parsed as link
+                $result = '!';
+                $i = 1;
+                while (isset($markdown[$i]) && $markdown[$i] == '[') {
+                    $result .= '[';
+                    $i++;
+                }
+                return [['text', $result], $i];
+            }
+
             list($text, $url, $title, $offset, $key, $height, $width) = $parts;
 
             return [
