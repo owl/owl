@@ -132,6 +132,17 @@
             });
         });
 
+        $(function(){
+          $("#item_text").change(function() {
+            $(window).on('beforeunload', function() {
+              return "入力した情報が失われてしまいます。";
+            });
+          });
+          $("input[type=submit]").click(function() {
+            $(window).off('beforeunload');
+          });
+        });
+
     </script>
   <script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
   <script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
