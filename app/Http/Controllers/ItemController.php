@@ -4,7 +4,7 @@ use Owl\Services\UserService;
 use Owl\Services\TagService;
 use Owl\Services\ItemService;
 use Owl\Services\LikeService;
-use Owl\Repositories\StockRepositoryInterface;
+use Owl\Services\StockService;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Http\Requests\ItemStoreRequest;
 use Owl\Http\Requests\ItemUpdateRequest;
@@ -15,7 +15,7 @@ class ItemController extends Controller
     protected $tagService;
     protected $itemService;
     protected $likeService;
-    protected $stockRepo;
+    protected $stockService;
     protected $templateRepo;
 
     public function __construct(
@@ -23,14 +23,14 @@ class ItemController extends Controller
         TagService $tagService,
         ItemService $itemService,
         LikeService $likeService,
-        StockRepositoryInterface $stockRepo,
+        StockService $stockService,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
         $this->tagService = $tagService;
         $this->itemService = $itemService;
         $this->likeService = $likeService;
-        $this->stockRepo = $stockRepo;
+        $this->stockService = $stockService;
         $this->templateRepo = $templateRepo;
     }
 
@@ -97,11 +97,11 @@ class ItemController extends Controller
         $stock = null;
         $like = null;
         if (!empty($user)) {
-            $stock = $this->stockRepo->getByUserIdAndItemId($user->id, $item->id);
+            $stock = $this->stockService->getByUserIdAndItemId($user->id, $item->id);
             $like = $this->likeService->get($user->id, $item->id);
         }
-        $stocks = $this->stockRepo->getByItemId($item->id);
-        $recent_stocks = $this->stockRepo->getRecentRankingWithCache(5, 7);
+        $stocks = $this->stockService->getByItemId($item->id);
+        $recent_stocks = $this->stockService->getRecentRankingWithCache(5, 7);
         $user_items = $this->itemService->getRecentsByUserId($item->user_id);
         $like_users = $this->itemService->getLikeUsersById($item->id);
         return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));

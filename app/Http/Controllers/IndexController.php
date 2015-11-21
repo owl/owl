@@ -1,22 +1,22 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Services\ItemService;
-use Owl\Repositories\StockRepositoryInterface;
+use Owl\Services\StockService;
 use Owl\Repositories\TemplateRepositoryInterface;
 
 class IndexController extends Controller
 {
     protected $itemService;
-    protected $stockRepo;
+    protected $stockService;
     protected $templateRepo;
 
     public function __construct(
         ItemService $itemService,
-        StockRepositoryInterface $stockRepo,
+        StockService $stockService,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->itemService = $itemService;
-        $this->stockRepo = $stockRepo;
+        $this->stockService = $stockService;
         $this->templateRepo = $templateRepo;
     }
 
@@ -34,7 +34,7 @@ class IndexController extends Controller
         }
 
         $templates = $this->templateRepo->getAll();
-        $ranking_stock = $this->stockRepo->getRankingWithCache(5);
+        $ranking_stock = $this->stockService->getRankingWithCache(5);
         return \View::make('index.index', compact('kind', 'items', 'templates', 'ranking_stock'));
     }
 }

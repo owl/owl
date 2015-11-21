@@ -1,23 +1,23 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\StockRepositoryInterface;
 use Owl\Services\TagService;
 use Owl\Services\ItemService;
+use Owl\Services\StockService;
 
 class TagController extends Controller
 {
     protected $tagService;
     protected $itemService;
-    protected $stockRepo;
+    protected $stockService;
 
     public function __construct(
         TagService $tagService,
         ItemService $itemService,
-        StockRepositoryInterface $stockRepo
+        StockService $stockService
     ) {
         $this->tagService = $tagService;
         $this->itemService = $itemService;
-        $this->stockRepo = $stockRepo;
+        $this->stockService = $stockService;
     }
 
     /**
@@ -28,8 +28,8 @@ class TagController extends Controller
     public function index()
     {
         $tags = $this->tagService->getAllUsedTags();
-        $recent_ranking = $this->stockRepo->getRecentRankingWithCache(5, 7);
-        $all_ranking = $this->stockRepo->getRankingWithCache(5);
+        $recent_ranking = $this->stockService->getRecentRankingWithCache(5, 7);
+        $all_ranking = $this->stockService->getRankingWithCache(5);
         return view('tags.index', compact('tags', 'recent_ranking', 'all_ranking'));
     }
 
