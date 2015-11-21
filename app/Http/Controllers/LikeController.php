@@ -1,6 +1,5 @@
 <?php namespace Owl\Http\Controllers;
 
-use Owl\Repositories\LikeRepositoryInterface;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
 use Owl\Services\LikeService;

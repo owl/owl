@@ -2,37 +2,33 @@
 
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Owl\Services\UserService;
-use Owl\Repositories\ItemFtsRepositoryInterface;
-use Owl\Repositories\TagFtsRepositoryInterface;
+use Owl\Services\SearchService;
 use Owl\Repositories\TemplateRepositoryInterface;
 
 class SearchController extends Controller
 {
     protected $perPage = 10;
     protected $templateRepo;
-    protected $itemFtsRepo;
-    protected $tagFtsRepo;
     protected $userService;
+    protected $searchService;
 
     public function __construct(
         TemplateRepositoryInterface $templateRepo,
-        ItemFtsRepositoryInterface $itemFtsRepo,
-        TagFtsRepositoryInterface $tagFtsRepo,
-        UserService $userService
+        UserService $userService,
+        SearchService $searchService
     ) {
         $this->templateRepo = $templateRepo;
-        $this->itemFtsRepo = $itemFtsRepo;
-        $this->tagFtsRepo = $tagFtsRepo;
         $this->userService = $userService;
+        $this->searchService = $searchService;
     }
 
     public function index()
     {
         $q = \Input::get('q');
         $offset = $this->calcOffset(\Input::get('page'));
-        $results = $this->itemFtsRepo->match($q, $this->perPage, $offset);
+        $results = $this->searchService->itemMatch($q, $this->perPage, $offset);
         if (count($results) > 0) {
-            $res = $this->itemFtsRepo->matchCount($q);
+            $res = $this->searchService->itemMatchCount($q);
             $pagination = new Paginator($results, $res[0]->count, $this->perPage, null, array('path' => '/search'));
         }
         $users = $this->userService->getLikeUsername($q);
@@ -61,7 +57,7 @@ class SearchController extends Controller
     private function searchTags($q)
     {
         $tagName = mb_strtolower($q);
-        $tags = $this->tagFtsRepo->match($q);
+        $tags = $this->searchService->tagMatch($q);
         foreach ($tags as &$tag) {
             $tag = (array)$tag;
         }
@@ -70,7 +66,7 @@ class SearchController extends Controller
 
     private function jsonResults($q)
     {
-        $items = $this->itemFtsRepo->match($q, $this->perPage);
+        $items = $this->searchService->itemMatch($q, $this->perPage);
 
         $json = array();
         foreach ($items as $item) {

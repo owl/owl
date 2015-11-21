@@ -1,23 +1,23 @@
 <?php namespace Owl\Services;
 
+use Owl\Services\SearchService;
 use Owl\Repositories\ItemRepositoryInterface;
-use Owl\Repositories\ItemFtsRepositoryInterface;
 use Owl\Repositories\ItemHistoryRepositoryInterface;
 
 class ItemService extends Service
 {
+    protected $searchService;
     protected $itemRepo;
-    protected $itemFtsRepo;
     protected $itemHistoryRepo;
 
     public function __construct(
         ItemRepositoryInterface $itemRepo,
-        ItemFtsRepositoryInterface $itemFtsRepo,
-        ItemHistoryRepositoryInterface $itemHistoryRepo
+        ItemHistoryRepositoryInterface $itemHistoryRepo,
+        SearchService $searchService
     ) {
         $this->itemRepo = $itemRepo;
-        $this->itemFtsRepo = $itemFtsRepo;
         $this->itemHistoryRepo = $itemHistoryRepo;
+        $this->searchService = $searchService;
     }
 
     /**
@@ -187,8 +187,8 @@ class ItemService extends Service
     public function changeFts($id, $obj)
     {
         //delete & insert fts
-        $this->itemFtsRepo->delete($id);
-        return $this->itemFtsRepo->create($id, $obj->title, $obj->body);
+        $this->searchService->itemDelete($id);
+        return $this->searchService->itemCreate($id, $obj->title, $obj->body);
     }
 
     /**
@@ -199,7 +199,7 @@ class ItemService extends Service
      */
     public function delete($item_id)
     {
-        $this->itemFtsRepo->delete($item_id);
+        $this->searchService->itemDelete($item_id);
         $this->itemHistoryRepo->delete($item_id);
         return $this->itemRepo->delete($item_id);
     }

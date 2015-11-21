@@ -1,18 +1,20 @@
 <?php namespace Owl\Services;
 
+use Owl\Services\SearchService;
 use Owl\Repositories\TagRepositoryInterface;
-use Owl\Repositories\TagFtsRepositoryInterface;
 use Owl\Libraries\FtsUtils;
 
 class TagService extends Service
 {
+    protected $searchService;
     protected $tagRepo;
-    protected $tagFtsRepo;
 
-    public function __construct(TagRepositoryInterface $tagRepo, TagFtsRepositoryInterface $tagFtsRepo)
-    {
+    public function __construct(
+        TagRepositoryInterface $tagRepo,
+        SearchService $searchService
+    ) {
         $this->tagRepo = $tagRepo;
-        $this->tagFtsRepo = $tagFtsRepo;
+        $this->searchService = $searchService;
     }
 
     /**
@@ -85,7 +87,7 @@ class TagService extends Service
             }
             $tag_name = mb_strtolower($tag_name);
             $tag = $this->tagRepo->firstOrCreateByName($tag_name);
-            $this->tagFtsRepo->firstOrCreateByIdAndWords($tag['id'], FtsUtils::toNgram($tag_name));
+            $this->searchService->tagFirstOrCreateByIdAndWords($tag['id'], FtsUtils::toNgram($tag_name));
             $tag_ids[] = (string)$tag['id'];
         }
         return $tag_ids;
