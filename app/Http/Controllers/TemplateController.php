@@ -1,6 +1,8 @@
 <?php namespace Owl\Http\Controllers;
 
 use Owl\Repositories\TemplateRepositoryInterface;
+use Owl\Http\Requests\TemplateStoreRequest;
+use Owl\Http\Requests\TemplateUpdateRequest;
 
 class TemplateController extends Controller
 {
@@ -16,20 +18,8 @@ class TemplateController extends Controller
         return \View::make('templates.create');
     }
 
-    public function store()
+    public function store(TemplateStoreRequest $request)
     {
-        $valid_rule = array(
-            'display_title' => 'required|max:255',
-            'title' => 'required|max:255',
-            'tags' => 'alpha_comma|max:64',
-            'body' => 'required',
-        );
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
-
         $object = app('stdClass');
         $object->display_title = \Input::get('display_title');
         $object->title = \Input::get('title');
@@ -60,20 +50,8 @@ class TemplateController extends Controller
         return \View::make('templates.edit', compact('template'));
     }
 
-    public function update($templateId)
+    public function update(TemplateUpdateRequest $request, $templateId)
     {
-        $valid_rule = array(
-            'display_title' => 'required|max:255',
-            'title' => 'required|max:255',
-            'tags' => 'alpha_comma|max:64',
-            'body' => 'required',
-        );
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
-
         $object = app('stdClass');
         $object->display_title = \Input::get('display_title');
         $object->title = \Input::get('title');

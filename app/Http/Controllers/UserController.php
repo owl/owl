@@ -7,6 +7,8 @@ use Owl\Services\ItemService;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Http\Requests\UserRegisterRequest;
 use Owl\Http\Requests\UserRoleUpdateRequest;
+use Owl\Http\Requests\UserPasswordRequest;
+use Owl\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -114,23 +116,9 @@ class UserController extends Controller
         return \View::make('user.edit', compact('templates'));
     }
 
-    public function update()
+    public function update(UserUpdateRequest $request)
     {
         $loginUser = $this->userService->getCurrentUser();
-
-        // バリデーションルールの作成
-        $valid_rule = array(
-            "username" => "required|alpha_num|reserved_word|max:30|unique:users,username,$loginUser->id",
-            "email" => "required|email|unique:users,email,$loginUser->id",
-        );
-
-        // バリデーション実行
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-
-        // 失敗の場合
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
 
         try {
             $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'), $loginUser->role);
@@ -148,23 +136,9 @@ class UserController extends Controller
         }
     }
 
-    public function password()
+    public function password(UserPasswordRequest $request)
     {
         $loginUser = $this->userService->getCurrentUser();
-
-        // バリデーションルールの作成
-        $valid_rule = array(
-            "password" => "required|alpha_num|min:4",
-            "new_password" => "required|alpha_num|min:4",
-        );
-
-        // バリデーション実行
-        $validator = \Validator::make(\Input::all(), $valid_rule);
-
-        // 失敗の場合
-        if ($validator->fails()) {
-            return \Redirect::back()->withErrors($validator)->withInput();
-        }
 
         try {
             $user = $this->userService->getById($loginUser->id);
