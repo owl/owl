@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 class VerifyCsrfToken extends BaseVerifier
 {
     //add an array of Routes to skip CSRF check
-    private $openRoutes = ['likes', 'likes/*', 'stocks', 'stocks/*', 'image/upload'];
+    private $openRoutes = ['likes', 'likes/*', 'favorites', 'favorites/*', 'image/upload'];
 
     /**
      * Handle an incoming request.

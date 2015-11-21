@@ -82,7 +82,7 @@
                 </div>
                 <div class="stock-status">
                     <span class="glyphicon glyphicon-folder-close"></span> {{{ count($stocks) }}}<br />
-                    ストック
+                    お気に入り
                 </div>
                 <div class="like-status">
                     <span class="glyphicon glyphicon-thumbs-up"></span> {{{ count($like_users->like) }}}<br />
@@ -91,12 +91,12 @@
             </div>
             @if (count($stock) > 0)
             <div class="media-sidebar">
-                <a href="javascript:void(0)" class="btn btn-default btn-block" id="unstock_id">ストックを解除する</a>
+                <a href="javascript:void(0)" class="btn btn-default btn-block" id="unstock_id">お気に入りを解除する</a>
                 <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
             </div>
             @else
             <div class="media-sidebar">
-                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id">この記事をストックする</a>
+                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id">この記事をお気に入りする</a>
                 <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
             </div>
             @endif

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ストック一覧 | Owl
+お気に入り一覧 | Owl
 @stop
 
 @section('navbar-menu')
@@ -9,13 +9,13 @@
 @stop
 
 @section('contents-pagehead')
-<p class="page-title">ストック一覧</p>
+<p class="page-title">お気に入り一覧</p>
 @stop
 
 @section('contents-main')
 
 <div class="page-header">
-    <h5>最近のストック</h5>
+    <h5>最近のお気に入り</h5>
 </div>
 
 <div class="stocks">

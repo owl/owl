@@ -34,7 +34,7 @@
 
 @section('contents-sidebar')
     @if(!empty($recent_ranking))
-        <h4>最新ストック数ランキング</h4>
+        <h4>最新お気に入り数ランキング</h4>
         <div class="sidebar-info-items">
             <ol>
             @for ($i = 0; $i < count($recent_ranking); $i++)
@@ -45,7 +45,7 @@
     @endif
 
     @if(!empty($all_ranking))
-        <h4>総合ストック数ランキング</h4>
+        <h4>総合お気に入り数ランキング</h4>
         <div class="sidebar-info-items">
             <ol>
             @for ($i = 0; $i < count($all_ranking); $i++)

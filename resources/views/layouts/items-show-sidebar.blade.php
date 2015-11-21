@@ -33,7 +33,7 @@
 
 <div class="sidebar-info">
     @if(!empty($recent_stocks))
-        <h6><strong>最新ストック数ランキング</strong></h6>
+        <h6><strong>最新お気に入り数ランキング</strong></h6>
         <div class="sidebar-info-items">
             <ol>
             @for ($i = 0; $i < count($recent_stocks); $i++)

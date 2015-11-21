@@ -13,7 +13,7 @@
     </div>
 
     @if(!empty($ranking_stock))
-        <h4>総合ストック数ランキング</h4>
+        <h4>総合お気に入り数ランキング</h4>
         <div class="sidebar-info-items">
             <ol>
             @for ($i = 0; $i < count($ranking_stock); $i++)
