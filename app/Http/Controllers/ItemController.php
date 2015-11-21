@@ -3,7 +3,7 @@
 use Owl\Services\UserService;
 use Owl\Services\TagService;
 use Owl\Services\ItemService;
-use Owl\Repositories\LikeRepositoryInterface;
+use Owl\Services\LikeService;
 use Owl\Repositories\StockRepositoryInterface;
 use Owl\Repositories\TemplateRepositoryInterface;
 use Owl\Http\Requests\ItemStoreRequest;
@@ -14,7 +14,7 @@ class ItemController extends Controller
     protected $userService;
     protected $tagService;
     protected $itemService;
-    protected $likeRepo;
+    protected $likeService;
     protected $stockRepo;
     protected $templateRepo;
 
@@ -22,14 +22,14 @@ class ItemController extends Controller
         UserService $userService,
         TagService $tagService,
         ItemService $itemService,
-        LikeRepositoryInterface $likeRepo,
+        LikeService $likeService,
         StockRepositoryInterface $stockRepo,
         TemplateRepositoryInterface $templateRepo
     ) {
         $this->userService = $userService;
         $this->tagService = $tagService;
         $this->itemService = $itemService;
-        $this->likeRepo = $likeRepo;
+        $this->likeService = $likeService;
         $this->stockRepo = $stockRepo;
         $this->templateRepo = $templateRepo;
     }
@@ -98,7 +98,7 @@ class ItemController extends Controller
         $like = null;
         if (!empty($user)) {
             $stock = $this->stockRepo->getByUserIdAndItemId($user->id, $item->id);
-            $like = $this->likeRepo->get($user->id, $item->id);
+            $like = $this->likeService->get($user->id, $item->id);
         }
         $stocks = $this->stockRepo->getByItemId($item->id);
         $recent_stocks = $this->stockRepo->getRecentRankingWithCache(5, 7);
