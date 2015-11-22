@@ -31,7 +31,7 @@ class LikeRepository implements LikeRepositoryInterface
      * @param $item_id int item_id
      * @return boolean
      */
-    public function delete($user_id, $item_id)
+    public function destroy($user_id, $item_id)
     {
         return $this->like->whereRaw('user_id = ? and item_id = ?', array($user_id, $item_id))->delete();
     }

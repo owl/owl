@@ -32,7 +32,7 @@ class LikeService extends Service
      */
     public function delete($user_id, $item_id)
     {
-        return $this->likeRepo->delete($user_id, $item_id);
+        return $this->likeRepo->destroy($user_id, $item_id);
     }
 
     /**
