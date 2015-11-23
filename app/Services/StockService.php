@@ -43,7 +43,7 @@ class StockService extends Service
      */
     public function delete($user_id, $item_id)
     {
-        return $this->stockRepo->delete($user_id, $item_id);
+        return $this->stockRepo->destroy($user_id, $item_id);
     }
 
     /**

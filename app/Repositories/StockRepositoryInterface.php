@@ -35,7 +35,7 @@ interface StockRepositoryInterface
      * @param $item_id int item_id
      * @return boolean
      */
-    public function delete($user_id, $item_id);
+    public function destroy($user_id, $item_id);
 
 
     /**

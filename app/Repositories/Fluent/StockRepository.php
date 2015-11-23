@@ -1,19 +1,36 @@
-<?php namespace Owl\Repositories\Eloquent;
+<?php namespace Owl\Repositories\Fluent;
 
 use Carbon\Carbon;
 use Owl\Repositories\StockRepositoryInterface;
-use Owl\Repositories\Eloquent\Models\Stock;
 
-class StockRepository implements StockRepositoryInterface
+class StockRepository extends AbstractFluent implements StockRepositoryInterface
 {
-    protected $stock;
+    protected $table = 'stocks';
 
     const RANKING_STOCK_KEY = 'ranking_stock_';
     const EXPIRE_AT_ADD_MINUTES = 15;
 
-    public function __construct(Stock $stock)
+    /**
+     * Get a table name.
+     *
+     * @return string
+     */
+    public function getTableName()
     {
-        $this->stock = $stock;
+        return $this->table;
+    }
+
+    /**
+     * Get a stock by id.
+     *
+     * @param $id int
+     * @return stdClass
+     */
+    public function getStockById($id)
+    {
+        return \DB::table($this->getTableName())
+            ->where($this->getTableName().'.id', $id)
+            ->first();
     }
 
     /**
@@ -21,11 +38,24 @@ class StockRepository implements StockRepositoryInterface
      *
      * @param $user_id int user_id
      * @param $item_id int item_id
-     * @return Illuminate\Database\Eloquent\Model
+     * @return stdClass
      */
     public function firstOrCreate($user_id, $item_id)
     {
-        return $this->stock->firstOrCreate(array('user_id'=> $user_id, 'item_id' => $item_id));
+        $stockData = \DB::table($this->getTableName())
+            ->where($this->getTableName().'.user_id', $user_id)
+            ->where($this->getTableName().'.item_id', $item_id)
+            ->first();
+
+        if (!empty($stockData)) {
+            return $stockData;
+        }
+
+        $object = array();
+        $object["user_id"] = $user_id;
+        $object["item_id"] = $item_id;
+        $stock_id = $this->insert($object);
+        return $this->getStockById($stock_id);
     }
 
     /**
@@ -33,22 +63,27 @@ class StockRepository implements StockRepositoryInterface
      *
      * @param $user_id int user_id
      * @param $item_id int item_id
-     * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
+     * @return stdClass
      */
     public function getByUserIdAndItemId($user_id, $item_id)
     {
-        return $this->stock->whereRaw('user_id = ? and item_id = ?', array($user_id, $item_id))->get();
+        return \DB::table($this->getTableName())
+            ->where('user_id', '=', $user_id)
+            ->where('item_id', '=', $item_id)
+            ->first();
     }
 
     /**
      * Get "Stock data".
      *
      * @param $item_id int item_id
-     * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
+     * @return stdClass
      */
     public function getByItemId($item_id)
     {
-        return $this->stock->where('item_id', $item_id)->get();
+        return \DB::table($this->getTableName())
+            ->where('item_id', '=', $item_id)
+            ->first();
     }
 
     /**
@@ -60,7 +95,10 @@ class StockRepository implements StockRepositoryInterface
      */
     public function destroy($user_id, $item_id)
     {
-        return $this->stock->whereRaw('user_id = ? and item_id = ?', array($user_id, $item_id))->delete();
+        return \DB::table($this->getTableName())
+            ->where('user_id', '=', $user_id)
+            ->where('item_id', '=', $item_id)
+            ->delete();
     }
 
     /**
