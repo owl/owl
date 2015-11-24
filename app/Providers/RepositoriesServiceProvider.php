@@ -28,7 +28,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Eloquent\ItemRepository');
         \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Eloquent\ItemFtsRepository');
         \App::bind('Owl\Repositories\ItemHistoryRepositoryInterface', 'Owl\Repositories\Eloquent\ItemHistoryRepository');
-        \App::bind('Owl\Repositories\UserRoleRepositoryInterface', 'Owl\Repositories\Eloquent\UserRoleRepository');
 
         // Fluent(Query Builder)
         \App::bind('Owl\Repositories\CommentRepositoryInterface', 'Owl\Repositories\Fluent\CommentRepository');
@@ -38,5 +37,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\StockRepositoryInterface', 'Owl\Repositories\Fluent\StockRepository');
         \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Fluent\TemplateRepository');
         \App::bind('Owl\Repositories\ReminderTokenRepositoryInterface', 'Owl\Repositories\Fluent\ReminderTokenRepository');
+        \App::bind('Owl\Repositories\UserRoleRepositoryInterface', 'Owl\Repositories\Fluent\UserRoleRepository');
     }
 }

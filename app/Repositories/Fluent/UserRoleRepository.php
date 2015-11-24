@@ -15,4 +15,16 @@ class UserRoleRepository extends AbstractFluent implements UserRoleRepositoryInt
     {
         return $this->table;
     }
+
+    /**
+     * Get all user role data.
+     *
+     * @return stdClass
+     */
+    public function getAll()
+    {
+        return \DB::table($this->getTableName())
+            ->orderBy('id', 'asc')
+            ->get();
+    }
 }
