@@ -60,7 +60,7 @@ class TemplateRepository implements TemplateRepositoryInterface
      * @param $template object display_title, title, tags, body
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($template_id, $template)
+    public function updateTemplate($template_id, $template)
     {
         $object = $this->getById($template_id);
         if ($object == null) {

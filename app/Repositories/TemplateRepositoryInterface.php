@@ -32,7 +32,7 @@ interface TemplateRepositoryInterface
      * @param $template object display_title, title, tags, body
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($template_id, $template);
+    public function updateTemplate($template_id, $template);
 
     /**
      * Delete a tempalte data.
@@ -40,5 +40,5 @@ interface TemplateRepositoryInterface
      * @param $template_id int template_id
      * @return boolean
      */
-    public function delete($template_id);
+    public function destroy($template_id);
 }

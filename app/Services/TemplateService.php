@@ -31,7 +31,7 @@ class TemplateService extends Service
      */
     public function update($template_id, $template)
     {
-        return $this->templateRepo->update($template_id, $template);
+        return $this->templateRepo->updateTemplate($template_id, $template);
     }
 
     /**
@@ -42,7 +42,7 @@ class TemplateService extends Service
      */
     public function delete($template_id)
     {
-        return $this->templateRepo->delete($template_id);
+        return $this->templateRepo->destroy($template_id);
     }
 
     /**

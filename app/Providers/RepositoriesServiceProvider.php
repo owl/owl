@@ -22,7 +22,6 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register()
     {
         // Eloquent
-        \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Eloquent\TemplateRepository');
         \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Eloquent\UserRepository');
         \App::bind('Owl\Repositories\TagRepositoryInterface', 'Owl\Repositories\Eloquent\TagRepository');
         \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Eloquent\TagFtsRepository');
@@ -37,6 +36,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\LoginTokenRepositoryInterface', 'Owl\Repositories\Fluent\LoginTokenRepository');
         \App::bind('Owl\Repositories\LikeRepositoryInterface', 'Owl\Repositories\Fluent\LikeRepository');
         \App::bind('Owl\Repositories\StockRepositoryInterface', 'Owl\Repositories\Fluent\StockRepository');
+        \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Fluent\TemplateRepository');
         \App::bind('Owl\Repositories\ReminderTokenRepositoryInterface', 'Owl\Repositories\Fluent\ReminderTokenRepository');
     }
 }
