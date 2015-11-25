@@ -11,7 +11,7 @@ This software is released under the MIT License, see LICENSE.txt.
 - Syntax Highight
 - Like button
 - Comment
-- Stock (favorite)
+- Favorite
 - Tags
 - Full Text Search
 - Item Publishing Settings (Public, Limited, Only Me)
