@@ -67,7 +67,7 @@ __SQL__;
      * get a tag by tag name.
      *
      * @param string $name
-     * @return void
+     * @return Collection
      */
     public function getByName($name)
     {
@@ -78,12 +78,26 @@ __SQL__;
      * get a tag by tag id.
      *
      * @param int $id
-     * @return void
+     * @return Collection
      */
     public function getById($id)
     {
         return $this->tag->where('id', $id)->first();
     }
+
+    /**
+     * get tags by item_id.
+     *
+     * @param int $item_id
+     * @return Collection
+     */
+    public function getByItemId($item_id)
+    {
+        return \DB::table('item_tag')
+            ->where('item_id', $item_id)
+            ->get();
+    }
+
 
     /**
      * get a tag or Create a tag.
@@ -139,5 +153,17 @@ __SQL__;
         } else {
             return false;
         }
+    }
+
+    /**
+     * sync tags
+     *
+     * @param object $item
+     * @param array $tag_ids
+     * @return void
+     */
+    public function syncTags($item, $tag_ids)
+    {
+        $item->tag()->sync($tag_ids);
     }
 }

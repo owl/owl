@@ -114,4 +114,17 @@ class TagService extends Service
     {
         return $this->tagRepo->deleteFlowFlag($tag_id);
     }
+
+
+    /**
+     * sync tags
+     *
+     * @param object $item
+     * @param array $tag_ids
+     * @return void
+     */
+    public function syncTags($item, $tag_ids)
+    {
+        $this->tagRepo->syncTags($item, $tag_ids);
+    }
 }

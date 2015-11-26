@@ -65,7 +65,7 @@ class ItemController extends Controller
             $tag_names = explode(",", $tags);
             $tag_ids = $this->tagService->getTagIdsByTagNames($tag_names);
             $item = $this->itemService->getById($item->id);
-            $item->tag()->sync($tag_ids);
+            $this->tagService->syncTags($item, $tag_ids);
         }
 
         return \Redirect::route('items.show', [$item->open_item_id]);
