@@ -86,20 +86,6 @@ __SQL__;
     }
 
     /**
-     * get tags by item_id.
-     *
-     * @param int $item_id
-     * @return Collection
-     */
-    public function getByItemId($item_id)
-    {
-        return \DB::table('item_tag')
-            ->where('item_id', $item_id)
-            ->get();
-    }
-
-
-    /**
      * get a tag or Create a tag.
      *
      * @param string $name
