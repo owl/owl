@@ -156,7 +156,7 @@ class ItemService extends Service
      */
     public function create($obj)
     {
-        $item = $this->itemRepo->create($obj);
+        $item = $this->itemRepo->createItem($obj);
         $this->changeFts($item->id, $obj);
 
         return $item;
@@ -171,7 +171,7 @@ class ItemService extends Service
      */
     public function update($id, $obj)
     {
-        $item = $this->itemRepo->update($id, $obj);
+        $item = $this->itemRepo->updateItem($id, $obj);
         $this->changeFts($id, $obj);
 
         return $item;
@@ -201,7 +201,7 @@ class ItemService extends Service
     {
         $this->searchService->itemDelete($item_id);
         $this->itemHistoryRepo->delete($item_id);
-        return $this->itemRepo->delete($item_id);
+        return $this->itemRepo->deleteItem($item_id);
     }
 
     /**

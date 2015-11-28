@@ -79,7 +79,7 @@ interface ItemRepositoryInterface
      * @param $obj user_id, open_item_id, title, body, published
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function create($obj);
+    public function createItem($obj);
 
     /**
      * Update a item.
@@ -88,7 +88,7 @@ interface ItemRepositoryInterface
      * @param $obj user_id, open_item_id, title, body, published
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($item_id, $obj);
+    public function updateItem($item_id, $obj);
 
     /**
      * Delete a item.
@@ -96,5 +96,5 @@ interface ItemRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id);
+    public function deleteItem($item_id);
 }

@@ -236,7 +236,7 @@ class ItemRepository implements ItemRepositoryInterface
      * @param $obj user_id, open_item_id, title, body, published
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function create($obj)
+    public function createItem($obj)
     {
         $item = $this->item->newInstance();
         $item->user_id = $obj->user_id;
@@ -256,7 +256,7 @@ class ItemRepository implements ItemRepositoryInterface
      * @param $obj user_id, open_item_id, title, body, published
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $obj)
+    public function updateItem($id, $obj)
     {
         $item = $this->getById($id);
         $item->user_id = $obj->user_id;
@@ -274,7 +274,7 @@ class ItemRepository implements ItemRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id)
+    public function deleteItem($item_id)
     {
         return $this->item->where('id', $item_id)->delete();
     }
