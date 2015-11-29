@@ -200,7 +200,7 @@ class ItemService extends Service
     public function delete($item_id)
     {
         $this->searchService->itemDelete($item_id);
-        $this->itemHistoryRepo->delete($item_id);
+        $this->itemHistoryRepo->deleteItemHistory($item_id);
         return $this->itemRepo->deleteItem($item_id);
     }
 

@@ -43,7 +43,7 @@ class ItemHistoryRepository implements ItemHistoryRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id)
+    public function deleteItemHistory($item_id)
     {
         return $this->itemHistory->where('item_id', $item_id)->delete();
     }

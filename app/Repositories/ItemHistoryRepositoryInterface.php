@@ -17,7 +17,7 @@ interface ItemHistoryRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id);
+    public function deleteItemHistory($item_id);
 
     /**
      * Get a item history by open item id.
