@@ -49,7 +49,7 @@
 <div class="row">
     <div class="col-md-9">
         <h1 class="item-title">{{{ $item->title }}}</h1>
-        {!! HTML::show_tags($item->tag->toArray()) !!}
+        {!! HTML::show_tags($item_tags) !!}
 
         <div class="media">
             <a class="pull-left" href="#">

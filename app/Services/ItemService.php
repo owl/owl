@@ -226,4 +226,15 @@ class ItemService extends Service
     {
         return $this->itemHistoryRepo->getByOpenItemId($open_item_id);
     }
+
+    /**
+     * get item tags array
+     * 
+     * @param object $item 
+     * @return array
+     */
+    public function getTagsToArray($item)
+    {
+        return $this->itemRepo->getTagsToArray($item);
+    }
 }

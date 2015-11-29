@@ -278,4 +278,15 @@ class ItemRepository implements ItemRepositoryInterface
     {
         return $this->item->where('id', $item_id)->delete();
     }
+
+    /**
+     * get item tags array
+     * 
+     * @param object $item 
+     * @return array
+     */
+    public function getTagsToArray($item)
+    {
+        return $item->tag->toArray();
+    }
 }

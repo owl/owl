@@ -49,7 +49,7 @@
 
     <div class="form-group">
         {!! Form::label('tags', 'タグ') !!}
-        {!! Form::text('tags',HTML::tags($item->tag->toArray()),array('id' => 'tag-input', 'class'=>'form-control')) !!}
+        {!! Form::text('tags',HTML::tags($item_tags),array('id' => 'tag-input', 'class'=>'form-control')) !!}
     </div>
 
     <div class="form-group">

@@ -84,6 +84,7 @@ class ItemController extends Controller
         if (empty($item)) {
             \App::abort(404);
         }
+        $item_tags = $this->itemService->getTagsToArray($item);
 
         $user = $this->userService->getCurrentUser();
         if ($item->published === "0") {
@@ -104,7 +105,7 @@ class ItemController extends Controller
         $recent_stocks = $this->stockService->getRecentRankingWithCache(5, 7);
         $user_items = $this->itemService->getRecentsByUserId($item->user_id);
         $like_users = $this->itemService->getLikeUsersById($item->id);
-        return \View::make('items.show', compact('item', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
+        return \View::make('items.show', compact('item', 'item_tags', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
     }
 
     public function edit($openItemId)
@@ -114,10 +115,11 @@ class ItemController extends Controller
         if ($item === null) {
             \App::abort(404);
         }
+        $item_tags = $this->itemService->getTagsToArray($item);
 
         $templates = $this->templateService->getAll();
         $user_items = $this->itemService->getRecentsByUserId($user->id);
-        return \View::make('items.edit', compact('item', 'templates', 'user_items'));
+        return \View::make('items.edit', compact('item', 'item_tags', 'templates', 'user_items'));
     }
 
     public function update(ItemUpdateRequest $request, $openItemId)
