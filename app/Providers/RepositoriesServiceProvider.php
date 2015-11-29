@@ -23,7 +23,6 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         // Eloquent
         \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Eloquent\UserRepository');
-        \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Eloquent\ItemRepository');
         \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Eloquent\ItemFtsRepository');
         \App::bind('Owl\Repositories\ItemHistoryRepositoryInterface', 'Owl\Repositories\Eloquent\ItemHistoryRepository');
 
@@ -36,6 +35,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Fluent\TemplateRepository');
         \App::bind('Owl\Repositories\TagRepositoryInterface', 'Owl\Repositories\Fluent\TagRepository');
         \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Fluent\TagFtsRepository');
+        \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Fluent\ItemRepository');
         \App::bind('Owl\Repositories\ReminderTokenRepositoryInterface', 'Owl\Repositories\Fluent\ReminderTokenRepository');
         \App::bind('Owl\Repositories\UserRoleRepositoryInterface', 'Owl\Repositories\Fluent\UserRoleRepository');
     }
