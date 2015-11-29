@@ -27,7 +27,7 @@ interface ItemFtsRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id);
+    public function deleteItemFts($item_id);
 
     /**
      * match

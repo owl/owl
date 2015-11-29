@@ -47,7 +47,7 @@ class ItemFtsRepository implements ItemFtsRepositoryInterface
      * @param $item_id int
      * @return boolean
      */
-    public function delete($item_id)
+    public function deleteItemFts($item_id)
     {
         return $this->itemFts->where('item_id', $item_id)->delete();
     }

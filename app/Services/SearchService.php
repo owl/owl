@@ -48,7 +48,7 @@ class SearchService extends Service
      */
     public function itemDelete($item_id)
     {
-        return $this->itemFtsRepo->delete($item_id);
+        return $this->itemFtsRepo->deleteItemFts($item_id);
     }
 
     /**
