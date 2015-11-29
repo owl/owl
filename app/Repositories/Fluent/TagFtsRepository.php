@@ -41,7 +41,7 @@ class TagFtsRepository extends AbstractFluent implements TagFtsRepositoryInterfa
         $object = array();
         $object["tag_id"] = $tag_id;
         $object["words"] = $words;
-        $tag_id = \DB::table($this->getTableName())->insertGetId($object); 
+        \DB::table($this->getTableName())->insertGetId($object);
 
         $tagFtsData = $this->getById($tag_id);
         $ret = array();
