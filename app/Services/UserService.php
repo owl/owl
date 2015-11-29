@@ -65,7 +65,7 @@ class UserService extends Service
      */
     public function update($id, $username, $email, $role)
     {
-        return $this->userRepo->update($id, $username, $email, $role);
+        return $this->userRepo->updateUser($id, $username, $email, $role);
     }
 
     /**
@@ -140,5 +140,16 @@ class UserService extends Service
     public function getAll()
     {
         return $this->userRepo->getAll();
+    }
+
+    /**
+     * get users array
+     * 
+     * @param object $user
+     * @return array
+     */
+    public function getUsersToArray($users)
+    {
+        return $this->userRepo->getUsersToArray($users);
     }
 }

@@ -21,9 +21,6 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Eloquent
-        \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Eloquent\UserRepository');
-
         // Fluent(Query Builder)
         \App::bind('Owl\Repositories\CommentRepositoryInterface', 'Owl\Repositories\Fluent\CommentRepository');
         \App::bind('Owl\Repositories\ImageRepositoryInterface', 'Owl\Repositories\Fluent\ImageRepository');
@@ -36,6 +33,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Fluent\ItemRepository');
         \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Fluent\ItemFtsRepository');
         \App::bind('Owl\Repositories\ItemHistoryRepositoryInterface', 'Owl\Repositories\Fluent\ItemHistoryRepository');
+        \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Fluent\UserRepository');
         \App::bind('Owl\Repositories\ReminderTokenRepositoryInterface', 'Owl\Repositories\Fluent\ReminderTokenRepository');
         \App::bind('Owl\Repositories\UserRoleRepositoryInterface', 'Owl\Repositories\Fluent\UserRoleRepository');
     }

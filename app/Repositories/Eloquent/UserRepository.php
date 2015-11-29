@@ -42,7 +42,7 @@ class UserRepository implements UserRepositoryInterface
      * @param string $email
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $username, $email, $role)
+    public function updateUser($id, $username, $email, $role)
     {
         $user = $this->getById($id);
         if (!$user) {
@@ -123,5 +123,16 @@ class UserRepository implements UserRepositoryInterface
     public function getAll()
     {
         return $this->user->with('userRole')->orderBy('id', 'asc')->get();
+    }
+
+    /**
+     * get users array
+     * 
+     * @param object $user
+     * @return array
+     */
+    public function getUsersToArray($users)
+    {
+        return $users->toArray();
     }
 }

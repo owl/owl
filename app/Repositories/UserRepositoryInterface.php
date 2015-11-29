@@ -19,7 +19,7 @@ interface UserRepositoryInterface
      * @param int $role
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function update($id, $username, $email, $role);
+    public function updateUser($id, $username, $email, $role);
 
     /**
      * Get a user by user id.
@@ -67,4 +67,12 @@ interface UserRepositoryInterface
      * @return Illuminate\Database\Eloquent\Collection | Illuminate\Database\Eloquent\Builder
      */
     public function getAll();
+
+    /**
+     * get users array
+     * 
+     * @param object $user
+     * @return array
+     */
+    public function getUsersToArray($users);
 }

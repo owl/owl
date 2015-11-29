@@ -32,10 +32,11 @@ class SearchController extends Controller
             $pagination = new Paginator($results, $res[0]->count, $this->perPage, null, array('path' => '/search'));
         }
         $users = $this->userService->getLikeUsername($q);
+        $users_array = $this->userService->getUsersToArray($users);
 
         $templates = $this->templateService->getAll();
         $tags = $this->searchTags($q);
-        return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users'));
+        return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users', 'users_array'));
     }
 
     public function json()

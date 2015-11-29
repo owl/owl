@@ -20,7 +20,7 @@
 
     @if (count($users) > 0 && $q !== "")
     <div class="users">
-         関連するユーザー： {!! HTML::show_users($users->toArray()) !!}
+         関連するユーザー： {!! HTML::show_users($users_array) !!}
     </div>
     @endif
 
