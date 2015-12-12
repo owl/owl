@@ -7,8 +7,8 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 
 # prepare files
-mv storage/database.sqlite_default storage/database.sqlite
+cp storage/database.sqlite_default storage/database.sqlite
 
 # database migration
-php artisan migrate --seed
+php artisan migrate --seed --force
 php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
