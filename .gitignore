@@ -9,6 +9,8 @@
 /public/packages/*
 /public/images/*
 storage/debugbar
+storage/database.sqlite
+composer.phar
 
 # test
 .bundle/

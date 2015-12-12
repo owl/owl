@@ -21,31 +21,21 @@ This software is released under the MIT License, see LICENSE.txt.
 - PHP 5.4
 - SQLite 3
 
-
-# For Developer
-## Development setup
+# How to setup
 1.Clone the project
 
 ```
-git clone https://github.com/owl/owl.git
-cd owl
+$ git clone https://github.com/owl/owl.git
+$ cd owl
 ```
 
-2.Composer
+2.execute setup shell
 
 ```
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+$ sh ./setup_app.sh
 ```
 
-3.Database migration
-
-```
-php artisan migrate --seed
-php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
-```
-
-4.Access the page
+3.Access the page
 
 ```
 php artisan serve --host 0.0.0.0 --port 3000
@@ -53,11 +43,11 @@ php artisan serve --host 0.0.0.0 --port 3000
 
 access http://localhost:3000  
 
-You can sign in as an owner with id:admin pw:password
+You can sign in as an owner with id:admin pw:password  
 
 ## Test
 Behat acceptance test
-(after `composer install`)
+(after execute `setup_app.sh`)
 
 ```
 $ vendor/bin/behat --colors
