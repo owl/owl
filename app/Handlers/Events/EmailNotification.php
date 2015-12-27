@@ -11,11 +11,13 @@ use Illuminate\Contracts\Mail\Mailer;
 use Owl\Events\Item\CommentEvent;
 use Owl\Events\Item\GoodEvent;
 use Owl\Events\Item\FavoriteEvent;
+use Owl\Events\Item\EditEvent;
 use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
 use Owl\Repositories\UserRepositoryInterface as UserRepository;
 
 /**
  * Class EmailNotification
+ * メール送信関連のイベントハンドラークラス
  *
  * @package Owl\Handlers\Events
  */
@@ -139,11 +141,31 @@ class EmailNotification {
     /**
      * 記事が編集された時
      *
-     * @param mixed $event
+     * @param EditEvent  $event
      */
-    public function onItemEdited($event)
+    public function onItemEdited(EditEvent $event)
     {
-        // TODO: 記事編集通知送信
+        $item      = $this->item->getByOpenItemId($event->getId());
+        $recipient = $this->user->getById($item->user_id);
+        $sender    = $this->user->getById($event->getUserId());
+
+        if ($this->areUsersSame($recipient, $sender)) {
+            return false;
+        }
+
+        $data = [
+            'recipient' => $recipient->username,
+            'sender'    => $sender->username,
+            'itemId'    => $item->open_item_id,
+            'itemTitle' => $item->title,
+        ];
+        $this->mail->send(
+            'emails.action.edit', $data,
+            function ($m) use ($recipient, $sender) {
+                $m->to($recipient->email)
+                    ->subject('あなたの記事が'.$sender->username.'さんに編集されました - Owl');
+            }
+        );
     }
 
     /**
@@ -158,7 +180,7 @@ class EmailNotification {
         $events->listen(CommentEvent::class,  $subscriberName.'@onGetComment');
         $events->listen(GoodEvent::class,     $subscriberName.'@onGetGood');
         $events->listen(FavoriteEvent::class, $subscriberName.'@onGetFavorite');
-        $events->listen('event.item.edit',    $subscriberName.'@onItemEdited');
+        $events->listen(EditEvent::class,     $subscriberName.'@onItemEdited');
     }
 
     /**

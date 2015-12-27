@@ -1,5 +1,6 @@
 <?php namespace Owl\Http\Controllers;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Owl\Services\UserService;
 use Owl\Services\TagService;
 use Owl\Services\ItemService;
@@ -8,6 +9,7 @@ use Owl\Services\StockService;
 use Owl\Services\TemplateService;
 use Owl\Http\Requests\ItemStoreRequest;
 use Owl\Http\Requests\ItemUpdateRequest;
+use Owl\Events\Item\EditEvent;
 
 class ItemController extends Controller
 {
@@ -122,7 +124,14 @@ class ItemController extends Controller
         return \View::make('items.edit', compact('item', 'item_tags', 'templates', 'user_items'));
     }
 
-    public function update(ItemUpdateRequest $request, $openItemId)
+    /**
+     * @param ItemUpdateRequest  $request
+     * @param mixed              $openItemId
+     * @param Dispatcher         $event
+     *
+     * @return mixed
+     */
+    public function update(ItemUpdateRequest $request, $openItemId, Dispatcher $event)
     {
         $user = $this->userService->getCurrentUser();
         $item = $this->itemService->getByOpenItemId($openItemId);
@@ -154,6 +163,12 @@ class ItemController extends Controller
             $item = $this->itemService->getById($item->id);
             $this->tagService->syncTags($item, $tag_ids);
         }
+
+        // fire EditEvent
+        // TODO: do not create instance in controller method
+        $event->fire(new EditEvent(
+            $openItemId, $user->id
+        ));
 
         return \Redirect::route('items.show', [$openItemId]);
     }
