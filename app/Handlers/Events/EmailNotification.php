@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Events\Item\CommentEvent;
 use Owl\Events\Item\GoodEvent;
+use Owl\Events\Item\FavoriteEvent;
 use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
 use Owl\Repositories\UserRepositoryInterface as UserRepository;
 
@@ -106,13 +107,33 @@ class EmailNotification {
     }
 
     /**
-     * 記事がストックされた時
+     * 記事がお気に入りされた時
      *
-     * @param mixed $event
+     * @param FavoriteEvent  $event
      */
-    public function onGetStock($event)
+    public function onGetFavorite(FavoriteEvent $event)
     {
-        // TODO: ストックメール送信
+        $item      = $this->item->getByOpenItemId($event->getId());
+        $recipient = $this->user->getById($item->user_id);
+        $sender    = $this->user->getById($event->getUserId());
+
+        if ($this->areUsersSame($recipient, $sender)) {
+            return false;
+        }
+
+        $data = [
+            'recipient' => $recipient->username,
+            'sender'    => $sender->username,
+            'itemId'    => $item->open_item_id,
+            'itemTitle' => $item->title,
+        ];
+        $this->mail->send(
+            'emails.action.favorite', $data,
+            function ($m) use ($recipient, $sender) {
+                $m->to($recipient->email)
+                    ->subject($sender->username.'さんに記事がお気に入りされました - Owl');
+            }
+        );
     }
 
     /**
@@ -134,10 +155,10 @@ class EmailNotification {
     {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
 
-        $events->listen(CommentEvent::class, $subscriberName.'@onGetComment');
-        $events->listen(GoodEvent::class,    $subscriberName.'@onGetGood');
-        $events->listen('event.item.stock',  $subscriberName.'@onGetStock');
-        $events->listen('event.item.edit',   $subscriberName.'@onItemEdited');
+        $events->listen(CommentEvent::class,  $subscriberName.'@onGetComment');
+        $events->listen(GoodEvent::class,     $subscriberName.'@onGetGood');
+        $events->listen(FavoriteEvent::class, $subscriberName.'@onGetFavorite');
+        $events->listen('event.item.edit',    $subscriberName.'@onItemEdited');
     }
 
     /**

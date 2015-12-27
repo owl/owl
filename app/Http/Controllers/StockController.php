@@ -1,9 +1,11 @@
 <?php namespace Owl\Http\Controllers;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
 use Owl\Services\StockService;
 use Owl\Services\TemplateService;
+use Owl\Events\Item\FavoriteEvent;
 
 class StockController extends Controller
 {
@@ -40,9 +42,11 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Dispatcher  $event
+     *
      * @return Response
      */
-    public function store()
+    public function store(Dispatcher $event)
     {
         $user = $this->userService->getCurrentUser();
 
@@ -50,6 +54,12 @@ class StockController extends Controller
         $item = $this->itemService->getByOpenItemId($openItemId);
 
         $this->stockService->firstOrCreate($user->id, $item->id);
+
+        // fire FavoriteEvent
+        // TODO: do not generate instance in controller method
+        $event->fire(new FavoriteEvent(
+            $openItemId, $user->id
+        ));
 
         return \Response::json();
     }
