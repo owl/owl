@@ -5,11 +5,12 @@
  */
 namespace Owl\Handlers\Events;
 
-use Owl\Events\Item\CommentEvent;
-
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Contracts\Mail\Mailer;
+use Owl\Events\Item\CommentEvent;
+use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
+use Owl\Repositories\UserRepositoryInterface as UserRepository;
 
 /**
  * Class EmailNotification
@@ -17,15 +18,29 @@ use Illuminate\Contracts\Mail\Mailer;
  * @package Owl\Handlers\Events
  */
 class EmailNotification {
+
     /** @var Mailer */
     protected $mail;
 
+    /** @var ItemRepository */
+    protected $item;
+
+    /** @var UserRepository */
+    protected $user;
+
     /**
-     * @param Mailer  $mailer
+     * @param Mailer          $mailer
+     * @param ItemRepository  $itemRepository
+     * @param UserRepository  $userRepository
      */
-    public function __construct(Mailer $mailer)
-    {
+    public function __construct(
+        Mailer         $mailer,
+        ItemRepository $itemRepository,
+        UserRepository $userRepository
+    ) {
         $this->mail = $mailer;
+        $this->item = $itemRepository;
+        $this->user = $userRepository;
     }
 
     /**
@@ -35,7 +50,24 @@ class EmailNotification {
      */
     public function onGetComment(CommentEvent $event)
     {
-        // TODO: コメントメール送信
+        $item      = $this->item->getByOpenItemId($event->getId());
+        $recipient = $this->user->getById($item->user_id);
+        $sender    = $this->user->getById($event->getUserId());
+
+        $data = [
+            'recipient' => $recipient->username,
+            'sender'    => $sender->username,
+            'itemUrl'   => 'hoge', // TODO
+            'itemTitle' => $item->title,
+            'comment'   => $event->getComment(),
+        ];
+        $this->mail->send(
+            'emails.action.comment', $data,
+            function ($m) use ($recipient, $sender) {
+                $m->to($recipient->email)
+                    ->subject($sender->username.'さんからコメントがつきました - Owl');
+            }
+        );
     }
 
     /**
