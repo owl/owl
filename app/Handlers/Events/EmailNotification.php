@@ -55,7 +55,7 @@ class EmailNotification {
         $recipient = $this->user->getById($item->user_id);
         $sender    = $this->user->getById($event->getUserId());
 
-        if ($this->isUsersSame($recipient, $sender)) {
+        if ($this->areUsersSame($recipient, $sender)) {
             return false;
         }
 
@@ -82,7 +82,27 @@ class EmailNotification {
      */
     public function onGetGood(GoodEvent $event)
     {
-        // TODO: いいねメール送信
+        $item      = $this->item->getByOpenItemId($event->getId());
+        $recipient = $this->user->getById($item->user_id);
+        $sender    = $this->user->getById($event->getUserId());
+
+        if ($this->areUsersSame($recipient, $sender)) {
+            return false;
+        }
+
+        $data = [
+            'recipient' => $recipient->username,
+            'sender'    => $sender->username,
+            'itemId'    => $item->open_item_id,
+            'itemTitle' => $item->title,
+        ];
+        $this->mail->send(
+            'emails.action.good', $data,
+            function ($m) use ($recipient, $sender) {
+                $m->to($recipient->email)
+                    ->subject($sender->username.'さんからいいねがつきました - Owl');
+            }
+        );
     }
 
     /**
@@ -128,7 +148,7 @@ class EmailNotification {
      *
      * @return bool
      */
-    protected function isUsersSame($recipient, $sender)
+    protected function areUsersSame($recipient, $sender)
     {
         return $recipient->id === $sender->id;
     }
