@@ -29,6 +29,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $method->setAccessible(true);
         return $method;
     }
+
     /**
      * @param $class
      * @param $name
