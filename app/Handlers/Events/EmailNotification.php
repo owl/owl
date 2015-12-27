@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Events\Item\CommentEvent;
+use Owl\Events\Item\GoodEvent;
 use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
 use Owl\Repositories\UserRepositoryInterface as UserRepository;
 
@@ -44,7 +45,7 @@ class EmailNotification {
     }
 
     /**
-     * 記事にコメントがついた際
+     * 記事にコメントがついた時のメール通知
      *
      * @param CommentEvent  $event
      */
@@ -73,9 +74,9 @@ class EmailNotification {
     /**
      * 記事にいいね！がついた時
      *
-     * @param mixed $event
+     * @param GoodEvent  $event
      */
-    public function onGetGood($event)
+    public function onGetGood(GoodEvent $event)
     {
         // TODO: いいねメール送信
     }
@@ -110,7 +111,7 @@ class EmailNotification {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
 
         $events->listen(CommentEvent::class, $subscriberName.'@onGetComment');
-        $events->listen('event.item.good',   $subscriberName.'@onGetGood');
+        $events->listen(GoodEvent::class,    $subscriberName.'@onGetGood');
         $events->listen('event.item.stock',  $subscriberName.'@onGetStock');
         $events->listen('event.item.edit',   $subscriberName.'@onItemEdited');
     }
