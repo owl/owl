@@ -1,4 +1,4 @@
-<?php namespace Owl;
+<?php
 
 abstract class AbstractTestCase extends \TestCase
 {
