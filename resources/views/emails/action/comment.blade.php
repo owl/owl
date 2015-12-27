@@ -4,7 +4,7 @@
 
 <h4>記事</h4>
 
-<p><a href="{{ $itemUrl }}">{{ $itemTitle }}</a></p>
+<p><a href="{{ route('items.show', ['items' => $itemId]) }}">{{ $itemTitle }}</a></p>
 
 <h4>コメント</h4>
 

@@ -57,7 +57,7 @@ class EmailNotification {
         $data = [
             'recipient' => $recipient->username,
             'sender'    => $sender->username,
-            'itemUrl'   => 'hoge', // TODO
+            'itemId'    => $item->open_item_id,
             'itemTitle' => $item->title,
             'comment'   => $event->getComment(),
         ];
