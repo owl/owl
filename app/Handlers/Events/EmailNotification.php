@@ -62,13 +62,9 @@ class EmailNotification {
             return false;
         }
 
-        $data = [
-            'recipient' => $recipient->username,
-            'sender'    => $sender->username,
-            'itemId'    => $item->open_item_id,
-            'itemTitle' => $item->title,
-            'comment'   => $event->getComment(),
-        ];
+        $data            = $this->getDataForMail($item, $recipient, $sender);
+        $data['comment'] = $event->getComment();
+
         $this->mail->send(
             'emails.action.comment', $data,
             function ($m) use ($recipient, $sender) {
@@ -93,14 +89,9 @@ class EmailNotification {
             return false;
         }
 
-        $data = [
-            'recipient' => $recipient->username,
-            'sender'    => $sender->username,
-            'itemId'    => $item->open_item_id,
-            'itemTitle' => $item->title,
-        ];
         $this->mail->send(
-            'emails.action.good', $data,
+            'emails.action.good',
+            $this->getDataForMail($item, $recipient, $sender),
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)
                     ->subject($sender->username.'さんからいいねがつきました - Owl');
@@ -123,14 +114,9 @@ class EmailNotification {
             return false;
         }
 
-        $data = [
-            'recipient' => $recipient->username,
-            'sender'    => $sender->username,
-            'itemId'    => $item->open_item_id,
-            'itemTitle' => $item->title,
-        ];
         $this->mail->send(
-            'emails.action.favorite', $data,
+            'emails.action.favorite',
+            $this->getDataForMail($item, $recipient, $sender),
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)
                     ->subject($sender->username.'さんに記事がお気に入りされました - Owl');
@@ -153,14 +139,9 @@ class EmailNotification {
             return false;
         }
 
-        $data = [
-            'recipient' => $recipient->username,
-            'sender'    => $sender->username,
-            'itemId'    => $item->open_item_id,
-            'itemTitle' => $item->title,
-        ];
         $this->mail->send(
-            'emails.action.edit', $data,
+            'emails.action.edit',
+            $this->getDataForMail($item, $recipient, $sender),
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)
                     ->subject('あなたの記事が'.$sender->username.'さんに編集されました - Owl');
@@ -194,5 +175,24 @@ class EmailNotification {
     protected function areUsersSame($recipient, $sender)
     {
         return $recipient->id === $sender->id;
+    }
+
+    /**
+     * Mail View用の基本データを取得
+     *
+     * @param object  $item
+     * @param object  $recipient
+     * @param object  $sender
+     *
+     * @return array
+     */
+    protected function getDataForMail($item, $recipient, $sender)
+    {
+        return [
+            'recipient' => $recipient->username,
+            'sender'    => $sender->username,
+            'itemId'    => $item->open_item_id,
+            'itemTitle' => $item->title,
+        ];
     }
 }
