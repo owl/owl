@@ -5,10 +5,11 @@
  */
 namespace Owl\Handlers\Events;
 
-use Owl\Events\CommentEvent;
+use Owl\Events\Item\CommentEvent;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Contracts\Mail\Mailer;
 
 /**
  * Class EmailNotification
@@ -16,12 +17,23 @@ use Illuminate\Contracts\Queue\ShouldBeQueued;
  * @package Owl\Handlers\Events
  */
 class EmailNotification {
+    /** @var Mailer */
+    protected $mail;
+
+    /**
+     * @param Mailer  $mailer
+     */
+    public function __construct(Mailer $mailer)
+    {
+        $this->mail = $mailer;
+    }
+
     /**
      * 記事にコメントがついた際
      *
-     * @param mixed $event
+     * @param CommentEvent  $event
      */
-    public function onGetComment($event)
+    public function onGetComment(CommentEvent $event)
     {
         // TODO: コメントメール送信
     }
@@ -65,9 +77,9 @@ class EmailNotification {
     {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
 
-        $events->listen('event.item.comment', $subscriberName.'@onGetComment');
-        $events->listen('event.item.good',    $subscriberName.'@onGetGood');
-        $events->listen('event.item.stock',   $subscriberName.'@onGetStock');
-        $events->listen('event.item.edit',    $subscriberName.'@onItemEdited');
+        $events->listen(CommentEvent::class, $subscriberName.'@onGetComment');
+        $events->listen('event.item.good',   $subscriberName.'@onGetGood');
+        $events->listen('event.item.stock',  $subscriberName.'@onGetStock');
+        $events->listen('event.item.edit',   $subscriberName.'@onItemEdited');
     }
 }
