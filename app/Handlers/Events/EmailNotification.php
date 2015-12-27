@@ -55,6 +55,10 @@ class EmailNotification {
         $recipient = $this->user->getById($item->user_id);
         $sender    = $this->user->getById($event->getUserId());
 
+        if ($this->isUsersSame($recipient, $sender)) {
+            return false;
+        }
+
         $data = [
             'recipient' => $recipient->username,
             'sender'    => $sender->username,
@@ -114,5 +118,18 @@ class EmailNotification {
         $events->listen(GoodEvent::class,    $subscriberName.'@onGetGood');
         $events->listen('event.item.stock',  $subscriberName.'@onGetStock');
         $events->listen('event.item.edit',   $subscriberName.'@onItemEdited');
+    }
+
+    /**
+     * 通知を発生させたユーザと通知を受け取るユーザが同じかチェックする
+     *
+     * @parma object  $recipient
+     * @param object  $sender
+     *
+     * @return bool
+     */
+    protected function isUsersSame($recipient, $sender)
+    {
+        return $recipient->id === $sender->id;
     }
 }
