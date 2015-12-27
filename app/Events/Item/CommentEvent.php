@@ -23,11 +23,12 @@ class CommentEvent extends BaseItemEvent {
      * Create a new event instance.
      *
      * @param string  $itemId
+     * @param string  $userId
      * @param string  $comment
      */
-    public function __construct($itemId, $comment)
+    public function __construct($itemId, $userId, $comment)
     {
-        parent::__construct($itemId);
+        parent::__construct($itemId, $userId);
         $this->comment = $comment;
     }
 
