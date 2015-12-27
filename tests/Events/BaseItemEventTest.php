@@ -10,7 +10,7 @@ class BaseItemEventTest extends \TestCase
         $this->assertInstanceOf('Owl\Events\Item\BaseItemEvent', $event);
     }
 
-    public function testShouldReturnId()
+    public function testShouldReturnValues()
     {
         $expectedItemId = 'itemId';
         $expectedUserId = 'userId';
