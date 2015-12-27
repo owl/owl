@@ -26,6 +26,16 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        $this->registerSubscriber();
+    }
+
+    /**
+     * イベントハンドラーをSubscriberに登録
+     */
+    protected function registerSubscriber()
+    {
+        $dispatcher = $this->app->make(\Illuminate\Contracts\Events\Dispatcher::class);
+        // メール送信イベントハンドラー
+        $dispatcher->subscribe('\Owl\Handlers\Events\EmailNotification');
     }
 }
