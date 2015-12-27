@@ -2,6 +2,9 @@
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
+    /** @var string リポジトリクラスのサービスコンテナへの登録名 */
+    protected $userRepoName = 'Owl\Repositories\UserRepositoryInterface';
+    protected $itemRepoName = 'Owl\Repositories\ItemRepositoryInterface';
 
     /**
      * Creates the application.
@@ -43,5 +46,20 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $property = $class->getProperty($name);
         $property->setAccessible(true);
         return $property;
+    }
+
+    /**
+     * テスト用Logファサードをサービスコンテナに登録
+     */
+    protected function registerTestLogger()
+    {
+        $this->app->bind('log', function($app) {
+            $logger = new \Illuminate\Log\Writer(
+                new \Monolog\Logger('testing'), $app['events']
+            );
+            (new \Illuminate\Foundation\Bootstrap\ConfigureLogging)
+                ->bootstrap($app);
+            return $logger;
+        });
     }
 }

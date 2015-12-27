@@ -18,7 +18,8 @@
         "behat/behat": "~3.0",
         "behat/mink": "~1.6",
         "behat/mink-extension": "~2.0",
-        "laracasts/behat-laravel-extension": "~1.0"
+        "laracasts/behat-laravel-extension": "~1.0",
+        "mockery/mockery": "^0.9.4"
     },
     "autoload": {
         "classmap": [
