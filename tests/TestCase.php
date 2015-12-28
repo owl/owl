@@ -53,7 +53,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
      */
     protected function registerTestLogger()
     {
-        $this->app->bind('log', function($app) {
+        $this->app->bind('log', function ($app) {
             $logger = new \Illuminate\Log\Writer(
                 new \Monolog\Logger('testing'), $app['events']
             );
