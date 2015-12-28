@@ -18,8 +18,6 @@ class EmailNotificationTest extends \TestCase
     {
         parent::setUp();
 
-        $this->registerTestLogger();
-        \Log::useFiles(base_path($this->testLogPath));
         // mock data
         $this->dummyItem = (object) [
             'open_item_id' => 'open_item_id',
@@ -29,7 +27,7 @@ class EmailNotificationTest extends \TestCase
         $this->dummyRecipient = (object) [
             'id'       => 'recipient_id',
             'username' => 'recipient',
-            'email'    => 'email',
+            'email'    => 'recipient@test.com',
         ];
         $this->dummySender = (object) [
             'id'       => 'sender_id',
@@ -38,12 +36,6 @@ class EmailNotificationTest extends \TestCase
         // mock class
         $this->userRepo = m::mock($this->userRepoName);
         $this->itemRepo = m::mock($this->itemRepoName);
-    }
-
-    public function tearDown()
-    {
-        parent::tearDown();
-        //\File::delete(base_path($this->testLogPath));
     }
 
     public function testValidInstance()
@@ -71,5 +63,21 @@ class EmailNotificationTest extends \TestCase
         $this->assertFalse($handler->onGetFavorite($favoriteEvent));
         $editEvent = new EditEvent('itemId', 'userId');
         $this->assertFalse($handler->onItemEdited($editEvent));
+    }
+
+    public function testShouldCommentNotify()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
+        $mailerMock->shouldReceive('send')->andReturn(null);
+        // TODO: test mail content
+
+        $handler = new EmailNotification(
+            $mailerMock, $this->itemRepo, $this->userRepo
+        );
+        $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
+        $handler->onGetComment($commentEvent);
     }
 }
