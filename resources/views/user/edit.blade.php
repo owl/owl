@@ -121,29 +121,35 @@
         <h5>通知メール送信設定</h5>
     </div>
 
+    <p>
+        それぞれの項目に対してメールで通知するかどうか設定できます。
+    </p>
+
+    <br />
+
     <div class="form-group mail-checkbox-form">
-        {!! Form::label('comment-mail-checkbox', 'コメントがついた時', array('class' => 'col-sm-5 control-label mail-checkbox')) !!}
+        {!! Form::label('comment-mail-checkbox', 'コメントがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
             {!! Form::checkbox('comment-mail-checkbox') !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
-        {!! Form::label('favorite-mail-checkbox', '記事がお気に入りされた時', array('class' => 'col-sm-5 control-label mail-checkbox')) !!}
+        {!! Form::label('favorite-mail-checkbox', '記事がお気に入りされた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
             {!! Form::checkbox('favorite-mail-checkbox') !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
-        {!! Form::label('good-mail-checkbox', 'いいねがついた時', array('class' => 'col-sm-5 control-label mail-checkbox')) !!}
+        {!! Form::label('good-mail-checkbox', 'いいねがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
             {!! Form::checkbox('good-mail-checkbox') !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
-        {!! Form::label('edit-mail-checkbox', '自分の記事が編集された時', array('class' => 'col-sm-5 control-label mail-checkbox')) !!}
+        {!! Form::label('edit-mail-checkbox', '自分の記事が編集された時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
             {!! Form::checkbox('edit-mail-checkbox') !!}
         </div>
