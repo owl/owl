@@ -122,9 +122,9 @@
     </div>
 
     <div class="form-group mail-checkbox-form">
-        <label for="comment-mail-checkbox" class="col-sm-3 control-label mail-checkbox">新規コメント</label>
+        {!! Form::label('comment-mail-checkbox', '新規コメント', array('class' => 'col-sm-3 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            <input type="checkbox" name="comment-mail-checkbox">
+            {!! Form::checkbox('comment-mail-checkbox') !!}
         </div>
     </div>
 @stop
