@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "gulp"
+  },
   "devDependencies": {
     "gulp": "^3.8.8"
   },
