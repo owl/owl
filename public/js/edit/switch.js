@@ -9,7 +9,17 @@
  */
 
 $(function() {
-  $("[name='comment-mail-checkbox']").bootstrapSwitch(
-    'onColor', 'success'
-  );
+  // bootstrap-switch適用対象チェックボックス
+  var targets = [
+    'comment-mail-checkbox',
+    'favorite-mail-checkbox',
+    'good-mail-checkbox',
+    'edit-mail-checkbox'
+  ];
+
+  for(var i=0;i<targets.length;i++) {
+    $("[name='" + targets[i] + "']").bootstrapSwitch(
+      'onColor', 'success'
+    );
+  }
 });
