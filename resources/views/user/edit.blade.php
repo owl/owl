@@ -117,8 +117,27 @@
         プロフィール画像を設定したい場合は、<a href="http://ja.gravatar.com/" target="_blank">こちら</a>から登録しEmailと画像を紐付けください。
     </p>
 
+    <div class="page-header">
+        <h5>通知メール送信設定</h5>
+    </div>
+
+    <div class="form-group mail-checkbox-form">
+        <label for="comment-mail-checkbox" class="col-sm-3 control-label mail-checkbox">新規コメント</label>
+        <div class="col-sm-4 mail-checkbox">
+            <input type="checkbox" name="comment-mail-checkbox">
+        </div>
+    </div>
 @stop
 
 @section('contents-sidebar')
     @include('layouts.contents-sidebar')
+@stop
+
+@section('addCss')
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('/packages/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') !!}"/>
+@stop
+
+@section('addJs')
+    <script src="{!! \HTML::cached_asset('/packages/bootstrap-switch/dist/js/bootstrap-switch.min.js') !!}"></script>
+    <script src="{!! \HTML::cached_asset('/js/edit/switch.js') !!}"></script>
 @stop
