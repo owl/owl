@@ -34,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected function registerSubscriber()
     {
-        $dispatcher = $this->app->make(\Illuminate\Contracts\Events\Dispatcher::class);
+        $dispatcher = $this->app->make('Illuminate\Contracts\Events\Dispatcher');
         // メール送信イベントハンドラー
         $dispatcher->subscribe('\Owl\Handlers\Events\EmailNotification');
     }
