@@ -80,4 +80,52 @@ class EmailNotificationTest extends \TestCase
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $handler->onGetComment($commentEvent);
     }
+
+    public function testShouldGoodNotify()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
+        $mailerMock->shouldReceive('send')->andReturn(null);
+        // TODO: test mail content
+
+        $handler = new EmailNotification(
+            $mailerMock, $this->itemRepo, $this->userRepo
+        );
+        $commentEvent = new GoodEvent('itemId', 'userId');
+        $handler->onGetGood($commentEvent);
+    }
+
+    public function testShouldFavoriteNotify()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
+        $mailerMock->shouldReceive('send')->andReturn(null);
+        // TODO: test mail content
+
+        $handler = new EmailNotification(
+            $mailerMock, $this->itemRepo, $this->userRepo
+        );
+        $commentEvent = new FavoriteEvent('itemId', 'userId');
+        $handler->onGetFavorite($commentEvent);
+    }
+
+    public function testShouldItemEditNotify()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
+        $mailerMock->shouldReceive('send')->andReturn(null);
+        // TODO: test mail content
+
+        $handler = new EmailNotification(
+            $mailerMock, $this->itemRepo, $this->userRepo
+        );
+        $commentEvent = new EditEvent('itemId', 'userId');
+        $handler->onItemEdited($commentEvent);
+    }
 }
