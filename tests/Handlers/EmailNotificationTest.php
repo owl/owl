@@ -58,7 +58,7 @@ class EmailNotificationTest extends \TestCase
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
         $handler = new EmailNotification(
-            $this->app->make(Mailer::class),
+            $this->app->make('Illuminate\Contracts\Mail\Mailer'),
             $this->itemRepo, $this->userRepo, $this->mailRepo
         );
         // assertion
@@ -84,7 +84,7 @@ class EmailNotificationTest extends \TestCase
             'edit_notification_flag'     => 0,
         ]);
         $handler = new EmailNotification(
-            $this->app->make(Mailer::class),
+            $this->app->make('Illuminate\Contracts\Mail\Mailer'),
             $this->itemRepo, $this->userRepo, $this->mailRepo
         );
         // assertion

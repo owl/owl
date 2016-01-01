@@ -173,10 +173,10 @@ class EmailNotification {
     {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
 
-        $events->listen(CommentEvent::class,  $subscriberName.'@onGetComment');
-        $events->listen(GoodEvent::class,     $subscriberName.'@onGetGood');
-        $events->listen(FavoriteEvent::class, $subscriberName.'@onGetFavorite');
-        $events->listen(EditEvent::class,     $subscriberName.'@onItemEdited');
+        $events->listen('CommentEvent',  $subscriberName.'@onGetComment');
+        $events->listen('GoodEvent',     $subscriberName.'@onGetGood');
+        $events->listen('FavoriteEvent', $subscriberName.'@onGetFavorite');
+        $events->listen('EditEvent',     $subscriberName.'@onItemEdited');
     }
 
     /**
