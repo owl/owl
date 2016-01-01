@@ -38,12 +38,8 @@ class UserMailNotificationRepository extends AbstractFluent implements UserMailN
      */
     public function get($userId)
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function update(array $params, array $wkey, $table = null)
-    {
+        return $this->builder()
+            ->where($this->primary, $userId)
+            ->first();
     }
 }
