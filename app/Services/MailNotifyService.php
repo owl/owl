@@ -36,7 +36,16 @@ class MailNotifyService
      */
     public function getSettings($userId)
     {
-        return $this->mailNotify->get($userId);
+        $flags = $this->mailNotify->get($userId);
+
+        // HACK: レコード未登録ユーザはレコード挿入する
+        // ~v2.1.1使用ユーザ向け
+        if (is_null($flags)) {
+            $this->mailNotify->insert($this->getDefaultColomuns($userId));
+            return $this->mailNotify->get($userId);
+        }
+
+        return $flags;
     }
 
     /**
@@ -68,5 +77,23 @@ class MailNotifyService
     protected function getFlagColomunName($type)
     {
         return $type.'_notification_flag';
+    }
+
+    /**
+     * Get default setting of user's mail notification
+     *
+     * @param int  $userId
+     *
+     * @return array
+     */
+    protected function getDefaultColomuns($userId)
+    {
+        return [
+            'user_id'                    => $userId,
+            'comment_notification_flag'  => 0,
+            'favorite_notification_flag' => 0,
+            'good_notification_flag'     => 0,
+            'edit_notification_flag'     => 0,
+        ];
     }
 }

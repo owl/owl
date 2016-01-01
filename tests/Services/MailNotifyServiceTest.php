@@ -33,6 +33,15 @@ class MailNotifyServiceTest extends \TestCase
         $this->assertEquals('mockData', $service->getSettings(1235));
     }
 
+    public function testShouldInsertAndReturnSettings()
+    {
+        $this->userMailNotifyCriteria->shouldReceive('get')->
+            times(2)->andReturn(null, 'mockData');
+        $this->userMailNotifyCriteria->shouldReceive('insert')->andReturn(null);
+        $service = new MailNotifyService($this->userMailNotifyCriteria);
+        $this->assertEquals('mockData', $service->getSettings(1235));
+    }
+
     public function testShouldReturnUpdateResult()
     {
         $this->userMailNotifyCriteria->shouldReceive('update')->andReturn(true);
@@ -49,6 +58,23 @@ class MailNotifyServiceTest extends \TestCase
         $protectMethod = $this->getProtectMethod($service, 'getFlagColomunName');
         $this->assertEquals(
             $expected, $protectMethod->invoke($service, $type)
+        );
+    }
+
+    public function testShouldReturnDefaultColomuns()
+    {
+        $service = $this->app->make($this->serviceName);
+        $protectMethod = $this->getProtectMethod($service, 'getDefaultColomuns');
+        $mockUserId = 1235;
+        $this->assertEquals(
+            [
+                'user_id'                    => $mockUserId,
+                'comment_notification_flag'  => 0,
+                'favorite_notification_flag' => 0,
+                'good_notification_flag'     => 0,
+                'edit_notification_flag'     => 0,
+            ],
+            $protectMethod->invoke($service, $mockUserId)
         );
     }
 
