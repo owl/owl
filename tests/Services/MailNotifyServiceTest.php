@@ -8,6 +8,9 @@ class MailNotifyServiceTest extends \TestCase
     /** @var i */
     protected $userMailNotifyCriteria;
 
+    /** @var string */
+    protected $serviceName = 'Owl\Services\MailNotifyService';
+
     public function setUp()
     {
         parent::setUp();
@@ -17,10 +20,9 @@ class MailNotifyServiceTest extends \TestCase
 
     public function testValidInstance()
     {
-        $serviceName = 'Owl\Services\MailNotifyService';
-        $service = $this->app->make($serviceName);
+        $service = $this->app->make($this->serviceName);
         $this->assertInstanceOf(
-            $serviceName, $service
+            $this->serviceName, $service
         );
     }
 
@@ -35,6 +37,33 @@ class MailNotifyServiceTest extends \TestCase
     {
         $this->userMailNotifyCriteria->shouldReceive('update')->andReturn(true);
         $service = new MailNotifyService($this->userMailNotifyCriteria);
-        $this->assertTrue($service->updateSettings(1235, []));
+        $this->assertTrue($service->updateSettings(1235, 'comment', 0));
+    }
+
+    /**
+     * @dataProvider getTypes
+     */
+    public function testShouldReturnValidColumnNames($type, $expected)
+    {
+        $service = $this->app->make($this->serviceName);
+        $protectMethod = $this->getProtectMethod($service, 'getFlagColomunName');
+        $this->assertEquals(
+            $expected, $protectMethod->invoke($service, $type)
+        );
+    }
+
+    /**
+     * for testShouldReturnValidColumnNames
+     *
+     * @return array
+     */
+    public function getTypes()
+    {
+        return [
+            ['comment',  'comment_notification_flag'],
+            ['favorite', 'favorite_notification_flag'],
+            ['good',     'good_notification_flag'],
+            ['edit',     'edit_notification_flag'],
+        ];
     }
 }

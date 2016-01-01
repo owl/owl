@@ -40,17 +40,33 @@ class MailNotifyService
     }
 
     /**
-     * Update mail settings
+     * Update mail setting
      *
-     * @param int    $userId
-     * @param array  $settings
+     * @param int     $userId
+     * @param string  $type
+     * @param int     $flag
      *
      * @return bool
      */
-    public function updateSettings($userId, array $settings)
+    public function updateSettings($userId, $type, $flag)
     {
+        $columnName = $this->getFlagColomunName($type);
+
         return !!$this->mailNotify->update(
-            $settings, ['user_id' => $userId]
+            [$columnName => $flag],
+            ['user_id' => $userId]
         );
+    }
+
+    /**
+     * Get target column name by specified string
+     *
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function getFlagColomunName($type)
+    {
+        return $type.'_notification_flag';
     }
 }
