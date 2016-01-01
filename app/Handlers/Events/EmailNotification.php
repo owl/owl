@@ -14,6 +14,7 @@ use Owl\Events\Item\FavoriteEvent;
 use Owl\Events\Item\EditEvent;
 use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
 use Owl\Repositories\UserRepositoryInterface as UserRepository;
+use Owl\Repositories\UserMailNotificationRepositoryInterface as UserMailNotificationRepository;
 
 /**
  * Class EmailNotification
@@ -32,19 +33,25 @@ class EmailNotification {
     /** @var UserRepository */
     protected $user;
 
+    /** @var UserMailNotificationRepository */
+    protected $mailNotification;
+
     /**
-     * @param Mailer          $mailer
-     * @param ItemRepository  $itemRepository
-     * @param UserRepository  $userRepository
+     * @param Mailer                          $mailer
+     * @param ItemRepository                  $itemRepository
+     * @param UserRepository                  $userRepository
+     * @param UserMailNotificationRepository  $userMailNotificationRepository
      */
     public function __construct(
-        Mailer         $mailer,
-        ItemRepository $itemRepository,
-        UserRepository $userRepository
+        Mailer                         $mailer,
+        ItemRepository                 $itemRepository,
+        UserRepository                 $userRepository,
+        UserMailNotificationRepository $userMailNotificationRepository
     ) {
-        $this->mail = $mailer;
-        $this->item = $itemRepository;
-        $this->user = $userRepository;
+        $this->mail             = $mailer;
+        $this->item             = $itemRepository;
+        $this->user             = $userRepository;
+        $this->mailNotification = $userMailNotificationRepository;
     }
 
     /**
@@ -59,6 +66,8 @@ class EmailNotification {
         $sender    = $this->user->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
+            return false;
+        } elseif ($this->notificationIsEnabled('comment', $recipient->id)) {
             return false;
         }
 
@@ -87,6 +96,8 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
+        } elseif ($this->notificationIsEnabled('good', $recipient->id)) {
+            return false;
         }
 
         $this->mail->send(
@@ -111,6 +122,8 @@ class EmailNotification {
         $sender    = $this->user->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
+            return false;
+        } elseif ($this->notificationIsEnabled('favorite', $recipient->id)) {
             return false;
         }
 
@@ -137,6 +150,8 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
+        } elseif ($this->notificationIsEnabled('edit', $recipient->id)) {
+            return false;
         }
 
         $this->mail->send(
@@ -162,6 +177,21 @@ class EmailNotification {
         $events->listen(GoodEvent::class,     $subscriberName.'@onGetGood');
         $events->listen(FavoriteEvent::class, $subscriberName.'@onGetFavorite');
         $events->listen(EditEvent::class,     $subscriberName.'@onItemEdited');
+    }
+
+    /**
+     * 通知設定をONにしてるかどうかチェックする
+     *
+     * @param string  $type
+     * @param int     $userId
+     *
+     * @return bool
+     */
+    protected function notificationIsEnabled($type, $userId)
+    {
+        $colomnName = $type.'_notification_flag';
+        $flags = (array) $this->mailNotification->get($userId);
+        return !!$flags[$colomnName];
     }
 
     /**
