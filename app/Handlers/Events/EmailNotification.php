@@ -67,7 +67,7 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
-        } elseif ($this->notificationIsEnabled('comment', $recipient->id)) {
+        } elseif (!$this->notificationIsEnabled('comment', $recipient->id)) {
             return false;
         }
 
@@ -96,7 +96,7 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
-        } elseif ($this->notificationIsEnabled('good', $recipient->id)) {
+        } elseif (!$this->notificationIsEnabled('good', $recipient->id)) {
             return false;
         }
 
@@ -123,7 +123,7 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
-        } elseif ($this->notificationIsEnabled('favorite', $recipient->id)) {
+        } elseif (!$this->notificationIsEnabled('favorite', $recipient->id)) {
             return false;
         }
 
@@ -150,7 +150,7 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
-        } elseif ($this->notificationIsEnabled('edit', $recipient->id)) {
+        } elseif (!$this->notificationIsEnabled('edit', $recipient->id)) {
             return false;
         }
 

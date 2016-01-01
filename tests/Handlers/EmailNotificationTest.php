@@ -51,12 +51,38 @@ class EmailNotificationTest extends \TestCase
         $this->assertInstanceOf($this->handlerName, $handler);
     }
 
-    public function testShouldReturnFalse()
+    public function testShouldReturnFalseWhenSelfAction()
     {
         $this->dummySender->id = 'recipient_id';
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $handler = new EmailNotification(
+            $this->app->make(Mailer::class),
+            $this->itemRepo, $this->userRepo, $this->mailRepo
+        );
+        // assertion
+        $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
+        $this->assertFalse($handler->onGetComment($commentEvent));
+        $goodEvent = new GoodEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetGood($goodEvent));
+        $favoriteEvent = new FavoriteEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetFavorite($favoriteEvent));
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->assertFalse($handler->onItemEdited($editEvent));
+    }
+
+    public function testShouldReturnFalseWhenFlagIsFalse()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->mailRepo->shouldReceive('get')->andReturn((object) [
+            'comment_notification_flag'  => 0,
+            'good_notification_flag'     => 0,
+            'favorite_notification_flag' => 0,
+            'edit_notification_flag'     => 0,
+        ]);
         $handler = new EmailNotification(
             $this->app->make(Mailer::class),
             $this->itemRepo, $this->userRepo, $this->mailRepo
