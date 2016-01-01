@@ -18,7 +18,7 @@ class CreateUserMailNotifications extends Migration {
             $table->integer('favorite_notification_flag')->default(0);
             $table->integer('good_notification_flag')->default(0);
             $table->integer('edit_notification_flag')->default(0);
-            $table->timestapms();
+            $table->timestamps();
         });
     }
 
