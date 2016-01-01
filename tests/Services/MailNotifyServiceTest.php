@@ -37,7 +37,7 @@ class MailNotifyServiceTest extends \TestCase
     {
         $this->userMailNotifyCriteria->shouldReceive('update')->andReturn(true);
         $service = new MailNotifyService($this->userMailNotifyCriteria);
-        $this->assertTrue($service->updateSettings(1235, 'comment', 0));
+        $this->assertTrue($service->updateSetting(1235, 'comment', 0));
     }
 
     /**

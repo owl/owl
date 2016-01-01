@@ -48,7 +48,7 @@ class MailNotifyService
      *
      * @return bool
      */
-    public function updateSettings($userId, $type, $flag)
+    public function updateSetting($userId, $type, $flag)
     {
         $columnName = $this->getFlagColomunName($type);
 
