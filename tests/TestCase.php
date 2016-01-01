@@ -3,8 +3,9 @@
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /** @var string リポジトリクラスのサービスコンテナへの登録名 */
-    protected $userRepoName = 'Owl\Repositories\UserRepositoryInterface';
-    protected $itemRepoName = 'Owl\Repositories\ItemRepositoryInterface';
+    protected $userRepoName           = 'Owl\Repositories\UserRepositoryInterface';
+    protected $userMailNotifyRepoName = 'Owl\Repositories\UserMailNotificationRepositoryInterface';
+    protected $itemRepoName           = 'Owl\Repositories\ItemRepositoryInterface';
 
     /**
      * Creates the application.
