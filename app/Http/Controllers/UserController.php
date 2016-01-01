@@ -5,6 +5,7 @@ use Owl\Services\UserRoleService;
 use Owl\Services\AuthService;
 use Owl\Services\ItemService;
 use Owl\Services\TemplateService;
+use Owl\Services\MailNotifyService;
 use Owl\Http\Requests\UserRegisterRequest;
 use Owl\Http\Requests\UserRoleUpdateRequest;
 use Owl\Http\Requests\UserPasswordRequest;
@@ -110,10 +111,19 @@ class UserController extends Controller
         return \View::make('user.show', compact('user', 'items', 'templates'));
     }
 
-    public function edit()
-    {
-        $templates = $this->templateService->getAll();
-        return \View::make('user.edit', compact('templates'));
+    /**
+     * @param UserService        $userService
+     * @param MailNotifyService  $mailNotifyService
+     */
+    public function edit(
+        UserService       $userService,
+        MailNotifyService $mailNotifyService
+    ) {
+        $templates       = $this->templateService->getAll();
+        $notifyFlags = $mailNotifyService->getSettings(
+            $userService->getCurrentUser()->id
+        );
+        return \View::make('user.edit', compact('templates', 'notifyFlags'));
     }
 
     public function update(UserUpdateRequest $request)

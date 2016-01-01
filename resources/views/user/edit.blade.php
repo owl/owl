@@ -130,28 +130,28 @@
     <div class="form-group mail-checkbox-form">
         {!! Form::label('comment-mail-checkbox', 'コメントがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            {!! Form::checkbox('comment-mail-checkbox') !!}
+            {!! Form::checkbox('comment-mail-checkbox', 'comment-mail-checkbox', !!$notifyFlags->comment_notification_flag) !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
         {!! Form::label('favorite-mail-checkbox', '記事がお気に入りされた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            {!! Form::checkbox('favorite-mail-checkbox') !!}
+            {!! Form::checkbox('favorite-mail-checkbox', 'favorite-mail-checkbox', !!$notifyFlags->favorite_notification_flag) !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
         {!! Form::label('good-mail-checkbox', 'いいねがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            {!! Form::checkbox('good-mail-checkbox') !!}
+            {!! Form::checkbox('good-mail-checkbox', 'good-mail-checkbox', !!$notifyFlags->good_notification_flag) !!}
         </div>
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
         {!! Form::label('edit-mail-checkbox', '自分の記事が編集された時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            {!! Form::checkbox('edit-mail-checkbox') !!}
+            {!! Form::checkbox('edit-mail-checkbox', 'edit-mail-checkbox', !!$notifyFlags->edit_notification_flag) !!}
         </div>
     </div>
 @stop
