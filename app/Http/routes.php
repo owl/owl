@@ -85,6 +85,9 @@ Route::group(['middleware' => 'login'], function () {
     Route::post('comment/create', array('uses' => 'CommentController@create'));
     Route::post('comment/destroy', array('uses' => 'CommentController@destroy'));
     Route::post('comment/update', array('uses' => 'CommentController@update'));
+
+    // User Mail Notification Settings
+    Route::post('user/notification/update', ['as' => 'user.notification.update', 'uses' => 'MailNotifyController@update']);
 });
 
 /*
