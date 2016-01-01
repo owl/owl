@@ -53,7 +53,7 @@ class MailNotifyService
      *
      * @param int     $userId
      * @param string  $type
-     * @param int     $flag
+     * @param string  $flag
      *
      * @return bool
      */
@@ -62,7 +62,7 @@ class MailNotifyService
         $columnName = $this->getFlagColomunName($type);
 
         return !!$this->mailNotify->update(
-            [$columnName => $flag],
+            [$columnName => $flag === 'true' ? 1 : 0],
             ['user_id' => $userId]
         );
     }

@@ -16,7 +16,7 @@ use Owl\Services\UserService;
  *
  * @package Owl\Http\Controllers
  */
-class MailNotifyjController extends Controller
+class MailNotifyController extends Controller
 {
     /**
      * 設定を更新
