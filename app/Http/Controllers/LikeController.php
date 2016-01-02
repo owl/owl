@@ -37,7 +37,7 @@ class LikeController extends Controller
      *
      * @param Dispatcher  $event
      *
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function store(Dispatcher $event)
     {
@@ -51,7 +51,7 @@ class LikeController extends Controller
         // fire Good Event
         // TODO: do not generate instance in controller method
         $event->fire(new GoodEvent(
-            $openItemId, $user->id
+            (int) $openItemId, (int) $user->id
         ));
 
         return \Response::json();

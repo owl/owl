@@ -114,6 +114,8 @@ class UserController extends Controller
     /**
      * @param UserService        $userService
      * @param MailNotifyService  $mailNotifyService
+     *
+     * @return \Illuminate\View\View
      */
     public function edit(
         UserService       $userService,

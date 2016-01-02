@@ -26,8 +26,8 @@ class BaseItemEvent extends Event
     /**
      * Create a new event instance.
      *
-     * @param string  $itemId
-     * @param string  $userId
+     * @param int  $itemId
+     * @param int  $userId
      */
     public function __construct($itemId, $userId)
     {
@@ -38,7 +38,7 @@ class BaseItemEvent extends Event
     /**
      * Get ID of item
      *
-     * @return string
+     * @return int
      */
     public function getId()
     {
@@ -48,7 +48,7 @@ class BaseItemEvent extends Event
     /**
      * Get ID of user who actions
      *
-     * @return string
+     * @return int
      */
     public function getUserId()
     {

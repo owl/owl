@@ -44,7 +44,7 @@ class StockController extends Controller
      *
      * @param Dispatcher  $event
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function store(Dispatcher $event)
     {
@@ -58,7 +58,7 @@ class StockController extends Controller
         // fire FavoriteEvent
         // TODO: do not generate instance in controller method
         $event->fire(new FavoriteEvent(
-            $openItemId, $user->id
+            (int) $openItemId, (int) $user->id
         ));
 
         return \Response::json();

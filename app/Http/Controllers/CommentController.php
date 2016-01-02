@@ -25,6 +25,8 @@ class CommentController extends Controller
 
     /**
      * @parma Dispatcher  $event
+     *
+     * @return \Illuminate\View\View | string
      */
     public function create(Dispatcher $event)
     {
@@ -45,7 +47,7 @@ class CommentController extends Controller
         // fire event
         // TODO: do not create instance in controller method
         $event->fire(new CommentEvent(
-            $item->open_item_id, $user->id, \Input::get('body')
+            (int) $item->open_item_id, (int) $user->id, \Input::get('body')
         ));
 
         return \View::make('comment.body', compact('comment'));
