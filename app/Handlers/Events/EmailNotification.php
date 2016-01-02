@@ -4,8 +4,6 @@
  * @copyright (c) owl
  */
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Events\Item\CommentEvent;
 use Owl\Events\Item\GoodEvent;
