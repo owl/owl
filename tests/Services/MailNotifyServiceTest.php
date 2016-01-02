@@ -28,14 +28,14 @@ class MailNotifyServiceTest extends \TestCase
 
     public function testShouldReturnSettings()
     {
-        $this->userMailNotifyCriteria->shouldReceive('get')->andReturn('mockData');
+        $this->userMailNotifyCriteria->shouldReceive('getByUserId')->andReturn('mockData');
         $service = new MailNotifyService($this->userMailNotifyCriteria);
         $this->assertEquals('mockData', $service->getSettings(1235));
     }
 
     public function testShouldInsertAndReturnSettings()
     {
-        $this->userMailNotifyCriteria->shouldReceive('get')->
+        $this->userMailNotifyCriteria->shouldReceive('getByUserId')->
             times(2)->andReturn(null, 'mockData');
         $this->userMailNotifyCriteria->shouldReceive('insert')->andReturn(null);
         $service = new MailNotifyService($this->userMailNotifyCriteria);

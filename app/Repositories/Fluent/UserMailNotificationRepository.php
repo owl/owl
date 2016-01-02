@@ -35,7 +35,7 @@ class UserMailNotificationRepository extends AbstractFluent implements UserMailN
      *
      * @return null | \stdclass
      */
-    public function get($userId)
+    public function getByUserId($userId)
     {
         return $this->builder()
             ->where($this->primary, $userId)

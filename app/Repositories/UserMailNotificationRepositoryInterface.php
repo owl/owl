@@ -16,5 +16,5 @@ interface UserMailNotificationRepositoryInterface
      *
      * @return null | \stdclass
      */
-    public function get($userId);
+    public function getByUserId($userId);
 }

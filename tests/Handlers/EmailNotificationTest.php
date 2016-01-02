@@ -75,7 +75,7 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->mailRepo->shouldReceive('get')->andReturn((object) [
+        $this->mailRepo->shouldReceive('getByUserId')->andReturn((object) [
             'comment_notification_flag'  => 0,
             'like_notification_flag'     => 0,
             'favorite_notification_flag' => 0,
@@ -99,7 +99,7 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
+        $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
@@ -118,7 +118,7 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
+        $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
@@ -137,7 +137,7 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
+        $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
@@ -156,7 +156,7 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
+        $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {

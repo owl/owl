@@ -35,13 +35,13 @@ class MailNotifyService
      */
     public function getSettings($userId)
     {
-        $flags = $this->mailNotify->get($userId);
+        $flags = $this->mailNotify->getByUserId($userId);
 
         // HACK: レコード未登録ユーザはレコード挿入する
         // ~v2.1.1使用ユーザ向け
         if (is_null($flags)) {
             $this->mailNotify->insert($this->getDefaultColomuns($userId));
-            return $this->mailNotify->get($userId);
+            return $this->mailNotify->getByUserId($userId);
         }
 
         return $flags;
