@@ -91,7 +91,7 @@ class MailNotifyService
             'user_id'                    => $userId,
             'comment_notification_flag'  => 0,
             'favorite_notification_flag' => 0,
-            'good_notification_flag'     => 0,
+            'like_notification_flag'     => 0,
             'edit_notification_flag'     => 0,
         ];
     }

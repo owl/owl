@@ -93,12 +93,12 @@ class EmailNotification {
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
-        } elseif (!$this->notificationIsEnabled('good', $recipient->id)) {
+        } elseif (!$this->notificationIsEnabled('like', $recipient->id)) {
             return false;
         }
 
         $this->mail->send(
-            'emails.action.good',
+            'emails.action.like',
             $this->getDataForMail($item, $recipient, $sender),
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)

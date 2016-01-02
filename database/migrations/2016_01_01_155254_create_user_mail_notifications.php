@@ -16,7 +16,7 @@ class CreateUserMailNotifications extends Migration {
             $table->integer('user_id')->unique();
             $table->integer('comment_notification_flag')->default(0);
             $table->integer('favorite_notification_flag')->default(0);
-            $table->integer('good_notification_flag')->default(0);
+            $table->integer('like_notification_flag')->default(0);
             $table->integer('edit_notification_flag')->default(0);
             $table->timestamps();
         });
