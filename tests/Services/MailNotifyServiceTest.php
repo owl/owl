@@ -71,7 +71,7 @@ class MailNotifyServiceTest extends \TestCase
                 'user_id'                    => $mockUserId,
                 'comment_notification_flag'  => 0,
                 'favorite_notification_flag' => 0,
-                'good_notification_flag'     => 0,
+                'like_notification_flag'     => 0,
                 'edit_notification_flag'     => 0,
             ],
             $protectMethod->invoke($service, $mockUserId)
@@ -88,7 +88,7 @@ class MailNotifyServiceTest extends \TestCase
         return [
             ['comment',  'comment_notification_flag'],
             ['favorite', 'favorite_notification_flag'],
-            ['good',     'good_notification_flag'],
+            ['like',     'like_notification_flag'],
             ['edit',     'edit_notification_flag'],
         ];
     }
