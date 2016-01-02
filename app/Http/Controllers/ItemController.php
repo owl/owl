@@ -126,7 +126,7 @@ class ItemController extends Controller
 
     /**
      * @param ItemUpdateRequest  $request
-     * @param mixed              $openItemId
+     * @param string             $openItemId
      * @param Dispatcher         $event
      *
      * @return mixed
