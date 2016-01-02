@@ -171,11 +171,12 @@ class EmailNotification {
     public function subscribe($events)
     {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
+        $eventBaseName  = '\Owl\Events\Item';
 
-        $events->listen('CommentEvent',  $subscriberName.'@onGetComment');
-        $events->listen('GoodEvent',     $subscriberName.'@onGetGood');
-        $events->listen('FavoriteEvent', $subscriberName.'@onGetFavorite');
-        $events->listen('EditEvent',     $subscriberName.'@onItemEdited');
+        $events->listen($eventBaseName.'\CommentEvent',  $subscriberName.'@onGetComment');
+        $events->listen($eventBaseName.'\GoodEvent',     $subscriberName.'@onGetGood');
+        $events->listen($eventBaseName.'\FavoriteEvent', $subscriberName.'@onGetFavorite');
+        $events->listen($eventBaseName.'\EditEvent',     $subscriberName.'@onItemEdited');
     }
 
     /**
