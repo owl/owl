@@ -17,20 +17,6 @@ abstract class AbstractFluent
     /** @var string  Table name */
     protected $table = '';
 
-    /** @var string  Database driver */
-    protected $conn = null;
-
-    /** @var DatabaseManager */
-    protected $db;
-
-    /**
-     * @param DatabaseManager  $db
-     */
-    public function __construct(DatabaseManager $db)
-    {
-        $this->db = $db;
-    }
-
     /**
      * Get a table name.
      *
@@ -122,6 +108,6 @@ abstract class AbstractFluent
     {
         $table = is_null($this->table) ? $this->getTableName : $this->table;
 
-        return $this->db->connection($this->conn)->table($table);
+        return \DB::table($table);
     }
 }
