@@ -195,7 +195,7 @@ class EmailNotification
     /**
      * 通知を発生させたユーザと通知を受け取るユーザが同じかチェックする
      *
-     * @parma \stdclass  $recipient
+     * @param \stdclass  $recipient
      * @param \stdclass  $sender
      *
      * @return bool

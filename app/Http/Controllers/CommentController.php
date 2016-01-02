@@ -24,7 +24,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @parma Dispatcher  $event
+     * @param Dispatcher  $event
      *
      * @return \Illuminate\View\View | string
      */
