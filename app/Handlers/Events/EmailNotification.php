@@ -9,9 +9,9 @@ use Owl\Events\Item\CommentEvent;
 use Owl\Events\Item\LikeEvent;
 use Owl\Events\Item\FavoriteEvent;
 use Owl\Events\Item\EditEvent;
-use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
-use Owl\Repositories\UserRepositoryInterface as UserRepository;
-use Owl\Repositories\UserMailNotificationRepositoryInterface as UserMailNotificationRepository;
+use Owl\Services\ItemService;
+use Owl\Services\UserService;
+use Owl\Services\MailNotifyService;
 
 /**
  * Class EmailNotification
@@ -24,31 +24,31 @@ class EmailNotification {
     /** @var Mailer */
     protected $mail;
 
-    /** @var ItemRepository */
-    protected $item;
+    /** @var ItemService */
+    protected $itemService;
 
-    /** @var UserRepository */
-    protected $user;
+    /** @var UserService */
+    protected $userService;
 
-    /** @var UserMailNotificationRepository */
-    protected $mailNotification;
+    /** @var MailNotifyService */
+    protected $mailNotifyService;
 
     /**
-     * @param Mailer                          $mailer
-     * @param ItemRepository                  $itemRepository
-     * @param UserRepository                  $userRepository
-     * @param UserMailNotificationRepository  $userMailNotificationRepository
+     * @param Mailer             $mailer
+     * @param ItemService        $itemService
+     * @param UserService        $userService
+     * @param MailNotifyService  $mailNotifyService
      */
     public function __construct(
-        Mailer                         $mailer,
-        ItemRepository                 $itemRepository,
-        UserRepository                 $userRepository,
-        UserMailNotificationRepository $userMailNotificationRepository
+        Mailer            $mailer,
+        ItemService       $itemService,
+        UserService       $userService,
+        MailNotifyService $mailNotifyService
     ) {
-        $this->mail             = $mailer;
-        $this->item             = $itemRepository;
-        $this->user             = $userRepository;
-        $this->mailNotification = $userMailNotificationRepository;
+        $this->mail              = $mailer;
+        $this->itemService       = $itemService;
+        $this->userService       = $userService;
+        $this->mailNotifyService = $mailNotifyService;
     }
 
     /**
@@ -58,9 +58,9 @@ class EmailNotification {
      */
     public function onGetComment(CommentEvent $event)
     {
-        $item      = $this->item->getByOpenItemId($event->getId());
-        $recipient = $this->user->getById($item->user_id);
-        $sender    = $this->user->getById($event->getUserId());
+        $item      = $this->itemService->getByOpenItemId($event->getId());
+        $recipient = $this->userService->getById($item->user_id);
+        $sender    = $this->userService->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
@@ -87,9 +87,9 @@ class EmailNotification {
      */
     public function onGetLike(LikeEvent $event)
     {
-        $item      = $this->item->getByOpenItemId($event->getId());
-        $recipient = $this->user->getById($item->user_id);
-        $sender    = $this->user->getById($event->getUserId());
+        $item      = $this->itemService->getByOpenItemId($event->getId());
+        $recipient = $this->userService->getById($item->user_id);
+        $sender    = $this->userService->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
@@ -114,9 +114,9 @@ class EmailNotification {
      */
     public function onGetFavorite(FavoriteEvent $event)
     {
-        $item      = $this->item->getByOpenItemId($event->getId());
-        $recipient = $this->user->getById($item->user_id);
-        $sender    = $this->user->getById($event->getUserId());
+        $item      = $this->itemService->getByOpenItemId($event->getId());
+        $recipient = $this->userService->getById($item->user_id);
+        $sender    = $this->userService->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
@@ -141,9 +141,9 @@ class EmailNotification {
      */
     public function onItemEdited(EditEvent $event)
     {
-        $item      = $this->item->getByOpenItemId($event->getId());
-        $recipient = $this->user->getById($item->user_id);
-        $sender    = $this->user->getById($event->getUserId());
+        $item      = $this->itemService->getByOpenItemId($event->getId());
+        $recipient = $this->userService->getById($item->user_id);
+        $sender    = $this->userService->getById($event->getUserId());
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
@@ -188,15 +188,15 @@ class EmailNotification {
     protected function notificationIsEnabled($type, $userId)
     {
         $colomnName = $type.'_notification_flag';
-        $flags = (array) $this->mailNotification->get($userId);
+        $flags = (array) $this->mailNotifyService->getSettings($userId);
         return !!$flags[$colomnName];
     }
 
     /**
      * 通知を発生させたユーザと通知を受け取るユーザが同じかチェックする
      *
-     * @parma object  $recipient
-     * @param object  $sender
+     * @parma \stdclass  $recipient
+     * @param \stdclass  $sender
      *
      * @return bool
      */
@@ -208,9 +208,9 @@ class EmailNotification {
     /**
      * Mail View用の基本データを取得
      *
-     * @param object  $item
-     * @param object  $recipient
-     * @param object  $sender
+     * @param \stdclass  $item
+     * @param \stdclass  $recipient
+     * @param \stdclass  $sender
      *
      * @return array
      */

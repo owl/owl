@@ -35,7 +35,7 @@ class EmailNotificationTest extends \TestCase
         ];
         $this->dummyFlags = (object) [
             'comment_notification_flag'  => 1,
-            'good_notification_flag'     => 1,
+            'like_notification_flag'     => 1,
             'favorite_notification_flag' => 1,
             'edit_notification_flag'     => 1,
         ];
@@ -57,15 +57,13 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $handler = new EmailNotification(
-            $this->app->make('Illuminate\Contracts\Mail\Mailer'),
-            $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $this->assertFalse($handler->onGetComment($commentEvent));
-        $goodEvent = new LikeEvent('itemId', 'userId');
-        $this->assertFalse($handler->onGetLike($goodEvent));
+        $likeEvent = new LikeEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetLike($likeEvent));
         $favoriteEvent = new FavoriteEvent('itemId', 'userId');
         $this->assertFalse($handler->onGetFavorite($favoriteEvent));
         $editEvent = new EditEvent('itemId', 'userId');
@@ -79,19 +77,17 @@ class EmailNotificationTest extends \TestCase
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
         $this->mailRepo->shouldReceive('get')->andReturn((object) [
             'comment_notification_flag'  => 0,
-            'good_notification_flag'     => 0,
+            'like_notification_flag'     => 0,
             'favorite_notification_flag' => 0,
             'edit_notification_flag'     => 0,
         ]);
-        $handler = new EmailNotification(
-            $this->app->make('Illuminate\Contracts\Mail\Mailer'),
-            $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $this->assertFalse($handler->onGetComment($commentEvent));
-        $goodEvent = new LikeEvent('itemId', 'userId');
-        $this->assertFalse($handler->onGetLike($goodEvent));
+        $likeEvent = new LikeEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetLike($likeEvent));
         $favoriteEvent = new FavoriteEvent('itemId', 'userId');
         $this->assertFalse($handler->onGetFavorite($favoriteEvent));
         $editEvent = new EditEvent('itemId', 'userId');
@@ -106,11 +102,13 @@ class EmailNotificationTest extends \TestCase
         $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
-        // TODO: test mail content
+        $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
+            return $mailerMock;
+        });
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
 
-        $handler = new EmailNotification(
-            $mailerMock, $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        // TODO: test mail content
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $handler->onGetComment($commentEvent);
     }
@@ -123,11 +121,13 @@ class EmailNotificationTest extends \TestCase
         $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
-        // TODO: test mail content
+        $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
+            return $mailerMock;
+        });
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
 
-        $handler = new EmailNotification(
-            $mailerMock, $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        // TODO: test mail content
         $commentEvent = new LikeEvent('itemId', 'userId');
         $handler->onGetLike($commentEvent);
     }
@@ -140,11 +140,13 @@ class EmailNotificationTest extends \TestCase
         $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
-        // TODO: test mail content
+        $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
+            return $mailerMock;
+        });
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
 
-        $handler = new EmailNotification(
-            $mailerMock, $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        // TODO: test mail content
         $commentEvent = new FavoriteEvent('itemId', 'userId');
         $handler->onGetFavorite($commentEvent);
     }
@@ -157,12 +159,34 @@ class EmailNotificationTest extends \TestCase
         $this->mailRepo->shouldReceive('get')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
-        // TODO: test mail content
+        $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
+            return $mailerMock;
+        });
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $handler = $this->app->make($this->handlerName);
 
-        $handler = new EmailNotification(
-            $mailerMock, $this->itemRepo, $this->userRepo, $this->mailRepo
-        );
+        // TODO: test mail content
         $commentEvent = new EditEvent('itemId', 'userId');
         $handler->onItemEdited($commentEvent);
+    }
+
+    /**
+     * EmailNotificationのインスタンス生成に必要なリポジトリをbind
+     *
+     * @param i  $itemRepo
+     * @param i  $userRepo
+     * @param i  $mailRepo
+     */
+    protected function bindReposHelper($itemRepo, $userRepo, $mailRepo)
+    {
+        $this->app->bind($this->itemRepoName, function ($app) use ($itemRepo) {
+            return $itemRepo;
+        });
+        $this->app->bind($this->userRepoName, function ($app) use ($userRepo) {
+            return $userRepo;
+        });
+        $this->app->bind($this->userMailNotifyRepoName, function ($app) use ($mailRepo) {
+            return $mailRepo;
+        });
     }
 }
