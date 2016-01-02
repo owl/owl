@@ -4,7 +4,7 @@ use Mockery as m;
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Handlers\Events\EmailNotification;
 use Owl\Events\Item\CommentEvent;
-use Owl\Events\Item\GoodEvent;
+use Owl\Events\Item\LikeEvent;
 use Owl\Events\Item\FavoriteEvent;
 use Owl\Events\Item\EditEvent;
 
@@ -64,8 +64,8 @@ class EmailNotificationTest extends \TestCase
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $this->assertFalse($handler->onGetComment($commentEvent));
-        $goodEvent = new GoodEvent('itemId', 'userId');
-        $this->assertFalse($handler->onGetGood($goodEvent));
+        $goodEvent = new LikeEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetLike($goodEvent));
         $favoriteEvent = new FavoriteEvent('itemId', 'userId');
         $this->assertFalse($handler->onGetFavorite($favoriteEvent));
         $editEvent = new EditEvent('itemId', 'userId');
@@ -90,8 +90,8 @@ class EmailNotificationTest extends \TestCase
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
         $this->assertFalse($handler->onGetComment($commentEvent));
-        $goodEvent = new GoodEvent('itemId', 'userId');
-        $this->assertFalse($handler->onGetGood($goodEvent));
+        $goodEvent = new LikeEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetLike($goodEvent));
         $favoriteEvent = new FavoriteEvent('itemId', 'userId');
         $this->assertFalse($handler->onGetFavorite($favoriteEvent));
         $editEvent = new EditEvent('itemId', 'userId');
@@ -115,7 +115,7 @@ class EmailNotificationTest extends \TestCase
         $handler->onGetComment($commentEvent);
     }
 
-    public function testShouldGoodNotify()
+    public function testShouldLikeNotify()
     {
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
@@ -128,8 +128,8 @@ class EmailNotificationTest extends \TestCase
         $handler = new EmailNotification(
             $mailerMock, $this->itemRepo, $this->userRepo, $this->mailRepo
         );
-        $commentEvent = new GoodEvent('itemId', 'userId');
-        $handler->onGetGood($commentEvent);
+        $commentEvent = new LikeEvent('itemId', 'userId');
+        $handler->onGetLike($commentEvent);
     }
 
     public function testShouldFavoriteNotify()

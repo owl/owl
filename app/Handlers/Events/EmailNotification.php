@@ -6,7 +6,7 @@
 
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Events\Item\CommentEvent;
-use Owl\Events\Item\GoodEvent;
+use Owl\Events\Item\LikeEvent;
 use Owl\Events\Item\FavoriteEvent;
 use Owl\Events\Item\EditEvent;
 use Owl\Repositories\ItemRepositoryInterface as ItemRepository;
@@ -83,9 +83,9 @@ class EmailNotification {
     /**
      * 記事にいいね！がついた時
      *
-     * @param GoodEvent  $event
+     * @param LikeEvent  $event
      */
-    public function onGetGood(GoodEvent $event)
+    public function onGetLike(LikeEvent $event)
     {
         $item      = $this->item->getByOpenItemId($event->getId());
         $recipient = $this->user->getById($item->user_id);
@@ -172,7 +172,7 @@ class EmailNotification {
         $eventBaseName  = '\Owl\Events\Item';
 
         $events->listen($eventBaseName.'\CommentEvent',  $subscriberName.'@onGetComment');
-        $events->listen($eventBaseName.'\GoodEvent',     $subscriberName.'@onGetGood');
+        $events->listen($eventBaseName.'\LikeEvent',     $subscriberName.'@onGetLike');
         $events->listen($eventBaseName.'\FavoriteEvent', $subscriberName.'@onGetFavorite');
         $events->listen($eventBaseName.'\EditEvent',     $subscriberName.'@onItemEdited');
     }

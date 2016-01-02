@@ -7,11 +7,11 @@
 use Owl\Events\Item\BaseItemEvent;
 
 /**
- * Class GoodEvent
+ * Class LikeEvent
  * 記事へのいいねのイベントクラス
  *
  * @package Owl\Events\Item
  */
-class GoodEvent extends BaseItemEvent {
+class LikeEvent extends BaseItemEvent {
     //
 }

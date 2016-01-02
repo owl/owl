@@ -4,7 +4,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
 use Owl\Services\LikeService;
-use Owl\Events\Item\GoodEvent;
+use Owl\Events\Item\LikeEvent;
 
 class LikeController extends Controller
 {
@@ -48,9 +48,9 @@ class LikeController extends Controller
 
         $this->likeService->firstOrCreate($user->id, $item->id);
 
-        // fire Good Event
+        // fire Like Event
         // TODO: do not generate instance in controller method
-        $event->fire(new GoodEvent(
+        $event->fire(new LikeEvent(
             (int) $openItemId, (int) $user->id
         ));
 
