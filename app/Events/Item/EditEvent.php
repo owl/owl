@@ -1,10 +1,8 @@
-<?php
+<?php namespace Owl\Events\Item;
 
 /**
  * @copyright (c) owl
  */
-
-namespace Owl\Events\Item;
 
 use Owl\Events\Item\BaseItemEvent;
 

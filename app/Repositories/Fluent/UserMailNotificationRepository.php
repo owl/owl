@@ -1,9 +1,8 @@
-<?php
+<?php namespace Owl\Repositories\Fluent;
 
 /**
  * @copyright (c) owl
  */
-namespace Owl\Repositories\Fluent;
 
 use Owl\Repositories\UserMailNotificationRepositoryInterface;
 use Owl\Repositories\Fluent\AbstractFluent;

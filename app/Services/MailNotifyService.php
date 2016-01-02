@@ -1,9 +1,8 @@
-<?php
+<?php namespace Owl\Services;
 
 /**
  * @copyright (c) owl
  */
-namespace Owl\Services;
 
 use Owl\Repositories\UserMailNotificationRepositoryInterface as UserMailNotificationRepository;
 

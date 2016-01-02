@@ -1,9 +1,8 @@
-<?php
+<?php namespace Owl\Http\Controllers;
 
 /**
  * @copyright (c) owl
  */
-namespace Owl\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Owl\Http\Controllers\Controller;

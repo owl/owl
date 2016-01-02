@@ -1,9 +1,8 @@
-<?php
+<?php namespace Owl\Handlers\Events;
 
 /**
  * @copyright (c) owl
  */
-namespace Owl\Handlers\Events;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;

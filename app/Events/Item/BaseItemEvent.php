@@ -1,10 +1,8 @@
-<?php
+<?php namespace Owl\Events\Item;
 
 /**
  * @copyright (c) owl
  */
-
-namespace Owl\Events\Item;
 
 use Illuminate\Queue\SerializesModels;
 use Owl\Events\Event;
@@ -15,8 +13,8 @@ use Owl\Events\Event;
  *
  * @package Owl\Events\Item
  */
-class BaseItemEvent extends Event {
-
+class BaseItemEvent extends Event
+{
     use SerializesModels;
 
     /** @var string */

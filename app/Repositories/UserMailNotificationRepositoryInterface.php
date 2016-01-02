@@ -1,10 +1,8 @@
-<?php
+<?php namespace Owl\Repositories;
 
 /**
  * @copyright (c) owl
  */
-
-namespace Owl\Repositories;
 
 /**
  * Interface UserMailNotificationRepositoryInterface
