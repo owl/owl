@@ -1,7 +1,6 @@
 <?php namespace Owl\Events;
 
-abstract class Event {
-
-	//
-
+abstract class Event
+{
+    //
 }

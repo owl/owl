@@ -12,6 +12,7 @@ use Owl\Events\Item\BaseItemEvent;
  *
  * @package Owl\Events\Item
  */
-class FavoriteEvent extends BaseItemEvent {
+class FavoriteEvent extends BaseItemEvent
+{
     //
 }

@@ -12,6 +12,7 @@ use Owl\Events\Item\BaseItemEvent;
  *
  * @package Owl\Events\Item
  */
-class EditEvent extends BaseItemEvent {
+class EditEvent extends BaseItemEvent
+{
     //
 }

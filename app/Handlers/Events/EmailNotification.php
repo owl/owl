@@ -19,8 +19,8 @@ use Owl\Services\MailNotifyService;
  *
  * @package Owl\Handlers\Events
  */
-class EmailNotification {
-
+class EmailNotification
+{
     /** @var Mailer */
     protected $mail;
 

@@ -12,8 +12,8 @@ use Owl\Events\Item\BaseItemEvent;
  *
  * @package Owl\Events\Item
  */
-class CommentEvent extends BaseItemEvent {
-
+class CommentEvent extends BaseItemEvent
+{
     /** @var string */
     protected $comment;
 

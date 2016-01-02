@@ -12,6 +12,7 @@ use Owl\Events\Item\BaseItemEvent;
  *
  * @package Owl\Events\Item
  */
-class LikeEvent extends BaseItemEvent {
+class LikeEvent extends BaseItemEvent
+{
     //
 }
