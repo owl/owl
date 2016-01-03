@@ -846,7 +846,7 @@ div.comment .arrow_box:before {
 /**
  * user edit page
  */
-#main .bootstrap-switch span {
+#main span.bootstrap-switch-label {
   font-size: 13px;
 }
 
