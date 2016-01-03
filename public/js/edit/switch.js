@@ -13,7 +13,7 @@ $(function() {
   var targets = [
     'comment-mail-checkbox',
     'favorite-mail-checkbox',
-    'good-mail-checkbox',
+    'like-mail-checkbox',
     'edit-mail-checkbox'
   ];
 

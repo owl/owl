@@ -142,9 +142,9 @@
     </div>
     <br />
     <div class="form-group mail-checkbox-form">
-        {!! Form::label('good-mail-checkbox', 'いいねがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
+        {!! Form::label('like-mail-checkbox', 'いいねがついた時', array('class' => 'col-sm-4 control-label mail-checkbox')) !!}
         <div class="col-sm-4 mail-checkbox">
-            {!! Form::checkbox('good-mail-checkbox', 'good', !!$notifyFlags->good_notification_flag) !!}
+            {!! Form::checkbox('like-mail-checkbox', 'like', !!$notifyFlags->like_notification_flag) !!}
         </div>
     </div>
     <br />
