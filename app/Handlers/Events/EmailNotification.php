@@ -169,7 +169,7 @@ class EmailNotification
     public function subscribe($events)
     {
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
-        $eventBaseName  = '\Owl\Events\Item';
+        $eventBaseName  = 'Owl\Events\Item';
 
         $events->listen($eventBaseName.'\CommentEvent',  $subscriberName.'@onGetComment');
         $events->listen($eventBaseName.'\LikeEvent',     $subscriberName.'@onGetLike');
