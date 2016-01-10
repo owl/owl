@@ -80,7 +80,18 @@ class UserService extends Service
         $object->email = $credentials['email'];
         $object->password = $credentials['password'];
         $object->role = UserRoleService::ROLE_ID_MEMBER;
-        return $this->userRepo->create($object);
+        $user = $this->userRepo->create($object);
+
+        // user_mail_notifictionsテーブルにレコード挿入
+        $this->mailNotifyRepo->insert([
+            'user_id'                    => $user->id,
+            'comment_notification_flag'  => 0,
+            'favorite_notification_flag' => 0,
+            'like_notification_flag'     => 0,
+            'edit_notification_flag'     => 0,
+        ]);
+
+        return $user;
     }
 
     /**
