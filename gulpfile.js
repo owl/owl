@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
 // public/packages配下に展開したいnpmのパッケージ名
-var modules = ['bootstrap-switch'];
+var modules = ['bootstrap-switch', 'pnotify'];
 
 // modulesで指定されたnpmライブラリをpublic/packages配下に展開する
 gulp.task('export', function() {
