@@ -167,7 +167,7 @@ class ItemController extends Controller
         // fire EditEvent
         // TODO: do not create instance in controller method
         $event->fire(new EditEvent(
-            (int) $openItemId, (int) $user->id
+            $openItemId, (int) $user->id
         ));
 
         return \Redirect::route('items.show', [$openItemId]);
