@@ -126,7 +126,7 @@
 @stop
 
 @section('addCss')
-    @yield('mail_notify_setting_addCss');
+    @yield('mail_notify_setting_addCss')
 @stop
 
 @section('addJs')
