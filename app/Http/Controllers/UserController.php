@@ -121,7 +121,7 @@ class UserController extends Controller
         UserService       $userService,
         MailNotifyService $mailNotifyService
     ) {
-        $templates       = $this->templateService->getAll();
+        $templates   = $this->templateService->getAll();
         $notifyFlags = $mailNotifyService->getSettings(
             $userService->getCurrentUser()->id
         );
