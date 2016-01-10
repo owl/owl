@@ -126,7 +126,7 @@
 @stop
 
 @section('addCss')
-    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('/packages/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') !!}"/>
+    @yield('mail_notify_setting_addCss');
 @stop
 
 @section('addJs')

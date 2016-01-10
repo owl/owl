@@ -45,8 +45,9 @@ class MailNotifySettingComposer
      */
     public function compose(View $view)
     {
-        $view->getFactory()->inject('mail_notify_setting',       $this->renderHtml());
-        $view->getFactory()->inject('mail_notify_setting_addJs', $this->renderJs());
+        $view->getFactory()->inject('mail_notify_setting',        $this->renderHtml());
+        $view->getFactory()->inject('mail_notify_setting_addJs',  $this->renderJs());
+        $view->getFactory()->inject('mail_notify_setting_addCss', $this->renderCss());
     }
 
     /**
@@ -75,6 +76,20 @@ class MailNotifySettingComposer
     {
         if ($this->notifyEnable) {
             return view('user.edit._mail-notify-addJs');
+        }
+
+        return null;
+    }
+
+    /**
+     * メール通知コンポーネント用CSS読み込み用Viewを返す
+     *
+     * @return View | null
+     */
+    protected function renderCss()
+    {
+        if ($this->notifyEnable) {
+            return view('user.edit._mail-notify-addCss');
         }
 
         return null;
