@@ -77,7 +77,7 @@
             {!! Form::label('published', '記事の公開設定：') !!}
             {!! Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), $item->published) !!}
             {!! Form::hidden('updated_at', $item->updated_at) !!}
-            {!! Form::submit('投稿',array('class'=>'btn btn-success btn-block')) !!}
+            {!! Form::submit('投稿',array('class'=>'btn btn-success btn-block edit-item-button')) !!}
         </div>
     </div>
 
@@ -145,4 +145,5 @@
   <script src="{!! \HTML::cached_asset('js/jquery.upload-1.0.2.min.js') !!}"></script>
   <script src="{!! \HTML::cached_asset('js/image.upload.js') !!}"></script>
   <script src="{!! \HTML::cached_asset('js/preview.js') !!}"></script>
+  <script src="{!! \HTML::cached_asset('/js/item/edit.js') !!}"></script>
 @stop
