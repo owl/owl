@@ -112,20 +112,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param UserService        $userService
-     * @param MailNotifyService  $mailNotifyService
-     *
      * @return \Illuminate\View\View
      */
-    public function edit(
-        UserService       $userService,
-        MailNotifyService $mailNotifyService
-    ) {
-        $templates   = $this->templateService->getAll();
-        $notifyFlags = $mailNotifyService->getSettings(
-            $userService->getCurrentUser()->id
-        );
-        return \View::make('user.edit', compact('templates', 'notifyFlags'));
+    public function edit()
+    {
+        $templates = $this->templateService->getAll();
+        return \View::make('user.edit', compact('templates'));
     }
 
     public function update(UserUpdateRequest $request)
