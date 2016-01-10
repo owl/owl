@@ -144,7 +144,7 @@ class UserService extends Service
 
     /**
      * get users array
-     * 
+     *
      * @param object $user
      * @return array
      */
