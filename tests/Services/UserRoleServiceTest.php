@@ -34,17 +34,25 @@ class UserRoleServiceTest extends \TestCase
         $this->assertEquals([], $service->getAll());
     }
 
-    public function testShouldReturnRecord()
+    public function testIsRetireShouldReturnTrue()
     {
-        $this->userRoleCriteria->shouldReceive('getByUserId')->andReturn('user data');
+        $this->userRoleCriteria->shouldReceive('getByUserId')->andReturn((object) [
+            'name' => '退会済み',
+        ]);
         $service = new UserRoleService($this->userRoleCriteria);
-        $this->assertEquals('user data', $service->getByUserId(1235));
+        $this->assertTrue($service->isRetire(1235));
     }
 
-    public function testShouldReturnNullInsteadOfRecord()
+    public function testIsRetireShouldReturnFalse()
     {
         $this->userRoleCriteria->shouldReceive('getByUserId')->andReturn(null);
         $service = new UserRoleService($this->userRoleCriteria);
-        $this->assertNull($service->getByUserId(1235));
+        $this->assertFalse($service->isRetire(1235));
+
+        $this->userRoleCriteria->shouldReceive('getByUserId')->andReturn((object) [
+            'name' => 'オーナー',
+        ]);
+        $service = new UserRoleService($this->userRoleCriteria);
+        $this->assertFalse($service->isRetire(1235));
     }
 }

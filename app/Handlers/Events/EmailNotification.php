@@ -11,6 +11,7 @@ use Owl\Events\Item\FavoriteEvent;
 use Owl\Events\Item\EditEvent;
 use Owl\Services\ItemService;
 use Owl\Services\UserService;
+use Owl\Services\UserRoleService;
 use Owl\Services\MailNotifyService;
 
 /**
@@ -30,6 +31,9 @@ class EmailNotification
     /** @var UserService */
     protected $userService;
 
+    /** @var UserRoleService */
+    protected $userRoleService;
+
     /** @var MailNotifyService */
     protected $mailNotifyService;
 
@@ -37,17 +41,20 @@ class EmailNotification
      * @param Mailer             $mailer
      * @param ItemService        $itemService
      * @param UserService        $userService
+     * @param UserRoleService    $userRoleService
      * @param MailNotifyService  $mailNotifyService
      */
     public function __construct(
         Mailer            $mailer,
         ItemService       $itemService,
         UserService       $userService,
+        UserRoleService   $userRoleService,
         MailNotifyService $mailNotifyService
     ) {
         $this->mail              = $mailer;
         $this->itemService       = $itemService;
         $this->userService       = $userService;
+        $this->userRoleService   = $userRoleService;
         $this->mailNotifyService = $mailNotifyService;
     }
 
@@ -61,6 +68,10 @@ class EmailNotification
         $item      = $this->itemService->getByOpenItemId($event->getId());
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
+
+        if ($this->userRoleService->isRetire($recipient->id)){
+            return false;
+        }
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
@@ -91,6 +102,10 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
+        if ($this->userRoleService->isRetire($recipient->id)){
+            return false;
+        }
+
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
         } elseif (!$this->notificationIsEnabled('like', $recipient->id)) {
@@ -118,6 +133,10 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
+        if ($this->userRoleService->isRetire($recipient->id)){
+            return false;
+        }
+
         if ($this->areUsersSame($recipient, $sender)) {
             return false;
         } elseif (!$this->notificationIsEnabled('favorite', $recipient->id)) {
@@ -144,6 +163,10 @@ class EmailNotification
         $item      = $this->itemService->getByOpenItemId($event->getId());
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
+
+        if ($this->userRoleService->isRetire($recipient->id)){
+            return false;
+        }
 
         if ($this->areUsersSame($recipient, $sender)) {
             return false;

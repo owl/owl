@@ -1,6 +1,7 @@
 <?php
 
 use Mockery as m;
+use MockeryInterface as i;
 use Illuminate\Contracts\Mail\Mailer;
 use Owl\Handlers\Events\EmailNotification;
 use Owl\Events\Item\CommentEvent;
@@ -39,10 +40,14 @@ class EmailNotificationTest extends \TestCase
             'favorite_notification_flag' => 1,
             'edit_notification_flag'     => 1,
         ];
+        $this->dummyUserRoles = (object) [
+            'name' => 'オーナー',
+        ];
         // mock class
-        $this->userRepo = m::mock($this->userRepoName);
-        $this->itemRepo = m::mock($this->itemRepoName);
-        $this->mailRepo = m::mock($this->userMailNotifyRepoName);
+        $this->userRepo     = m::mock($this->userRepoName);
+        $this->itemRepo     = m::mock($this->itemRepoName);
+        $this->mailRepo     = m::mock($this->userMailNotifyRepoName);
+        $this->userRoleRepo = m::mock($this->userRoleRepoName);
     }
 
     public function testValidInstance()
@@ -57,7 +62,28 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
+        $handler = $this->app->make($this->handlerName);
+        // assertion
+        $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
+        $this->assertFalse($handler->onGetComment($commentEvent));
+        $likeEvent = new LikeEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetLike($likeEvent));
+        $favoriteEvent = new FavoriteEvent('itemId', 'userId');
+        $this->assertFalse($handler->onGetFavorite($favoriteEvent));
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->assertFalse($handler->onItemEdited($editEvent));
+    }
+
+    public function testShouldReturnFalseWhenUserIsRetire()
+    {
+        $this->dummyUserRoles->name = '退会済み';
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->userRepo->shouldReceive('getById')
+            ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
@@ -75,13 +101,14 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
         $this->mailRepo->shouldReceive('getByUserId')->andReturn((object) [
             'comment_notification_flag'  => 0,
             'like_notification_flag'     => 0,
             'favorite_notification_flag' => 0,
             'edit_notification_flag'     => 0,
         ]);
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
         // assertion
         $commentEvent = new CommentEvent('itemId', 'userId', 'comment');
@@ -99,13 +126,14 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
         $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
             return $mailerMock;
         });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
 
         // TODO: test mail content
@@ -118,13 +146,14 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
         $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
             return $mailerMock;
         });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
 
         // TODO: test mail content
@@ -137,13 +166,14 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
         $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
             return $mailerMock;
         });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
 
         // TODO: test mail content
@@ -156,13 +186,14 @@ class EmailNotificationTest extends \TestCase
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
         $this->userRepo->shouldReceive('getById')
             ->times(2)->andReturn($this->dummyRecipient, $this->dummySender);
+        $this->userRoleRepo->shouldReceive('getByUserId')->andReturn($this->dummyUserRoles);
         $this->mailRepo->shouldReceive('getByUserId')->andReturn($this->dummyFlags);
         $mailerMock = m::mock('Illuminate\Contracts\Mail\Mailer');
         $mailerMock->shouldReceive('send')->andReturn(null);
         $this->app->bind('Illuminate\Contracts\Mail\Mailer', function ($app) use ($mailerMock) {
             return $mailerMock;
         });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo);
+        $this->bindReposHelper($this->itemRepo, $this->userRepo, $this->mailRepo, $this->userRoleRepo);
         $handler = $this->app->make($this->handlerName);
 
         // TODO: test mail content
@@ -176,8 +207,9 @@ class EmailNotificationTest extends \TestCase
      * @param i  $itemRepo
      * @param i  $userRepo
      * @param i  $mailRepo
+     * @param i  $userRoleRepo
      */
-    protected function bindReposHelper($itemRepo, $userRepo, $mailRepo)
+    protected function bindReposHelper($itemRepo, $userRepo, $mailRepo, $userRoleRepo)
     {
         $this->app->bind($this->itemRepoName, function ($app) use ($itemRepo) {
             return $itemRepo;
@@ -187,6 +219,9 @@ class EmailNotificationTest extends \TestCase
         });
         $this->app->bind($this->userMailNotifyRepoName, function ($app) use ($mailRepo) {
             return $mailRepo;
+        });
+        $this->app->bind($this->userRoleRepoName, function ($app) use ($userRoleRepo ) {
+            return $userRoleRepo;
         });
     }
 }

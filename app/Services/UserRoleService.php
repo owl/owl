@@ -40,14 +40,20 @@ class UserRoleService extends Service
     }
 
     /**
-     * Get data by specified user ID
+     * 指定されたIDのユーザが退会済みかどうかチェック
      *
      * @param int  $userId
      *
-     * @return \stdClass | null
+     * @return bool
      */
-    public function getByUserId($userId)
+    public function isRetire($userId)
     {
-        return $this->userRoleRepo->getByUserId($userId);
+        $status = $this->userRoleRepo->getByUserId($userId);
+
+        if (is_null($status)) {
+            return false;
+        }
+
+        return $status->name === '退会済み';
     }
 }
