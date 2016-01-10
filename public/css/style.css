@@ -861,3 +861,8 @@ div.comment .arrow_box:before {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+#main .form-group:after {
+  content: "\A";
+  white-space: pre;
+}
