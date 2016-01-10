@@ -38,7 +38,7 @@ class MailNotifyService
         $flags = $this->mailNotify->getByUserId($userId);
 
         // HACK: レコード未登録ユーザはレコード挿入する
-        // ~v2.1.1使用ユーザ向け
+        // @link https://github.com/owl/owl/pull/75
         if (is_null($flags)) {
             $this->mailNotify->insert($this->getDefaultColomuns($userId));
             return $this->mailNotify->getByUserId($userId);
