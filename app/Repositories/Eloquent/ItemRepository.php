@@ -79,10 +79,9 @@ class ItemRepository implements ItemRepositoryInterface
         $ret = \DB::table('items as i')
             ->select('i.*', 'u.username', 'u.email')
             ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function($join)
-                {
-                    $join->on('tmp2.item_id', '=', 'i.id');
-                })
+            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function ($join) {
+                $join->on('tmp2.item_id', '=', 'i.id');
+            })
             ->whereNotNull('tmp2.item_id')
             ->where('i.published', '2')
             ->orderBy('i.updated_at', 'desc')
@@ -127,10 +126,9 @@ class ItemRepository implements ItemRepositoryInterface
         $ret = \DB::table('items as i')
             ->select('i.*', 'u.username', 'u.email')
             ->leftJoin('users as u', 'i.user_id', '=', 'u.id')
-            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function($join)
-                {
-                    $join->on('tmp2.item_id', '=', 'i.id');
-                })
+            ->leftJoin(\DB::raw('(' . $joinSubquery->toSql() .') as tmp2'), function ($join) {
+                $join->on('tmp2.item_id', '=', 'i.id');
+            })
             ->whereNull('tmp2.item_id')
             ->where('i.published', '2')
             ->orderBy('i.updated_at', 'desc')
