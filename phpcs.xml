@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="Owl_PSR2">
+  <description>Owl standard Based on PSR2</description>
+
+  <rule ref="PSR2">
+    <!-- 「タブでのインデントを禁止」を除外 -->
+    <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+    <!-- 「1行120字までの文字数制限」を除外 -->
+    <exclude name="Generic.Files.LineLength" />
+    <!-- 「行末は改行文字のみで空白等を認めない」を除外 -->
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile"/>
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile"/>
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines"/>
+    <!-- 「インデントのスペース間違い（1インデント4スペース）」を除外 -->
+    <exclude name="Generic.WhiteSpace.ScopeIndent"/>
+    <!-- 「class宣言後の { の前で改行する」を除外 -->
+    <exclude name="PSR2.Classes.ClassDeclaration"/>
+    <!-- 「if のあとはスペースを空ける」を除外 -->
+    <exclude name="Squiz.ControlStructures.ControlSignature"/>
+    <!-- 「function()後の { の前で改行する」を除外-->
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+  </rule>
+
+</ruleset>
