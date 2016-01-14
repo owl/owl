@@ -52,7 +52,7 @@ class ReminderService extends Service
     public function sendReminderMail($email, $token)
     {
         $data = ['token' => $token];
-        \Mail::send('emails.passwordReminder', $data, function($message) use ($email) {
+        \Mail::send('emails.passwordReminder', $data, function ($message) use ($email) {
             $message->to($email)->subject('パスワード再設定 - Owl');
         });
     }
