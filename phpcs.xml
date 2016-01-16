@@ -8,5 +8,11 @@
     <exclude name="Generic.Files.LineLength.TooLong"/>                              <!-- 17 -->
     <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>             <!-- 16 -->
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>    <!-- 9 -->
+
+    <exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>          <!-- 7 -->
+    <exclude name="Generic.Functions.FunctionCallArgumentSpacing"/>   <!-- 5 -->
+    <exclude name="Squiz.ControlStructures.ControlSignature"/>   <!-- 4 -->
+    <exclude name="PSR2.Namespaces.UseDeclaration.SpaceAfterLastUse"/>              <!-- 1 -->
+
   </rule>
 </ruleset>
