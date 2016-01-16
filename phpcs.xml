@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="Owl_PSR2">
+  <description>Owl standard Based on PSR2</description>
+  <rule ref="PSR2">
+    <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>                 <!-- 145 -->
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>                <!-- 21 -->
+    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>                <!-- 18 -->
+    <exclude name="Generic.Files.LineLength.TooLong"/>                              <!-- 17 -->
+    <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>             <!-- 16 -->
+    <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>    <!-- 9 -->
+  </rule>
+</ruleset>
