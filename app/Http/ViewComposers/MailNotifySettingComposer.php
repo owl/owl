@@ -61,7 +61,7 @@ class MailNotifySettingComposer
             $notifyFlags = $this->mailNotifyService->getSettings(
                 $this->userService->getCurrentUser()->id
             );
-            return view('user.edit._mail-notify', compact('notifyFlags'));
+            return view('user.edit._mail-notify', compact('notifyFlags'))->render();
         }
 
         return null;
@@ -75,7 +75,7 @@ class MailNotifySettingComposer
     protected function renderJs()
     {
         if ($this->notifyEnable) {
-            return view('user.edit._mail-notify-addJs');
+            return view('user.edit._mail-notify-addJs')->render();
         }
 
         return null;
@@ -89,7 +89,7 @@ class MailNotifySettingComposer
     protected function renderCss()
     {
         if ($this->notifyEnable) {
-            return view('user.edit._mail-notify-addCss');
+            return view('user.edit._mail-notify-addCss')->render();
         }
 
         return null;

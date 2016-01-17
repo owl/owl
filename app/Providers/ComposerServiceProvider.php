@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         \View::composers([
             'Owl\Http\ViewComposers\UserComposer'              => '*',
-            'Owl\Http\ViewComposers\MailNotifySettingComposer' => ['user.edit'],
+            'Owl\Http\ViewComposers\MailNotifySettingComposer' => ['user.edit']
         ]);
     }
 
