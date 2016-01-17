@@ -11,7 +11,10 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \View::composer('*', 'Owl\Http\ViewComposers\UserComposer');
+        \View::composers([
+            'Owl\Http\ViewComposers\UserComposer'              => '*',
+            'Owl\Http\ViewComposers\MailNotifySettingComposer' => ['user.edit'],
+        ]);
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php namespace Owl\Presenter\ViewComposers;
+<?php namespace Owl\Http\ViewComposers;
 
 /**
  * @copyright (c) owl
@@ -12,7 +12,7 @@ use Owl\Services\MailNotifyService;
 /**
  * Class MailNotifySettingComposer
  *
- * @package Owl\Presenter\ViewComposers
+ * @package Owl\Http\ViewComposers
  */
 class MailNotifySettingComposer
 {
