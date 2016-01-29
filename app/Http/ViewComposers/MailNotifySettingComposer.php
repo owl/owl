@@ -35,7 +35,8 @@ class MailNotifySettingComposer
         UserService       $userService,
         MailNotifyService $mailNotifyService
     ) {
-        $this->notifyEnable      = $config->get('notification.enabled');
+        $this->notifyEnable =
+            $config->get('notification.enabled') && $config->get('mail.mail_enable');
         $this->userService       = $userService;
         $this->mailNotifyService = $mailNotifyService;
     }
