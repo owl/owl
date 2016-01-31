@@ -208,4 +208,15 @@ return [
 
     ],
 
+  /*
+  |--------------------------------------------------------------------------
+  | Application Version
+  |--------------------------------------------------------------------------
+  |
+  | Version of the application that conforms to the Semantic Versioning
+  | Specification. if you want to know more detail, see http://semver.org/ .
+  |
+   */
+    'version' => '2.2.0',
+
   ];
