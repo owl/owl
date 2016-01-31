@@ -4,7 +4,7 @@
 curl -sS https://getcomposer.org/installer | php
 
 # install libraries
-php composer.phar install --no-dev
+php composer.phar install
 
 # prepare files
 cp .env.example .env
