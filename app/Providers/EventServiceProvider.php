@@ -26,6 +26,17 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        $this->registerSubscriber();
+    }
+
+    /**
+     * イベントハンドラーをSubscriberに登録
+     */
+    protected function registerSubscriber()
+    {
+        // メール送信イベントハンドラー
+        if (config('notification.enabled')) {
+            \Event::subscribe('\Owl\Handlers\Events\EmailNotification');
+        }
     }
 }

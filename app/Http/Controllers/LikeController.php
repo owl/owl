@@ -1,8 +1,10 @@
 <?php namespace Owl\Http\Controllers;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
 use Owl\Services\LikeService;
+use Owl\Events\Item\LikeEvent;
 
 class LikeController extends Controller
 {
@@ -33,9 +35,11 @@ class LikeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @param Dispatcher  $event
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Dispatcher $event)
     {
         $user = $this->userService->getCurrentUser();
 
@@ -43,6 +47,12 @@ class LikeController extends Controller
         $item = $this->itemService->getByOpenItemId($openItemId);
 
         $this->likeService->firstOrCreate($user->id, $item->id);
+
+        // fire Like Event
+        // TODO: do not generate instance in controller method
+        $event->fire(new LikeEvent(
+            $openItemId, (int) $user->id
+        ));
 
         return \Response::json();
     }

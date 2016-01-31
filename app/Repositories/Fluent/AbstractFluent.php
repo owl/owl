@@ -1,7 +1,20 @@
-<?php namespace Owl\Repositories\Fluent;
+<?php
 
+/**
+ * @copyright (c) owl
+ */
+namespace Owl\Repositories\Fluent;
+
+use Illuminate\Database\DatabaseManager;
+
+/**
+ * Abstract Class AbstractFluent
+ *
+ * @package Owl\Repositories\Fluent
+ */
 abstract class AbstractFluent
 {
+    /** @var string  Table name */
     protected $table = '';
 
     /**
@@ -84,5 +97,17 @@ abstract class AbstractFluent
         }
         $params['updated_at'] = $timestamp;
         return $params;
+    }
+
+    /**
+     * Return query builder.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function builder()
+    {
+        $table = is_null($this->table) ? $this->getTableName : $this->table;
+
+        return \DB::table($table);
     }
 }

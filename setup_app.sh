@@ -12,3 +12,7 @@ cp storage/database.sqlite_default storage/database.sqlite
 # database migration
 php artisan migrate --seed --force
 php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
+
+# run npm build
+npm i
+npm run build

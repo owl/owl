@@ -124,4 +124,9 @@ return [
 
     'pretend' => env('MAIL_PRETEND', false),
 
+    /**
+     * メール機能を有効にする
+     */
+    'mail_enable' => env('MAIL_ENABLE', false),
+
 ];

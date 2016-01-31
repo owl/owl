@@ -13,7 +13,7 @@
         {!! Form::hidden('open_item_id',$item->open_item_id) !!}
   </div>
   <div style="text-align:right">
-        {!! Form::submit('投稿する',array('class'=>'btn')) !!}
+        {!! Form::submit('投稿する',array('class'=>'btn item-comment-form')) !!}
     {!! Form::close() !!}
   </div>
 </div>

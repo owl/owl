@@ -1,6 +1,12 @@
 {
+  "scripts": {
+    "build": "gulp"
+  },
   "devDependencies": {
-    "gulp": "^3.8.8",
-    "laravel-elixir": "*"
+    "gulp": "^3.8.8"
+  },
+  "dependencies": {
+    "bootstrap-switch": "^3.3.2",
+    "pnotify": "^3.0.0"
   }
 }

@@ -1,23 +1,49 @@
 <?php namespace Owl\Services;
 
+/**
+ * @copyright (c) owl
+ */
+
 use Owl\Services\UserRoleService;
 use Owl\Repositories\UserRepositoryInterface;
 use Owl\Repositories\LoginTokenRepositoryInterface;
+use Owl\Repositories\UserMailNotificationRepositoryInterface;
 use Carbon\Carbon;
 
+/**
+ * Class UserService
+ *
+ * @package Owl\Services
+ */
 class UserService extends Service
 {
+    /** @var UserRepositoryInterface */
     protected $userRepo;
+
+    /** @var LoginTokenRepositoryInterface */
     protected $loginTokenRepo;
 
+    /** @var UserMailNotificationRepositoryInterface */
+    protected $mailNotifyRepo;
+
+    /**
+     * @param UserRepositoryInterface                  $userRepo
+     * @param LoginTokenRepositoryInterface            $loginTokenRepo
+     * @param UserMailNotificationRepositoryInterface  $mailNotifyRepo
+     */
     public function __construct(
         UserRepositoryInterface $userRepo,
-        LoginTokenRepositoryInterface $loginTokenRepo
+        LoginTokenRepositoryInterface $loginTokenRepo,
+        UserMailNotificationRepositoryInterface $mailNotifyRepo
     ) {
-        $this->userRepo = $userRepo;
+        $this->userRepo       = $userRepo;
         $this->loginTokenRepo = $loginTokenRepo;
+        $this->mailNotifyRepo = $mailNotifyRepo;
     }
 
+    /**
+     * @return \stdclass | bool
+     */
     public function getCurrentUser()
     {
         if (\Session::has('User')) {
@@ -27,6 +53,9 @@ class UserService extends Service
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isOwner()
     {
         if (\Session::has('User')) {
@@ -41,8 +70,8 @@ class UserService extends Service
     /**
      * Create a new user.
      *
-     * @param mixed $credentials (email, username, password)
-     * @return Illuminate\Database\Eloquent\Model
+     * @param mixed  $credentials (email, username, password)
+     * @return \stdclass
      */
     public function create(array $credentials = [])
     {
@@ -51,17 +80,28 @@ class UserService extends Service
         $object->email = $credentials['email'];
         $object->password = $credentials['password'];
         $object->role = UserRoleService::ROLE_ID_MEMBER;
-        return $this->userRepo->create($object);
+        $user = $this->userRepo->create($object);
+
+        // user_mail_notifictionsテーブルにレコード挿入
+        $this->mailNotifyRepo->insert([
+            'user_id'                    => $user->id,
+            'comment_notification_flag'  => 0,
+            'favorite_notification_flag' => 0,
+            'like_notification_flag'     => 0,
+            'edit_notification_flag'     => 0,
+        ]);
+
+        return $user;
     }
 
     /**
      * Update a user information(username, email).
      *
-     * @param int $id
-     * @param string $username
-     * @param string $email
-     * @param int $role$
-     * @return Illuminate\Database\Eloquent\Model
+     * @param int     $id
+     * @param string  $username
+     * @param string  $email
+     * @param int     $role$
+     * @return \stdclass
      */
     public function update($id, $username, $email, $role)
     {
@@ -71,8 +111,8 @@ class UserService extends Service
     /**
      * Get a user by user id.
      *
-     * @param int $id
-     * @return Illuminate\Database\Eloquent\Model
+     * @param int  $id
+     * @return \stdclass
      */
     public function getById($id)
     {
@@ -82,8 +122,8 @@ class UserService extends Service
     /**
      * Get a user by username.
      *
-     * @param string $username
-     * @return Illuminate\Database\Eloquent\Model
+     * @param string  $username
+     * @return \stdclass
      */
     public function getByUsername($username)
     {
@@ -93,8 +133,8 @@ class UserService extends Service
     /**
      * Get a user by email.
      *
-     * @param string $email
-     * @return Illuminate\Database\Eloquent\Model
+     * @param string  $email
+     * @return \stdclass
      */
     public function getByEmail($email)
     {
@@ -104,8 +144,8 @@ class UserService extends Service
     /**
      * Get users by username like search.
      *
-     * @param string $username
-     * @return Illuminate\Database\Eloquent\Model
+     * @param string  $username
+     * @return \stdclass
      */
     public function getLikeUsername($username)
     {
@@ -115,8 +155,8 @@ class UserService extends Service
     /**
      * Get a user by login token.
      *
-     * @param string $token
-     * @return Illuminate\Database\Eloquent\Model
+     * @param string  $token
+     * @return \stdclass | bool
      */
     public function getByToken($token)
     {
@@ -132,11 +172,17 @@ class UserService extends Service
         }
     }
 
+    /**
+     * @return array
+     */
     public function getOwners()
     {
         return $this->userRepo->getOwners();
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         return $this->userRepo->getAll();
@@ -144,8 +190,8 @@ class UserService extends Service
 
     /**
      * get users array
-     * 
-     * @param object $user
+     *
+     * @param object  $user
      * @return array
      */
     public function getUsersToArray($users)

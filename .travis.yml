@@ -16,5 +16,6 @@ before_script:
   - sh ./setup_app.sh
   # exec phpunit
   - vendor/bin/behat --colors
+  - vendor/bin/phpunit
   # exec codeSniffer
   - ./phpcs_check.sh

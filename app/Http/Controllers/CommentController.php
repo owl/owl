@@ -1,8 +1,10 @@
 <?php namespace Owl\Http\Controllers;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Owl\Services\UserService;
 use Owl\Services\ItemService;
 use Owl\Services\CommentService;
+use Owl\Events\Item\CommentEvent;
 
 class CommentController extends Controller
 {
@@ -21,7 +23,12 @@ class CommentController extends Controller
         $this->commentService = $commentService;
     }
 
-    public function create()
+    /**
+     * @param Dispatcher  $event
+     *
+     * @return \Illuminate\View\View | string
+     */
+    public function create(Dispatcher $event)
     {
         $item = $this->itemService->getByOpenItemId(\Input::get('open_item_id'));
         $user = $this->userService->getCurrentUser();
@@ -36,6 +43,13 @@ class CommentController extends Controller
         $object->username = $user->username;
         $object->email = $user->email;
         $comment = $this->commentService->createComment($object);
+
+        // fire event
+        // TODO: do not create instance in controller method
+        $event->fire(new CommentEvent(
+            $item->open_item_id, (int) $user->id, \Input::get('body')
+        ));
+
         return \View::make('comment.body', compact('comment'));
     }
 

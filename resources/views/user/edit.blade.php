@@ -117,8 +117,18 @@
         プロフィール画像を設定したい場合は、<a href="http://ja.gravatar.com/" target="_blank">こちら</a>から登録しEmailと画像を紐付けください。
     </p>
 
+    {{-- injected by ViewComposer --}}
+    @yield('mail_notify_setting')
 @stop
 
 @section('contents-sidebar')
     @include('layouts.contents-sidebar')
+@stop
+
+@section('addCss')
+    @yield('mail_notify_setting_addCss')
+@stop
+
+@section('addJs')
+    @yield('mail_notify_setting_addJs')
 @stop
