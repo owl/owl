@@ -8,18 +8,20 @@ This software is released under the MIT License, see LICENSE.txt.
 ## Feature
 
 - Markdown
-- Syntax Highight
+- Syntax Highlight
 - Like button
 - Comment
 - Favorite
 - Tags
 - Full Text Search
 - Item Publishing Settings (Public, Limited, Only Me)
+- Mail Notification
 
 ## Requirements
 
 - PHP 5.4
 - SQLite 3
+- npm
 
 # How to setup
 1.Clone the project
