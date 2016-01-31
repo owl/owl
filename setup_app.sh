@@ -7,6 +7,9 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install --no-dev
 
 # prepare files
+cp .env.example .env
+php artisan key:generate
+
 cp storage/database.sqlite_default storage/database.sqlite
 chmod -R 777 storage/
 
