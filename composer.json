@@ -7,7 +7,6 @@
         "laravel/framework": "5.0.*",
         "laravelcollective/html": "~5.0",
         "doctrine/dbal": "~2.3",
-        "twitter/bootstrap": "3.3.*",
         "cebe/markdown": "1.1.*",
         "cogpowered/finediff": "0.3.*"
     },

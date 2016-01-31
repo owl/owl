@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     {!! HTML::style('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/flick/jquery-ui.css') !!}
     {!! HTML::style('http://fonts.googleapis.com/css?family=Lobster') !!}
-    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('packages/bootstrap/css/bootstrap.min.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('packages/bootstrap/dist/css/bootstrap.min.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/style.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/jquery.tagit.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/highight.js-8.1.github.min.css') !!}">
@@ -87,7 +87,7 @@ $.ajaxSetup({
           }
         });
 </script>
-<script src="{!! \HTML::cached_asset('/packages/bootstrap/js/bootstrap.min.js') !!}"></script>
+<script src="{!! \HTML::cached_asset('/packages/bootstrap/dist/js/bootstrap.min.js') !!}"></script>
 <script src="{!! \HTML::cached_asset('js/highlight.js-8.1.min.js') !!}"></script>
 <script src="{!! \HTML::cached_asset('js/tag-it.js') !!}"></script>
 <script>hljs.initHighlightingOnLoad();</script>

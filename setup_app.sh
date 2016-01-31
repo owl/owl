@@ -15,7 +15,6 @@ chmod -R 777 storage/
 
 # database migration
 php artisan migrate --seed --force
-php artisan vendor:publish --provider="Owl\Providers\TwitterBootstrapServiceProvider"
 
 # run npm build
 npm i
