@@ -6,7 +6,9 @@
     "gulp": "^3.8.8"
   },
   "dependencies": {
+    "bootstrap": "^3.3.6",
     "bootstrap-switch": "^3.3.2",
-    "pnotify": "^3.0.0"
+    "pnotify": "^3.0.0",
+    "zeroclipboard": "^2.2.0"
   }
 }

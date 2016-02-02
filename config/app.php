@@ -152,7 +152,6 @@ return [
       'Owl\Providers\RouteServiceProvider',
       'Owl\Providers\ComposerServiceProvider',
       'Owl\Providers\MacroServiceProvider',
-      'Owl\Providers\TwitterBootstrapServiceProvider',
       'Owl\Providers\ValidatorServiceProvider',
       'Owl\Providers\RepositoriesServiceProvider',
 
