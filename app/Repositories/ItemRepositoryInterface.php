@@ -27,6 +27,13 @@ interface ItemRepositoryInterface
     public function getByOpenItemIdWithComment($open_item_id);
 
     /**
+     * Get all items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAll();
+
+    /**
      * Get all published items.
      *
      * @return Illuminate\Database\Eloquent\Model

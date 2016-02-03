@@ -54,6 +54,16 @@ class ItemService extends Service
     }
 
     /**
+     * Get all items.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function getAll()
+    {
+        return $this->itemRepo->getAll();
+    }
+
+    /**
      * Get all published items.
      *
      * @return Illuminate\Database\Eloquent\Model

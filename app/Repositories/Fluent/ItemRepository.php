@@ -64,6 +64,20 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
     }
 
     /**
+     * Get all items.
+     *
+     * @return stdClass
+     */
+    public function getAll()
+    {
+        return \DB::table('items')
+                    ->select('items.*', 'users.email', 'users.username')
+                    ->join('users', 'items.user_id', '=', 'users.id')
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
+    }
+
+    /**
      * Get all published items.
      *
      * @return stdClass
