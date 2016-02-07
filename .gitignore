@@ -9,7 +9,7 @@ npm-debug.log
 .env
 /public/packages/*
 /public/images/*
-/public/css
+/public/css/*
 storage/debugbar
 storage/database.sqlite
 composer.phar
