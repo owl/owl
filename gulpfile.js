@@ -1,6 +1,5 @@
 var gulp      = require('gulp'),
-    stylus    = require('gulp-stylus'),
-    bootstrap = require('bootstrap-styl');
+    stylus    = require('gulp-stylus');
 
 // public/packages配下に展開したいnpmのパッケージ名
 var modules = [
@@ -26,8 +25,7 @@ gulp.task('stylus', function () {
   }
   return gulp.src(stylusPath.src)
     .pipe(stylus({
-      compress: true,
-      use: [bootstrap()]
+      compress: true
     }))
     .on('error', function (err) {
       console.error('Error', err.message);
