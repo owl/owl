@@ -1,5 +1,5 @@
-var gulp      = require('gulp'),
-    stylus    = require('gulp-stylus');
+var gulp   = require('gulp'),
+    stylus = require('gulp-stylus');
 
 // public/packages配下に展開したいnpmのパッケージ名
 var modules = [
