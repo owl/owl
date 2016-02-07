@@ -1,9 +1,0 @@
-
-@media print {
-  .tag-label {
-    display:none!important;
-  }
-  .item-statuses, .media, .media-sidebar, .slide_button, #sidebar, #footer, .like-area{
-    display:none;
-  }
-}
