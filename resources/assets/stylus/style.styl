@@ -491,7 +491,7 @@ a {
   padding: 4pt;
   color: black;
   background-color: gray;
-  filter: alpha(opacity=80);
+  filter: unquote("alpha(opacity=80)");
   -moz-opacity: 0.8;
   opacity: 0.8;
   z-index: 1001;
@@ -573,7 +573,7 @@ a {
 }
 
 .slide_contents img {
-  max-width: 100%;*
+  max-width: 100%;
   display: block;
   margin-right: auto;
   margin-left: auto;

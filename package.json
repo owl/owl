@@ -8,6 +8,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "bootstrap-switch": "^3.3.2",
+    "gulp-stylus": "^2.3.0",
     "pnotify": "^3.0.0",
     "zeroclipboard": "^2.2.0"
   }

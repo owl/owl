@@ -1,4 +1,5 @@
-var gulp = require('gulp');
+var gulp   = require('gulp'),
+    stylus = require('gulp-stylus');
 
 // public/packages配下に展開したいnpmのパッケージ名
 var modules = [
@@ -16,4 +17,20 @@ gulp.task('export', function() {
   });
 });
 
-gulp.task('default', ['export']);
+// stylus task
+gulp.task('stylus', function () {
+  var stylusPath = {
+    'src': 'resources/assets/stylus/**/!(_)*.styl',
+    'dest': 'public/css'
+  }
+  return gulp.src(stylusPath.src)
+    .pipe(stylus({
+      compress: true
+    }))
+    .on('error', function (err) {
+      console.error('Error', err.message);
+    })
+    .pipe(gulp.dest(stylusPath.dest));
+});
+
+gulp.task('default', ['stylus', 'export']);
