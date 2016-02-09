@@ -83,7 +83,7 @@ class StockRepository extends AbstractFluent implements StockRepositoryInterface
     {
         return \DB::table($this->getTableName())
             ->where('item_id', '=', $item_id)
-            ->first();
+            ->get();
     }
 
     /**
