@@ -26,7 +26,7 @@ class SearchService extends Service
      */
     public function itemMatch($str, $limit = 10, $offset = 0)
     {
-        return $this->itemFtsRepo->match($str, $limit = 10, $offset = 0);
+        return $this->itemFtsRepo->match($str, $limit, $offset);
     }
 
     /**
@@ -74,7 +74,7 @@ class SearchService extends Service
      */
     public function tagMatch($str, $limit = 10, $offset = 0)
     {
-        return $this->tagFtsRepo->match($str, $limit = 10, $offset = 0);
+        return $this->tagFtsRepo->match($str, $limit, $offset);
     }
 
     /**
