@@ -96,7 +96,7 @@
             </div>
             @else
             <div class="media-sidebar">
-                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id">この記事をお気に入りする</a>
+                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id" data-loading-text="通信中">この記事をお気に入りする</a>
                 <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
             </div>
             @endif
@@ -132,7 +132,7 @@
     @else
     <div class="like-area">
         <div class="like-area-button">
-            <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a><span id="like_count">{{ count($like_users->like) }}</span>人がいいね！と言っています。
+            <a href="javascript:void(0)" id="like_id" class="btn btn-primary btn-xs" data-loading-text="通信中"><span class="glyphicon glyphicon-thumbs-up"></span> いいね！</a><span id="like_count">{{ count($like_users->like) }}</span>人がいいね！と言っています。
         </div>
         <div class="like-area-icon">
             @foreach ($like_users->like as $like_user)
