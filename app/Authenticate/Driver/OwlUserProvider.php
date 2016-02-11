@@ -76,7 +76,10 @@ class OwlUserProvider implements UserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        // TODO
+        $this->userService->updateToken(
+            $user->getAuthIdentifier(),
+            $token
+        );
     }
 
     /**
@@ -111,7 +114,7 @@ class OwlUserProvider implements UserProvider
      */
     protected function getGitHubUser($user)
     {
-        if(!is_null($user)) {
+        if (!is_null($user)) {
             return new OwlUser((array) $user);
         }
     }

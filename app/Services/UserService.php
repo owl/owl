@@ -173,6 +173,22 @@ class UserService extends Service
     }
 
     /**
+     * Update the "remember me" token by user ID.
+     *
+     * @param int     $userId
+     * @param string  $token
+     *
+     * @return bool
+     */
+    public function updateToken($userId, $token)
+    {
+        return !!$this->loginTokenRepo->update(
+            [ 'token'   => $token  ],
+            [ 'user_id' => $userId ]
+        );
+    }
+
+    /**
      * @return array
      */
     public function getOwners()
