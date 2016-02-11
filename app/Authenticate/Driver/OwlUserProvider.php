@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Owl\Authenticate\Driver\OwlUser;
 use Owl\Services\UserService;
+use Owl\Services\AuthService;
 
 /**
  * Class OwlUserProvider
