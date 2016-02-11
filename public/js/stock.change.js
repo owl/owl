@@ -5,7 +5,8 @@ $(function() {
    * @return void
    */
   var loadingButton = function(selector) {
-    $(selector).button('loading');
+    $(selector).text('通信中');
+    $(selector).attr('disabled', 'disabled');
   };
 
   /**
@@ -14,18 +15,25 @@ $(function() {
    * @return void
    */
   var resetButton = function(selector) {
-    $(selector).button('reset');
+    $(selector).removeAttr('disabled');
   };
 
+  /**
+   * @description open_idを取得
+   * @return {string}
+   */
+  var getOpenId = function() {
+    return $('#open_id').val();
+  };
+
+  /** お気に入りされた時 */
   $(document).on('click', '#stock_id', function() {
     loadingButton(this);
-
-    var open_id = $("#open_id").val();
 
     var ajaxPromise = $.ajax({
       type    : "POST",
       url     : "/favorites",
-      data    : {"open_item_id": open_id},
+      data    : {"open_item_id": getOpenId()},
       success : function(msg){
       }
     }).promise();
@@ -40,11 +48,11 @@ $(function() {
     });
   });
 
+  /** お気に入りが解除された時 */
   $(document).on('click', '#unstock_id', function() {
-    var open_id = $("#open_id").val();
     var ajaxPromise = $.ajax({
       type    : "POST",
-      url     : "/favorites/" + open_id,
+      url     : "/favorites/" + getOpenId(),
       data    : {"_method": "delete"},
       success : function(msg){
       }

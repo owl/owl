@@ -96,7 +96,7 @@
             </div>
             @else
             <div class="media-sidebar">
-                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id" data-loading-text="通信中">この記事をお気に入りする</a>
+                <a href="javascript:void(0)" class="btn btn-success btn-block" id="stock_id">この記事をお気に入りする</a>
                 <input type="hidden" value="{{{ $item->open_item_id }}}" id='open_id' />
             </div>
             @endif
