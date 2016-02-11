@@ -8,7 +8,6 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Owl\Authenticate\Driver\OwlUser;
 use Owl\Services\UserService;
-use Owl\Services\AuthService;
 
 /**
  * Class OwlUserProvider
@@ -20,21 +19,14 @@ class OwlUserProvider implements UserProvider
     /** @var UserService */
     protected $userService;
 
-    /** @var AuthService */
-    protected $authService;
-
     /**
      * Create constructor.
      *
      * @param UserService  $userService
-     * @param AuthService  $authService
      */
-    public function __construct(
-        UserService $userService,
-        AuthService $authService
-    ) {
+    public function __construct(UserService $userService)
+    {
         $this->userService = $userService;
-        $this->authService = $authService;
     }
 
     /**
@@ -113,7 +105,7 @@ class OwlUserProvider implements UserProvider
      *
      * @return OwlUser
      */
-    protected function getGitHubUser($user)
+    protected function getOwlUser($user)
     {
         if (!is_null($user)) {
             return new OwlUser((array) $user);
