@@ -5,7 +5,8 @@ $(function() {
    * @return void
    */
   var buttonLoading = function(selector) {
-    $(selector).button('loading');
+    $(selector).text('通信中');
+    $(selector).attr('disabled', 'disabled');
   };
 
   /**
@@ -14,7 +15,7 @@ $(function() {
    * @return void
    */
   var buttonReset = function(selector) {
-    $(selector).button('reset');
+    $(selector).removeAttr('disabled');
   };
 
   $(document).on('click', '#like_id', function() {
