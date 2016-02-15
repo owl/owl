@@ -21,6 +21,7 @@ This software is released under the MIT License, see LICENSE.txt.
 ## Requirements
 
 - PHP 5.4
+  - php-mcrypt
 - SQLite 3
 - npm
 
