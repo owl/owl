@@ -25,6 +25,20 @@ abstract class AbstractFluent
     abstract public function getTableName();
 
     /**
+     * Find a record.
+     *
+     * @param array  $wkey
+     * @param
+     * @return \stcClass | null
+     */
+    public function get(array $wkey)
+    {
+        return \DB::table($this->getTableName())
+            ->where($wkey)
+            ->first();
+    }
+
+    /**
      * Insert a record.
      *
      * @param $params array ：key(column name) => value
