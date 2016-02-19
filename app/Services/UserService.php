@@ -182,7 +182,7 @@ class UserService extends Service
      */
     public function updateToken($userId, $token)
     {
-        return !!$this->loginTokenRepo->update(
+        return (bool) $this->loginTokenRepo->update(
             [ 'token'   => $token  ],
             [ 'user_id' => $userId ]
         );
