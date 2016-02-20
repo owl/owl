@@ -49,6 +49,13 @@ access http://localhost:3000
 
 You can sign in as an owner with id:admin pw:password
 
+# How to update
+1.execute update shell
+
+```
+$ sh ./update_app.sh
+```
+
 ## Test
 Behat acceptance test
 (after execute `setup_app.sh`)
