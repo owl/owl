@@ -12,6 +12,7 @@ php artisan key:generate
 
 cp storage/database.sqlite_default storage/database.sqlite
 chmod -R 777 storage/
+chmod -R 777 public/images/
 
 # database migration
 php artisan migrate --seed --force
