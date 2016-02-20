@@ -114,7 +114,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 
 # database migration
-php artisan migrate
+php artisan migrate --seed
 
 # prepare files
 cp .env.example .env
