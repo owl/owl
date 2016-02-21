@@ -10,6 +10,7 @@ use Owl\Services\TemplateService;
 use Owl\Http\Requests\ItemStoreRequest;
 use Owl\Http\Requests\ItemUpdateRequest;
 use Owl\Events\Item\EditEvent;
+use Owl\Libraries\SlackUtils;
 
 class ItemController extends Controller
 {
@@ -19,6 +20,7 @@ class ItemController extends Controller
     protected $likeService;
     protected $stockService;
     protected $templateService;
+    protected $slackUtils;
 
     public function __construct(
         UserService $userService,
@@ -26,7 +28,8 @@ class ItemController extends Controller
         ItemService $itemService,
         LikeService $likeService,
         StockService $stockService,
-        TemplateService $templateService
+        TemplateService $templateService,
+        SlackUtils $slackUtils
     ) {
         $this->userService = $userService;
         $this->tagService = $tagService;
@@ -34,6 +37,7 @@ class ItemController extends Controller
         $this->likeService = $likeService;
         $this->stockService = $stockService;
         $this->templateService = $templateService;
+        $this->slackUtils = $slackUtils;
     }
 
     public function create($templateId = null)
@@ -69,6 +73,8 @@ class ItemController extends Controller
             $item = $this->itemService->getById($item->id);
             $this->tagService->syncTags($item, $tag_ids);
         }
+
+        $this->slackUtils->postCreateMessage($item, $user);
 
         return \Redirect::route('items.show', [$item->open_item_id]);
     }
