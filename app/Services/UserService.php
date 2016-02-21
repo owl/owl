@@ -109,6 +109,17 @@ class UserService extends Service
     }
 
     /**
+     * Get a user by specified keys.
+     *
+     * @param array  $wkey
+     * @return \stdClass | null
+     */
+    public function getUser(array $wkey)
+    {
+        return $this->userRepo->get($wkey);
+    }
+
+    /**
      * Get a user by user id.
      *
      * @param int  $id
