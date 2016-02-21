@@ -67,18 +67,45 @@ class OwlUserProviderTest extends \TestCase
         $this->assertNull($owlUserProvider->updateRememberToken($owlUser, 'token'));
     }
 
-    public function testRetrieveByCredentialsReturnsNull()
+    public function testRetrieveByCredentialsReturnsNullWithOutPassword()
     {
         $owlUserProvider = $this->app->make($this->className);
 
         $this->assertNull($owlUserProvider->retrieveByCredentials([]));
     }
 
-    public function testValidateCredentialsReturnTrue()
+    public function testRetrieveByCredentialsReturnsOwlUser()
     {
-        $owlUser = new OwlUser([]);
+        $credentials = [
+            'password' => 'password',
+            'username' => 'username',
+        ];
+        $this->userService->shouldReceive('getUser')->andReturn('user_data');
         $owlUserProvider = $this->app->make($this->className);
 
-        $this->assertTrue($owlUserProvider->validateCredentials($owlUser, []));
+        $owlUser = $owlUserProvider->retrieveByCredentials($credentials);
+
+        $this->assertInstanceOf('Owl\Authenticate\Driver\OwlUser', $owlUser);
+        $this->assertEquals(new OwlUser((array) 'user_data'), $owlUser);
+    }
+
+    public function testValidateCredentialsReturnTrue()
+    {
+        $originalPass = 'test_password';
+        $password = password_hash($originalPass, PASSWORD_DEFAULT);
+        $owlUser = new OwlUser(['password' => $password]);
+        $owlUserProvider = $this->app->make($this->className);
+
+        $this->assertTrue($owlUserProvider->validateCredentials($owlUser, ['password' => $originalPass]));
+    }
+
+    public function testValidateCredentialsReturnFalse()
+    {
+        $originalPass = 'test_password';
+        $password = password_hash($originalPass, PASSWORD_DEFAULT);
+        $owlUser = new OwlUser(['password' => $password]);
+        $owlUserProvider = $this->app->make($this->className);
+
+        $this->assertFalse($owlUserProvider->validateCredentials($owlUser, ['password' => 'wrong_password']));
     }
 }

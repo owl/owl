@@ -69,10 +69,7 @@ class OwlUserProvider implements UserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        $this->userService->updateToken(
-            $user->getAuthIdentifier(),
-            $token
-        );
+        $this->userService->updateToken($user->getAuthIdentifier(), $token);
     }
 
     /**
@@ -83,7 +80,22 @@ class OwlUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        return;
+        // Do not allowing login without password.
+        if (!array_key_exists('password', $credentials)) {
+            return;
+        }
+
+        $wkey = [];
+
+        foreach ($credentials as $key => $value) {
+            if (!str_contains($key, 'password')) {
+                $wkey = [$key => $value];
+            }
+        }
+
+        $user = $this->userService->getUser($wkey);
+
+        return $this->getOwlUser($user);
     }
 
     /**
@@ -95,7 +107,14 @@ class OwlUserProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        return true;
+        $password = $user->getAuthPassword();
+
+        if (password_verify($credentials['password'], $password)) {
+            return true;
+        }
+
+        // 不正なパスワード
+        return false;
     }
 
     /**
