@@ -9,12 +9,16 @@ php:
 sudo:
   false
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_script:
   # full clone @see http://qiita.com/azu/items/de4b5bc7b9c29480540e
   - git fetch --unshallow
   - git fetch origin master:refs/remotes/origin/master
   # setup application
-  - sh ./setup_app.sh
+  - ./setup_app.sh
   # exec phpunit
   - vendor/bin/behat --colors
   - vendor/bin/phpunit

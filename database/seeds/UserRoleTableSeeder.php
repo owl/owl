@@ -1,32 +1,32 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Owl\Repositories\Eloquent\Models\UserRole;
+use Owl\Repositories\Fluent\UserRoleRepository;
 
 class UserRoleTableSeeder extends Seeder
 {
     public function run()
     {
+        $userRoleRepo = new UserRoleRepository();
+
+        // check data
+        $ret = $userRoleRepo->getAll();
+
+        if (! empty($ret)) {
+            echo "dont need UserRoleTableSeeder\n";
+            return;
+        }
+
         // member
-        $user = new UserRole;
-        $user->fill(array(
-            'name' => 'メンバー',
-        ));
-        $user->save();
+        $params = ['name' => 'メンバー'];
+        $userRoleRepo->insert($params);
 
         // owner
-        $user = new UserRole;
-        $user->fill(array(
-            'name' => 'オーナー',
-        ));
-        $user->save();
+        $params = ['name' => 'オーナー'];
+        $userRoleRepo->insert($params);
 
         // removed
-        $user = new UserRole;
-        $user->fill(array(
-            'name' => '退会済み',
-        ));
-        $user->save();
+        $params = ['name' => '退会済み'];
+        $userRoleRepo->insert($params);
     }
 }
-

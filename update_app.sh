@@ -94,8 +94,18 @@ message ""
 # ################################################################
 
 message ""
-message "インストールしています..."
+message "アップデートしています..."
 message ""
+
+# check .env file
+if [ ! -e .env ]; then
+    message "設定ファイル(.env)が見つかりませんでした。"
+    message "必要に応じて.env.exampleをコピーしてください。"
+    exit 1
+fi
+
+# update core files
+git pull origin master
 
 # download composer.phar
 curl -sS https://getcomposer.org/installer | php
@@ -103,16 +113,12 @@ curl -sS https://getcomposer.org/installer | php
 # install libraries
 php composer.phar install
 
+# database migration
+php artisan migrate --seed
+
 # prepare files
 cp .env.example .env
 php artisan key:generate
-
-cp storage/database.sqlite_default storage/database.sqlite
-chmod -R 777 storage/
-chmod -R 777 public/images/
-
-# database migration
-php artisan migrate --seed
 
 # run npm build
 npm i
