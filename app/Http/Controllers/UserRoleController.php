@@ -23,7 +23,7 @@ class UserRoleController extends Controller
     public function initial()
     {
         $owners = $this->userService->getOwners();
-        if (!$owners->isEmpty()) {
+        if (! empty($owners)) {
             \App::abort(500);
         }
 
@@ -38,7 +38,7 @@ class UserRoleController extends Controller
     public function initialRegister()
     {
         $owners = $this->userService->getOwners();
-        if (!$owners->isEmpty()) {
+        if (! empty($owners)) {
             \App::abort(500);
         }
 
