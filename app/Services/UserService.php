@@ -116,7 +116,7 @@ class UserService extends Service
      */
     public function getUser(array $wkey)
     {
-        return $this->userRepo->get($wkey);
+        return $this->userRepo->find($wkey);
     }
 
     /**

@@ -31,7 +31,7 @@ abstract class AbstractFluent
      * @param
      * @return \stcClass | null
      */
-    public function get(array $wkey)
+    public function find(array $wkey)
     {
         return \DB::table($this->getTableName())
             ->where($wkey)
