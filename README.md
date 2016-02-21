@@ -1,6 +1,6 @@
 # Owl [![Build Status](https://travis-ci.org/owl/owl.svg?branch=master)](https://travis-ci.org/owl/owl)
 
-Owl is a simple team collaboration tool.
+Owl is a simple team collaboration tool.  
 This software is released under the MIT License, see LICENSE.txt.
 
 ![screenshot](https://raw.githubusercontent.com/wiki/fortkle/owl/images/owl_screenshot.png)
@@ -17,6 +17,12 @@ This software is released under the MIT License, see LICENSE.txt.
 - Item Publishing Settings (Public, Limited, Only Me)
 - Mail Notification
 - Export data as .md files (YAML front matter)
+
+# Demo
+
+[http://demo-owl.fortkle.com/](http://demo-owl.fortkle.com/)  
+
+Data will be deleted in a few months.
 
 ## Requirements
 
