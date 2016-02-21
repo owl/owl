@@ -2,7 +2,6 @@
 
 use Mockery as m;
 use Mockery\MockInterface as i;
-use Illuminate\Database\DatabaseManager;
 use Owl\Services\UserService;
 
 class UserServiceTest extends \TestCase
