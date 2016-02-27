@@ -45,6 +45,20 @@ class SlackUtils
         return $this->postMessage($params);
     }
 
+    public function postEditMessage($item, $user)
+    {
+        $params = [];
+        $params['fallback']    = "記事が編集されました。( " . \Request::root() . '/items/' . $item->open_item_id . " )";
+        $params['pretext']     = \Request::root() . '/items/' . $item->open_item_id;
+        $params['author_name'] = $user->username;
+        $params['author_link'] = \Request::root() . '/' . $user->username;
+        $params['author_icon'] = \HTML::gravator($user->email, 16, 'mm', 'g', false);
+        $params['title']       = $item->title;
+        $params['title_link']  = \Request::root() . '/items/' . $item->open_item_id;
+        $params['text']        = mb_strimwidth($item->body, 0, 200, "...");
+        return $this->postMessage($params);
+    }
+
     protected function formatParams($params)
     {
         return [
