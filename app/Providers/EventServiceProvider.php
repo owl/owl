@@ -39,7 +39,8 @@ class EventServiceProvider extends ServiceProvider
             \Event::subscribe('\Owl\Handlers\Events\EmailNotification');
         }
         // Slack通知イベントハンドラー
-        if (config('notification.slack.enabled') && !empty(config('notification.slack.webhook_url'))) {
+        $slack_webhook_url = config('notification.slack.webhook_url'); // for PHP <= 5.4
+        if (config('notification.slack.enabled') && !empty($slack_webhook_url)) {
             \Event::subscribe('\Owl\Handlers\Events\SlackNotification');
         }
     }
