@@ -4,6 +4,9 @@ use Illuminate\Contracts\Config\Repository as Config;
 
 class SlackUtils
 {
+    /** enable */
+    public $is_enabled = false;
+
     /** Slack webhook url */
     public $webhook_url = '';
 
@@ -15,12 +18,13 @@ class SlackUtils
 
     public function __construct(Config $config)
     {
+        $this->is_enabled  = $config->get('notification.slack.enabled');
         $this->webhook_url = $config->get('notification.slack.webhook_url');
     }
 
     public function postMessage($params)
     {
-        if (empty($this->webhook_url)) {
+        if (! $this->is_enabled) {
             return false;
         }
 
