@@ -194,7 +194,7 @@ class UserService extends Service
     public function updateToken($userId, $token)
     {
         $params = compact('token');
-        $wkey   = compact('user_id');
+        $wkey   = ['user_id' => $userId];
 
         return (bool) $this->loginTokenRepo->update($params, $wkey);
     }
