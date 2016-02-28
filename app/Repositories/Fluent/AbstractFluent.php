@@ -27,14 +27,14 @@ abstract class AbstractFluent
     /**
      * Find a record.
      *
-     * @param array  $wkey
-     * @param
+     * @param array  $conditions
+     *
      * @return \stcClass | null
      */
-    public function find(array $wkey)
+    public function find(array $conditions)
     {
         return \DB::table($this->getTableName())
-            ->where($wkey)
+            ->where($conditions)
             ->first();
     }
 
