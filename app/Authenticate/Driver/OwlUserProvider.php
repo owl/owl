@@ -76,7 +76,7 @@ class OwlUserProvider implements UserProvider
      * Retrieve a user by the given credentials.
      *
      * @param array $credentials
-     * @return null
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {
@@ -103,7 +103,7 @@ class OwlUserProvider implements UserProvider
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param array $credentials
-     * @return true
+     * @return bool
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
