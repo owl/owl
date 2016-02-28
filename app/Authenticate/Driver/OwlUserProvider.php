@@ -89,7 +89,7 @@ class OwlUserProvider implements UserProvider
 
         foreach ($credentials as $key => $value) {
             if (!str_contains($key, 'password')) {
-                $wkey = [$key => $value];
+                $wkey[] = [$key => $value];
             }
         }
 
