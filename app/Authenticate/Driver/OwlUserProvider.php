@@ -85,15 +85,9 @@ class OwlUserProvider implements UserProvider
             return;
         }
 
-        $wkey = [];
+        unset($credentials['password']);
 
-        foreach ($credentials as $key => $value) {
-            if (!str_contains($key, 'password')) {
-                $wkey[] = [$key => $value];
-            }
-        }
-
-        $user = $this->userService->getUser($wkey);
+        $user = $this->userService->getUser($credentials);
 
         return $this->getOwlUser($user);
     }
@@ -122,7 +116,7 @@ class OwlUserProvider implements UserProvider
      *
      * @param mixed  $user
      *
-     * @return OwlUser
+     * @return OwlUser|null
      */
     protected function getOwlUser($user)
     {
