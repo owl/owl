@@ -154,6 +154,7 @@ return [
       'Owl\Providers\MacroServiceProvider',
       'Owl\Providers\ValidatorServiceProvider',
       'Owl\Providers\RepositoriesServiceProvider',
+      'Owl\Providers\AuthServiceProvider',
 
     ],
 
