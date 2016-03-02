@@ -109,6 +109,17 @@ class UserService extends Service
     }
 
     /**
+     * Get a user by specified keys.
+     *
+     * @param array  $wkey
+     * @return \stdClass | null
+     */
+    public function getUser(array $wkey)
+    {
+        return $this->userRepo->find($wkey);
+    }
+
+    /**
      * Get a user by user id.
      *
      * @param int  $id
@@ -170,6 +181,22 @@ class UserService extends Service
         } else {
             return false;
         }
+    }
+
+    /**
+     * Update the "remember me" token by user ID.
+     *
+     * @param int     $userId
+     * @param string  $token
+     *
+     * @return bool
+     */
+    public function updateToken($userId, $token)
+    {
+        $params = compact('token');
+        $wkey   = ['user_id' => $userId];
+
+        return (bool) $this->loginTokenRepo->update($params, $wkey);
     }
 
     /**

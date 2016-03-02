@@ -25,6 +25,20 @@ abstract class AbstractFluent
     abstract public function getTableName();
 
     /**
+     * Find a record.
+     *
+     * @param array  $conditions
+     *
+     * @return \stcClass | null
+     */
+    public function find(array $conditions)
+    {
+        return \DB::table($this->getTableName())
+            ->where($conditions)
+            ->first();
+    }
+
+    /**
      * Insert a record.
      *
      * @param $params array ：key(column name) => value
