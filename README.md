@@ -1,4 +1,4 @@
-# Owl [![Build Status](https://travis-ci.org/owl/owl.svg?branch=master)](https://travis-ci.org/owl/owl)
+# Owl [![Build Status](https://travis-ci.org/owl/owl.svg?branch=master)](https://travis-ci.org/owl/owl) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/owl/owl/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/owl/owl/?branch=master)
 
 Owl is a simple team collaboration tool.  
 This software is released under the MIT License, see LICENSE.txt.
