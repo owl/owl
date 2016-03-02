@@ -22,5 +22,3 @@ before_script:
   # exec phpunit
   - vendor/bin/behat --colors
   - vendor/bin/phpunit
-  # exec codeSniffer
-  - ./phpcs_check.sh
