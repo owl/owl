@@ -112,7 +112,7 @@ chmod -R 777 storage/
 chmod -R 777 public/images/
 
 # database migration
-php artisan migrate --seed
+php artisan migrate --seed --force
 
 # run npm build
 npm i
