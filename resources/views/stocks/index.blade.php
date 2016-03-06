@@ -26,7 +26,7 @@
         <p><a href="{{ action('ItemController@show', $stock->open_item_id) }}"><strong>{{{ $stock->title }}}</strong></a></p>
     </div>
     @empty
-      <p class="text-center text-muted"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> お気に入りされた記事はありません。</p>
+      <p class="text-center text-muted"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> お気に入りされた投稿はありません。</p>
     @endforelse
     <?php echo $stocks->render(); ?>
 </div>
