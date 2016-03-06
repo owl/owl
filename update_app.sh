@@ -63,7 +63,28 @@ count=`php -m | grep mcrypt | wc -l`
 if [ $count = 0 ]; then
     red "PHP module(php-mcrypt)が見つかりません。（require php-mcrypt）"
 else
-    green "OK"
+    green "mcript...OK"
+fi
+message ""
+count=`php -m | grep openssl | wc -l`
+if [ $count = 0 ]; then
+    red "PHP module(openssl)が見つかりません。（require openssl）"
+else
+    green "openssl...OK"
+fi
+message ""
+count=`php -m | grep mbstring | wc -l`
+if [ $count = 0 ]; then
+    red "PHP module(mbstring)が見つかりません。（require mbstring）"
+else
+    green "mbstring...OK"
+fi
+message ""
+count=`php -m | grep pdo | wc -l`
+if [ $count = 0 ]; then
+    red "PHP module(pdo)が見つかりません。（require pdo）"
+else
+    green "pdo...OK"
 fi
 message ""
 
@@ -114,7 +135,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 
 # database migration
-php artisan migrate --seed
+php artisan migrate --seed --force
 
 # prepare files
 cp .env.example .env

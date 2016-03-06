@@ -29,6 +29,9 @@ Data will be deleted in a few months.
 
 - PHP 5.4
   - php-mcrypt
+  - php-mbstring
+  - pdo-sqlite
+  - openssl
 - SQLite 3
 - npm
 
