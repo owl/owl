@@ -5,7 +5,7 @@ Owl | TOP
 @stop
 
 @section('navbar-menu')
-    @include('layouts.navbar-menu')
+  @include('layouts.navbar-menu')
 @stop
 
 @section('contents-pagehead')
@@ -20,17 +20,22 @@ Owl | TOP
 </ul>
 
 <div class="items">
-    @foreach ($items as $item)
-    <div class="item">
-        {!! \HTML::gravator($item->email, 40) !!}
-        <p><a href="/{{{$item->username}}}" class="username">{{{$item->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
-        <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
+  @forelse ($items as $item)
+  <div class="item">
+    {!! \HTML::gravator($item->email, 40) !!}
+    <p><a href="/{{{$item->username}}}" class="username">{{{$item->username}}}</a>さんが<?php echo date('Y/m/d', strtotime($item->updated_at)); ?>に投稿しました。</p>
+    <p><a href="{{ action('ItemController@show', $item->open_item_id) }}"><strong>{{{ $item->title }}}</strong></a></p>
+  </div>
+  @empty
+    <br>
+    <div class="center-block">
+      <p class="text-center text-muted"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> 表示する投稿がありません。<br>フロータグは管理画面から設定できます。</p>
     </div>
-    @endforeach
+  @endforelse
 <?php echo $items->appends(['kind' => $kind])->render(); ?>
 </div>
 @stop
 
 @section('contents-sidebar')
-    @include('layouts.contents-sidebar')
+  @include('layouts.contents-sidebar')
 @stop
