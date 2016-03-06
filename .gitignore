@@ -12,6 +12,7 @@ npm-debug.log
 /public/css/*
 storage/debugbar
 storage/database.sqlite
+storage/database.sqlite_bk
 composer.phar
 
 # test
