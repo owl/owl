@@ -91,9 +91,3 @@ Feature: Item Test
         Then I should be on "/items/create"
         Then I should see "タイトルの長さは255文字以下である必要があります"
         Then the response status code should be 200
-
-    Scenario: item page not found
-        Given I am on the homepage
-        When I go to "/items/detaramenaitemid"
-        Then I should see "お探しのページは見つかりませんでした"
-        Then the response status code should be 404
