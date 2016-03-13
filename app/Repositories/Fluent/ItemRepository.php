@@ -52,6 +52,11 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
     {
         // @FIXME
         $item = \DB::table('items')->where('open_item_id', $open_item_id)->first();
+
+        if (is_null($item)) {
+            return null;
+        }
+
         $item->user = \DB::table('users')->where('id', $item->user_id)->first();
         $comments = \DB::table('comments')->where('item_id', $item->id)->get();
         $i = 0;
