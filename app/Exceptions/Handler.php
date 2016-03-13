@@ -49,15 +49,15 @@ class Handler extends ExceptionHandler {
         $routeName = $this->getRouteName($request->route());
 
         if ($e instanceof NotFoundHttpException) {
+            // 記事ページを参照しようとしてエラーの場合、404ページを表示
+            if ($routeName === 'items.show') {
+                return response()->view('errors.missing_item', [], 404);
+            }
+
             return response()->view('errors.missing', [], 404);
         }
 
-        // 記事ページを参照しようとしてエラーの場合、404ページを表示
-        if ($routeName === 'items.show') {
-            return response()->view('errors.missing', [], 404);
-        }
-
-        // 本番環境の場合、500テンプレートを返す
+        // 本番環境の場合の処理
         if (app()->environment() === 'production') {
             return response()->view('errors.500', [], 500);
         }
