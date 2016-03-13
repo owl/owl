@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler {
         $routeName = $this->getRouteName($request->route());
 
         if ($e instanceof NotFoundHttpException) {
-            // 記事ページを参照しようとしてエラーの場合、404ページを表示
+            // 記事ページを参照しようとしてエラーの場合、アイテムページ用404ページを表示
             if ($routeName === 'items.show') {
                 return response()->view('errors.missing_item', [], 404);
             }
