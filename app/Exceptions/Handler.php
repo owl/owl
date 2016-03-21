@@ -29,8 +29,7 @@ class Handler extends ExceptionHandler {
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
-     * @return void
+     * @param Exception  $e
      */
     public function report(Exception $e)
     {
@@ -40,39 +39,22 @@ class Handler extends ExceptionHandler {
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param \Illuminate\Http\Request  $request
+     * @param Exception                 $e
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
-        $routeName = $this->getRouteName($request->route());
-
         if ($e instanceof NotFoundHttpException) {
             return response()->view('errors.missing', [], 404);
         }
 
-        // 本番環境の場合の処理
+        // for production
         if (app()->environment() === 'production') {
             return response()->view('errors.500', [], 500);
         }
 
         return parent::render($request, $e);
-    }
-
-    /**
-     * Get route name from route instance safety.
-     *
-     * @param mixed  $route
-     *
-     * @return string|null
-     */
-    protected function getRouteName($route)
-    {
-        if ($route instanceof \Illuminate\Routing\Route) {
-            return $route->getName();
-        }
-
-        return null;
     }
 }
