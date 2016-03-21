@@ -74,7 +74,7 @@ class Handler extends ExceptionHandler {
      */
     protected function getRouteName($route)
     {
-        if ($route instanceof \Illuminate\Routeing\Route) {
+        if ($route instanceof \Illuminate\Routing\Route) {
             return $route->getName();
         }
 
