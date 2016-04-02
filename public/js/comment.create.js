@@ -18,7 +18,7 @@ $(function() {
   };
 
   $(document).on('submit', '#comment-form', function() {
-    var selector = 'input[type="submit"].item-comment-form';
+    var selector = 'input[type="submit"].js-comment-submit-btn';
     buttonLoading(selector);
 
     var ajaxPromise = $.ajax({

@@ -72,7 +72,7 @@
         <div class="col-sm-4">
             {!! Form::label('published', '記事の公開設定：') !!}
             {!! Form::select('published', array('0' => '非公開', '1' => '限定公開', '2' => '公開'), '2') !!}
-            {!! Form::submit('投稿',array('class'=>'btn btn-success btn-block')) !!}
+            {!! Form::submit('投稿',array('class'=>'btn btn-success btn-block js-item-submit-btn')) !!}
         </div>
     </div>
 
@@ -125,13 +125,6 @@
                     availableTags: data
                 })
             }
-        });
-
-        $('.form-items').submit(function() {
-            $(this).submit(function() {
-                alert('処理中です');
-                return false;
-            });
         });
 
         $(function(){
