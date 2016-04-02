@@ -16,7 +16,7 @@ $(function() {
   };
 
   /* Event listeners */
-  $('form').submit(function() {
-    buttonLoading('.edit-item-button');
+  $('.js-item-submit-btn,.js-comment-submit-btn').click(function() {
+    buttonLoading(this);
   });
 });
