@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class ReminderUpdateRequest extends Request {
+class ReminderUpdateRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,5 +27,4 @@ class ReminderUpdateRequest extends Request {
             'token'        => 'required'
         ];
     }
-
 }

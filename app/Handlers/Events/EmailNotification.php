@@ -69,7 +69,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -83,7 +83,8 @@ class EmailNotification
         $data['comment'] = $event->getComment();
 
         $this->mail->send(
-            'emails.action.comment', $data,
+            'emails.action.comment',
+            $data,
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)
                     ->subject($sender->username.'さんからコメントがつきました - Owl');
@@ -102,7 +103,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -133,7 +134,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -164,7 +165,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -194,10 +195,10 @@ class EmailNotification
         $subscriberName = '\Owl\Handlers\Events\EmailNotification';
         $eventBaseName  = 'Owl\Events\Item';
 
-        $events->listen($eventBaseName.'\CommentEvent',  $subscriberName.'@onGetComment');
-        $events->listen($eventBaseName.'\LikeEvent',     $subscriberName.'@onGetLike');
+        $events->listen($eventBaseName.'\CommentEvent', $subscriberName.'@onGetComment');
+        $events->listen($eventBaseName.'\LikeEvent', $subscriberName.'@onGetLike');
         $events->listen($eventBaseName.'\FavoriteEvent', $subscriberName.'@onGetFavorite');
-        $events->listen($eventBaseName.'\EditEvent',     $subscriberName.'@onItemEdited');
+        $events->listen($eventBaseName.'\EditEvent', $subscriberName.'@onItemEdited');
     }
 
     /**

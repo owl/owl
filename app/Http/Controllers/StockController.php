@@ -58,7 +58,8 @@ class StockController extends Controller
         // fire FavoriteEvent
         // TODO: do not generate instance in controller method
         $event->fire(new FavoriteEvent(
-            $openItemId, (int) $user->id
+            $openItemId,
+            (int) $user->id
         ));
 
         return \Response::json();

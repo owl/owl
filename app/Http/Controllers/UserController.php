@@ -65,7 +65,8 @@ class UserController extends Controller
             $roles[$role->id] = $role->name;
         }
 
-        $mes = '権限を変更しました。変更を有効にするためには ' . $user->username . ' がログインし直す必要があります。';
+        $mes = '権限を変更しました。変更を有効にするためには '
+            . $user->username . ' がログインし直す必要があります。';
         return redirect('manage/user/index')->with('message', $mes);
     }
 
@@ -88,7 +89,7 @@ class UserController extends Controller
             return \Redirect::to('login')->with('status', '登録が完了しました。');
         } catch (\Exception $e) {
             return \Redirect::back()
-                ->withErrors(array('warning' => 'システムエラーが発生したため登録に失敗しました。'))
+                ->withErrors(['warning' => 'システムエラーが発生したため登録に失敗しました。'])
                 ->withInput();
         }
     }
@@ -125,7 +126,12 @@ class UserController extends Controller
         $loginUser = $this->userService->getCurrentUser();
 
         try {
-            $user = $this->userService->update($loginUser->id, \Input::get('username'), \Input::get('email'), $loginUser->role);
+            $user = $this->userService->update(
+                $loginUser->id,
+                \Input::get('username'),
+                \Input::get('email'),
+                $loginUser->role
+            );
 
             if ($user) {
                 $this->authService->setUser($user);
@@ -135,7 +141,7 @@ class UserController extends Controller
             }
         } catch (\Exception $e) {
             return \Redirect::back()
-                ->withErrors(array('warning' => 'システムエラーが発生したため編集に失敗しました。'))
+                ->withErrors(['warning' => 'システムエラーが発生したため編集に失敗しました。'])
                 ->withInput();
         }
     }
@@ -163,7 +169,8 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             return \Redirect::back()
-                ->withErrors(array('warning' => 'システムエラーが発生したためパスワードリセットに失敗しました。'))
+                ->withErrors(['warning' =>
+                    'システムエラーが発生したためパスワードリセットに失敗しました。'])
                 ->withInput();
         }
     }

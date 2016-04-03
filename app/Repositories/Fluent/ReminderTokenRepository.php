@@ -18,8 +18,8 @@ class ReminderTokenRepository extends AbstractFluent implements ReminderTokenRep
 
     /**
      * Get reminder token data by user_id.
-     * 
-     * @param int $userId 
+     *
+     * @param int $userId
      * @return Object
      */
     public function getByUserId($userId)
@@ -31,7 +31,7 @@ class ReminderTokenRepository extends AbstractFluent implements ReminderTokenRep
 
     /**
      * Get reminder token data by token.
-     * 
+     *
      * @param string $token
      * @return Object
      */

@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class UserPasswordRequest extends Request {
+class UserPasswordRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.

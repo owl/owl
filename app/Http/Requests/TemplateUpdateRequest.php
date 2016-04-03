@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class TemplateUpdateRequest extends Request {
+class TemplateUpdateRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -28,5 +29,4 @@ class TemplateUpdateRequest extends Request {
             'body' => 'required',
         ];
     }
-
 }
