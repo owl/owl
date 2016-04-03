@@ -69,7 +69,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -102,7 +102,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -133,7 +133,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
@@ -164,7 +164,7 @@ class EmailNotification
         $recipient = $this->userService->getById($item->user_id);
         $sender    = $this->userService->getById($event->getUserId());
 
-        if ($this->userRoleService->isRetire($recipient->id)){
+        if ($this->userRoleService->isRetire($recipient->id)) {
             return false;
         }
 
