@@ -151,7 +151,7 @@ class UserRepository extends AbstractFluent implements UserRepositoryInterface
 
     /**
      * get users array
-     * 
+     *
      * @param object $user
      * @return array
      */

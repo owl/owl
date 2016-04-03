@@ -127,7 +127,7 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * get users array
-     * 
+     *
      * @param object $user
      * @return array
      */

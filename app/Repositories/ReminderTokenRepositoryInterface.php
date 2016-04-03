@@ -11,15 +11,15 @@ interface ReminderTokenRepositoryInterface
 
     /**
      * Get reminder token data by user_id.
-     * 
-     * @param int $userId 
+     *
+     * @param int $userId
      * @return Object
      */
     public function getByUserId($userId);
 
     /**
      * Get reminder token data by token.
-     * 
+     *
      * @param string $token
      * @return Object
      */

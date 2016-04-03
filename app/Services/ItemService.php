@@ -239,8 +239,8 @@ class ItemService extends Service
 
     /**
      * get item tags array
-     * 
-     * @param object $item 
+     *
+     * @param object $item
      * @return array
      */
     public function getTagsToArray($item)

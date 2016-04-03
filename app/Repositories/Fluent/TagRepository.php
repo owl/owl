@@ -172,9 +172,9 @@ __SQL__;
 
     /**
      * sync tags
-     * 
+     *
      * @param object $item
-     * @param array $tag_ids 
+     * @param array $tag_ids
      * @return void
      */
     public function syncTags($item, $tag_ids)
@@ -222,7 +222,7 @@ __SQL__;
             $params = array();
             $params["item_id"] = $item_id;
             $params["tag_id"] = $tag_id;
-            $ids[] = \DB::table("item_tag")->insertGetId($params); 
+            $ids[] = \DB::table("item_tag")->insertGetId($params);
         }
         return $ids;
     }
