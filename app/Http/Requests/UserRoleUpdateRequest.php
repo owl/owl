@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class UserRoleUpdateRequest extends Request {
+class UserRoleUpdateRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.

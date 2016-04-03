@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class FlowTagStoreRequest extends Request {
+class FlowTagStoreRequest extends Request
+{
 
 	/**
 	 * Determine if the user is authorized to make this request.
