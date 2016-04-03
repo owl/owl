@@ -210,7 +210,7 @@ class ItemController extends Controller
     public function parse()
     {
         $parsedMd = '';
-        if(\Input::get('md')) {
+        if (\Input::get('md')) {
             $parsedMd= \HTML::markdown(\Input::get('md'));
         }
         return response()->json(['html' => $parsedMd]);

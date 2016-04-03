@@ -84,7 +84,7 @@ class ItemHistoryRepository extends AbstractFluent implements ItemHistoryReposit
             ->get();
 
         $i = 0;
-        foreach($itemHistories as $itemHistory) {
+        foreach ($itemHistories as $itemHistory) {
             $object = app('stdClass');
             $object->id = $itemHistory->user_id;
             $object->email = $itemHistory->user_email;

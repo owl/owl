@@ -182,7 +182,7 @@ __SQL__;
         // item_idに紐づくcurrent_tag_idsを取得
         $current_tag_ids_raw = $this->getByItemId($item->id);
         $current_tag_ids = array();
-        foreach($current_tag_ids_raw as $current_tag) {
+        foreach ($current_tag_ids_raw as $current_tag) {
             $current_tag_ids[] = (string)$current_tag->tag_id;
         }
 

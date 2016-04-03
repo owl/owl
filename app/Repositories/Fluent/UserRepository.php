@@ -140,7 +140,7 @@ class UserRepository extends AbstractFluent implements UserRepositoryInterface
             ->get();
 
         $i = 0;
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $object = app('stdClass');
             $object->name = $user->role_name;
             $users[$i]->userRole = $object;
