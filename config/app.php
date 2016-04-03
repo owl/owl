@@ -217,6 +217,6 @@ return [
   | Specification. if you want to know more detail, see http://semver.org/ .
   |
    */
-    'version' => '2.5.4',
+    'version' => '2.5.5',
 
   ];
