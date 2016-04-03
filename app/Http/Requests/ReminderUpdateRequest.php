@@ -26,5 +26,4 @@ class ReminderUpdateRequest extends Request {
             'token'        => 'required'
         ];
     }
-
 }

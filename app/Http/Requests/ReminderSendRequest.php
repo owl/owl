@@ -25,5 +25,4 @@ class ReminderSendRequest extends Request {
             'email' => 'required|email'
         ];
     }
-
 }

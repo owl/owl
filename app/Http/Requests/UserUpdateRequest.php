@@ -35,5 +35,4 @@ class UserUpdateRequest extends Request {
             "email" => "required|email|unique:users,email,$loginUser->id",
         ];
     }
-
 }

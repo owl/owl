@@ -29,5 +29,4 @@ class ItemUpdateRequest extends Request {
             'published' => 'required|numeric'
         ];
     }
-
 }

@@ -25,5 +25,4 @@ class FlowTagDestroyRequest extends Request {
             'tag_id' => 'required|integer',
         ];
 	}
-
 }

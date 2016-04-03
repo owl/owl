@@ -25,5 +25,4 @@ class UserRoleUpdateRequest extends Request {
             'role_id' => 'required|integer',
         ];
     }
-
 }

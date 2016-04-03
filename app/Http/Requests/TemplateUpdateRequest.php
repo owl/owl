@@ -28,5 +28,4 @@ class TemplateUpdateRequest extends Request {
             'body' => 'required',
         ];
     }
-
 }

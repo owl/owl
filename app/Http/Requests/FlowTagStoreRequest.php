@@ -25,5 +25,4 @@ class FlowTagStoreRequest extends Request {
             'tag_id' => 'required|integer',
         ];
 	}
-
 }

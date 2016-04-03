@@ -28,5 +28,4 @@ class ItemStoreRequest extends Request {
             'published' => 'required|numeric'
         ];
     }
-
 }
