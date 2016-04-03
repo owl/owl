@@ -53,7 +53,8 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
     // @Override
     protected function exParseLinkOrImage($markdown)
     {
-        if (strpos($markdown, ']') !== false && preg_match('/\[((?:[^][]|(?R))*)\]/', $markdown, $textMatches)) { // TODO improve bracket regex
+        if (strpos($markdown, ']') !== false &&
+            preg_match('/\[((?:[^][]|(?R))*)\]/', $markdown, $textMatches)) { // TODO improve bracket regex
             $text = $textMatches[1];
             $offset = strlen($textMatches[0]);
             $markdown = substr($markdown, $offset);
@@ -91,7 +92,8 @@ class CustomMarkdown extends \cebe\markdown\GithubMarkdown
     // @Override
     protected function parseLinkOrImage($markdown)
     {
-        if (strpos($markdown, ']') !== false && preg_match('/\[((?>[^\]\[]+|(?R))*)\]/', $markdown, $textMatches)) { // TODO improve bracket regex
+        if (strpos($markdown, ']') !== false &&
+            preg_match('/\[((?>[^\]\[]+|(?R))*)\]/', $markdown, $textMatches)) { // TODO improve bracket regex
             $text = $textMatches[1];
             $offset = strlen($textMatches[0]);
             $markdown = substr($markdown, $offset);
@@ -145,9 +147,12 @@ REGEXP;
         }
         return '<img src="' . htmlspecialchars($block['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
             . ' alt="' . htmlspecialchars($block['text'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"'
-            . (empty($block['title']) ? '' : ' title="' . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
-            . (empty($block['height']) ? '' : ' height="' . htmlspecialchars($block['height'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
-            . (empty($block['width'])  ? '' : ' width="'  . htmlspecialchars($block['width'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
+            . (empty($block['title']) ? '' : ' title="'
+            . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
+            . (empty($block['height']) ? '' : ' height="'
+            . htmlspecialchars($block['height'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
+            . (empty($block['width'])  ? '' : ' width="'
+            . htmlspecialchars($block['width'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
             . ($this->html5 ? '>' : ' />');
     }
 
@@ -162,7 +167,8 @@ REGEXP;
             }
         }
         return '<a href="' . htmlspecialchars($block['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
-            . (empty($block['title']) ? '' : ' title="' . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
+            . (empty($block['title']) ? '' : ' title="'
+            . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
             . ' rel=noreferrer'
             . '>' . $this->renderAbsy($block['text']) . '</a>';
     }

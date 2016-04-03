@@ -115,7 +115,10 @@ class ItemController extends Controller
         $recent_stocks = $this->stockService->getRecentRankingWithCache(5, 7);
         $user_items = $this->itemService->getRecentsByUserId($item->user_id);
         $like_users = $this->itemService->getLikeUsersById($item->id);
-        return \View::make('items.show', compact('item', 'item_tags', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks'));
+        return \View::make(
+            'items.show',
+            compact('item', 'item_tags', 'user_items', 'stock', 'like', 'like_users', 'stocks', 'recent_stocks')
+        );
     }
 
     public function edit($openItemId)
@@ -144,7 +147,10 @@ class ItemController extends Controller
         $user = $this->userService->getCurrentUser();
         $item = $this->itemService->getByOpenItemId($openItemId);
         if ($item->updated_at != \Input::get('updated_at')) {
-            return \Redirect::back()->with("updated_at", "コンフリクトの可能性があるため更新できませんでした。")->withInput();
+            return \Redirect::back()->with(
+                "updated_at",
+                "コンフリクトの可能性があるため更新できませんでした。"
+            )->withInput();
         }
         if ($item == null) {
             \App::abort(404);

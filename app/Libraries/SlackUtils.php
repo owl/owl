@@ -34,7 +34,8 @@ class SlackUtils
     public function postCreateMessage($item, $user)
     {
         $params = [];
-        $params['fallback']    = "新しい投稿がありました。( " . \Request::root() . '/items/' . $item->open_item_id . " )";
+        $params['fallback']    = "新しい投稿がありました。( " .
+            \Request::root() . '/items/' . $item->open_item_id . " )";
         $params['pretext']     = \Request::root() . '/items/' . $item->open_item_id;
         $params['author_name'] = $user->username;
         $params['author_link'] = \Request::root() . '/' . $user->username;
@@ -48,7 +49,8 @@ class SlackUtils
     public function postEditMessage($item, $user)
     {
         $params = [];
-        $params['fallback']    = "記事が編集されました。( " . \Request::root() . '/items/' . $item->open_item_id . " )";
+        $params['fallback']    = "記事が編集されました。( " .
+            \Request::root() . '/items/' . $item->open_item_id . " )";
         $params['pretext']     = \Request::root() . '/items/' . $item->open_item_id;
         $params['author_name'] = $user->username;
         $params['author_link'] = \Request::root() . '/' . $user->username;
