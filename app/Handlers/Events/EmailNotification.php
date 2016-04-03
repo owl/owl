@@ -83,7 +83,8 @@ class EmailNotification
         $data['comment'] = $event->getComment();
 
         $this->mail->send(
-            'emails.action.comment', $data,
+            'emails.action.comment',
+            $data,
             function ($m) use ($recipient, $sender) {
                 $m->to($recipient->email)
                     ->subject($sender->username.'さんからコメントがつきました - Owl');
