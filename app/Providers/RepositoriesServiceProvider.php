@@ -34,8 +34,14 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Fluent\ItemFtsRepository');
         \App::bind('Owl\Repositories\ItemHistoryRepositoryInterface', 'Owl\Repositories\Fluent\ItemHistoryRepository');
         \App::bind('Owl\Repositories\UserRepositoryInterface', 'Owl\Repositories\Fluent\UserRepository');
-        \App::bind('Owl\Repositories\ReminderTokenRepositoryInterface', 'Owl\Repositories\Fluent\ReminderTokenRepository');
         \App::bind('Owl\Repositories\UserRoleRepositoryInterface', 'Owl\Repositories\Fluent\UserRoleRepository');
-        \App::bind('Owl\Repositories\UserMailNotificationRepositoryInterface', 'Owl\Repositories\Fluent\UserMailNotificationRepository');
+        \App::bind(
+            'Owl\Repositories\ReminderTokenRepositoryInterface',
+            'Owl\Repositories\Fluent\ReminderTokenRepository'
+        );
+        \App::bind(
+            'Owl\Repositories\UserMailNotificationRepositoryInterface',
+            'Owl\Repositories\Fluent\UserMailNotificationRepository'
+        );
     }
 }

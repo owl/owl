@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class UserRoleUpdateRequest extends Request {
+class UserRoleUpdateRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,5 +26,4 @@ class UserRoleUpdateRequest extends Request {
             'role_id' => 'required|integer',
         ];
     }
-
 }

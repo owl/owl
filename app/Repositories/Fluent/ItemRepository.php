@@ -207,7 +207,7 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
                     ->orderBy('items.id', 'desc')
                     ->take(5)->get();
         $i = 0;
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $object = app('stdClass');
             $object->email = $item->user_email;
             $object->username = $item->user_username;
@@ -234,7 +234,7 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
             ->orderBy('items.id', 'desc')
             ->paginate(10);
         $i = 0;
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $object = app('stdClass');
             $object->email = $item->user_email;
             $object->username = $item->user_username;
@@ -260,7 +260,7 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
             ->orderBy('items.id', 'desc')
             ->paginate(10);
         $i = 0;
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $object = app('stdClass');
             $object->email = $item->user_email;
             $object->username = $item->user_username;
@@ -304,7 +304,7 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
                     ->where('items.id', $item_id)
                     ->get();
         $i = 0;
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $object = app('stdClass');
             $object->email = $item->user_email;
             $object->username = $item->user_username;

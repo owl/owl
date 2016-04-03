@@ -172,9 +172,9 @@ __SQL__;
 
     /**
      * sync tags
-     * 
+     *
      * @param object $item
-     * @param array $tag_ids 
+     * @param array $tag_ids
      * @return void
      */
     public function syncTags($item, $tag_ids)
@@ -182,7 +182,7 @@ __SQL__;
         // item_idに紐づくcurrent_tag_idsを取得
         $current_tag_ids_raw = $this->getByItemId($item->id);
         $current_tag_ids = array();
-        foreach($current_tag_ids_raw as $current_tag) {
+        foreach ($current_tag_ids_raw as $current_tag) {
             $current_tag_ids[] = (string)$current_tag->tag_id;
         }
 
@@ -222,7 +222,7 @@ __SQL__;
             $params = array();
             $params["item_id"] = $item_id;
             $params["tag_id"] = $tag_id;
-            $ids[] = \DB::table("item_tag")->insertGetId($params); 
+            $ids[] = \DB::table("item_tag")->insertGetId($params);
         }
         return $ids;
     }

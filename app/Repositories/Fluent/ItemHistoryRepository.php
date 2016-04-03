@@ -77,14 +77,19 @@ class ItemHistoryRepository extends AbstractFluent implements ItemHistoryReposit
     public function getByOpenItemId($open_item_id)
     {
         $itemHistories = \DB::table($this->getTableName())
-            ->select('items_history.*', 'users.id as user_id', 'users.email as user_email', 'users.username as user_username')
+            ->select(
+                'items_history.*',
+                'users.id as user_id',
+                'users.email as user_email',
+                'users.username as user_username'
+            )
             ->join('users', 'items_history.user_id', '=', 'users.id')
             ->where('items_history.open_item_id', $open_item_id)
             ->orderBy('items_history.updated_at', 'DESC')
             ->get();
 
         $i = 0;
-        foreach($itemHistories as $itemHistory) {
+        foreach ($itemHistories as $itemHistory) {
             $object = app('stdClass');
             $object->id = $itemHistory->user_id;
             $object->email = $itemHistory->user_email;

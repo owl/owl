@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class ReminderSendRequest extends Request {
+class ReminderSendRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,5 +26,4 @@ class ReminderSendRequest extends Request {
             'email' => 'required|email'
         ];
     }
-
 }

@@ -51,7 +51,8 @@ class LikeController extends Controller
         // fire Like Event
         // TODO: do not generate instance in controller method
         $event->fire(new LikeEvent(
-            $openItemId, (int) $user->id
+            $openItemId,
+            (int) $user->id
         ));
 
         return \Response::json();

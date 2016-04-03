@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class ItemStoreRequest extends Request {
+class ItemStoreRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -28,5 +29,4 @@ class ItemStoreRequest extends Request {
             'published' => 'required|numeric'
         ];
     }
-
 }

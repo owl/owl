@@ -50,7 +50,8 @@ class ExportCommand extends Command
         // 記事ID一覧の取得
         $items = $this->itemService->getAll();
         if (empty($items)) {
-            $this->info("エクスポート対象の記事が見つかりませんでした。\nエクスポートをを終了します。\n");
+            $this->info("エクスポート対象の記事が見つかりませんでした。\n"
+                . "エクスポートをを終了します。\n");
             return;
         }
 
@@ -95,7 +96,8 @@ class ExportCommand extends Command
 
             $output = $this->generateOutputBody($data);
 
-            $filename = date("Y-m-d", strtotime($data['updated_at'])) . '-' . $data['title'] . '-(id' . $data['id'] . ').html.md';
+            $filename = date("Y-m-d", strtotime($data['updated_at']))
+                . '-' . $data['title'] . '-(id' . $data['id'] . ').html.md';
             file_put_contents($export_path . $filename, $output);
             echo ".";
         }

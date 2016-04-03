@@ -25,6 +25,8 @@ This software is released under the MIT License, see LICENSE.txt.
 
 Data will be deleted in a few months.
 
+# How to use
+
 ## Requirements
 
 - PHP 5.4
@@ -35,11 +37,7 @@ Data will be deleted in a few months.
 - SQLite 3
 - npm
 
-## Document
-[Owl Documentation](https://github.com/owl/owl/wiki)
-※ Sorry, Japanese Only.
-
-# How to setup
+## Install
 1.Clone the project
 
 ```
@@ -63,17 +61,23 @@ access http://localhost:3000
 
 You can sign in as an owner with id:admin pw:password
 
-# How to update
-1.execute update shell
+## Update
+1.git pull latest update_app.sh
+
+```
+$ git pull origin master
+```
+
+2.execute update shell
 
 ```
 $ sh ./update_app.sh
 ```
 
-## Test
-Behat acceptance test
-(after execute `setup_app.sh`)
+## Documentation
+[Owl Documentation](https://github.com/owl/owl/wiki)
+※ Sorry, Japanese Only.
 
-```
-$ vendor/bin/behat --colors
-```
+# How To Contribute
+Please see [CONTRIBUTE.md](https://github.com/owl/owl/blob/master/CONTRIBUTE.md)
+

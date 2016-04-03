@@ -46,8 +46,8 @@ class MailNotifySettingComposer
      */
     public function compose(View $view)
     {
-        $view->getFactory()->inject('mail_notify_setting',        $this->renderHtml());
-        $view->getFactory()->inject('mail_notify_setting_addJs',  $this->renderJs());
+        $view->getFactory()->inject('mail_notify_setting', $this->renderHtml());
+        $view->getFactory()->inject('mail_notify_setting_addJs', $this->renderJs());
         $view->getFactory()->inject('mail_notify_setting_addCss', $this->renderCss());
     }
 

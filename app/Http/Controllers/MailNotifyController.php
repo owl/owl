@@ -35,7 +35,8 @@ class MailNotifyController extends Controller
 
         $result = $mailNotifyService->updateSetting(
             $userService->getCurrentUser()->id,
-            $params['type'], $params['flag']
+            $params['type'],
+            $params['flag']
         );
 
         return response()->json(['result' => $result]);

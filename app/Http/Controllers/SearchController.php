@@ -36,7 +36,10 @@ class SearchController extends Controller
 
         $templates = $this->templateService->getAll();
         $tags = $this->searchTags($q);
-        return \View::make('search.index', compact('results', 'q', 'templates', 'pagination', 'tags', 'users', 'users_array'));
+        return \View::make(
+            'search.index',
+            compact('results', 'q', 'templates', 'pagination', 'tags', 'users', 'users_array')
+        );
     }
 
     public function json()
@@ -71,7 +74,10 @@ class SearchController extends Controller
 
         $json = array();
         foreach ($items as $item) {
-            $json[] = array('title' => $item->title, 'url' => '://'.$_SERVER['HTTP_HOST'].'/items/'.$item->open_item_id);
+            $json[] = [
+                'title' => $item->title,
+                'url' => '://'.$_SERVER['HTTP_HOST'].'/items/'.$item->open_item_id
+            ];
         }
         return $json;
     }

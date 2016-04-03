@@ -70,7 +70,7 @@ interface UserRepositoryInterface
 
     /**
      * get users array
-     * 
+     *
      * @param object $user
      * @return array
      */

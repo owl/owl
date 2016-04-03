@@ -3,7 +3,8 @@
 use Owl\Services\UserService;
 use Owl\Http\Requests\Request;
 
-class UserUpdateRequest extends Request {
+class UserUpdateRequest extends Request
+{
 
     protected $userService;
 
@@ -35,5 +36,4 @@ class UserUpdateRequest extends Request {
             "email" => "required|email|unique:users,email,$loginUser->id",
         ];
     }
-
 }

@@ -56,5 +56,4 @@ class ImageService extends Service
     {
         return rand(0, 9).$ds.sprintf('%04d', rand(0, 9999)).$ds;
     }
-
 }

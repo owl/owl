@@ -2,7 +2,8 @@
 
 use Owl\Http\Requests\Request;
 
-class TemplateStoreRequest extends Request {
+class TemplateStoreRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
