@@ -41,17 +41,18 @@
     return $tag_lists;
 });
 
-\HTML::macro('show_tags', function($array)
+\HTML::macro('show_tags', function ($tags)
 {
-    $tag_lists = "";
-    foreach($array as $tag){
-        if($tag === end($array)) {
-            $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span>';
-            break;
-        }
-        $tag_lists .= '<span class="tag-label"><a href="/tags/'. $tag["name"] .'">'. $tag["name"] .'</a></span> ';
+    $tagLists = '';
+
+    foreach ($tags as $tag) {
+        $tagName    = $tag['name'];
+        $tagPageUrl = route('tags.show', ['tags' => $tagName]);
+
+        $tagLists .= '<span class="tag-label"><a href="'. $tagPageUrl .'">'. e($tagName) .'</a></span> ';
     }
-    return $tag_lists;
+
+    return $tagLists;
 });
 
 HTML::macro('show_users', function($array)
