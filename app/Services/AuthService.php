@@ -1,26 +1,51 @@
 <?php namespace Owl\Services;
 
+/**
+ * @copyright (c) owl
+ */
+
 use Owl\Repositories\LoginTokenRepositoryInterface;
+use Owl\Repositories\UserRepositoryInterface;
 use Owl\Services\UserService;
 use Carbon\Carbon;
 
+/**
+ * Class AuthService
+ */
 class AuthService extends Service
 {
+    /** @var LoginTokenRepositoryInterface */
     protected $loginTokenRepo;
+
+    /** @var UserRepositoryInterface */
+    protected $userRepo;
+
+    /** @var UserService */
     protected $userService;
 
+    /**
+     * AuthService constructor.
+     *
+     * @param LoginTokenRepositoryInterface  $loginTokenRepo
+     * @param UserRepositoryInterface        $userRepo
+     * @param UserService                    $userService
+     */
     public function __construct(
         LoginTokenRepositoryInterface $loginTokenRepo,
-        UserService $userService
+        UserRepositoryInterface       $userRepo,
+        UserService                   $userService
     ) {
         $this->loginTokenRepo = $loginTokenRepo;
-        $this->userService = $userService;
+        $this->userRepo       = $userRepo;
+        $this->userService    = $userService;
     }
 
     /*
      * ログイン情報を使ってログインを試行する
      *
-     * @param array ログイン情報（username, password）
+     * @param array  $credentials  ログイン情報（username, password）
+     * @param bool   $remember
+     *
      * @return array
      */
     public function attempt(array $credentials = [], $remember = false)
@@ -37,7 +62,9 @@ class AuthService extends Service
     /*
      * 認証済みのユーザー情報を使ってログイン処理を行う
      *
-     * @param object ユーザー情報（id, username, email, password）
+     * @param object  $user  ユーザー情報（id, username, email, password）
+     * @param bool    $remember
+     *
      * @return array
      */
     public function login($user, $remember = false)
@@ -51,8 +78,7 @@ class AuthService extends Service
     /*
      * ログインユーザーの情報をセッションに保存する
      *
-     * @param Object $user ユーザー情報
-     * @return void
+     * @param Object  $user ユーザー情報
      */
     public function setUser($user)
     {
@@ -75,8 +101,6 @@ class AuthService extends Service
 
     /*
      * ログインユーザーの情報をセッションから削除する
-     *
-     * @return void
      */
     public function unsetUser()
     {
@@ -88,8 +112,6 @@ class AuthService extends Service
 
     /*
      * オートログインのチェックを行う
-     *
-     * @return void
      */
     public function autoLoginCheck()
     {
@@ -105,8 +127,6 @@ class AuthService extends Service
 
     /*
      * RememberTokenをセットする
-     *
-     * @return void
      */
     public function setRememberToken($userId)
     {
@@ -128,8 +148,6 @@ class AuthService extends Service
 
     /*
      * 古くなったRememberTokenをDBから削除する
-     *
-     * @return void
      */
     public function deleteOldRememberToken($token)
     {
@@ -138,8 +156,6 @@ class AuthService extends Service
 
     /*
      * RememberTokenCookieを削除する
-     *
-     * @return cookie
      */
     public function deleteRememberTokenCookie()
     {
@@ -149,7 +165,10 @@ class AuthService extends Service
     /*
      * 指定されたユーザーのパスワードが、渡されたパスワードと等しいかチェックする
      *
-     * @return boolean
+     * @param string  $username
+     * @param string  $password
+     *
+     * @return bool
      */
     public function checkPassword($username, $password)
     {
@@ -162,26 +181,30 @@ class AuthService extends Service
         if (password_verify($password, $user_db->password)) {
             return true;
         }
+
         return false;
     }
 
     /*
      * パスワードを再設定する
      *
-     * @return boolean
+     * @param string  $username
+     * @param string  $password
+     *
+     * @return bool
      */
     public function attemptResetPassword($username, $password)
     {
-        $user = $this->userService->getByUsername($username);
-        $user->password = password_hash($password, PASSWORD_DEFAULT);
+        $newPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($user->save()) {
-            return true;
-        } else {
-            return false;
-        }
+        $result = $this->userRepo->update(['password' => $newPassword], compact('username'));
+
+        return (bool) $result;
     }
 
+    /**
+     * @return string
+     */
     public function createReminderToken()
     {
         $TOKEN_LENGTH = 16; //16*2=32桁
