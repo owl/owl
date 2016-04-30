@@ -43,31 +43,31 @@
 
 \HTML::macro('show_tags', function ($tags)
 {
-    $tagLists = [];
+    $tag_lists= [];
 
     foreach ($tags as $tag) {
-        $tagName    = $tag['name'];
-        $tagPageUrl = route('tags.show', ['tags' => $tagName]);
+        $tag_name     = $tag['name'];
+        $tag_page_url = route('tags.show', ['tags' => $tag_name]);
 
-        $tagLists[] = '<span class="tag-label"><a href="'. $tagPageUrl .'">'. e($tagName) .'</a></span>';
+        $tag_lists[] = '<span class="tag-label"><a href="'. $tag_page_url.'">'. e($tag_name) .'</a></span>';
     }
 
-    return implode(' ', $tagLists);
+    return implode(' ', $tag_lists);
 });
 
 HTML::macro('show_users', function($users)
 {
-    $userLists = [];
+    $user_lists = [];
 
     foreach ($users as $user) {
-        $image       = HTML::gravator($user["email"], 20);
-        $username    = $user['username'];
-        $userPageUrl = route('user.profile', compact('username'));
+        $image         = HTML::gravator($user["email"], 20);
+        $username      = $user['username'];
+        $user_page_url = route('user.profile', compact('username'));
 
-        $userLists[] = $image . ' <a href="'. $userPageUrl .'">'. e($username) .'</a>';
+        $user_lists[] = $image . ' <a href="'. $user_page_url.'">'. e($username) .'</a>';
     }
 
-    return implode('　', $userLists);
+    return implode('　', $user_lists);
 });
 
 HTML::macro('markdown', function($str)
