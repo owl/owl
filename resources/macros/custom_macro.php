@@ -43,16 +43,16 @@
 
 \HTML::macro('show_tags', function ($tags)
 {
-    $tagLists = '';
+    $tagLists = [];
 
     foreach ($tags as $tag) {
         $tagName    = $tag['name'];
         $tagPageUrl = route('tags.show', ['tags' => $tagName]);
 
-        $tagLists .= '<span class="tag-label"><a href="'. $tagPageUrl .'">'. e($tagName) .'</a></span> ';
+        $tagLists[] = '<span class="tag-label"><a href="'. $tagPageUrl .'">'. e($tagName) .'</a></span>';
     }
 
-    return $tagLists;
+    return implode(' ', $tagLists);
 });
 
 HTML::macro('show_users', function($users)
