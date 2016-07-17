@@ -56,7 +56,7 @@ class SlackNotificationTest extends \TestCase
     {
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem());
         $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
-        $this->slackUtilMock->shouldReceive('postCreateMessage')->andReturn(true);
+        $this->slackUtilMock->shouldReceive('postCreateMessage')->once()->andReturn(true);
 
         $createEvent = new CreateEvent('itemId', 'userId');
         $this->handler->onItemCreated($createEvent);
@@ -66,10 +66,44 @@ class SlackNotificationTest extends \TestCase
     {
         $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem());
         $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
-        $this->slackUtilMock->shouldReceive('postEditMessage')->andReturn(true);
+        $this->slackUtilMock->shouldReceive('postEditMessage')->once()->andReturn(true);
 
         $editEvent = new EditEvent('itemId', 'userId');
         $this->handler->onItemEdited($editEvent);
+    }
+
+    /**
+     * 非公開記事は通知されない
+     */
+    public function testShouldNotNotifyWhenItemIsNotPublished()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem("0"));
+        $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
+        $this->slackUtilMock->shouldNotReceive('postEditMessage');
+        $this->slackUtilMock->shouldNotReceive('postCreateMessage');
+
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->handler->onItemEdited($editEvent);
+
+        $createEvent = new CreateEvent('itemId', 'userId');
+        $this->handler->onItemCreated($createEvent);
+    }
+
+    /**
+     * 限定公開記事は通知されない
+     */
+    public function testShouldNotNotifyWhenItemIsNotPublishedAndLimitation()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem("1"));
+        $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
+        $this->slackUtilMock->shouldNotReceive('postEditMessage');
+        $this->slackUtilMock->shouldNotReceive('postCreateMessage');
+
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->handler->onItemEdited($editEvent);
+
+        $createEvent = new CreateEvent('itemId', 'userId');
+        $this->handler->onItemCreated($createEvent);
     }
 
     /**
