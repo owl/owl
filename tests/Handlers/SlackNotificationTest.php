@@ -12,72 +12,114 @@ class SlackNotificationTest extends \TestCase
     /** @var string */
     protected $handlerName = 'Owl\Handlers\Events\SlackNotification';
 
+    /** @var i */
+    protected $itemRepo;
+
+    /** @var i */
+    protected $userRepo;
+
+    /** @var SlackNotification */
+    protected $handler;
+
     public function setUp()
     {
         parent::setUp();
 
-        // mock data
-        $this->dummyItem = (object) [
-            'open_item_id' => 'open_item_id',
-            'title'        => 'title',
-            'user_id'      => 'user_id',
-        ];
         $this->dummyUser = (object) [
             'id'       => 'sender_id',
             'username' => 'sender',
         ];
         // mock class
-        $this->itemRepo     = m::mock($this->itemRepoName);
-        $this->userRepo     = m::mock($this->userRepoName);
+        $this->itemRepo      = m::mock($this->itemRepoName);
+        $this->userRepo      = m::mock($this->userRepoName);
+        $this->slackUtilMock = m::mock('Owl\Libraries\SlackUtils');
+
+        $this->app->bind($this->itemRepoName, function ($app) {
+            return $this->itemRepo;
+        });
+        $this->app->bind($this->userRepoName, function ($app) {
+            return $this->userRepo;
+        });
+        $this->app->bind('Owl\Libraries\SlackUtils', function ($app) {
+            return $this->slackUtilMock;
+        });
+
+        $this->handler = $this->app->make($this->handlerName);
     }
 
     public function testValidInstance()
     {
-        $handler = $this->app->make($this->handlerName);
-        $this->assertInstanceOf($this->handlerName, $handler);
+        $this->assertInstanceOf($this->handlerName, $this->handler);
     }
 
     public function testShouldItemCreateNotify()
     {
-        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem());
         $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
-
-        $slackUtilMock = m::mock('Owl\Libraries\SlackUtils');
-        $slackUtilMock->shouldReceive('postCreateMessage')->andReturn(true);
-        $this->app->bind('Owl\Libraries\SlackUtils', function ($app) use ($slackUtilMock) {
-            return $slackUtilMock;
-        });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo);
-        $handler = $this->app->make($this->handlerName);
+        $this->slackUtilMock->shouldReceive('postCreateMessage')->once()->andReturn(true);
 
         $createEvent = new CreateEvent('itemId', 'userId');
-        $handler->onItemCreated($createEvent);
+        $this->handler->onItemCreated($createEvent);
     }
 
     public function testShouldItemEditNotify()
     {
-        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->dummyItem);
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem());
         $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
-
-        $slackUtilMock = m::mock('Owl\Libraries\SlackUtils');
-        $slackUtilMock->shouldReceive('postEditMessage')->andReturn(true);
-        $this->app->bind('Owl\Libraries\SlackUtils', function ($app) use ($slackUtilMock) {
-            return $slackUtilMock;
-        });
-        $this->bindReposHelper($this->itemRepo, $this->userRepo);
-        $handler = $this->app->make($this->handlerName);
+        $this->slackUtilMock->shouldReceive('postEditMessage')->once()->andReturn(true);
 
         $editEvent = new EditEvent('itemId', 'userId');
-        $handler->onItemEdited($editEvent);
+        $this->handler->onItemEdited($editEvent);
     }
 
-    protected function bindReposHelper($itemRepo, $userRepo)
+    /**
+     * 非公開記事は通知されない
+     */
+    public function testShouldNotNotifyWhenItemIsNotPublished()
     {
-        $this->app->bind($this->itemRepoName, function ($app) use ($itemRepo) {
-            return $itemRepo;
-        });
-        $this->app->bind($this->userRepoName, function ($app) use ($userRepo) {
-            return $userRepo;
-        });
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem("0"));
+        $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
+        $this->slackUtilMock->shouldNotReceive('postEditMessage');
+        $this->slackUtilMock->shouldNotReceive('postCreateMessage');
+
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->handler->onItemEdited($editEvent);
+
+        $createEvent = new CreateEvent('itemId', 'userId');
+        $this->handler->onItemCreated($createEvent);
+    }
+
+    /**
+     * 限定公開記事は通知されない
+     */
+    public function testShouldNotNotifyWhenItemIsNotPublishedAndLimitation()
+    {
+        $this->itemRepo->shouldReceive('getByOpenItemId')->andReturn($this->createMockItem("1"));
+        $this->userRepo->shouldReceive('getById')->andReturn($this->dummyUser);
+        $this->slackUtilMock->shouldNotReceive('postEditMessage');
+        $this->slackUtilMock->shouldNotReceive('postCreateMessage');
+
+        $editEvent = new EditEvent('itemId', 'userId');
+        $this->handler->onItemEdited($editEvent);
+
+        $createEvent = new CreateEvent('itemId', 'userId');
+        $this->handler->onItemCreated($createEvent);
+    }
+
+    /**
+     * モック用記事データを返す
+     *
+     * @param string  $published
+     *
+     * @return \stdClass
+     */
+    protected function createMockItem($published = "2")
+    {
+        return (object) [
+            'open_item_id' => 'open_item_id',
+            'title'        => 'title',
+            'user_id'      => 'user_id',
+            'published'    => $published,
+        ];
     }
 }
