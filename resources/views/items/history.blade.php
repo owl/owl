@@ -21,13 +21,8 @@
 @stop
 
 @section('contents-pagehead')
-@for ($i = 0; $i < count($histories); $i++)
-    @if (count($histories) == ($i + 1))
-    <p class="page-title">{{ $histories[$i]->title }} の変更履歴</p>
-    @endif
-@endfor
+<p class="page-title">{{ $item->title }} の変更履歴</p>
 @stop
-
 
 @section('contents-main')
 

@@ -205,7 +205,8 @@ class ItemController extends Controller
     public function history($openItemId)
     {
         $histories = $this->itemService->getHistoryByOpenItemId($openItemId);
-        return \View::make('items.history', compact('histories'));
+        $item      = $this->itemService->getByOpenItemId($openItemId);
+        return \View::make('items.history', compact('histories', 'item'));
     }
 
     /**
