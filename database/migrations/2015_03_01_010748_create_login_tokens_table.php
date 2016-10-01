@@ -14,10 +14,10 @@ class CreateLoginTokensTable extends Migration {
     {
         Schema::create('login_tokens', function($table) {
             $table->increments('id');
-            $table->integer('user_id')
+            $table->integer('user_id')->unsigned()
                 ->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->text('token')->unique();
+            $table->string('token', 512)->unique();
             $table->timestamps();
         });
 	}

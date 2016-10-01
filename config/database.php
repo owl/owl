@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'sqlite',
+	'default' => env('DB_DRIVER', 'sqlite'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-			'strict'    => false,
+			'strict'    => true,
 		],
 
 		'pgsql' => [

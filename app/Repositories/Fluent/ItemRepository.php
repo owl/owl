@@ -280,8 +280,8 @@ class ItemRepository extends AbstractFluent implements ItemRepositoryInterface
     {
         return \DB::table('items')
                     ->join('users', 'items.user_id', '=', 'users.id')
-                    ->join('tags', 'tags.id', '=', 'item_tag.tag_id')
                     ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
+                    ->join('tags', 'tags.id', '=', 'item_tag.tag_id')
                     ->where('tags.id', $tag_id)
                     ->where('published', '2')
                     ->select('users.email', 'users.username', 'items.open_item_id', 'items.updated_at', 'items.title')

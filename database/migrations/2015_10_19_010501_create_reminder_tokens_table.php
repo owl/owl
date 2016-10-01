@@ -17,7 +17,7 @@ class CreateReminderTokensTable extends Migration {
             $table->integer('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->text('token')->unique();
+            $table->string('token', 512)->unique();
             $table->timestamps();
         });
 	}
