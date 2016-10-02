@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="/img/favicon.ico">
     {!! HTML::style('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/flick/jquery-ui.css') !!}
-    {!! HTML::style('http://fonts.googleapis.com/css?family=Lobster') !!}
+    {!! HTML::style('//fonts.googleapis.com/css?family=Lobster') !!}
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('packages/bootstrap/dist/css/bootstrap.min.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/style.css') !!}">
     <link rel="stylesheet" type="text/css" href="{!! \HTML::cached_asset('css/jquery.tagit.css') !!}">
