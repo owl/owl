@@ -14,7 +14,7 @@ class CreateTagsFts extends Migration {
 	 */
 	public function up()
 	{
-		if(env('DB_DRIVER') === 'mysql'){
+		if (env('DB_DRIVER') === 'mysql') {
             DB::statement('ALTER TABLE tags MODIFY COLUMN name varchar(255)
                          CHARACTER SET \'utf8mb4\' COLLATE \'utf8mb4_general_ci\'');
             DB::statement('ALTER TABLE tags ADD FULLTEXT INDEX ft_tag (name) /*!50100 WITH PARSER `ngram` */');
@@ -37,7 +37,7 @@ class CreateTagsFts extends Migration {
 	 */
 	public function down()
 	{
-		if(env('DB_DRIVER') === 'mysql'){
+		if (env('DB_DRIVER') === 'mysql') {
 			DB::statement('ALTER TABLE tags MODIFY COLUMN name varchar(255)
                              CHARACTER SET \'utf8mb4\' COLLATE \'utf8mb4_unicode_ci\'');
 			DB::statement('ALTER TABLE tags DROP INDEX ft_tag');

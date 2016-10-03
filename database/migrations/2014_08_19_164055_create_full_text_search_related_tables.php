@@ -14,7 +14,7 @@ class CreateFullTextSearchRelatedTables extends Migration {
 	 */
 	public function up()
 	{
-		if(env('DB_DRIVER') === 'mysql'){
+		if (env('DB_DRIVER') === 'mysql') {
 			DB::statement('ALTER TABLE items MODIFY COLUMN title varchar(255)
                              CHARACTER SET \'utf8mb4\' COLLATE \'utf8mb4_general_ci\'');
 			DB::statement('ALTER TABLE items MODIFY COLUMN body text
@@ -39,13 +39,13 @@ class CreateFullTextSearchRelatedTables extends Migration {
 	 */
 	public function down()
 	{
-		if(env('DB_DRIVER') === 'mysql') {
+		if (env('DB_DRIVER') === 'mysql') {
+			DB::statement('ALTER TABLE items DROP INDEX ft_item');
 			DB::statement('ALTER TABLE items MODIFY COLUMN title varchar(255)
                              CHARACTER SET \'utf8mb4\' COLLATE \'utf8mb4_unicode_ci\'');
 			DB::statement('ALTER TABLE items MODIFY COLUMN body text
                              CHARACTER SET \'utf8mb4\' COLLATE \'utf8mb4_unicode_ci\'');
-			DB::statement('ALTER TABLE items DROP INDEX ft_item');
-		}else{
+		} else {
 			DB::statement('DROP TABLE items_fts ;');
 		}
 	}

@@ -15,9 +15,9 @@ class CreateItemTag extends Migration {
         Schema::create('item_tag',function($table)
         {
             $table->integer('item_id')->unsigned();
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items');
             $table->integer('tag_id')->unsigned();
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
 	}
 

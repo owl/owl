@@ -30,11 +30,11 @@ class RepositoriesServiceProvider extends ServiceProvider
         \App::bind('Owl\Repositories\TemplateRepositoryInterface', 'Owl\Repositories\Fluent\TemplateRepository');
         \App::bind('Owl\Repositories\TagRepositoryInterface', 'Owl\Repositories\Fluent\TagRepository');
         \App::bind('Owl\Repositories\ItemRepositoryInterface', 'Owl\Repositories\Fluent\ItemRepository');
-        if(env('DB_DRIVER', 'sqlite') == 'mysql') {
+        if (env('DB_DRIVER', 'sqlite') == 'mysql') {
             \App::bind('Owl\Repositories\ItemFtsRepositoryInterface',
                 'Owl\Repositories\Fluent\MySQL\ItemFtsRepository');
             \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Fluent\MySQL\TagFtsRepository');
-        }else{
+        } else {
             \App::bind('Owl\Repositories\ItemFtsRepositoryInterface', 'Owl\Repositories\Fluent\ItemFtsRepository');
             \App::bind('Owl\Repositories\TagFtsRepositoryInterface', 'Owl\Repositories\Fluent\TagFtsRepository');
         }
