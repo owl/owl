@@ -28,8 +28,8 @@ class SearchController extends Controller
         $offset = $this->calcOffset(\Input::get('page'));
         $results = $this->searchService->itemMatch($q, $this->perPage, $offset);
         if (count($results) > 0) {
-            $res = $this->searchService->itemMatchCount($q);
-            $pagination = new Paginator($results, $res[0]->count, $this->perPage, null, array('path' => '/search'));
+            $count = $this->searchService->itemMatchCount($q);
+            $pagination = new Paginator($results, $count, $this->perPage, null, array('path' => '/search'));
         }
         $users = $this->userService->getLikeUsername($q);
         $users_array = $this->userService->getUsersToArray($users);

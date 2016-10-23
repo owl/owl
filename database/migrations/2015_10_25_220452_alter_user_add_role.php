@@ -17,7 +17,7 @@ class AlterUserAddRole extends Migration {
     {
         Schema::table('users', function($table)
         {
-            $table->string('role')->after('password')->default(self::ROLE_ID_MEMBER);
+            $table->string('role')->default(self::ROLE_ID_MEMBER);
         });
 	}
 

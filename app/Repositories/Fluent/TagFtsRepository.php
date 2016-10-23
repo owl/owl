@@ -22,7 +22,7 @@ class TagFtsRepository extends AbstractFluent implements TagFtsRepositoryInterfa
      *
      * @param int $tag_id
      * @param string $words
-     * @return stdClass
+     * @return array
      */
     public function firstOrCreateByIdAndWords($tag_id, $words)
     {

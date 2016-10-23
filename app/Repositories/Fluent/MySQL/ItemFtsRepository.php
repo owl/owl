@@ -1,11 +1,12 @@
-<?php namespace Owl\Repositories\Fluent;
+<?php namespace Owl\Repositories\Fluent\MySQL;
 
 use Owl\Repositories\ItemFtsRepositoryInterface;
 use Owl\Libraries\FtsUtils;
+use Owl\Repositories\Fluent\AbstractFluent;
 
 class ItemFtsRepository extends AbstractFluent implements ItemFtsRepositoryInterface
 {
-    protected $table = 'items_fts';
+    protected $table = 'items';
 
     /**
      * Get a table name.
@@ -40,12 +41,7 @@ class ItemFtsRepository extends AbstractFluent implements ItemFtsRepositoryInter
      */
     public function create($item_id, $title, $body)
     {
-        $object = array();
-        $object["item_id"] = $item_id;
-        $object["words"] = $this->toNgram($title, $body);
-        \DB::table($this->getTableName())->insertGetId($object);
-
-        return $item_id;
+        return true;
     }
 
     /**
@@ -68,10 +64,7 @@ class ItemFtsRepository extends AbstractFluent implements ItemFtsRepositoryInter
      */
     public function deleteItemFts($item_id)
     {
-        $object = array();
-        $wkey["item_id"] = $item_id;
-        $ret = $this->delete($wkey);
-        return $ret;
+        return true;
     }
 
     /**
@@ -84,29 +77,19 @@ class ItemFtsRepository extends AbstractFluent implements ItemFtsRepositoryInter
      */
     public function match($str, $limit = 10, $offset = 0)
     {
-        $query = <<<__SQL__
-            SELECT
-              it.title,
-              it.updated_at,
-              it.open_item_id,
-              us.email,
-              us.username
-            FROM
-              items_fts fts 
-            INNER JOIN
-              items it ON it.id = fts.item_id AND it.published = 2
-            INNER JOIN
-              users us ON it.user_id = us.id
-            WHERE
-              fts.words MATCH :match
-            ORDER BY
-              it.updated_at DESC, it.id DESC
-            LIMIT 
-              $limit 
-            OFFSET
-              $offset 
-__SQL__;
-        return \DB::select(\DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str)));
+        return \DB::table($this->getTableName())
+            ->join('users', 'items.user_id', '=', 'users.id')
+            ->where('items.published', '2')
+            ->whereRaw("match(items.title, items.body) against (? in boolean mode)", [$str])
+            ->select(
+                'items.title',
+                'items.updated_at',
+                'items.open_item_id',
+                'users.email',
+                'users.username'
+            )
+            ->orderBy('items.updated_at', 'desc')
+            ->skip($offset)->take($limit)->get();
     }
 
     /**
@@ -117,17 +100,11 @@ __SQL__;
      */
     public function matchCount($str)
     {
-        $query = <<<__SQL__
-            SELECT
-              COUNT(*) as count
-            FROM
-              items_fts fts 
-            INNER JOIN
-              items it ON it.id = fts.item_id AND it.published = 2
-            WHERE
-              fts.words MATCH :match
-__SQL__;
-        $res = \DB::select(\DB::raw($query), array( 'match' => FtsUtils::createMatchWord($str)));
-        return $res[0]->count;
+        return \DB::table($this->getTableName())
+            ->join('users', 'items.user_id', '=', 'users.id')
+            ->where('items.published', '2')
+            ->whereRaw("match(items.title, items.body) against (? in boolean mode)", [$str])
+            ->count();
     }
+
 }
