@@ -19,12 +19,6 @@ This software is released under the MIT License, see LICENSE.txt.
 - Slack Notification(webhook)
 - Export data as .md files (YAML front matter)
 
-# Demo
-
-[http://demo-owl.fortkle.com/](http://demo-owl.fortkle.com/)  
-
-Data will be deleted in a few months.
-
 # How to use
 
 ## Requirements
