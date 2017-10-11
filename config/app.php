@@ -140,7 +140,6 @@ return [
        * Libraries Service Providers...
        */
       'Collective\Html\HtmlServiceProvider',
-      'Barryvdh\Debugbar\ServiceProvider',
 
       /*
        * Application Service Providers...
@@ -155,6 +154,7 @@ return [
       'Owl\Providers\ValidatorServiceProvider',
       'Owl\Providers\RepositoriesServiceProvider',
       'Owl\Providers\AuthServiceProvider',
+      'Owl\Providers\DevelopServiceProvider',
 
     ],
 

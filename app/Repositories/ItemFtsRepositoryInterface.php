@@ -43,7 +43,7 @@ interface ItemFtsRepositoryInterface
      * matchCount
      *
      * @param string $str
-     * @return array
+     * @return int $count
      */
     public function matchCount($str);
 }

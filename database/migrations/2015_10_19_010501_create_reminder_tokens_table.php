@@ -12,14 +12,25 @@ class CreateReminderTokensTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('reminder_tokens', function($table) {
-            $table->increments('id');
-            $table->integer('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->text('token')->unique();
-            $table->timestamps();
-        });
+        if (env('DB_DRIVER') === 'mysql') {
+            Schema::create('reminder_tokens', function($table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade')->onUpdate('cascade');
+                $table->string('token', 512)->unique();
+                $table->timestamps();
+            });
+        } else {
+            Schema::create('reminder_tokens', function($table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade')->onUpdate('cascade');
+                $table->text('token')->unique();
+                $table->timestamps();
+            });
+        }
 	}
 
 	/**
